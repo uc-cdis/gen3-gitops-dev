@@ -1,0 +1,5 @@
+# Change this to your env
+name: main
+
+helmBranch: master
+gitopsBranch: master

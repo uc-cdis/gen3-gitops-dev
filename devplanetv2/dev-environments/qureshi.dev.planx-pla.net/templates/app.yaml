@@ -1,0 +1,34 @@
+piVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gen3-dev-{{ .Values.name }}
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  sources:
+    - path: helm/gen3
+      repoURL: https://github.com/uc-cdis/gen3-helm
+      targetRevision: {{ .Values.helmBranch }}
+      helm:
+        releaseName: {{ .Values.Name }}
+        valueFiles:
+          - $values/devplanetv2/{{ .Values.name}}.dev.planx-pla.net/values/values.yaml
+        values: |
+            global:
+              hostname: {{ .Values.name }}.dev.planx-pla.net
+            sheepdog:
+              # Need this to avoid the audience issue
+              fenceUrl: https://{{ .Values.name }}.dev.planx-pla.net
+    - repoURL: 'https://github.com/uc-cdis/gen3-gitops-dev.git'
+      targetRevision: {{ .Values.gitopsBranch }}
+      ref: values
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: {{ .Values.name }}
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      selfHeal: true

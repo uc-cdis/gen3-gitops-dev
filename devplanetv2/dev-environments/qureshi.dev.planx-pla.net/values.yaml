@@ -1,0 +1,5 @@
+# Change this to your env
+name: qureshi
+
+helmBranch: master
+gitopsBranch: master
