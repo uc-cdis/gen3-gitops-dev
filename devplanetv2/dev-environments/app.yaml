@@ -1,19 +1,33 @@
 apiVersion: argoproj.io/v1alpha1
-kind: Application
+kind: ApplicationSet
 metadata:
   name: dev-environments
   namespace: argocd
 spec:
-  project: default
-  sources:
-    - repoURL: 'https://github.com/uc-cdis/gen3-gitops-dev.git'
-      targetRevision: master
-      path: devplanetv2/dev-environments
-  destination:
-    server: "https://kubernetes.default.svc"
-    namespace: argocd
-  syncPolicy:
-    syncOptions:
-    - CreateNamespace=true
-    automated:
-      selfHeal: true
+  generators:
+    - git:
+        repoURL: https://github.com/uc-cdis/gen3-gitops-dev.git
+        revision: master
+        directories:
+          - path: devplanetv2/dev-environments/*
+  template:
+    metadata:
+      name: '{{path.basename}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/uc-cdis/gen3-gitops-dev.git
+        targetRevision: master
+        path: '{{path}}'
+        helm:
+          valueFiles:
+            - values.yaml  # Optional, based on your Helm layout
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{path.basename}}'
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+        automated:
+          selfHeal: true
+          prune: true
