@@ -13,6 +13,9 @@ global:
   frontendRoot: gen3ff
   # Wildcard cert for  *.dev.planx-pla.net
   revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/798e629d-05ee-4bc5-b51f-a86861f29b68
+  externalSecrets:
+    deploy: true
+
 
 ambassador:
   resources:
