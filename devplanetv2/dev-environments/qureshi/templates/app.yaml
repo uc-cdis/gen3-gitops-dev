@@ -19,6 +19,9 @@ spec:
         values: |
             global:
               hostname: {{ .Values.name }}.dev.planx-pla.net
+            fence:
+              FENCE_CONFIG_PUBLIC:
+                BASE_URL: https://{{ .Values.name }}.dev.planx-pla.net/user
             sheepdog:
               # Need this to avoid the audience issue
               fenceUrl: https://{{ .Values.name }}.dev.planx-pla.net
