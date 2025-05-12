@@ -78,7 +78,7 @@ fence:
 
   externalSecrets:
       # -- (string) Will override the name of the aws secrets manager secret. 
-    fenceJwtKeys: dev-generic-jwt
+    fenceJwtKeys: elise-fence-jwt
     # -- (string) Will override the name of the aws secrets manager secret. 
     fenceConfig: ci-fence-config-priv
     # -- (string) Will create the Helm "fence-config" secret even if Secrets Manager is enabled. 
@@ -86,6 +86,8 @@ fence:
     createK8sFenceConfigSecret: false
     # -- (string) Will create the Helm "fence-jwt-keys" secret even if Secrets Manager is enabled. This is helpful if you are wanting to use External Secrets for some, but not all secrets.
     createK8sJwtKeysSecret: false
+    # -- (string) Will create the Helm "google app creds" secret even if Secrets Manager is enabled. This is helpful if you are wanting to use External Secrets for some, but not all secrets.
+    createK8sGoogleAppSecrets: true
 
 frontend-framework:
   # image:
