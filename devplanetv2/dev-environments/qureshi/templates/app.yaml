@@ -15,6 +15,7 @@ spec:
         releaseName: {{ .Values.Name }}
         valueFiles:
           - $values/devplanetv2/dev-environments/values.yaml
+          - $values/devplanetv2/dev-environments/qureshi/values/values.yaml
         values: |
             global:
               hostname: {{ .Values.name }}.dev.planx-pla.net
