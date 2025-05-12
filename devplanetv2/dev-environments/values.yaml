@@ -83,7 +83,7 @@ fence:
       # -- (string) Will override the name of the aws secrets manager secret. 
     fenceJwtKeys: elise-fence-jwt
     # -- (string) Will override the name of the aws secrets manager secret. 
-    fenceConfig: dev/fence-generic
+    fenceConfig: ci-fence-config-priv
     # -- (string) Will create the Helm "fence-config" secret even if Secrets Manager is enabled. 
     #This is helpful if you are wanting to use External Secrets for some, but not all secrets.
     createK8sFenceConfigSecret: false
