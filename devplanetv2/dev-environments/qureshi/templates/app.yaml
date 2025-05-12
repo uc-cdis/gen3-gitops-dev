@@ -28,8 +28,16 @@ spec:
   destination:
     server: "https://kubernetes.default.svc"
     namespace: {{ .Values.name }}
+  # So argocd doesn't change auto-generated secrets
+  ignoreDifferences:
+    - 
+      kind: "Secret"
+      jsonPointers:
+      - /data
   syncPolicy:
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
+      - RespectIgnoreDifferences=true
     automated:
-      selfHeal: true
+      selfHeal: false
+      prune: true

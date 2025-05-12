@@ -27,9 +27,8 @@ spec:
         namespace: '{{path.basename}}'
       # So argocd doesn't change auto-generated secrets
       ignoreDifferences:
-        - group: ""
+        - 
           kind: "Secret"
-          namespace: '{{path.basename}}'
           jsonPointers:
           - /data
       syncPolicy:

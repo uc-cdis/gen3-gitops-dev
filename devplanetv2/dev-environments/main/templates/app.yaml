@@ -27,8 +27,15 @@ spec:
   destination:
     server: "https://kubernetes.default.svc"
     namespace: {{ .Values.name }}
+  ignoreDifferences:
+    - 
+      kind: "Secret"
+      jsonPointers:
+      - /data
   syncPolicy:
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
+      - RespectIgnoreDifferences=true
     automated:
-      selfHeal: true
+      selfHeal: false
+      prune: true
