@@ -37,6 +37,8 @@ audit:
   image:
     tag: master
   enabled: true
+  externalSecrets:
+    createK8sAuditSecret: true
   resources:
     requests:
       memory: "105Mi"
@@ -227,6 +229,8 @@ metadata:
   # repository:
   # tag:
   enabled: true
+  externalSecrets:
+    createK8sMetadataSecret: true
   useAggMds: "True"
   # -- (string) Namespace to use if AggMds is enabled.
   aggMdsNamespace: default
