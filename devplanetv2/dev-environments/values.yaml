@@ -67,7 +67,7 @@ fence:
   FENCE_CONFIG_PUBLIC:
     ENABLE_DB_MIGRATION: True
     ENABLE_PROMETHEUS_METRICS: True
-    DEFAULT_LOGIN_OPTIONS:
+    DEFAULT_LOGIN_OPTIONS: google
     S3_BUCKETS:
       cdis-presigned-url-test:
         role-arn: arn:aws:iam::707767160287:role/bucket_reader_writer_to_cdistest-presigned-url_role
