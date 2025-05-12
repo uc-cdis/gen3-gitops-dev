@@ -215,6 +215,8 @@ indexd:
       memory: "105Mi"
       cpu: "15m"
   defaultPrefix: dev/
+  externalSecrets:
+    serviceCreds: "indexd-service-creds"
 
 metadata:
   resources:
