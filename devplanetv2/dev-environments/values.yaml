@@ -16,6 +16,7 @@ global:
   externalSecrets:
     deploy: true
     clusterSecretStoreRef: aws-secretsmanager
+    dbCreate: true
 
 
 ambassador:
