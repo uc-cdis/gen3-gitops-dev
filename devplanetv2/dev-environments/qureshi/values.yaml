@@ -1,5 +1,5 @@
 # Change this to your env
 name: qureshi
 
-helmBranch: feat/dev-env-fixes
+helmBranch: feat/ci-fixes
 gitopsBranch: master
