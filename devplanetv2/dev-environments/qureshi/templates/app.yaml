@@ -41,6 +41,6 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - RespectIgnoreDifferences=true
-    automated:
-      selfHeal: false
-      prune: true
+    # automated:
+    #   selfHeal: false
+    #   prune: true
