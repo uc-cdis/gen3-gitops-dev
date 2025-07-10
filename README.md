@@ -46,10 +46,19 @@ This script performs a **BEST EFFORT** migration of your current cloud-automatio
    gen3-gitops-dev/dev-environments/<your-env>/
    ```
 
+   ![alt text](images/copy-1.png)
+
+   **Rename the folder to match your env name**
+
+   ![alt text](images/copy-2.png)
+
 2. **Update the copied values.yaml file** in the root of your new environment folder (not the one in values/values.yaml). Update the following fields:
    - `name:` - Change this to your environment name
    - `helmBranch:` - Set to your desired Helm branch
    - `gitopsBranch:` - Set to your desired GitOps branch
+
+
+![alt text](images/root-values.png)
 
 3. **Copy your migration values.yaml file** from the migration step to:
    ```

@@ -1,1 +1,0 @@
-This is the template application you need to copy over to make your app work instantly. 
