@@ -65,6 +65,9 @@ This script performs a **BEST EFFORT** migration of your current cloud-automatio
    gen3-gitops-dev/dev-environments/<your-env>/values/values.yaml
    ```
 
+
+   ![alt text](images/generated-values.png)
+
 4. **Create a pull request** with your changes
 
 5. **Wait for merge** - Once your PR is merged, the application will be automatically created using ArgoCD
