@@ -29,11 +29,11 @@ This will generate a `values.yaml` file in the current folder. Use `scp` to copy
 
 This script performs a **BEST EFFORT** migration of your current cloud-automation deployment to Helm. Please be aware of the following:
 
-• This migration may not cover all edge cases or custom configurations
-• After migration, you **MUST** thoroughly test ALL Gen3 functionality
-• This script comes **WITHOUT ANY GUARANTEES** or warranties
-• Always backup your current deployment before proceeding
-• Review the generated Helm values carefully before deployment
+- This migration may not cover all edge cases or custom configurations
+- After migration, you **MUST** thoroughly test ALL Gen3 functionality
+- This script comes **WITHOUT ANY GUARANTEES** or warranties
+- Always backup your current deployment before proceeding
+- Review the generated Helm values carefully before deployment
 
 **We need your help!** Please verify all edge-cases for all your services. If things are not working as expected, please raise PRs so we can collectively make this migration script as comprehensive as possible.
 
