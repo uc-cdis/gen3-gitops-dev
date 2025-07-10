@@ -1,5 +1,0 @@
-# Change this to your env
-name: main
-
-helmBranch: feat/ci-fixes
-gitopsBranch: master
