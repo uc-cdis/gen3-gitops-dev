@@ -1,0 +1,10 @@
+# Change this to your env.
+# !!! Needs to match the folder name.
+# F.ex qa-brh
+name: qa-mickey
+
+# What branch of helm
+helmBranch: master
+
+# What branch of gitops
+gitopsBranch: master
