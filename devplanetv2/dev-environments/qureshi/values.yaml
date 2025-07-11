@@ -2,4 +2,4 @@
 name: qureshi
 
 helmBranch: feat/ci-fixes
-gitopsBranch: master
+gitopsBranch: test/changes
