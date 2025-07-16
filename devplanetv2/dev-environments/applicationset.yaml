@@ -12,25 +12,24 @@ spec:
           - path: devplanetv2/dev-environments/*
   template:
     metadata:
-      name: '{{path.basename}}'
+      name: "{{path.basename}}"
     spec:
       project: default
       source:
         repoURL: https://github.com/uc-cdis/gen3-gitops-dev.git
         targetRevision: master
-        path: '{{path}}'
+        path: "{{path}}"
         helm:
           valueFiles:
-            - values.yaml  # Optional, based on your Helm layout
+            - values.yaml # Optional, based on your Helm layout
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{path.basename}}'
+        namespace: "{{path.basename}}"
       # So argocd doesn't change auto-generated secrets
       ignoreDifferences:
-        - 
-          kind: "Secret"
+        - kind: "Secret"
           jsonPointers:
-          - /data
+            - /data
       syncPolicy:
         syncOptions:
           - CreateNamespace=true
