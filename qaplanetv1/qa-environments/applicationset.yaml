@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: qa-environments
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/uc-cdis/gen3-gitops-dev.git
+        revision: master
+        directories:
+          - path: qaplanetv1/qa-environments/*
+  template:
+    metadata:
+      name: "{{path.basename}}"
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/uc-cdis/gen3-gitops-dev.git
+        targetRevision: master
+        path: "{{path}}"
+        helm:
+          valueFiles:
+            - values.yaml # Optional, based on your Helm layout
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{path.basename}}-helm"
+      # So argocd doesn't change auto-generated secrets
+      ignoreDifferences:
+        - kind: "Secret"
+          jsonPointers:
+            - /data
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+          - RespectIgnoreDifferences=true
+        automated:
+          selfHeal: false
+          prune: true
