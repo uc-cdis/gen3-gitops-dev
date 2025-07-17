@@ -80,7 +80,7 @@ global:
     enabled: true
     secretStoreServiceAccount:
       enabled: true
-      roleArn: arn:aws:iam::707767160287:role/qa-mickey-external-secrets-sa
+      roleArn: arn:aws:iam::707767160287:role/qaplanetv1-external-secrets-sa
   dev: false
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/vadictionary/0.4.2/schema.json
   dispatcherJobNum: "10"
