@@ -38,6 +38,9 @@ cohort-middleware:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/cohort-middleware
     tag: feat_add_filter_and_transformation_to_remaining_endpoints
 dashboard:
+  dashboardConfig:
+    bucket: dashboard-707767160287-qaplanetv1-gen3
+    prefix: qa-mickey.planx-pla.net
   autoscaling:
     enabled: true
     maxReplicas: 1
@@ -47,6 +50,9 @@ dashboard:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-statics
     tag: "2025.04"
+  serviceAccount:
+    annotations:
+      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/bucket_writer_dashboard-707767160287-qaplanetv1-gen3
 fence:
   autoscaling:
     enabled: true
