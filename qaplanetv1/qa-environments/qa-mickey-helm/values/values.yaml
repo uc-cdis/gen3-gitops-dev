@@ -52,7 +52,7 @@ dashboard:
     tag: "2025.04"
   serviceAccount:
     annotations:
-      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/bucket_writer_dashboard-707767160287-qaplanetv1-gen3
+      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/gen3_service/qaplanetv1--qa-mickey--dashboard
 fence:
   autoscaling:
     enabled: true
