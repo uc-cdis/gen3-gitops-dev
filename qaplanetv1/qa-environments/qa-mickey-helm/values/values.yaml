@@ -3,6 +3,7 @@ ambassador:
   image:
     repository: quay.io/datawire/ambassador
     tag: 1.14.4
+  jupyterNamespace: "jupyter-pods-qa-mickey"
 arborist:
   autoscaling:
     enabled: true
