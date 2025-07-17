@@ -328,6 +328,8 @@ wts:
   enabled: true
   externalSecrets:
     wtsG3auto: qa-mickey-wts-g3auto
+    createWtsOidcClientSecret: false
+    wtsOidcClient: qa-mickey-wts-client-secret
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/workspace-token-service
     tag: "2025.04"
