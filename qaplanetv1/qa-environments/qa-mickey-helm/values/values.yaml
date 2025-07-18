@@ -55,6 +55,9 @@ dashboard:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/gen3_service/qaplanetv1--qa-mickey--dashboard
 fence:
+  usersync:
+    usersync: true
+    userYamlS3Path: "s3://cdis-gen3-users/qa-mickey/user.yaml"
   autoscaling:
     enabled: true
     maxReplicas: 1
