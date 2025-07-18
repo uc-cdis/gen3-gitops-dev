@@ -121,7 +121,7 @@ guppy:
     - index: qa-mickey_file
       type: file
 hatchery:
-  json: |
+  json: |-
     {
         "user-namespace": "jupyter-pods-qa-mickey",
         "sub-dir": "/lw-workspace",
