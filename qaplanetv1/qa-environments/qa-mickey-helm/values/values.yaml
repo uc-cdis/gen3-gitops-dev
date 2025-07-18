@@ -87,7 +87,7 @@ global:
   aws:
     account: "707767160287"
     awsEsProxyRole: qaplanetv1--qa-mickey--es-access
-    hatcheryRole: gen3_service/qaplanetv1-hatchery-service-account-role
+    hatchery_role: gen3_service/qaplanetv1-hatchery-service-account-role
     enabled: true
     secretStoreServiceAccount:
       enabled: true
