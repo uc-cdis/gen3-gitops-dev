@@ -573,7 +573,7 @@ revproxy:
     tag: "2025.04"
   ingress:
     aws:
-      group: qa-mickey-helm
+      group: qaplanetv1
 sheepdog:
   autoscaling:
     enabled: true
