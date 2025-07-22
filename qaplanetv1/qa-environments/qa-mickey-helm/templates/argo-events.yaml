@@ -1,0 +1,63 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-events
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://argoproj.github.io/argo-helm
+    chart: argo-events
+    targetRevision: 1.7.6
+    helm:
+      parameters:
+        - name: controller.rbac.enabled
+          value: "true"
+        - name: webhook.enabled
+          value: "true"
+      values: |        
+        # Additional configurations
+        # configs:
+        #   # Default event bus configuration
+        #   eventbus: |
+        #     apiVersion: argoproj.io/v1alpha1
+        #     kind: EventBus
+        #     metadata:
+        #       name: default
+        #     spec:
+        #       nats:
+        #         native:
+        #           replicas: 3
+        #           auth: token
+        #           persistence:
+        #             storageClassName: default
+        #             accessMode: ReadWriteOnce
+        #             volumeSize: 10Gi
+  
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argo-events
+  
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+  
+  # Ignore differences in certain fields
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas
+  
+  # Health check configuration
+  revisionHistoryLimit: 10
