@@ -81,6 +81,8 @@ data:
             role: WORKFLOW_NAME
         spec:
           nodeClassRef:
+            group: karpenter.k8s.aws
+            kind: EC2NodeClass
             name: workflow-WORKFLOW_NAME
           requirements:
           - key: karpenter.sh/capacity-type
