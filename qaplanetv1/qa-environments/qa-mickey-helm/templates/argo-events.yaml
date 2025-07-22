@@ -11,7 +11,6 @@ spec:
     targetRevision: 2.1.3
     helm:
       values: |        
-        Additional configurations
         configs:
           apiVersion: argoproj.io/v1alpha1
           kind: EventBus
