@@ -11,7 +11,7 @@ spec:
     targetRevision: 2.1.3
     helm:
       values: |        
-        configs:
+        configs: |
           apiVersion: argoproj.io/v1alpha1
           kind: EventBus
           metadata:
