@@ -10,19 +10,18 @@ spec:
     chart: argo-events
     targetRevision: 2.1.3
     helm:
-      values: |        
-        configs:
-          eventbus: |
-            apiVersion: argoproj.io/v1alpha1
-            kind: EventBus
-            metadata:
-              name: default
-              namespace: argo-events
-            spec:
-              nats:
-                native:
-                  replicas: 3
-                  auth: token
+      values: |      
+        extraObjects:
+        - apiVersion: argoproj.io/v1alpha1
+          kind: EventBus
+          metadata:
+            name: default
+            namespace: argo-events
+          spec:
+            nats:
+              native:
+                replicas: 3
+                auth: token
   
   destination:
     server: https://kubernetes.default.svc
