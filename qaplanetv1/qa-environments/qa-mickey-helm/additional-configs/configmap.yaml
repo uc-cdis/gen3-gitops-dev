@@ -71,7 +71,6 @@ data:
       disruption:
         consolidateAfter: 10s
         consolidationPolicy: WhenEmpty
-        expireAfter: 48h0m0s
       limits:
         cpu: 4k
       template:
