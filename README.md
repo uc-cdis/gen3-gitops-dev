@@ -17,7 +17,10 @@ The migration script will automatically create:
 To execute the migration in your environment:
 
 ```bash
-cd cloud-automation/helm-migration-script/
+cd cloud-automation
+git checkout master
+git pull
+cd helm-migration-script
 python3 migrate-to-helm.py
 ```
 
