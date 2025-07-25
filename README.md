@@ -43,7 +43,7 @@ This will generate a `values.yaml` file in the current folder. The actual filena
 Example:
 
 ```bash
-scp pauline@10.128.7.28:cloud-automation/pauline.planx-pla.net-values.yaml ~/Downloads/pauline.planx-pla.net-values.yaml
+scp pauline@10.128.7.28:cloud-automation/pauline.planx-pla.net-values.yaml ~/Downloads/values.yaml
 ```
 
 ## Deployment Process
