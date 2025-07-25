@@ -1,7 +1,4 @@
-# Change this to your env. 
-# !!! Needs to match the folder name. 
-# F.ex qa-brh
-name: main
+name: qa-midrc
 
 # What branch of helm -- http://github.com/uc-cdis/gen3-helm
 helmBranch: master
