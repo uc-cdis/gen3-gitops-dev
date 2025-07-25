@@ -50,7 +50,7 @@ scp pauline@10.128.7.28:cloud-automation/pauline.planx-pla.net-values.yaml ~/Dow
 
 ### Setting Up Your Environment
 
-1. `git clone` this repository
+1. `git clone` this repository, and create a new local branch before making the following changes. 
 2. **Copy the "copy-me" folder** into the "dev-environments" folder and rename it to match your environment name:
    ```
    cd gen3-gitops-dev
