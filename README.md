@@ -50,9 +50,11 @@ scp pauline@10.128.7.28:cloud-automation/helm-migration-script/pauline.planx-pla
 
 ### Setting Up Your Environment
 
-1. **Copy the "copy-me" folder** into the "dev-environments" folder and rename it to match your environment name:
+1. `git clone` this repository
+2. **Copy the "copy-me" folder** into the "dev-environments" folder and rename it to match your environment name:
    ```
-   gen3-gitops-dev/dev-environments/<your-env>/
+   cd gen3-gitops-dev
+   cp -r copy-me devplanetv2/dev-environments/<your-env>
    ```
 
    ![alt text](images/copy-1.png)
@@ -61,7 +63,7 @@ scp pauline@10.128.7.28:cloud-automation/helm-migration-script/pauline.planx-pla
 
    ![alt text](images/copy-2.png)
 
-2. **Update the copied values.yaml file** in the root of your new environment folder (not the one in values/values.yaml). Update the following fields:
+3. **Update the copied values.yaml file** in the root of your new environment folder (not the one in values/values.yaml). Update the following fields:
    - `name:` - Change this to your environment name
    - `helmBranch:` - Set to your desired Helm branch
    - `gitopsBranch:` - Set to your desired GitOps branch
