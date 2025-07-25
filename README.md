@@ -6,6 +6,20 @@
 1. Log in to your adminvm
 2. If the adminvm is not running, reach out to the security team to file an exception request
 
+## Important Disclaimer
+
+⚠️ **WARNING - CLOUD-AUTOMATION TO HELM MIGRATION SCRIPT** ⚠️
+
+This script performs a **BEST EFFORT** migration of your current cloud-automation deployment to Helm. Please be aware of the following:
+
+- This migration may not cover all edge cases or custom configurations
+- After migration, you **MUST** thoroughly test ALL Gen3 functionality
+- This script comes **WITHOUT ANY GUARANTEES** or warranties
+- Always backup your current deployment before proceeding
+- Review the generated Helm values carefully before deployment
+
+**We need your help!** Please verify all edge-cases for all your services. If things are not working as expected, please raise PRs so we can collectively make this migration script as comprehensive as possible.
+
 ## Migration Process
 
 ### Running the Migration Script
@@ -24,25 +38,13 @@ pip3 install boto3
 python3 helm-migration-script/migrate-to-helm.py
 ```
 
-This will generate a `values.yaml` file in the current folder. Use `scp` to copy this file to your local machine for the next steps. Example:
+This will generate a `values.yaml` file in the current folder. Use `scp` to copy this file to your local machine for the next steps ("Deployment Process" below).
+
+Example:
 
 ```bash
 scp pauline@10.128.7.28:cloud-automation/helm-migration-script/pauline.planx-pla.net-values.yaml ~/Downloads/pauline.planx-pla.net-values.yaml
 ```
-
-## Important Disclaimer
-
-⚠️ **WARNING - CLOUD-AUTOMATION TO HELM MIGRATION SCRIPT** ⚠️
-
-This script performs a **BEST EFFORT** migration of your current cloud-automation deployment to Helm. Please be aware of the following:
-
-- This migration may not cover all edge cases or custom configurations
-- After migration, you **MUST** thoroughly test ALL Gen3 functionality
-- This script comes **WITHOUT ANY GUARANTEES** or warranties
-- Always backup your current deployment before proceeding
-- Review the generated Helm values carefully before deployment
-
-**We need your help!** Please verify all edge-cases for all your services. If things are not working as expected, please raise PRs so we can collectively make this migration script as comprehensive as possible.
 
 ## Deployment Process
 
