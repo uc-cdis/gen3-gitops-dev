@@ -6,23 +6,6 @@
 1. Log in to your adminvm
 2. If the adminvm is not running, reach out to the security team to file an exception request
 
-## Migration Process
-
-### Running the Migration Script
-
-The migration script will automatically create:
-- A `values.yaml` file that can be checked into git
-- Secrets in AWS Secrets Manager
-
-To execute the migration in your environment:
-
-```bash
-cd cloud-automation/helm-migration-script/
-python3 migrate-to-helm.py
-```
-
-This will generate a `values.yaml` file in the current folder. Use `scp` to copy this file to your local machine for the next steps.
-
 ## Important Disclaimer
 
 ⚠️ **WARNING - CLOUD-AUTOMATION TO HELM MIGRATION SCRIPT** ⚠️
@@ -37,13 +20,41 @@ This script performs a **BEST EFFORT** migration of your current cloud-automatio
 
 **We need your help!** Please verify all edge-cases for all your services. If things are not working as expected, please raise PRs so we can collectively make this migration script as comprehensive as possible.
 
+## Migration Process
+
+### Running the Migration Script
+
+The migration script will automatically create:
+- A `values.yaml` file that can be checked into git
+- Secrets in AWS Secrets Manager
+
+To execute the migration in your environment:
+
+```bash
+cd cloud-automation
+git checkout master
+git pull
+pip3 install boto3
+python3 helm-migration-script/migrate-to-helm.py
+```
+
+This will generate a `values.yaml` file in the current folder. Use `scp` to copy this file to your local machine for the next steps ("Deployment Process" below).
+
+Example:
+
+```bash
+scp pauline@10.128.7.28:cloud-automation/helm-migration-script/pauline.planx-pla.net-values.yaml ~/Downloads/pauline.planx-pla.net-values.yaml
+```
+
 ## Deployment Process
 
 ### Setting Up Your Environment
 
-1. **Copy the "copy-me" folder** into the "dev-environments" folder and rename it to match your environment name:
+1. `git clone` this repository
+2. **Copy the "copy-me" folder** into the "dev-environments" folder and rename it to match your environment name:
    ```
-   gen3-gitops-dev/dev-environments/<your-env>/
+   cd gen3-gitops-dev
+   cp -r copy-me devplanetv2/dev-environments/<your-env>
    ```
 
    ![alt text](images/copy-1.png)
@@ -52,7 +63,7 @@ This script performs a **BEST EFFORT** migration of your current cloud-automatio
 
    ![alt text](images/copy-2.png)
 
-2. **Update the copied values.yaml file** in the root of your new environment folder (not the one in values/values.yaml). Update the following fields:
+3. **Update the copied values.yaml file** in the root of your new environment folder (not the one in values/values.yaml). Update the following fields:
    - `name:` - Change this to your environment name
    - `helmBranch:` - Set to your desired Helm branch
    - `gitopsBranch:` - Set to your desired GitOps branch
