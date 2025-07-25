@@ -95,7 +95,7 @@ global:
     netpolicy: 'off'
     sync_from_dbgap: 'False'
     useryaml_s3path: s3://cdis-gen3-users/dev/user.yaml
-  portalApp: dev
+  portalApp: gitops
   postgres:
     dbCreate: false
   revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/c676c81c-9546-4e9a-9a72-725dd3912bc8
@@ -386,879 +386,1230 @@ portal:
       \ tspan.special-number,\n.data-explorer__charts .special-number,\n.data-explorer__charts\
       \ .form-special-number {\n    color: var(--secondary-color);\n}\n  \n.data-explorer__charts\
       \ .special-number {\n    fill: var(--secondary-color);\n}\n"
-    json: "{\n  \"graphql\": {\n    \"boardCounts\": [\n      {\n        \"graphql\"\
-      : \"_case_count\",\n        \"name\": \"Case\",\n        \"plural\": \"Cases\"\
-      \n      },\n      {\n        \"graphql\": \"_imaging_study_count\",\n      \
-      \  \"name\": \"Imaging Study\",\n        \"plural\": \"Imaging Studies\"\n \
-      \     },\n      {\n        \"graphql\": \"_ct_series_file_count\",\n       \
-      \ \"name\": \"CT Series\",\n        \"plural\": \"CT Series\"\n      },\n  \
-      \    {\n        \"graphql\": \"_dx_series_file_count\",\n        \"name\": \"\
-      DX Series\",\n        \"plural\": \"DX Series\"\n      },\n      {\n       \
-      \ \"graphql\": \"_cr_series_file_count\",\n        \"name\": \"CR Series\",\n\
-      \        \"plural\": \"CR Series\"\n      },\n      {\n        \"graphql\":\
-      \ \"_mr_series_file_count\",\n        \"name\": \"MR Series\",\n        \"plural\"\
-      : \"MR Series\"\n      },\n      {\n        \"graphql\": \"_dicom_annotation_file_count\"\
-      ,\n        \"name\": \"DICOM Annotation File\",\n        \"plural\": \"DICOM\
-      \ Annotation Files\"\n      }\n    ],\n    \"chartCounts\": [],\n    \"projectDetails\"\
-      : \"boardCounts\"\n  },\n  \"resourceBrowser\": {\n    \"title\": \"Jupyter\
-      \ Notebook Tutorials\",\n    \"public\": true,\n    \"description\": \"The Jupyter\
-      \ notebooks contained in this notebook viewer pull data from various sources\
-      \ to generate and output useful tables, charts, graphs, and models. Each notebook\
-      \ is static, meaning the data being used by the notebooks is not updated in\
-      \ real time. Executable versions of these notebooks can be downloaded from <a\
-      \ href='https://github.com/MIDRC/tutorial_notebooks'> MIDRC's GitHub Repository</a>.\"\
-      ,\n    \"resources\": [\n      {\n        \"title\": \"Build a Patient Cohort\
-      \ and Access Chest CT Scans and Annotations\",\n        \"description\": \"\
-      This notebook demonstrates how to build a cohort of MIDRC patients based on\
-      \ clinical and demographic data and then access all Chest CT scans and any related\
-      \ annotations.\",\n        \"imageUrl\": \"/dashboard/Public/notebooks/Chest_CT_Images_for_Cohort.png\"\
-      ,\n        \"link\": \"/dashboard/Public/notebooks/Chest_CT_Images_for_Cohort.html\"\
-      \n      },\n      {\n        \"title\": \"Access Files for Specific Case IDs\"\
-      ,\n        \"description\": \"This notebook demonstrates how to build a cohort\
-      \ of MIDRC patients based on clinical and demographic data and then obtain a\
-      \ file download manifest for x-ray and annotation files related to that cohort.\"\
-      ,\n        \"imageUrl\": \"/dashboard/Public/notebooks/Access_Files_for_Specific_Case_IDs.png\"\
-      ,\n        \"link\": \"/dashboard/Public/notebooks/Access_Files_for_Specific_Case_IDs.html\"\
-      \n      },\n      {\n        \"title\": \"Cohort Selection Using Temporal COVID-19\
-      \ Test Data\",\n        \"description\": \"This tutorial demonstrates how to\
-      \ use the MIDRC data commons' APIs to access imaging study and COVID-19 test\
-      \ data, how to use temporal properties in those data to select a cohort of COVID-19\
-      \ positive imaging studies, and how to access those image files using the Gen3\
-      \ SDK.\",\n        \"imageUrl\": \"/dashboard/Public/notebooks/Cohort_selection_Using_MIDRC_Temporal_COVID_Test_Data.png\"\
-      ,\n        \"link\": \"/dashboard/Public/notebooks/Cohort_selection_Using_MIDRC_Temporal_COVID_Test_Data.html\"\
-      \n      },\n      {\n        \"title\": \"Querying and Accessing MIDRC Data\"\
-      ,\n        \"description\": \"This notebook is intended to demonstrate a variety\
-      \ of ways to access file objects and structured data, also known as metadata,\
-      \ in the MIDRC Data Commons using MIDRC APIs.\",\n        \"imageUrl\": \"/dashboard/Public/notebooks/Querying_and_Accessing_MIDRC_Data.png\"\
-      ,\n        \"link\": \"/dashboard/Public/notebooks/Querying_and_Accessing_MIDRC_Data.html\"\
-      \n      },\n      {\n        \"title\": \"Exploring MIDRC CT Scans\",\n    \
-      \    \"description\": \"In this demo we will review how to import MIDRC imaging\
-      \ data, how to convert CT scan images from dicom (dcm) formats to png and jpeg\
-      \ formats, and how to view these CT scan images. This demo will also show how\
-      \ to extract file and patient metadata from the header of dicom (dcm) files.\"\
-      ,\n        \"imageUrl\": \"/dashboard/Public/notebooks/MIDRC_CT_Scan.png\",\n\
-      \        \"link\": \"/dashboard/Public/notebooks/MIDRC_CT_Scan.html\"\n    \
-      \  },\n      {\n        \"title\": \"MIDRC Open-R1 Clinical Data Analysis\"\
-      ,\n        \"description\": \"In this notebook we will visualize the distribution\
-      \ of subjects accross a variety demographics and their COVID-19 status in the\
-      \ Open-R1 dataset from The Medical Imaging and Data Resource Center.\",\n  \
-      \      \"imageUrl\": \"/dashboard/Public/notebooks/MIDRC_Clinical_Data.png\"\
-      ,\n        \"link\": \"/dashboard/Public/notebooks/MIDRC_Clinical_Data.html\"\
-      \n      },\n      {\n        \"title\": \"Build Balanced Cohorts of Severe and\
-      \ Mild COVID-19 Cases\",\n        \"description\": \"This notebook demonstrates\
-      \ how to build a cohort of severe COVID-19 cases using patient clinical data\
-      \ and AI research-based annotations in the MIDRC data commons. Our goal is to\
-      \ download structured data and files for 2 related cohorts: 1) severe COVID\
-      \ cases and 2) a control cohort of non-severe COVID cases. Additionally, we\
-      \ want the cohorts to be somewhat balanced and matched in terms of the demographics:\
-      \ age, sex, race, and ethnicity.\",\n        \"imageUrl\": \"/dashboard/Public/notebooks/build_a_cohort_of_severe_covid_19_cases.png\"\
-      ,\n        \"link\": \"/dashboard/Public/notebooks/build_a_cohort_of_severe_covid_19_cases.html\"\
-      \n      },\n      {\n        \"title\": \"Cohort Building Using Queries of the\
-      \ MIDRC Data Commons\",\n        \"description\": \"This notebook briefly demonstrates\
-      \ how to use the MIDRC open APIs to build a cohort of MIDRC imaging studies\
-      \ using patient clinical data and AI-research-based annotations in the MIDRC\
-      \ data commons and then access and view the X-ray image files associated with\
-      \ those imaging studies.\",\n        \"imageUrl\": \"/dashboard/Public/notebooks/MIDRC_Cohort_Building-DLL_RSNA_2023.png\"\
-      ,\n        \"link\": \"/dashboard/Public/notebooks/MIDRC_Cohort_Building-DLL_RSNA_2023.html\"\
-      \n      }\n    ]\n  },\n  \"useArboristUI\": true,\n  \"showArboristAuthzOnProfile\"\
-      : true,\n  \"showFenceAuthzOnProfile\": true,\n  \"hideSubmissionIfIneligible\"\
-      : true,\n  \"componentToResourceMapping\": {\n    \"Workspace\": {\n      \"\
-      resource\": \"/workspace\",\n      \"method\": \"access\",\n      \"service\"\
-      : \"jupyterhub\"\n    },\n    \"Analyze Data\": {\n      \"resource\": \"/workspace\"\
-      ,\n      \"method\": \"access\",\n      \"service\": \"jupyterhub\"\n    },\n\
-      \    \"Query\": {\n      \"resource\": \"/query_page\",\n      \"method\": \"\
-      access\",\n      \"service\": \"query_page\"\n    },\n    \"Query Data\": {\n\
-      \      \"resource\": \"/query_page\",\n      \"method\": \"access\",\n     \
-      \ \"service\": \"query_page\"\n    }\n  },\n  \"components\": {\n    \"appName\"\
-      : \"The Medical Imaging and Data Resource Center Commons\",\n    \"index\":\
-      \ {\n      \"introduction\": {\n        \"heading\": \"MIDRC Data Commons\"\
-      ,\n        \"text\": \"The Medical Imaging & Data Resource Center (MIDRC) Data\
-      \ Commons supports the management, analysis and sharing of medical imaging data\
-      \ for the improvement of patient outcomes.\\nThe data in MIDRC are open access\
-      \ in order to foster machine learning innovation through data sharing and include\
-      \ in addition to imaging files, patient demographic data, COVID-19 test results\
-      \ and other clinical data, harmonized study descriptions utilizing the LOINC\
-      \ playbook, and image DICOM tags for purposes of data filtering and selecting\
-      \ cohorts for analysis.\",\n        \"link\": \"/submission\"\n      },\n  \
-      \    \"buttons\": [\n        {\n          \"name\": \"Explore Data\",\n    \
-      \      \"icon\": \"data-explore\",\n          \"body\": \"Use the Exploration\
-      \ tool for cohort building via faceted search and downloading of subsets of\
-      \ data from the MIDRC Data Commons.\",\n          \"link\": \"/explorer\",\n\
-      \          \"label\": \"Explore Data\"\n        },\n        {\n          \"\
-      name\": \"Data Dictionary\",\n          \"icon\": \"data-field-define\",\n \
-      \         \"body\": \"The MIDRC Data Commons employs a data model to power queries\
-      \ and data submissions. Study the dictionary to send GraphQL queries or format\
-      \ your data submissions.\",\n          \"link\": \"/DD\",\n          \"label\"\
-      : \"View Dictionary\"\n        },\n        {\n          \"name\": \"Query Data\"\
-      ,\n          \"icon\": \"data-access\",\n          \"body\": \"Search and download\
-      \ subsets of data from the MIDRC Data Commons using GraphQL queries.\",\n  \
-      \        \"link\": \"/query\",\n          \"label\": \"Query Data\"\n      \
-      \  },\n        {\n          \"name\": \"Analyze Data\",\n          \"icon\"\
-      : \"data-analyze\",\n          \"body\": \"Perform analysis on the MIDRC Data\
-      \ Commons data using Jupyter Notebooks.\",\n          \"link\": \"/workspace\"\
-      ,\n          \"label\": \"Run Analysis\"\n        }\n      ],\n      \"homepageChartNodes\"\
-      : [\n        {\n          \"node\": \"case\",\n          \"name\": \"Cases\"\
-      \n        },\n        {\n          \"node\": \"imaging_study\",\n          \"\
-      name\": \"Imaging Studies\"\n        },\n        {\n          \"node\": \"ct_series_file\"\
-      ,\n          \"name\": \"CT Series\"\n        },\n        {\n          \"node\"\
-      : \"dx_series_file\",\n          \"name\": \"DX Series\"\n        },\n     \
-      \   {\n          \"node\": \"cr_series_file\",\n          \"name\": \"CR Series\"\
-      \n        },\n        {\n          \"node\": \"mr_series_file\",\n         \
-      \ \"name\": \"MR Series\"\n        }\n      ]\n    },\n    \"systemUse\": {\n\
-      \      \"systemUseTitle\": \"Data Use Agreement for Academic and Institutional\
-      \ Users\",\n      \"systemUseText\": [\n        \"Please see the below two Data\
-      \ Use Agreements: the first one is for Academic and Institutional users for\
-      \ non-commercial use; the second agreement is for commercial use.\",\n     \
-      \   \"\",\n        \"\",\n        \"Data Use Agreement - Non-Commercial Research\
-      \ Use Only\",\n        \"This Data Use Agreement for Academic and Institutional\
-      \ Users (this \u201CAgreement\u201D) is by and between you and the University\
-      \ of Chicago (the \u201CUniversity\u201D) and governs your access to and use\
-      \ of the deidentified imaging and associated demographic and clinical data provided\
-      \ to you by the University (\u201CMIDRC Data\u201D). By accessing, using, or\
-      \ downloading any MIDRC Data, you are agreeing to be bound by the terms and\
-      \ conditions of this Agreement.\",\n        \"1. The University is the legal\
-      \ entity that hosts Medical Imaging and Data Resource Center (MIDRC) data\"\
-      ,\n        \"2. The University grants you a limited, personal, worldwide, non-exclusive,\
-      \ non-transferable, royalty-free license to view and use the MIDRC Data solely\
-      \ for your personal, Non-Commercial Research Purposes. Any commercial use, sale,\
-      \ or other monetization is prohibited. \u201CNon-Commercial Research Purposes\u201D\
-      \ means academic research or other not-for-profit scholarly purposes which are\
-      \ undertaken at a non-profit or government institution and publishing in connection\
-      \ therewith.\",\n        \"3. Other than the rights granted herein, the University\
-      \ retains all rights, title, and interest in the MIDRC Dataset.\",\n       \
-      \ \"4. You will use the MIDRC Data only in compliance with all applicable laws\
-      \ and regulations.\",\n        \"5. You may make a verbatim copy of the MIDRC\
-      \ Data for personal, non-commercial research use. If another user within your\
-      \ organization wishes to use the MIDRC Data, they must separately download the\
-      \ data set and enter into an Agreement directly with the University.\",\n  \
-      \      \"6. You may not distribute, publish, or reproduce a copy of any portion\
-      \ or all of the MIDRC Data to others without specific prior written permission\
-      \ from the University.\",\n        \"7. You will promptly report to the University\
-      \ in writing any unauthorized access or use of the MIDRC Data\",\n        \"\
-      8. You will register with and provide current contact information to the University.\
-      \ By accessing, using, or downloading the MIDRC Data, you consent to be contacted\
-      \ by the University. The University may use, and you hereby grant the University\
-      \ a non-exclusive, worldwide, perpetual, irrevocable license to use, any data\
-      \ you provide to the University, including any personally identifiable information.\"\
-      ,\n        \"9. You will acknowledge your use of MIDRC Data in all oral or written\
-      \ presentations, disclosures, or publications arising from your use of the MIDRC\
-      \ Data\",\n        \"10. You may not modify, reverse engineer, decompile, or\
-      \ create derivative works from the MIDRC Data. For avoidance of doubt, users\
-      \ may create research results, including any data analyses, results of algorithm\
-      \ validations, annotations and overlays, and outcomes or evaluations using the\
-      \ MIDRC Data. The University will have no right, title, or interest in any such\
-      \ research results. You must not remove or alter any copyright or other proprietary\
-      \ notices in the MIDRC Data. You are encouraged to submit any annotations or\
-      \ overlays created using the MIDRC data.\",\n        \"11. The MIDRC Data has\
-      \ not been reviewed or approved by the Food and Drug Administration, and is\
-      \ for non-clinical, research use only. In no event shall data or images generated\
-      \ through the use of the MIDRC Data be used or relied upon in the diagnosis\
-      \ or provision of patient care\",\n        \"12. THE MIDRC DATA IS PROVIDED\
-      \ ON AN \u201DAS IS\u201D, \u201CWHERE IS\u201D BASIS. THE UNIVERSITY MAKES\
-      \ NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES\
-      \ OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON INFRINGEMENT.\
-      \ THE UNIVERSITY WILL HAVE NO LIABILITY WHATSOEVER ARISING FROM YOUR ACCESS\
-      \ OR USE OF THE MIDRC DATA\",\n        \"13. You will not make any attempt to\
-      \ re-identify any individual from the MIDRC Data. In the event that you identify\
-      \ any person whose data is included in the MIDRC Data, you will promptly delete\
-      \ the data and notify the University in writing.\",\n        \"14. The University\
-      \ may terminate this Agreement at any time upon notice to you. The University\
-      \ shall have no liability in the event of any such termination. Upon such termination,\
-      \ the University may direct that you immediately return or destroy all copies\
-      \ of any MIDRC Data and, upon the University\u2019s request, you will certify\
-      \ the foregoing to the University in writing.\",\n        \"\",\n        \"\"\
-      ,\n        \"DATA USE AGREEMENT \u2013 COMMERCIAL USE PERMITTED\",\n       \
-      \ \"This Data Use Agreement (this \u201CAgreement\u201D) is by and between you\
-      \ or the entity you represent (\u201Cyou\u201D) and the University of Chicago\
-      \ (the \u201CUniversity\u201D) and governs your access to and use of the deidentified\
-      \ imaging and associated demographic and clinical data provided to you by the\
-      \ University (\u201CMIDRC Data\u201D). By accessing, using, or downloading any\
-      \ MIDRC Data, you are agreeing to be bound by the terms and conditions of this\
-      \ Agreement. If you are entering into this Agreement for an entity, such as\
-      \ the company you work for, you represent and warrant that you have legal authority\
-      \ to bind that entity\",\n        \"1. The University is the legal entity that\
-      \ hosts Medical Imaging and Data Resource Center (MIDRC) data\",\n        \"\
-      2. The University grants you a limited, personal, worldwide, non-exclusive,\
-      \ non-transferable, royalty-free license to view and use the MIDRC Data\",\n\
-      \        \"3. Other than the rights granted herein, the University retains all\
-      \ rights, title, and interest in the MIDRC Dataset.\",\n        \"4. You will\
-      \ use the MIDRC Data only in compliance with all applicable laws and regulations\"\
-      ,\n        \"5. You may make a verbatim copy of the MIDRC Data.\",\n       \
-      \ \"6. You may not distribute any portion or all of the MIDRC Data to others\
-      \ without specific prior written permission from the University.\",\n      \
-      \  \"7. You will promptly report to the University in writing any unauthorized\
-      \ access or use of the MIDRC Data.\",\n        \"8. You will register with and\
-      \ provide current contact information to the University. By accessing, using,\
-      \ or downloading the MIDRC Data, you consent to be contacted by the University.\
-      \ The University may use, and you hereby grant the University a non-exclusive,\
-      \ worldwide, perpetual, irrevocable license to use, any data you provide to\
-      \ the University, including any personally identifiable information.\",\n  \
-      \      \"9. You will acknowledge your use of MIDRC Data in all oral or written\
-      \ presentations, disclosures, or publications arising from your use of the MIDRC\
-      \ Data.\",\n        \"10. You may not modify, reverse engineer, decompile, or\
-      \ create derivative works from the MIDRC Data. For avoidance of doubt, users\
-      \ may create research results, including any data analyses, results of algorithm\
-      \ validations, annotations and overlays, and outcomes or evaluations using the\
-      \ MIDRC Data. The University will have no right, title, or interest in any such\
-      \ research results. You must not remove or alter any copyright or other proprietary\
-      \ notices in the MIDRC Data. You are encouraged to submit any annotations or\
-      \ overlays created using the MIDRC data.\",\n        \"11. The MIDRC Data has\
-      \ not been reviewed or approved by the Food and Drug Administration, and is\
-      \ for non-clinical, research use only. In no event shall data or images generated\
-      \ through the use of the MIDRC Data be used or relied upon in the diagnosis\
-      \ or provision of patient care.\",\n        \"12. THE MIDRC DATA IS PROVIDED\
-      \ ON AN \u201DAS IS\u201D, \u201CWHERE IS\u201D BASIS. THE UNIVERSITY MAKES\
-      \ NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES\
-      \ OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.\
-      \ THE UNIVERSITY WILL HAVE NO LIABILITY WHATSOEVER ARISING FROM YOUR ACCESS\
-      \ OR USE OF THE MIDRC DATA, INCLUDING WITHOUT LIMITATION ANY LIABILITY ARISING\
-      \ FROM LOST PROFITS, COSTS OF PROCURING SUBSTITUTE GOODS OR SERVICES, LOST BUSINESS,\
-      \ ENHANCED DAMAGES FOR INTELLECTUAL PROPERTY INFRINGEMENT, OR FOR ANY INDIRECT,\
-      \ INCIDENTAL, CONSEQUENTIAL, PUNITIVE, OR OTHER SPECIAL DAMAGES SUFFERED BY\
-      \ YOU OR YOUR SUBLICENSEES, JOINT VENTURES, OR AFFILIATES ARISING OUT OF OR\
-      \ RELATED TO THE AGREEMENT AND NON-EXCLUSIVE LICENSES GRANTED THEREUNDER FOR\
-      \ ALL CAUSES OF ACTION OF ANY KIND (INCLUDING TORT, CONTRACT, NEGLIGENCE, STRICT\
-      \ LIABILITY AND BREACH OF WARRANTY) EVEN IF THE UNIVERSITY HAS BEEN ADVISED\
-      \ OF THE POSSIBILITY OF SUCH DAMAGES. ALSO, UNIVERSITY WILL NOT BE LIABLE FOR\
-      \ ANY DIRECT DAMAGES SUFFERED BY YOU OR YOUR SUBLICENSEES, JOINT VENTURES, OR\
-      \ AFFILIATES ARISING OUT OF OR RELATED TO YOUR USE OF THE MIDRC DATA.\",\n \
-      \       \"13. You will defend, indemnify, and hold harmless the University,\
-      \ its affiliates and licensors, and each of their respective employees, officers,\
-      \ directors, trustees, and representatives (\u201CRepresentatives\u201D) from\
-      \ and against any claims, damages, losses, liabilities, costs, and expenses\
-      \ (including reasonable attorneys\u2019 fees and consultants\u2019 fees) arising\
-      \ out of or relating to any third-party claim to the extent concerning or arising\
-      \ out of: (a) your use of the MIDRC Data; (b) breach of this Agreement or violation\
-      \ of applicable law by you; or (c) any allegation that your use of the MIDRC\
-      \ Data infringes or otherwise violates the patent, copyright, or other intellectual\
-      \ property rights of any third party.\",\n        \"14. You will not make any\
-      \ attempt to re-identify any individual from the MIDRC Data. In the event that\
-      \ you identify any person whose data is included in the MIDRC Data, you will\
-      \ promptly notify the University in writing.\",\n        \"15. The University\
-      \ may terminate this Agreement at any time upon notice to you. The University\
-      \ shall have no liability in the event of any such termination. Upon such termination,\
-      \ the University may direct that you immediately return or destroy all copies\
-      \ of any MIDRC Data and, upon the University\u2019s request, you will certify\
-      \ the foregoing to the University in writing.\"\n      ],\n      \"displayUseMsg\"\
-      : \"cookie\",\n      \"expireUseMsgDays\": 365,\n      \"showOnlyOnLogin\":\
-      \ true\n    },\n    \"navigation\": {\n      \"items\": [\n        {\n     \
-      \     \"name\": \"Exploration\",\n          \"link\": \"/explorer\",\n     \
-      \     \"icon\": \"exploration\",\n          \"tooltip\": \"The Exploration Page\
-      \ enables discovery of the data at the subject level and features a cohort builder.\"\
-      \n        },\n        {\n          \"name\": \"Dictionary\",\n          \"link\"\
-      : \"/DD\",\n          \"icon\": \"dictionary\",\n          \"tooltip\": \"The\
-      \ MIDRC Data Commons employs a data model to power queries and data submissions.\
-      \ Study the dictionary to send GraphQL queries or format your data submissions.\"\
-      ,\n          \"color\": \"#a2a2a2\"\n        },\n        {\n          \"name\"\
-      : \"Query\",\n          \"link\": \"/query\",\n          \"icon\": \"query\"\
-      ,\n          \"tooltip\": \"Query the databases using GraphQL.\"\n        },\n\
-      \        {\n          \"name\": \"Example Analysis\",\n          \"link\": \"\
-      /resource-browser\",\n          \"icon\": \"bar-chart\",\n          \"tooltip\"\
-      : \"Learn how to use Jupyter Notebooks to explore and visualize data discovered\
-      \ in the MIDRC Data Commons by running a static tutorial notebook, or use one\
-      \ of these examples as a launching point for your own custom analysis.\",\n\
-      \          \"color\": \"#a2a2a2\"\n        },\n        {\n          \"name\"\
-      : \"Workspace\",\n          \"link\": \"/workspace\",\n          \"icon\": \"\
-      workspace\",\n          \"tooltip\": \"The Workspace provides a secure cloud\
-      \ environment featuring Jupyter Notebooks and RStudio.\"\n        }\n      ]\n\
-      \    },\n    \"topBar\": {\n      \"items\": [\n        {\n          \"link\"\
-      : \"https://www.midrc.org/\",\n          \"name\": \"About\"\n        },\n \
-      \       {\n          \"link\": \"https://staging.midrc.org/dashboard/Public/documentation/Gen3_MIDRC_GetStarted.pdf\"\
-      ,\n          \"name\": \"Get Started\"\n        },\n        {\n          \"\
-      link\": \"https://www.midrc.org/midrc-acknowledgements\",\n          \"name\"\
-      : \"Cite MIDRC\"\n        },\n        {\n          \"link\": \"https://staging.midrc.org/dashboard/Public/documentation/DUA.html\"\
-      ,\n          \"name\": \"DUA\"\n        },\n        {\n          \"link\": \"\
-      https://www.midrc.org/resources\",\n          \"name\": \"Resources\"\n    \
-      \    },\n        {\n          \"link\": \"https://gen3.org/resources/user/\"\
-      ,\n          \"name\": \"Gen3\"\n        },\n        {\n          \"icon\":\
-      \ \"upload\",\n          \"link\": \"/submission\",\n          \"name\": \"\
-      Submit Data\"\n        },\n        {\n          \"link\": \"midrc-support@datacommons.io\"\
-      ,\n          \"name\": \"Email Support\"\n        }\n      ],\n      \"useProfileDropdown\"\
-      : true\n    },\n    \"login\": {\n      \"title\": \"Medical Imaging & Data\
-      \ Resource Center Data Commons\",\n      \"subTitle\": \"Explore, Analyze, and\
-      \ Share Medical Imaging Data to Improve Patient Outcomes\",\n      \"text\"\
-      : \"\",\n      \"contact\": \"If you have any questions about access or the\
-      \ registration process, please contact \",\n      \"email\": \"midrc-support@datacommons.io\"\
-      ,\n      \"image\": \"/../../../../custom/sponsors/gitops-sponsors/covid_gene\"\
-      \n    },\n    \"categorical9Colors\": [\n      \"#B02F34\",\n      \"#421C52\"\
-      ,\n      \"#AEEBF2\",\n      \"#E0DD10\",\n      \"#40476D\",\n      \"#FFA630\"\
-      ,\n      \"#AE8799\",\n      \"#035C94\",\n      \"#462255\"\n    ],\n    \"\
-      footer\": {\n      \"links\": [\n        {\n          \"text\": \"HHS Responsible\
-      \ Disclosure\",\n          \"href\": \"https://www.hhs.gov/vulnerability-disclosure-policy/index.html\"\
-      \n        }\n      ]\n    },\n    \"footerLogos\": [\n      {\n        \"src\"\
-      : \"/src/img/gen3.png\",\n        \"href\": \"https://ctds.uchicago.edu/gen3\"\
-      ,\n        \"alt\": \"Gen3 Data Commons\"\n      }\n    ]\n  },\n  \"featureFlags\"\
-      : {\n    \"discovery\": true,\n    \"explorer\": true,\n    \"analysis\": true,\n\
-      \    \"explorerPublic\": true\n  },\n  \"analysisTools\": [],\n  \"explorerConfig\"\
-      : [\n    {\n      \"tabTitle\": \"Cases\",\n      \"charts\": {},\n      \"\
-      filters\": {\n        \"tabs\": [\n          {\n            \"title\": \"Demographics\"\
-      ,\n            \"searchFields\": [\n              \"submitter_id\"\n       \
-      \     ],\n            \"fields\": [\n              \"sex\",\n              \"\
-      race\",\n              \"ethnicity\",\n              \"age_at_index\",\n   \
-      \           \"index_event\",\n              \"zip\",\n              \"covid19_positive\"\
-      ,\n              \"project_id\"\n            ]\n          },\n          {\n\
-      \            \"title\": \"Imaging Studies\",\n            \"fields\": [\n  \
-      \            \"imaging_studies.study_modality\",\n              \"imaging_studies.study_description\"\
-      ,\n              \"imaging_studies.loinc_code\",\n              \"imaging_studies.loinc_contrast\"\
-      ,\n              \"imaging_studies.loinc_long_common_name\",\n             \
-      \ \"imaging_studies.loinc_method\",\n              \"imaging_studies.loinc_system\"\
-      ,\n              \"imaging_studies.study_location\",\n              \"imaging_studies.age_at_imaging\"\
-      ,\n              \"imaging_studies.body_part_examined\",\n              \"imaging_studies.days_to_study\"\
-      \n            ]\n          },\n          {\n            \"title\": \"COVID Tests\"\
-      ,\n            \"fields\": [\n              \"measurements.test_name\",\n  \
-      \            \"measurements.test_result_text\",\n              \"measurements.test_method\"\
-      ,\n              \"measurements.test_days_from_index\"\n            ]\n    \
-      \      },\n          {\n            \"title\": \"Medications\",\n          \
-      \  \"fields\": [\n              \"medications.days_to_medication_start\",\n\
-      \              \"medications.days_to_medication_end\",\n              \"medications.dose_sequence_number\"\
-      ,\n              \"medications.medication_code\",\n              \"medications.medication_code_system\"\
-      ,\n              \"medications.medication_manufacturer\",\n              \"\
-      medications.medication_name\",\n              \"medications.medication_status\"\
-      ,\n              \"medications.medication_type\"\n            ]\n          },\n\
-      \          {\n            \"title\": \"Procedures\",\n            \"fields\"\
-      : [\n              \"procedures.breathing_support_type\",\n              \"\
-      procedures.days_to_procedure_start\",\n              \"procedures.days_to_procedure_end\"\
-      ,\n              \"procedures.procedure_name\"\n            ]\n          },\n\
-      \          {\n            \"title\": \"Conditions\",\n            \"fields\"\
-      : [\n              \"conditions.condition_name\",\n              \"conditions.condition_code_system\"\
-      ,\n              \"conditions.condition_code\",\n              \"conditions.days_to_condition_start\"\
-      ,\n              \"conditions.days_to_condition_end\"\n            ]\n     \
-      \     },\n          {\n            \"title\": \"Annotations\",\n           \
-      \ \"fields\": [\n              \"imaging_study_annotations.airspace_disease_grading\"\
-      ,\n              \"imaging_study_annotations.class_covid19_pneumonia\",\n  \
-      \            \"imaging_study_annotations.midrc_mRALE_score\",\n            \
-      \  \"imaging_study_annotations.annotation_method\",\n              \"imaging_study_annotations.annotator_id\"\
-      \n            ]\n          }\n        ]\n      },\n      \"table\": {\n    \
-      \    \"enabled\": true,\n        \"fields\": [\n          \"submitter_id\",\n\
-      \          \"sex\",\n          \"age_at_index\",\n          \"index_event\"\
-      ,\n          \"race\",\n          \"ethnicity\",\n          \"zip\",\n     \
-      \     \"covid19_positive\",\n          \"imaging_studies.age_at_imaging\",\n\
-      \          \"imaging_studies.body_part_examined\",\n          \"imaging_studies.days_to_study\"\
-      ,\n          \"imaging_studies.loinc_code\",\n          \"imaging_studies.loinc_contrast\"\
-      ,\n          \"imaging_studies.loinc_long_common_name\",\n          \"imaging_studies.loinc_method\"\
-      ,\n          \"imaging_studies.loinc_system\",\n          \"imaging_studies.study_description\"\
-      ,\n          \"imaging_studies.study_location\",\n          \"imaging_studies.study_modality\"\
-      ,\n          \"imaging_studies.study_uid\",\n          \"measurements.test_name\"\
-      ,\n          \"measurements.test_result_text\",\n          \"measurements.test_method\"\
-      ,\n          \"measurements.test_days_from_index\",\n          \"medications.days_to_medication_start\"\
-      ,\n          \"medications.days_to_medication_end\",\n          \"medications.dose_sequence_number\"\
-      ,\n          \"medications.medication_code\",\n          \"medications.medication_code_system\"\
-      ,\n          \"medications.medication_manufacturer\",\n          \"medications.medication_name\"\
-      ,\n          \"medications.medication_status\",\n          \"medications.medication_type\"\
-      ,\n          \"procedures.breathing_support_type\",\n          \"procedures.days_to_procedure_start\"\
-      ,\n          \"procedures.days_to_procedure_end\",\n          \"procedures.procedure_name\"\
-      ,\n          \"conditions.condition_name\",\n          \"conditions.condition_code_system\"\
-      ,\n          \"conditions.condition_code\",\n          \"conditions.days_to_condition_start\"\
-      ,\n          \"conditions.days_to_condition_end\",\n          \"imaging_study_annotations.airspace_disease_grading\"\
-      ,\n          \"imaging_study_annotations.class_covid19_pneumonia\",\n      \
-      \    \"imaging_study_annotations.midrc_mRALE_score\",\n          \"imaging_study_annotations.annotation_method\"\
-      ,\n          \"imaging_study_annotations.annotator_id\",\n          \"imaging_study_annotations.instance_uids\"\
-      ,\n          \"_imaging_studies_count\",\n          \"_ct_series_file_count\"\
-      ,\n          \"_dx_series_file_count\",\n          \"_cr_series_file_count\"\
-      ,\n          \"_mr_series_file_count\",\n          \"project_id\"\n        ]\n\
-      \      },\n      \"dropdowns\": {\n        \"download-table\": {\n         \
-      \ \"title\": \"Download Table\"\n        }\n      },\n      \"buttons\": [\n\
-      \        {\n          \"enabled\": true,\n          \"type\": \"data-json\"\
-      ,\n          \"title\": \"JSON\",\n          \"dropdownId\": \"download-table\"\
-      ,\n          \"leftIcon\": \"datafile\",\n          \"rightIcon\": \"download\"\
-      ,\n          \"fileName\": \"MIDRC_Cases_table.json\"\n        },\n        {\n\
-      \          \"enabled\": true,\n          \"type\": \"data-tsv\",\n         \
-      \ \"title\": \"TSV\",\n          \"dropdownId\": \"download-table\",\n     \
-      \     \"leftIcon\": \"datafile\",\n          \"rightIcon\": \"download\",\n\
-      \          \"fileName\": \"MIDRC_Cases_table.tsv\"\n        },\n        {\n\
-      \          \"enabled\": true,\n          \"type\": \"data-csv\",\n         \
-      \ \"title\": \"CSV\",\n          \"dropdownId\": \"download-table\",\n     \
-      \     \"leftIcon\": \"datafile\",\n          \"rightIcon\": \"download\",\n\
-      \          \"fileName\": \"MIDRC_Cases_table.csv\"\n        },\n        {\n\
-      \          \"enabled\": true,\n          \"type\": \"manifest\",\n         \
-      \ \"title\": \"Download File Manifest for Cases\",\n          \"leftIcon\":\
-      \ \"datafile\",\n          \"rightIcon\": \"download\",\n          \"fileName\"\
-      : \"MIDRC_case_manifest.json\"\n        },\n        {\n          \"enabled\"\
-      : false,\n          \"type\": \"export-to-workspace\",\n          \"title\"\
-      : \"Export to Workspace\",\n          \"leftIcon\": \"datafile\",\n        \
-      \  \"rightIcon\": \"download\"\n        }\n      ],\n      \"loginForDownload\"\
-      : true,\n      \"guppyConfig\": {\n        \"dataType\": \"case\",\n       \
-      \ \"nodeCountTitle\": \"Cases\",\n        \"fieldMapping\": [\n          {\n\
-      \            \"field\": \"project_id\",\n            \"name\": \"Project ID\"\
-      \n          },\n          {\n            \"field\": \"submitter_id\",\n    \
-      \        \"name\": \"Case ID\"\n          },\n          {\n            \"field\"\
-      : \"imaging_studies.age_at_imaging\",\n            \"name\": \"Age at Imaging\"\
-      \n          },\n          {\n            \"field\": \"imaging_studies.body_part_examined\"\
-      ,\n            \"name\": \"Body Part Examined\"\n          },\n          {\n\
-      \            \"field\": \"imaging_studies.days_from_study_to_neg_covid_test\"\
-      ,\n            \"name\": \"Days from Study to Negative COVID Test\"\n      \
-      \    },\n          {\n            \"field\": \"imaging_studies.days_from_study_to_pos_covid_test\"\
-      ,\n            \"name\": \"Days from Study to Positive COVID Test\"\n      \
-      \    },\n          {\n            \"field\": \"imaging_studies.days_to_study\"\
-      ,\n            \"name\": \"Days to Study\"\n          },\n          {\n    \
-      \        \"field\": \"imaging_studies.loinc_code\",\n            \"name\": \"\
-      LOINC Code\"\n          },\n          {\n            \"field\": \"imaging_studies.loinc_contrast\"\
-      ,\n            \"name\": \"LOINC Contrast\"\n          },\n          {\n   \
-      \         \"field\": \"imaging_studies.loinc_long_common_name\",\n         \
-      \   \"name\": \"LOINC Long Common Name\"\n          },\n          {\n      \
-      \      \"field\": \"imaging_studies.loinc_method\",\n            \"name\": \"\
-      LOINC Method\"\n          },\n          {\n            \"field\": \"imaging_studies.loinc_system\"\
-      ,\n            \"name\": \"LOINC System\"\n          },\n          {\n     \
-      \       \"field\": \"imaging_studies.study_description\",\n            \"name\"\
-      : \"Study Description\"\n          },\n          {\n            \"field\": \"\
-      imaging_studies.study_location\",\n            \"name\": \"Study Location\"\n\
-      \          },\n          {\n            \"field\": \"imaging_studies.study_modality\"\
-      ,\n            \"name\": \"Study Modality\"\n          },\n          {\n   \
-      \         \"field\": \"imaging_studies.study_uid\",\n            \"name\": \"\
-      Study UID\"\n          },\n          {\n            \"field\": \"measurements.test_name\"\
-      ,\n            \"name\": \"Test Name\"\n          },\n          {\n        \
-      \    \"field\": \"measurements.test_result_text\",\n            \"name\": \"\
-      Test Result\"\n          },\n          {\n            \"field\": \"measurements.test_method\"\
-      ,\n            \"name\": \"Test Method\"\n          },\n          {\n      \
-      \      \"field\": \"measurements.test_days_from_index\",\n            \"name\"\
-      : \"Test Days from Index\"\n          },\n          {\n            \"field\"\
-      : \"medications.days_to_medication_start\",\n            \"name\": \"Days to\
-      \ Medication Start\"\n          },\n          {\n            \"field\": \"medications.days_to_medication_end\"\
-      ,\n            \"name\": \"Days to Medication End\"\n          },\n        \
-      \  {\n            \"field\": \"medications.dose_sequence_number\",\n       \
-      \     \"name\": \"Dose Sequence Number\"\n          },\n          {\n      \
-      \      \"field\": \"medications.medication_code\",\n            \"name\": \"\
-      Medication Code\"\n          },\n          {\n            \"field\": \"medications.medication_code_system\"\
-      ,\n            \"name\": \"Medication Code System\"\n          },\n        \
-      \  {\n            \"field\": \"medications.medication_manufacturer\",\n    \
-      \        \"name\": \"Medication Manufacturer\"\n          },\n          {\n\
-      \            \"field\": \"medications.medication_name\",\n            \"name\"\
-      : \"Medication Name\"\n          },\n          {\n            \"field\": \"\
-      medications.medication_status\",\n            \"name\": \"Medication Status\"\
-      \n          },\n          {\n            \"field\": \"medications.medication_type\"\
-      ,\n            \"name\": \"Medication Type\"\n          },\n          {\n  \
-      \          \"field\": \"procedures.breathing_support_type\",\n            \"\
-      name\": \"Breathing Support Type\"\n          },\n          {\n            \"\
-      field\": \"procedures.days_to_procedure_start\",\n            \"name\": \"Days\
-      \ to Procedure Start\"\n          },\n          {\n            \"field\": \"\
-      procedures.days_to_procedure_end\",\n            \"name\": \"Days to Procedure\
-      \ End\"\n          },\n          {\n            \"field\": \"procedures.procedure_name\"\
-      ,\n            \"name\": \"Procedure Name\"\n          },\n          {\n   \
-      \         \"field\": \"conditions.condition_name\",\n            \"name\": \"\
-      Condition Name\"\n          },\n          {\n            \"field\": \"conditions.condition_code_system\"\
-      ,\n            \"name\": \"Condition Code System\"\n          },\n         \
-      \ {\n            \"field\": \"conditions.condition_code\",\n            \"name\"\
-      : \"Condition Code\"\n          },\n          {\n            \"field\": \"conditions.days_to_condition_start\"\
-      ,\n            \"name\": \"Days to Condition Start\"\n          },\n       \
-      \   {\n            \"field\": \"conditions.days_to_condition_end\",\n      \
-      \      \"name\": \"Days to Condition End\"\n          },\n          {\n    \
-      \        \"field\": \"imaging_study_annotations.airspace_disease_grading\",\n\
-      \            \"name\": \"Airspace Disease Grading\"\n          },\n        \
-      \  {\n            \"field\": \"imaging_study_annotations.class_covid19_pneumonia\"\
-      ,\n            \"name\": \"Class COVID-19 Pneumonia\"\n          },\n      \
-      \    {\n            \"field\": \"imaging_study_annotations.midrc_mRALE_score\"\
-      ,\n            \"name\": \"MIDRC mRALE Score\"\n          },\n          {\n\
-      \            \"field\": \"imaging_study_annotations.annotation_method\",\n \
-      \           \"name\": \"Annotation Method\"\n          },\n          {\n   \
-      \         \"field\": \"imaging_study_annotations.annotator_id\",\n         \
-      \   \"name\": \"Annotator ID\"\n          },\n          {\n            \"field\"\
-      : \"imaging_study_annotations.instance_uids\",\n            \"name\": \"Instance\
-      \ UIDs\"\n          },\n          {\n            \"field\": \"_imaging_studies_count\"\
-      ,\n            \"name\": \"Imaging Studies Count\"\n          },\n         \
-      \ {\n            \"field\": \"_ct_series_file_count\",\n            \"name\"\
-      : \"CT Series Count\"\n          },\n          {\n            \"field\": \"\
-      _dx_series_file_count\",\n            \"name\": \"DX Series Count\"\n      \
-      \    },\n          {\n            \"field\": \"_cr_series_file_count\",\n  \
-      \          \"name\": \"CR Series Count\"\n          },\n          {\n      \
-      \      \"field\": \"_mr_series_file_count\",\n            \"name\": \"MR Series\
-      \ Count\"\n          }\n        ],\n        \"manifestMapping\": {\n       \
-      \   \"resourceIndexType\": \"data_file\",\n          \"resourceIdField\": \"\
-      object_id\",\n          \"referenceIdFieldInResourceIndex\": \"_case_id\",\n\
-      \          \"referenceIdFieldInDataIndex\": \"_case_id\"\n        },\n     \
-      \   \"accessibleFieldCheckList\": [\n          \"project_id\"\n        ],\n\
-      \        \"accessibleValidationField\": \"project_id\"\n      }\n    },\n  \
-      \  {\n      \"tabTitle\": \"Annotations\",\n      \"charts\": {},\n      \"\
-      filters\": {\n        \"tabs\": [\n          {\n            \"title\": \"Imaging\
-      \ Study Annotations\",\n            \"fields\": [\n              \"airspace_disease_grading\"\
-      ,\n              \"class_covid19_pneumonia\",\n              \"midrc_mRALE_score\"\
-      ,\n              \"annotation_method\",\n              \"annotator_id\",\n \
-      \             \"project_id\"\n            ]\n          }\n        ]\n      },\n\
-      \      \"table\": {\n        \"enabled\": true,\n        \"fields\": [\n   \
-      \       \"case_ids\",\n          \"airspace_disease_grading\",\n          \"\
-      class_covid19_pneumonia\",\n          \"midrc_mRALE_score\",\n          \"annotation_method\"\
-      ,\n          \"annotator_id\",\n          \"instance_uids\",\n          \"submitter_id\"\
-      ,\n          \"project_id\"\n        ]\n      },\n      \"dropdowns\": {\n \
-      \       \"download-table\": {\n          \"title\": \"Download Table\"\n   \
-      \     }\n      },\n      \"buttons\": [\n        {\n          \"enabled\": true,\n\
-      \          \"type\": \"data-json\",\n          \"title\": \"JSON\",\n      \
-      \    \"dropdownId\": \"download-table\",\n          \"leftIcon\": \"datafile\"\
-      ,\n          \"rightIcon\": \"download\",\n          \"fileName\": \"MIDRC_Annotations_table.json\"\
-      \n        },\n        {\n          \"enabled\": true,\n          \"type\": \"\
-      data-tsv\",\n          \"title\": \"TSV\",\n          \"dropdownId\": \"download-table\"\
-      ,\n          \"leftIcon\": \"datafile\",\n          \"rightIcon\": \"download\"\
-      ,\n          \"fileName\": \"MIDRC_Annotations_table.tsv\"\n        },\n   \
-      \     {\n          \"enabled\": true,\n          \"type\": \"data-csv\",\n \
-      \         \"title\": \"CSV\",\n          \"dropdownId\": \"download-table\"\
-      ,\n          \"leftIcon\": \"datafile\",\n          \"rightIcon\": \"download\"\
-      ,\n          \"fileName\": \"MIDRC_Annotations_table.csv\"\n        }\n    \
-      \  ],\n      \"loginForDownload\": true,\n      \"guppyConfig\": {\n       \
-      \ \"dataType\": \"annotation\",\n        \"nodeCountTitle\": \"Annotations\"\
-      ,\n        \"fieldMapping\": [\n          {\n            \"field\": \"project_id\"\
-      ,\n            \"name\": \"Project ID\"\n          },\n          {\n       \
-      \     \"field\": \"submitter_id\",\n            \"name\": \"Annotation ID\"\n\
-      \          },\n          {\n            \"field\": \"case_ids\",\n         \
-      \   \"name\": \"Case ID\"\n          }\n        ],\n        \"accessibleFieldCheckList\"\
-      : [\n          \"project_id\"\n        ],\n        \"accessibleValidationField\"\
-      : \"project_id\"\n      }\n    },\n    {\n      \"tabTitle\": \"Measurements\"\
-      ,\n      \"charts\": {\n        \"test_method\": {\n          \"chartType\"\
-      : \"fullPie\",\n          \"title\": \"Test Method\"\n        },\n        \"\
-      test_result_text\": {\n          \"chartType\": \"fullPie\",\n          \"title\"\
-      : \"COVID-19 Test Result\"\n        },\n        \"test_name\": {\n         \
-      \ \"chartType\": \"fullPie\",\n          \"title\": \"Test Name\"\n        }\n\
-      \      },\n      \"filters\": {\n        \"tabs\": [\n          {\n        \
-      \    \"title\": \"COVID-19 Tests\",\n            \"fields\": [\n           \
-      \   \"test_method\",\n              \"test_result_text\",\n              \"\
-      test_name\",\n              \"test_days_from_index\",\n              \"project_id\"\
-      \n            ]\n          }\n        ]\n      },\n      \"table\": {\n    \
-      \    \"enabled\": true,\n        \"fields\": [\n          \"case_ids\",\n  \
-      \        \"test_method\",\n          \"test_result_text\",\n          \"test_name\"\
-      ,\n          \"test_days_from_index\",\n          \"submitter_id\",\n      \
-      \    \"project_id\"\n        ]\n      },\n      \"dropdowns\": {\n        \"\
-      download-table\": {\n          \"title\": \"Download Table\"\n        }\n  \
-      \    },\n      \"buttons\": [\n        {\n          \"enabled\": true,\n   \
-      \       \"type\": \"data-json\",\n          \"title\": \"JSON\",\n         \
-      \ \"dropdownId\": \"download-table\",\n          \"leftIcon\": \"datafile\"\
-      ,\n          \"rightIcon\": \"download\",\n          \"fileName\": \"MIDRC_Measurements_table.json\"\
-      \n        },\n        {\n          \"enabled\": true,\n          \"type\": \"\
-      data-tsv\",\n          \"title\": \"TSV\",\n          \"dropdownId\": \"download-table\"\
-      ,\n          \"leftIcon\": \"datafile\",\n          \"rightIcon\": \"download\"\
-      ,\n          \"fileName\": \"MIDRC_Measurements_table.tsv\"\n        },\n  \
-      \      {\n          \"enabled\": true,\n          \"type\": \"data-csv\",\n\
-      \          \"title\": \"CSV\",\n          \"dropdownId\": \"download-table\"\
-      ,\n          \"leftIcon\": \"datafile\",\n          \"rightIcon\": \"download\"\
-      ,\n          \"fileName\": \"MIDRC_Measurements_table.csv\"\n        }\n   \
-      \   ],\n      \"loginForDownload\": true,\n      \"guppyConfig\": {\n      \
-      \  \"dataType\": \"measurement\",\n        \"nodeCountTitle\": \"Measurements\"\
-      ,\n        \"fieldMapping\": [\n          {\n            \"field\": \"project_id\"\
-      ,\n            \"name\": \"Project ID\"\n          },\n          {\n       \
-      \     \"field\": \"submitter_id\",\n            \"name\": \"Measurement ID\"\
-      \n          },\n          {\n            \"field\": \"case_ids\",\n        \
-      \    \"name\": \"Case ID\"\n          }\n        ],\n        \"accessibleFieldCheckList\"\
-      : [\n          \"project_id\"\n        ],\n        \"accessibleValidationField\"\
-      : \"project_id\"\n      }\n    },\n    {\n      \"tabTitle\": \"Imaging Studies\"\
-      ,\n      \"charts\": {},\n      \"filters\": {\n        \"tabs\": [\n      \
-      \    {\n            \"title\": \"Study Properties\",\n            \"searchFields\"\
-      : [\n              \"study_uid\"\n            ],\n            \"fields\": [\n\
-      \              \"study_modality\",\n              \"study_description\",\n \
-      \             \"age_at_imaging\",\n              \"study_year\",\n         \
-      \     \"study_year_shifted\",\n              \"body_part_examined\",\n     \
-      \         \"study_location\",\n              \"days_from_study_to_pos_covid_test\"\
-      ,\n              \"days_from_study_to_neg_covid_test\",\n              \"project_id\"\
-      \n            ]\n          },\n          {\n            \"title\": \"LOINC Properties\"\
-      ,\n            \"fields\": [\n              \"loinc_long_common_name\",\n  \
-      \            \"loinc_method\",\n              \"loinc_system\",\n          \
-      \    \"loinc_contrast\",\n              \"loinc_code\"\n            ]\n    \
-      \      },\n          {\n            \"title\": \"Imaging Properties\",\n   \
-      \         \"fields\": [\n              \"data_format\",\n              \"data_category\"\
-      ,\n              \"data_type\"\n            ]\n          },\n          {\n \
-      \           \"title\": \"Case Demographics\",\n            \"fields\": [\n \
-      \             \"covid19_positive\",\n              \"age_at_index\",\n     \
-      \         \"sex\",\n              \"race\",\n              \"ethnicity\",\n\
-      \              \"zip\",\n              \"index_event\"\n            ]\n    \
-      \      },\n          {\n            \"title\": \"Annotations\",\n          \
-      \  \"fields\": [\n              \"imaging_study_annotations.airspace_disease_grading\"\
-      ,\n              \"imaging_study_annotations.class_covid19_pneumonia\",\n  \
-      \            \"imaging_study_annotations.midrc_mRALE_score\",\n            \
-      \  \"imaging_study_annotations.annotation_method\",\n              \"imaging_study_annotations.annotator_id\"\
-      \n            ]\n          }\n        ]\n      },\n      \"table\": {\n    \
-      \    \"enabled\": true,\n        \"fields\": [\n          \"submitter_id\",\n\
-      \          \"study_modality\",\n          \"study_description\",\n         \
-      \ \"body_part_examined\",\n          \"age_at_imaging\",\n          \"days_to_study\"\
-      ,\n          \"study_year\",\n          \"study_year_shifted\",\n          \"\
-      loinc_long_common_name\",\n          \"loinc_method\",\n          \"loinc_system\"\
-      ,\n          \"loinc_contrast\",\n          \"loinc_code\",\n          \"days_from_study_to_pos_covid_test\"\
-      ,\n          \"days_from_study_to_neg_covid_test\",\n          \"data_format\"\
-      ,\n          \"covid19_positive\",\n          \"age_at_index\",\n          \"\
-      index_event\",\n          \"sex\",\n          \"race\",\n          \"ethnicity\"\
-      ,\n          \"zip\",\n          \"imaging_study_annotations.airspace_disease_grading\"\
-      ,\n          \"imaging_study_annotations.class_covid19_pneumonia\",\n      \
-      \    \"imaging_study_annotations.midrc_mRALE_score\",\n          \"imaging_study_annotations.annotation_method\"\
-      ,\n          \"imaging_study_annotations.annotator_id\",\n          \"imaging_study_annotations.instance_uids\"\
-      ,\n          \"_ct_series_file_count\",\n          \"_dx_series_file_count\"\
-      ,\n          \"_cr_series_file_count\",\n          \"_mr_series_file_count\"\
-      ,\n          \"data_format\",\n          \"data_category\",\n          \"data_type\"\
-      ,\n          \"study_uid\",\n          \"case_ids\",\n          \"object_id\"\
-      ,\n          \"project_id\"\n        ],\n        \"dicomViewerId\": \"submitter_id\"\
-      ,\n        \"dicomViewerUrl\": \"ohif-viewer\",\n        \"linkFields\": [\n\
-      \          \"submitter_id\"\n        ]\n      },\n      \"dropdowns\": {\n \
-      \       \"download-table\": {\n          \"title\": \"Download Table\"\n   \
-      \     }\n      },\n      \"buttons\": [\n        {\n          \"enabled\": true,\n\
-      \          \"type\": \"data-json\",\n          \"title\": \"JSON\",\n      \
-      \    \"dropdownId\": \"download-table\",\n          \"leftIcon\": \"datafile\"\
-      ,\n          \"rightIcon\": \"download\",\n          \"fileName\": \"MIDRC_Imaging_Studies_table.json\"\
-      \n        },\n        {\n          \"enabled\": true,\n          \"type\": \"\
-      data-tsv\",\n          \"title\": \"TSV\",\n          \"dropdownId\": \"download-table\"\
-      ,\n          \"leftIcon\": \"datafile\",\n          \"rightIcon\": \"download\"\
-      ,\n          \"fileName\": \"MIDRC_Imaging_Studies_table.tsv\"\n        },\n\
-      \        {\n          \"enabled\": true,\n          \"type\": \"data-csv\",\n\
-      \          \"title\": \"CSV\",\n          \"dropdownId\": \"download-table\"\
-      ,\n          \"leftIcon\": \"datafile\",\n          \"rightIcon\": \"download\"\
-      ,\n          \"fileName\": \"MIDRC_Imaging_Studies_table.csv\"\n        },\n\
-      \        {\n          \"enabled\": true,\n          \"type\": \"manifest\",\n\
-      \          \"title\": \"Download File Manifest for Imaging Studies\",\n    \
-      \      \"leftIcon\": \"datafile\",\n          \"rightIcon\": \"download\",\n\
-      \          \"fileName\": \"MIDRC_imaging_study_manifest.json\"\n        },\n\
-      \        {\n          \"enabled\": false,\n          \"type\": \"export-to-workspace\"\
-      ,\n          \"title\": \"Export to Workspace\",\n          \"leftIcon\": \"\
-      datafile\",\n          \"rightIcon\": \"download\"\n        }\n      ],\n  \
-      \    \"loginForDownload\": true,\n      \"guppyConfig\": {\n        \"dataType\"\
-      : \"imaging_study\",\n        \"nodeCountTitle\": \"Imaging Studies\",\n   \
-      \     \"fieldMapping\": [\n          {\n            \"field\": \"project_id\"\
-      ,\n            \"name\": \"Project ID\"\n          },\n          {\n       \
-      \     \"field\": \"study_uid\",\n            \"name\": \"Study UID\"\n     \
-      \     },\n          {\n            \"field\": \"submitter_id\",\n          \
-      \  \"name\": \"Browse in DICOM viewer\"\n          },\n          {\n       \
-      \     \"field\": \"case_ids\",\n            \"name\": \"Patient ID\"\n     \
-      \     },\n          {\n            \"field\": \"imaging_study_annotations.airspace_disease_grading\"\
-      ,\n            \"name\": \"Airspace Disease Grading\"\n          },\n      \
-      \    {\n            \"field\": \"imaging_study_annotations.class_covid19_pneumonia\"\
-      ,\n            \"name\": \"Class COVID-19 Pneumonia\"\n          },\n      \
-      \    {\n            \"field\": \"imaging_study_annotations.midrc_mRALE_score\"\
-      ,\n            \"name\": \"MIDRC mRALE Score\"\n          },\n          {\n\
-      \            \"field\": \"imaging_study_annotations.annotation_method\",\n \
-      \           \"name\": \"Annotation Method\"\n          },\n          {\n   \
-      \         \"field\": \"imaging_study_annotations.annotator_id\",\n         \
-      \   \"name\": \"Annotator ID\"\n          },\n          {\n            \"field\"\
-      : \"imaging_study_annotations.instance_uids\",\n            \"name\": \"Instance\
-      \ UIDs\"\n          },\n          {\n            \"field\": \"_ct_series_file_count\"\
-      ,\n            \"name\": \"CT Series Count\"\n          },\n          {\n  \
-      \          \"field\": \"_dx_series_file_count\",\n            \"name\": \"DX\
-      \ Series Count\"\n          },\n          {\n            \"field\": \"_cr_series_file_count\"\
-      ,\n            \"name\": \"CR Series Count\"\n          },\n          {\n  \
-      \          \"field\": \"_mr_series_file_count\",\n            \"name\": \"MR\
-      \ Series Count\"\n          },\n          {\n            \"field\": \"loinc_long_common_name\"\
-      ,\n            \"name\": \"Long Common Name (Study description)\"\n        \
-      \  },\n          {\n            \"field\": \"loinc_contrast\",\n           \
-      \ \"name\": \"Contrast\"\n          },\n          {\n            \"field\":\
-      \ \"loinc_code\",\n            \"name\": \"LOINC Code\"\n          },\n    \
-      \      {\n            \"field\": \"loinc_method\",\n            \"name\": \"\
-      Method (Modality)\"\n          },\n          {\n            \"field\": \"loinc_system\"\
-      ,\n            \"name\": \"System (Body region)\"\n          }\n        ],\n\
-      \        \"manifestMapping\": {\n          \"resourceIndexType\": \"data_file\"\
-      ,\n          \"resourceIdField\": \"object_id\",\n          \"referenceIdFieldInResourceIndex\"\
-      : \"_imaging_study_id\",\n          \"referenceIdFieldInDataIndex\": \"_imaging_study_id\"\
-      ,\n          \"useFilterForCounts\": false\n        },\n        \"accessibleFieldCheckList\"\
-      : [\n          \"project_id\"\n        ],\n        \"accessibleValidationField\"\
-      : \"project_id\"\n      }\n    },\n    {\n      \"tabTitle\": \"Data Files\"\
-      ,\n      \"charts\": {},\n      \"filters\": {\n        \"tabs\": [\n      \
-      \    {\n            \"title\": \"File Properties\",\n            \"searchFields\"\
-      : [\n              \"file_name\",\n              \"object_id\"\n           \
-      \ ],\n            \"fields\": [\n              \"source_node\",\n          \
-      \    \"data_format\",\n              \"data_category\",\n              \"data_type\"\
-      \n            ]\n          },\n          {\n            \"title\": \"Study Properties\"\
-      ,\n            \"fields\": [\n              \"study_description\",\n       \
-      \       \"age_at_imaging\",\n              \"study_year\",\n              \"\
-      study_year_shifted\",\n              \"study_location\",\n              \"days_from_study_to_pos_covid_test\"\
-      ,\n              \"days_from_study_to_neg_covid_test\",\n              \"loinc_code\"\
-      ,\n              \"loinc_contrast\",\n              \"loinc_long_common_name\"\
-      ,\n              \"loinc_method\",\n              \"loinc_system\",\n      \
-      \        \"project_id\"\n            ]\n          },\n          {\n        \
-      \    \"title\": \"Series Properties\",\n            \"searchFields\": [\n  \
-      \            \"series_uid\"\n            ],\n            \"fields\": [\n   \
-      \           \"source_node\",\n              \"acquisition_type\",\n        \
-      \      \"angio_flag\",\n              \"contrast_bolus_agent\",\n          \
-      \    \"convolution_kernel\",\n              \"detector_type\",\n           \
-      \   \"diffusion_b_value\",\n              \"diffusion_gradient_orientation\"\
-      ,\n              \"echo_number\",\n              \"echo_time\",\n          \
-      \    \"echo_train_length\",\n              \"exposure_modulation_type\",\n \
-      \             \"image_type\",\n              \"imaged_nucleus\",\n         \
-      \     \"imager_pixel_spacing\",\n              \"lossy_image_compression\",\n\
-      \              \"manufacturer\",\n              \"manufacturer_model_name\"\
-      ,\n              \"modality\",\n              \"number_of_temporal_positions\"\
-      ,\n              \"patient_position\",\n              \"pixel_spacing\",\n \
-      \             \"radiopharmaceutical\",\n              \"repetition_time\",\n\
-      \              \"scan_options\",\n              \"sequence_variant\",\n    \
-      \          \"series_description\",\n              \"slice_thickness\",\n   \
-      \           \"software_version\",\n              \"spacing_between_slices\"\
-      ,\n              \"spatial_resolution\",\n              \"transducer_type\"\
-      ,\n              \"view_position\",\n              \"data_format\",\n      \
-      \        \"data_category\",\n              \"data_type\"\n            ]\n  \
-      \        },\n          {\n            \"title\": \"Case Properties\",\n    \
-      \        \"fields\": [\n              \"covid19_positive\",\n              \"\
-      age_at_index\",\n              \"sex\",\n              \"race\",\n         \
-      \     \"zip\",\n              \"index_event\"\n            ]\n          },\n\
-      \          {\n            \"title\": \"Annotation Properties\",\n          \
-      \  \"fields\": [\n                \"source_node\",\n                \"annotation_method\"\
-      ,\n                \"annotation_name\",\n                \"annotator_id\",\n\
-      \                \"manufacturer\",\n                \"manufacturer_model_name\"\
-      ,\n                \"modality\",\n                \"series_description\",\n\
-      \                \"software_versions\",\n                \"data_format\",\n\
-      \                \"data_category\",\n                \"data_type\"\n       \
-      \     ]\n          }\n        ]\n      },\n      \"table\": {\n        \"enabled\"\
-      : true,\n        \"fields\": [\n            \"source_node\",\n            \"\
-      acquisition_type\",\n            \"angio_flag\",\n            \"contrast_bolus_agent\"\
-      ,\n            \"convolution_kernel\",\n            \"detector_type\",\n   \
-      \         \"diffusion_b_value\",\n            \"diffusion_gradient_orientation\"\
-      ,\n            \"echo_number\",\n            \"echo_time\",\n            \"\
-      echo_train_length\",\n            \"exposure_modulation_type\",\n          \
-      \  \"image_type\",\n            \"imaged_nucleus\",\n            \"imager_pixel_spacing\"\
-      ,\n            \"lossy_image_compression\",\n            \"manufacturer\",\n\
-      \            \"manufacturer_model_name\",\n            \"modality\",\n     \
-      \       \"number_of_temporal_positions\",\n            \"patient_position\"\
-      ,\n            \"pixel_spacing\",\n            \"radiopharmaceutical\",\n  \
-      \          \"repetition_time\",\n            \"scan_options\",\n           \
-      \ \"sequence_variant\",\n            \"series_description\",\n            \"\
-      slice_thickness\",\n            \"software_version\",\n            \"spacing_between_slices\"\
-      ,\n            \"spatial_resolution\",\n            \"transducer_type\",\n \
-      \           \"view_position\",\n            \"study_description\",\n       \
-      \     \"age_at_imaging\",\n            \"days_to_study\",\n            \"study_year\"\
-      ,\n            \"study_year_shifted\",\n            \"days_from_study_to_pos_covid_test\"\
-      ,\n            \"days_from_study_to_neg_covid_test\",\n            \"loinc_code\"\
-      ,\n            \"loinc_contrast\",\n            \"loinc_long_common_name\",\n\
-      \            \"loinc_method\",\n            \"loinc_system\",\n            \"\
-      covid19_positive\",\n            \"age_at_index\",\n            \"index_event\"\
-      ,\n            \"sex\",\n            \"race\",\n            \"zip\",\n     \
-      \       \"data_format\",\n            \"data_category\",\n            \"data_type\"\
-      ,\n            \"annotation_method\",\n            \"annotation_name\",\n  \
-      \          \"annotator_id\",\n            \"software_versions\",\n         \
-      \   \"series_uid\",\n            \"study_uid\",\n            \"case_ids\",\n\
-      \            \"object_id\",\n            \"submitter_id\",\n            \"project_id\"\
-      \n        ],\n        \"dicomViewerId\": \"submitter_id\",\n        \"dicomViewerUrl\"\
-      : \"ohif-viewer\",\n        \"linkFields\": [\n          \"submitter_id\"\n\
-      \        ]\n      },\n      \"dropdowns\": {\n        \"download-table\": {\n\
-      \          \"title\": \"Download Table\"\n        }\n      },\n      \"buttons\"\
-      : [\n        {\n          \"enabled\": true,\n          \"type\": \"data-json\"\
-      ,\n          \"title\": \"JSON\",\n          \"dropdownId\": \"download-table\"\
-      ,\n          \"leftIcon\": \"datafile\",\n          \"rightIcon\": \"download\"\
-      ,\n          \"fileName\": \"MIDRC_data_files_table.json\"\n        },\n   \
-      \     {\n          \"enabled\": true,\n          \"type\": \"data-tsv\",\n \
-      \         \"title\": \"TSV\",\n          \"dropdownId\": \"download-table\"\
-      ,\n          \"leftIcon\": \"datafile\",\n          \"rightIcon\": \"download\"\
-      ,\n          \"fileName\": \"MIDRC_data_files_table.tsv\"\n        },\n    \
-      \    {\n          \"enabled\": true,\n          \"type\": \"data-csv\",\n  \
-      \        \"title\": \"CSV\",\n          \"dropdownId\": \"download-table\",\n\
-      \          \"leftIcon\": \"datafile\",\n          \"rightIcon\": \"download\"\
-      ,\n          \"fileName\": \"MIDRC_data_files_table.csv\"\n        },\n    \
-      \    {\n          \"enabled\": true,\n          \"type\": \"file-manifest\"\
-      ,\n          \"title\": \"Download File Manifest\",\n          \"leftIcon\"\
-      : \"datafile\",\n          \"rightIcon\": \"download\",\n          \"fileName\"\
-      : \"MIDRC_data_files_manifest.json\"\n        },\n        {\n          \"enabled\"\
-      : false,\n          \"type\": \"export-to-workspace\",\n          \"title\"\
-      : \"Export to Workspace\",\n          \"leftIcon\": \"datafile\",\n        \
-      \  \"rightIcon\": \"download\"\n        }\n      ],\n      \"loginForDownload\"\
-      : true,\n      \"guppyConfig\": {\n        \"dataType\": \"data_file\",\n  \
-      \      \"nodeCountTitle\": \"Data Files\",\n        \"fieldMapping\": [\n  \
-      \        {\n            \"field\": \"project_id\",\n            \"name\": \"\
-      Project ID\"\n          },\n          {\n            \"field\": \"case_ids\"\
-      ,\n            \"name\": \"Patient ID\"\n          },\n          {\n       \
-      \     \"field\": \"study_uid\",\n            \"name\": \"Study UID\"\n     \
-      \     },\n          {\n            \"field\": \"series_UID\",\n            \"\
-      name\": \"Series UID\"\n          }\n        ],\n        \"manifestMapping\"\
-      : {\n          \"referenceIdFieldInResourceIndex\": \"object_id\",\n       \
-      \   \"referenceIdFieldInDataIndex\": \"object_id\"\n        },\n        \"downloadAccessor\"\
-      : \"object_id\",\n        \"accessibleFieldCheckList\": [\n          \"project_id\"\
-      \n        ],\n        \"accessibleValidationField\": \"project_id\"\n      }\n\
-      \    }\n  ],\n  \"discoveryConfig\": {\n    \"features\": {\n      \"pageTitle\"\
-      : {\n        \"enabled\": false,\n        \"text\": \"Dataset Discovery\"\n\
-      \      },\n      \"tagsColumn\": {\n        \"enabled\": false\n      },\n \
-      \     \"tagsInDescription\": {\n        \"enabled\": true\n      },\n      \"\
-      search\": {\n        \"searchBar\": {\n          \"enabled\": true\n       \
-      \ },\n        \"tagSearchDropdown\": {\n          \"enabled\": true,\n     \
-      \     \"collapsibleButtonText\": \"Dataset Filters\"\n        }\n      },\n\
-      \      \"authorization\": {\n        \"enabled\": true,\n        \"supportedValues\"\
-      : {\n          \"accessible\": {\n            \"enabled\": true,\n         \
-      \   \"menuText\": \"Available\"\n          },\n          \"unaccessible\": {\n\
-      \            \"enabled\": true,\n            \"menuText\": \"Not Accessible\"\
-      \n          },\n          \"pending\": {\n            \"enabled\": true,\n \
-      \           \"menuText\": \"Pending\"\n          },\n          \"notAvailable\"\
-      : {\n            \"enabled\": true,\n            \"menuText\": \"Not Available\"\
-      \n          }\n        }\n      }\n    },\n    \"aggregations\": [\n      {\n\
-      \        \"name\": \"Datasets\",\n        \"field\": \"_unique_id\",\n     \
-      \   \"type\": \"count\"\n      }\n    ],\n    \"tagSelector\": {\n      \"title\"\
-      : \"Tags by category\"\n    },\n    \"studyColumns\": [\n      {\n        \"\
-      name\": \"Title\",\n        \"field\": \"short_name\",\n        \"contentType\"\
-      : \"string\",\n        \"width\": 200,\n        \"errorIfNotAvailable\": false,\n\
-      \        \"valueIfNotAvailable\": \"n/a\"\n      },\n      {\n        \"name\"\
-      : \"Description\",\n        \"field\": \"data_description\",\n        \"contentType\"\
-      : \"string\",\n        \"width\": 400,\n        \"errorIfNotAvailable\": false,\n\
-      \        \"valueIfNotAvailable\": \"n/a\"\n      },\n      {\n        \"name\"\
-      : \"Publication URL\",\n        \"field\": \"data_url\",\n        \"contentType\"\
-      : \"link\",\n        \"width\": 300,\n        \"errorIfNotAvailable\": false,\n\
-      \        \"valueIfNotAvailable\": \"n/a\"\n      }\n    ],\n    \"studyPreviewField\"\
-      : {\n      \"name\": \"Research Description\",\n      \"field\": \"research_description\"\
-      ,\n      \"contentType\": \"string\",\n      \"includeName\": true,\n      \"\
-      includeIfNotAvailable\": false\n    },\n    \"studyPageFields\": {\n      \"\
-      showAllAvailableFields\": false,\n      \"header\": {\n        \"field\": \"\
-      short_name\"\n      },\n      \"downloadLinks\": {\n        \"field\": \"data_download_links\"\
-      \n      },\n      \"fieldsToShow\": [\n        {\n          \"groupName\": \"\
-      Dataset Identifiers\",\n          \"includeName\": false,\n          \"fields\"\
-      : [\n            {\n              \"name\": \"DOI Title\",\n              \"\
-      field\": \"doi_title\",\n              \"contentType\": \"string\",\n      \
-      \        \"includeIfNotAvailable\": false\n            },\n            {\n \
-      \             \"name\": \"DOI Citation\",\n              \"field\": \"doi_citation\"\
-      ,\n              \"contentType\": \"string\",\n              \"includeIfNotAvailable\"\
-      : false\n            },\n            {\n              \"name\": \"Citation\"\
-      ,\n              \"field\": \"data_citation\",\n              \"contentType\"\
-      : \"string\",\n              \"includeIfNotAvailable\": false\n            },\n\
-      \            {\n              \"name\": \"Abstract\",\n              \"field\"\
-      : \"abstract\",\n              \"contentType\": \"string\",\n              \"\
-      includeIfNotAvailable\": false\n            },\n            {\n            \
-      \  \"name\": \"Research Description\",\n              \"field\": \"research_description\"\
-      ,\n              \"contentType\": \"string\",\n              \"includeIfNotAvailable\"\
-      : false\n            },\n            {\n              \"name\": \"Data Description\"\
-      ,\n              \"field\": \"data_description\",\n              \"contentType\"\
-      : \"string\",\n              \"includeIfNotAvailable\": false\n            },\n\
-      \            {\n              \"name\": \"DOI Creators\",\n              \"\
-      field\": \"doi_creators\",\n              \"contentType\": \"string\",\n   \
-      \           \"includeIfNotAvailable\": false\n            },\n            {\n\
-      \              \"name\": \"DOI Data Access Information\",\n              \"\
-      field\": \"doi_access_information\",\n              \"contentType\": \"string\"\
-      ,\n              \"includeIfNotAvailable\": false\n            },\n        \
-      \    {\n              \"name\": \"DOI Data Access Information Link\",\n    \
-      \          \"field\": \"doi_access_information_link\",\n              \"contentType\"\
-      : \"link\",\n              \"includeIfNotAvailable\": false\n            },\n\
-      \            {\n              \"name\": \"DOI Resolvable Link\",\n         \
-      \     \"field\": \"doi_resolvable_link\",\n              \"contentType\": \"\
-      link\",\n              \"includeIfNotAvailable\": false\n            },\n  \
-      \          {\n              \"name\": \"Dataset Information URL\",\n       \
-      \       \"field\": \"data_url\",\n              \"contentType\": \"link\",\n\
-      \              \"includeIfNotAvailable\": false\n            },\n          \
-      \  {\n              \"name\": \"DOI Contact\",\n              \"field\": \"\
-      doi_contact\",\n              \"contentType\": \"link\",\n              \"includeIfNotAvailable\"\
-      : false\n            },\n            {\n              \"name\": \"DOI Availability\"\
-      ,\n              \"field\": \"doi_availability\",\n              \"contentType\"\
-      : \"string\",\n              \"includeIfNotAvailable\": false\n            },\n\
-      \            {\n              \"name\": \"DOI Description\",\n             \
-      \ \"field\": \"doi_description\",\n              \"contentType\": \"string\"\
-      ,\n              \"includeIfNotAvailable\": false\n            },\n        \
-      \    {\n              \"name\": \"DOI Version\",\n              \"field\": \"\
-      doi_version_information\",\n              \"contentType\": \"string\",\n   \
-      \           \"includeIfNotAvailable\": false\n            },\n            {\n\
-      \              \"name\": \"DOI Resource Type\",\n              \"field\": \"\
-      doi_resource_type\",\n              \"contentType\": \"string\",\n         \
-      \     \"includeIfNotAvailable\": false\n            },\n            {\n    \
-      \          \"name\": \"DOI Publication Year\",\n              \"field\": \"\
-      doi_publication_year\",\n              \"contentType\": \"string\",\n      \
-      \        \"includeIfNotAvailable\": false\n            },\n            {\n \
-      \             \"name\": \"DOI Funding References\",\n              \"field\"\
-      : \"doi_funding_references\",\n              \"contentType\": \"string\",\n\
-      \              \"includeIfNotAvailable\": false\n            },\n          \
-      \  {\n              \"name\": \"DOI Publisher\",\n              \"field\": \"\
-      doi_publisher\",\n              \"contentType\": \"string\",\n             \
-      \ \"includeIfNotAvailable\": false\n            },\n            {\n        \
-      \      \"name\": \"Primary Site\",\n              \"field\": \"primary_site\"\
-      ,\n              \"contentType\": \"string\",\n              \"includeIfNotAvailable\"\
-      : false\n            },\n            {\n              \"name\": \"Disease Type\"\
-      ,\n              \"field\": \"disease_type\",\n              \"contentType\"\
-      : \"string\",\n              \"includeIfNotAvailable\": false\n            },\n\
-      \            {\n              \"name\": \"Case Count\",\n              \"field\"\
-      : \"cases_count\",\n              \"contentType\": \"number\",\n           \
-      \   \"includeIfNotAvailable\": false\n            },\n            {\n      \
-      \        \"name\": \"Files Count\",\n              \"field\": \"files_count\"\
-      ,\n              \"contentType\": \"number\",\n              \"includeIfNotAvailable\"\
-      : false\n            }\n          ]\n        },\n        {\n          \"fields\"\
-      : [\n            {\n              \"name\": \"Research Description\",\n    \
-      \          \"field\": \"research_description\",\n              \"contentType\"\
-      : \"paragraphs\",\n              \"includeName\": true,\n              \"includeIfNotAvailable\"\
-      : false,\n              \"valueIfNotAvailable\": \"No description has been provided\
-      \ for this study.\"\n            }\n          ]\n        }\n      ]\n    },\n\
-      \    \"minimalFieldMapping\": {\n      \"tagsListFieldName\": \"tags\",\n  \
-      \    \"authzField\": \"authz\",\n      \"uid\": \"_unique_id\"\n    },\n   \
-      \ \"tagCategories\": [\n      {\n        \"name\": \"disease_type\",\n     \
-      \   \"displayName\": \"Disease Type\",\n        \"color\": \"#532565\",\n  \
-      \      \"display\": true\n      },\n      {\n        \"name\": \"primary_site\"\
-      ,\n        \"displayName\": \"Primary Site\",\n        \"color\": \"#981f32\"\
-      ,\n        \"display\": true\n      }\n    ]\n  }\n}\n"
+    json: |
+      {
+          "gaTrackingId": "UA-119127212-13",
+          "graphql": {
+              "boardCounts": [
+                  {
+                      "graphql": "_summary_location_count",
+                      "name": "Location",
+                      "plural": "Locations"
+                  },
+                  {
+                      "graphql": "_subject_count",
+                      "name": "Subject",
+                      "plural": "Subjects"
+                  }
+              ],
+              "chartCounts": [
+                  {
+                      "graphql": "_subject_count",
+                      "name": "Subject"
+                  },
+                  {
+                      "graphql": "_study_count",
+                      "name": "Study"
+                  }
+              ],
+              "projectDetails": "boardCounts"
+          },
+          "components": {
+              "appName": "Pauline's Cool Commons",
+              "index": {
+                  "introduction": {
+                      "heading": "Pauline's Cool Commons",
+                      "text": "I support the management, analysis and sharing of cool data",
+                      "link": "/submission"
+                  },
+                  "buttons": [],
+                  "homepageChartNodes": [
+                      {
+                          "node": "summary_location",
+                          "name": "Locations"
+                      },
+                      {
+                          "node": "summary_report",
+                          "name": "Summary Reports"
+                      },
+                      {
+                          "node": "subject",
+                          "name": "Subjects"
+                      }
+                  ]
+              },
+              "navigation": {
+                  "title": "Pauline's Cool Commons",
+                  "items": [
+                      {
+                          "name": "Notebook Browser",
+                          "link": "/resource-browser",
+                          "icon": "query",
+                          "tooltip": "The notebooks pull data from various external sources to generate and output useful tables, charts, graphs, and models."
+                      },
+                      {
+                          "icon": "query",
+                          "link": "/study-viewer/project",
+                          "color": "#a2a2a2",
+                          "name": "Study Viewer"
+                      },
+                      {
+                          "name": "Exploration",
+                          "link": "/explorer",
+                          "icon": "exploration",
+                          "tooltip": "The Exploration Page enables discovery of the data at the subject level and features a cohort builder."
+                      },
+                      {
+                          "name": "Workspace",
+                          "link": "/workspace",
+                          "icon": "workspace",
+                          "tooltip": "The Workspace provides a secure cloud environment featuring Jupyter Notebooks and RStudio."
+                      },
+                      {
+                          "name": "Dictionary",
+                          "link": "/DD",
+                          "icon": "dictionary",
+                          "tooltip": "The Data Dictionary serves to inform the data model and is updated as new data is ingested."
+                      }
+                  ]
+              },
+              "topBar": {
+                  "items": [
+                      {
+                          "link": "/",
+                          "name": "Pauline's Cool Commons"
+                      },
+                      {
+                          "icon": "upload",
+                          "link": "/submission",
+                          "name": "Submit Cool Data"
+                      },
+                      {
+                          "link": "https://gen3.org/resources/user/",
+                          "name": "Cool Documentation"
+                      },
+                      {
+                          "link": "support@datacommons.io",
+                          "name": "Cool Support"
+                      }
+                  ],
+                  "useProfileDropdown": true
+              },
+              "login": {
+                  "title": "Pauline's Cool Commons",
+                  "subTitle": "Login to access cool data",
+                  "text": "",
+                  "image": "/../../../../custom/sponsors/gitops-sponsors/pika"
+              },
+              "categorical9Colors": [
+                  "#fad61f",
+                  "#e19722",
+                  "#811e08",
+                  "#f62d13",
+                  "#000000",
+                  "#ed5460",
+                  "#000000"
+              ],
+              "footerLogos": [
+                  {
+                      "src": "/src/img/gen3.png",
+                      "href": "https://ctds.uchicago.edu/gen3",
+                      "alt": "Gen3 Data Commons"
+                  }
+              ]
+          },
+          "featureFlags": {
+              "explorer": true,
+              "analysis": true,
+              "explorerPublic": true,
+              "explorerHideEmptyFilterSection": true,
+              "explorerFilterValuesToHide": [
+                  "no data"
+              ]
+          },
+          "analysisTools": [],
+          "explorerConfig": [
+              {
+                  "tabTitle": "Datasets",
+                  "charts": {},
+                  "filters": {
+                      "tabs": [
+                          {
+                              "title": "Details",
+                              "fields": [
+                                  "date_collected",
+                                  "investigator_affiliation",
+                                  "data_description"
+                              ]
+                          }
+                      ]
+                  },
+                  "table": {
+                      "enabled": true,
+                      "fields": [
+                          "url",
+                          "code",
+                          "date_collected",
+                          "investigator_affiliation",
+                          "name",
+                          "data_description"
+                      ],
+                      "linkFields": [
+                          "url"
+                      ]
+                  },
+                  "buttons": [],
+                  "guppyConfig": {
+                      "dataType": "dataset",
+                      "nodeCountTitle": "Datasets",
+                      "fieldMapping": [
+                          {
+                              "field": "url",
+                              "name": "Source URL"
+                          },
+                          {
+                              "field": "investigator_affiliation",
+                              "name": "Source"
+                          },
+                          {
+                              "field": "name",
+                              "name": "Dataset"
+                          },
+                          {
+                              "field": "date_collected",
+                              "name": "Data Collection Status"
+                          }
+                      ],
+                      "manifestMapping": {
+                          "referenceIdFieldInResourceIndex": "code"
+                      },
+                      "accessibleFieldCheckList": [
+                          "project_id"
+                      ],
+                      "accessibleValidationField": "project_id"
+                  }
+              },
+              {
+                  "tabTitle": "Subjects",
+                  "charts": {
+                      "project_investigator_affiliation": {
+                          "chartType": "bar",
+                          "title": "Dataset Source"
+                      },
+                      "gender": {
+                          "chartType": "fullPie",
+                          "title": "Gender"
+                      },
+                      "country_region": {
+                          "chartType": "bar",
+                          "title": "Country"
+                      },
+                      "symptoms": {
+                          "chartType": "bar",
+                          "title": "Symptoms"
+                      }
+                  },
+                  "filters": {
+                      "tabs": [
+                          {
+                              "title": "Details",
+                              "fields": [
+                                  "project_investigator_affiliation",
+                                  "project_name"
+                              ]
+                          },
+                          {
+                              "title": "Clinical",
+                              "fields": [
+                                  "covid_19_status",
+                                  "vital_status",
+                                  "icu_status",
+                                  "hospital",
+                                  "condition",
+                                  "symptoms",
+                                  "reporting_source",
+                                  "exposure",
+                                  "pneumonia_type",
+                                  "ventilator_status",
+                                  "extubated",
+                                  "pO2_saturation",
+                                  "leukocyte_count",
+                                  "view",
+                                  "study_doi"
+                              ]
+                          },
+                          {
+                              "title": "Demographics",
+                              "fields": [
+                                  "age",
+                                  "gender",
+                                  "ethnicity",
+                                  "country_region",
+                                  "province_state",
+                                  "city",
+                                  "travel_history_location"
+                              ]
+                          }
+                      ]
+                  },
+                  "table": {
+                      "enabled": true,
+                      "fields": [
+                          "project_url",
+                          "project_code",
+                          "project_date_collected",
+                          "project_investigator_affiliation",
+                          "project_name",
+                          "age",
+                          "gender",
+                          "ethnicity",
+                          "country_region",
+                          "province_state",
+                          "city",
+                          "covid_19_status",
+                          "vital_status",
+                          "isolation_status",
+                          "icu_status",
+                          "ventilator_status",
+                          "hospital",
+                          "symptoms",
+                          "exposure",
+                          "pneumonia_type",
+                          "extubated",
+                          "pO2_saturation",
+                          "leukocyte_count",
+                          "view",
+                          "study_doi",
+                          "reporting_source"
+                      ],
+                      "linkFields": [
+                          "project_url"
+                      ]
+                  },
+                  "dropdowns": {
+                      "download-clinical": {
+                          "title": "Download Clinical Data"
+                      }
+                  },
+                  "buttons": [
+                      {
+                          "enabled": true,
+                          "type": "data-json",
+                          "title": "JSON",
+                          "dropdownId": "download-clinical",
+                          "leftIcon": "datafile",
+                          "rightIcon": "download",
+                          "fileName": "clinical.json"
+                      },
+                      {
+                          "enabled": true,
+                          "type": "data-tsv",
+                          "title": "TSV",
+                          "dropdownId": "download-clinical",
+                          "leftIcon": "datafile",
+                          "rightIcon": "download",
+                          "fileName": "clinical.tsv"
+                      },
+                      {
+                          "enabled": true,
+                          "type": "data-csv",
+                          "title": "CSV",
+                          "dropdownId": "download-clinical",
+                          "leftIcon": "datafile",
+                          "rightIcon": "download",
+                          "fileName": "clinical.csv"
+                      }
+                  ],
+                  "guppyConfig": {
+                      "dataType": "subject",
+                      "nodeCountTitle": "Subjects",
+                      "fieldMapping": [
+                          {
+                              "field": "project_url",
+                              "name": "Source URL"
+                          },
+                          {
+                              "field": "project_code",
+                              "name": "Code"
+                          },
+                          {
+                              "field": "project_name",
+                              "name": "Dataset"
+                          },
+                          {
+                              "field": "project_investigator_affiliation",
+                              "name": "Source"
+                          },
+                          {
+                              "field": "country_region",
+                              "name": "Country or Region"
+                          },
+                          {
+                              "field": "province_state",
+                              "name": "Province or State"
+                          },
+                          {
+                              "field": "covid_19_status",
+                              "name": "COVID-19 Status"
+                          },
+                          {
+                              "field": "icu_status",
+                              "name": "ICU Status"
+                          },
+                          {
+                              "field": "view",
+                              "name": "X-ray View"
+                          },
+                          {
+                              "field": "study_doi",
+                              "name": "Study DOI"
+                          },
+                          {
+                              "field": "pO2_saturation",
+                              "name": "pO2 Saturation (percent)"
+                          },
+                          {
+                              "field": "leukocyte_count",
+                              "name": "Leukocyte Count (10^3/\u00b5l)"
+                          },
+                          {
+                              "field": "age",
+                              "name": "Age (years)"
+                          },
+                          {
+                              "field": "project_date_collected",
+                              "name": "Data Collection Status"
+                          }
+                      ],
+                      "manifestMapping": {
+                          "referenceIdFieldInResourceIndex": "_subject_id"
+                      },
+                      "accessibleFieldCheckList": [
+                          "project_id"
+                      ],
+                      "accessibleValidationField": "project_id"
+                  }
+              },
+              {
+                  "tabTitle": "Interventions",
+                  "charts": {},
+                  "filters": {
+                      "tabs": [
+                          {
+                              "title": "Details",
+                              "fields": [
+                                  "project_investigator_affiliation",
+                                  "project_name",
+                                  "title",
+                                  "focus",
+                                  "technology",
+                                  "development_stage",
+                                  "phase"
+                              ]
+                          }
+                      ]
+                  },
+                  "table": {
+                      "enabled": true,
+                      "fields": [
+                          "project_url",
+                          "project_date_collected",
+                          "project_investigator_affiliation",
+                          "project_name",
+                          "title",
+                          "focus",
+                          "description",
+                          "technology",
+                          "development_stage",
+                          "phase",
+                          "sponsor",
+                          "location",
+                          "nct_number"
+                      ],
+                      "linkFields": [
+                          "project_url"
+                      ]
+                  },
+                  "dropdowns": {
+                      "download-clinical": {
+                          "title": "Download Clinical Data"
+                      }
+                  },
+                  "buttons": [
+                      {
+                          "enabled": true,
+                          "type": "data-json",
+                          "title": "JSON",
+                          "dropdownId": "download-clinical",
+                          "leftIcon": "datafile",
+                          "rightIcon": "download",
+                          "fileName": "clinical.json"
+                      },
+                      {
+                          "enabled": true,
+                          "type": "data-tsv",
+                          "title": "TSV",
+                          "dropdownId": "download-clinical",
+                          "leftIcon": "datafile",
+                          "rightIcon": "download",
+                          "fileName": "clinical.tsv"
+                      },
+                      {
+                          "enabled": true,
+                          "type": "data-csv",
+                          "title": "CSV",
+                          "dropdownId": "download-clinical",
+                          "leftIcon": "datafile",
+                          "rightIcon": "download",
+                          "fileName": "clinical.csv"
+                      }
+                  ],
+                  "guppyConfig": {
+                      "dataType": "clinical_trials",
+                      "nodeCountTitle": "Interventions",
+                      "fieldMapping": [
+                          {
+                              "field": "project_url",
+                              "name": "Source URL"
+                          },
+                          {
+                              "field": "project_code",
+                              "name": "Code"
+                          },
+                          {
+                              "field": "project_name",
+                              "name": "Dataset"
+                          },
+                          {
+                              "field": "project_investigator_affiliation",
+                              "name": "Source"
+                          },
+                          {
+                              "field": "title",
+                              "name": "Intervention Name"
+                          },
+                          {
+                              "field": "nct_number",
+                              "name": "NCT Number"
+                          },
+                          {
+                              "field": "project_date_collected",
+                              "name": "Data Collection Status"
+                          }
+                      ],
+                      "manifestMapping": {
+                          "referenceIdFieldInResourceIndex": "project_id"
+                      },
+                      "accessibleFieldCheckList": [
+                          "project_id"
+                      ],
+                      "accessibleValidationField": "project_id"
+                  }
+              },
+              {
+                  "tabTitle": "Genomics",
+                  "charts": {
+                      "data_type": {
+                          "chartType": "bar",
+                          "title": "Data Type"
+                      },
+                      "data_format": {
+                          "chartType": "bar",
+                          "title": "Data Format"
+                      },
+                      "host": {
+                          "chartType": "bar",
+                          "title": "Host"
+                      },
+                      "organism": {
+                          "chartType": "bar",
+                          "title": "Organism"
+                      },
+                      "sample_type": {
+                          "chartType": "bar",
+                          "title": "Sample Type"
+                      },
+                      "isolation_source": {
+                          "chartType": "bar",
+                          "title": "Isolation Source"
+                      }
+                  },
+                  "filters": {
+                      "tabs": [
+                          {
+                              "title": "Details",
+                              "fields": [
+                                  "project_investigator_affiliation",
+                                  "project_name"
+                              ]
+                          },
+                          {
+                              "title": "Viral",
+                              "fields": [
+                                  "country_region",
+                                  "province_state",
+                                  "county",
+                                  "host",
+                                  "organism",
+                                  "data_type",
+                                  "data_format",
+                                  "sample_type",
+                                  "originating_lab",
+                                  "submitting_lab",
+                                  "submitting_lab_PI",
+                                  "collection_date"
+                              ]
+                          }
+                      ]
+                  },
+                  "table": {
+                      "enabled": true,
+                      "fields": [
+                          "project_url",
+                          "project_code",
+                          "project_date_collected",
+                          "project_investigator_affiliation",
+                          "project_name",
+                          "country_region",
+                          "province_state",
+                          "county",
+                          "host",
+                          "organism",
+                          "sample_type",
+                          "originating_lab",
+                          "submitting_lab",
+                          "submitting_lab_PI",
+                          "collection_date",
+                          "file_name",
+                          "data_type",
+                          "data_format",
+                          "file_size",
+                          "object_id",
+                          "project_date_collected"
+                      ],
+                      "linkFields": [
+                          "project_url"
+                      ]
+                  },
+                  "dropdowns": {
+                      "download-clinical": {
+                          "title": "Download Clinical Data"
+                      }
+                  },
+                  "buttons": [
+                      {
+                          "enabled": true,
+                          "type": "data-json",
+                          "title": "JSON",
+                          "dropdownId": "download-clinical",
+                          "leftIcon": "datafile",
+                          "rightIcon": "download",
+                          "fileName": "clinical.json"
+                      },
+                      {
+                          "enabled": true,
+                          "type": "data-tsv",
+                          "title": "TSV",
+                          "dropdownId": "download-clinical",
+                          "leftIcon": "datafile",
+                          "rightIcon": "download",
+                          "fileName": "clinical.tsv"
+                      },
+                      {
+                          "enabled": true,
+                          "type": "data-csv",
+                          "title": "CSV",
+                          "dropdownId": "download-clinical",
+                          "leftIcon": "datafile",
+                          "rightIcon": "download",
+                          "fileName": "clinical.csv"
+                      },
+                      {
+                          "enabled": true,
+                          "type": "file-manifest",
+                          "title": "Download Data Files Manifest",
+                          "leftIcon": "datafile",
+                          "rightIcon": "download",
+                          "fileName": "file-manifest.json"
+                      },
+                      {
+                          "enabled": true,
+                          "type": "export-files-to-workspace",
+                          "title": "Export Data Files to Workspace",
+                          "leftIcon": "datafile",
+                          "rightIcon": "download"
+                      }
+                  ],
+                  "guppyConfig": {
+                      "dataType": "genomic_file",
+                      "fieldMapping": [
+                          {
+                              "field": "project_url",
+                              "name": "Source URL"
+                          },
+                          {
+                              "field": "project_code",
+                              "name": "Code"
+                          },
+                          {
+                              "field": "project_name",
+                              "name": "Dataset"
+                          },
+                          {
+                              "field": "project_investigator_affiliation",
+                              "name": "Source"
+                          },
+                          {
+                              "field": "object_id",
+                              "name": "GUID"
+                          },
+                          {
+                              "field": "country_region",
+                              "name": "Country or Region"
+                          },
+                          {
+                              "field": "province_state",
+                              "name": "Province or State"
+                          },
+                          {
+                              "field": "submitting_lab_PI",
+                              "name": "Submiting Lab PI"
+                          },
+                          {
+                              "field": "collection_date",
+                              "name": "Collection Date (year-month-day)"
+                          },
+                          {
+                              "field": "project_date_collected",
+                              "name": "Data Collection Status"
+                          }
+                      ],
+                      "nodeCountTitle": "Files",
+                      "manifestMapping": {
+                          "referenceIdFieldInResourceIndex": "object_id",
+                          "referenceIdFieldInDataIndex": "object_id"
+                      },
+                      "downloadAccessor": "object_id",
+                      "accessibleFieldCheckList": [
+                          "project_id"
+                      ],
+                      "accessibleValidationField": "project_id"
+                  }
+              },
+              {
+                  "tabTitle": "Locations",
+                  "charts": {
+                      "project_investigator_affiliation": {
+                          "chartType": "bar",
+                          "title": "Dataset Source"
+                      },
+                      "country_region": {
+                          "chartType": "bar",
+                          "title": "Country"
+                      },
+                      "county": {
+                          "chartType": "bar",
+                          "title": "County"
+                      }
+                  },
+                  "filters": {
+                      "tabs": [
+                          {
+                              "title": "Details",
+                              "fields": [
+                                  "project_investigator_affiliation",
+                                  "project_name"
+                              ]
+                          },
+                          {
+                              "title": "Global",
+                              "fields": [
+                                  "country_region",
+                                  "province_state",
+                                  "county",
+                                  "confirmed",
+                                  "deaths",
+                                  "recovered",
+                                  "testing"
+                              ]
+                          },
+                          {
+                              "title": "Illinois",
+                              "fields": [
+                                  "community_area",
+                                  "state_region_description",
+                                  "reporting_org",
+                                  "deaths_per_10000",
+                                  "region_icu_capacity",
+                                  "region_icu_avail",
+                                  "region_vents_capacity",
+                                  "region_vents_available",
+                                  "state_vent_covid_patients",
+                                  "state_icu_covid_patients",
+                                  "state_covid_patients_non_icu",
+                                  "state_covid_pui_patients",
+                                  "state_total_covid_pui_in_hospital",
+                                  "state_icu_capacity",
+                                  "state_icu_available",
+                                  "state_vent_capacity",
+                                  "state_vents_available",
+                                  "state_Ventilators_open_pct",
+                                  "state_ventilators_in_use",
+                                  "state_ventilators_in_use_covid",
+                                  "state_ventilators_covid_patients_pct",
+                                  "state_total_beds",
+                                  "state_total_beds_available",
+                                  "total_in_use_beds_covid",
+                                  "state_pct_beds_covid_pui",
+                                  "state_pct_hospital_beds_available",
+                                  "state_icu_open_beds",
+                                  "state_icu_beds_used",
+                                  "state_icu_open_beds_pct"
+                              ]
+                          },
+                          {
+                              "title": "Public Health",
+                              "fields": [
+                                  "population_density",
+                                  "completed_high_school",
+                                  "college_degree",
+                                  "graduate_degree",
+                                  "job_density",
+                                  "jail",
+                                  "hhinc_mean",
+                                  "med_hhinc"
+                              ]
+                          }
+                      ]
+                  },
+                  "table": {
+                      "enabled": true,
+                      "fields": [
+                          "project_url",
+                          "project_code",
+                          "project_date_collected",
+                          "project_investigator_affiliation",
+                          "project_name",
+                          "country_region",
+                          "province_state",
+                          "county",
+                          "community_area",
+                          "state_region_description",
+                          "reporting_org",
+                          "date",
+                          "confirmed",
+                          "deaths",
+                          "recovered",
+                          "testing",
+                          "population_gtr_65",
+                          "estimated_full_mech_pediatric_ventilators",
+                          "region_icu_avail",
+                          "region_icu_capacity",
+                          "region_vents_available",
+                          "region_vents_capacity",
+                          "state_vent_covid_patients",
+                          "state_icu_covid_patients",
+                          "state_covid_patients_non_icu",
+                          "state_covid_pui_patients",
+                          "state_total_covid_pui_in_hospital",
+                          "state_total_covid_pui_in_icu",
+                          "state_icu_capacity",
+                          "state_icu_available",
+                          "state_vent_capacity",
+                          "state_vents_available",
+                          "state_Ventilators_open_pct",
+                          "state_ventilators_in_use",
+                          "state_ventilators_in_use_covid",
+                          "state_ventilators_covid_patients_pct",
+                          "state_total_beds",
+                          "state_total_beds_available",
+                          "state_total_beds_used",
+                          "total_in_use_beds_non_covid",
+                          "total_in_use_beds_covid",
+                          "state_pct_beds_covid_pui",
+                          "state_pct_hospital_beds_available",
+                          "state_icu_open_beds",
+                          "state_icu_beds_used",
+                          "state_icu_open_beds_pct",
+                          "population_density",
+                          "completed_high_school",
+                          "college_degree",
+                          "graduate_degree",
+                          "job_density",
+                          "jail",
+                          "hhinc_mean",
+                          "med_hhinc"
+                      ],
+                      "linkFields": [
+                          "project_url"
+                      ]
+                  },
+                  "dropdowns": {
+                      "download-clinical": {
+                          "title": "Download Clinical Data"
+                      }
+                  },
+                  "buttons": [
+                      {
+                          "enabled": true,
+                          "type": "data-json",
+                          "title": "JSON",
+                          "dropdownId": "download-clinical",
+                          "leftIcon": "datafile",
+                          "rightIcon": "download",
+                          "fileName": "clinical.json"
+                      },
+                      {
+                          "enabled": true,
+                          "type": "data-tsv",
+                          "title": "TSV",
+                          "dropdownId": "download-clinical",
+                          "leftIcon": "datafile",
+                          "rightIcon": "download",
+                          "fileName": "clinical.tsv"
+                      },
+                      {
+                          "enabled": true,
+                          "type": "data-csv",
+                          "title": "CSV",
+                          "dropdownId": "download-clinical",
+                          "leftIcon": "datafile",
+                          "rightIcon": "download",
+                          "fileName": "clinical.csv"
+                      }
+                  ],
+                  "guppyConfig": {
+                      "dataType": "location",
+                      "fieldMapping": [
+                          {
+                              "field": "community_area",
+                              "name": "Chicago Neigborhood"
+                          },
+                          {
+                              "field": "reporting_org",
+                              "name": "IL Reporting Organization"
+                          },
+                          {
+                              "field": "deaths_per_10000",
+                              "name": "Chicago Neighborhood Deaths (per 10,000 residents)"
+                          },
+                          {
+                              "field": "staffed_all_beds",
+                              "name": "Staffed Beds"
+                          },
+                          {
+                              "field": "staffed_icu_beds",
+                              "name": "ICU Beds"
+                          },
+                          {
+                              "field": "population_gtr_65",
+                              "name": "Population Greater Than 65"
+                          },
+                          {
+                              "field": "estimated_full_mech_ventilators",
+                              "name": "Estimated Ventilators"
+                          },
+                          {
+                              "field": "estimated_full_mech_pediatric_ventilators",
+                              "name": "Estimated Pediatric Ventilators"
+                          },
+                          {
+                              "field": "province_state",
+                              "name": "Province or State"
+                          },
+                          {
+                              "field": "country_region",
+                              "name": "Country or Region"
+                          },
+                          {
+                              "field": "project_url",
+                              "name": "Source URL"
+                          },
+                          {
+                              "field": "project_code",
+                              "name": "Code"
+                          },
+                          {
+                              "field": "project_name",
+                              "name": "Dataset"
+                          },
+                          {
+                              "field": "project_investigator_affiliation",
+                              "name": "Source"
+                          },
+                          {
+                              "field": "reporting_org",
+                              "name": "Reporting Organization"
+                          },
+                          {
+                              "field": "state_region_description",
+                              "name": "IL Hospital Region"
+                          },
+                          {
+                              "field": "region_icu_avail",
+                              "name": "IL Region ICU Availability"
+                          },
+                          {
+                              "field": "region_icu_capacity",
+                              "name": "IL Region ICU Capacity"
+                          },
+                          {
+                              "field": "region_vents_available",
+                              "name": "IL Region Ventilators Available"
+                          },
+                          {
+                              "field": "region_vents_capacity",
+                              "name": "IL Region Ventilators Capacity"
+                          },
+                          {
+                              "field": "state_icu_capacity",
+                              "name": "IL ICU Capacity"
+                          },
+                          {
+                              "field": "state_icu_covid_patients",
+                              "name": "IL ICU COVID-19 Patients"
+                          },
+                          {
+                              "field": "state_vent_capacity",
+                              "name": "IL Ventilator Capacity"
+                          },
+                          {
+                              "field": "state_vent_covid_patients",
+                              "name": "IL Ventilator COVID-19 Patients"
+                          },
+                          {
+                              "field": "state_ventilators_in_use_covid",
+                              "name": "IL Ventilators In Use COVID-19"
+                          },
+                          {
+                              "field": "state_icu_available",
+                              "name": "IL ICU Available"
+                          },
+                          {
+                              "field": "state_vents_available",
+                              "name": "IL Ventilators Available"
+                          },
+                          {
+                              "field": "state_total_beds",
+                              "name": "IL Total Beds"
+                          },
+                          {
+                              "field": "state_total_beds_available",
+                              "name": "IL Total Beds Available "
+                          },
+                          {
+                              "field": "state_total_beds_used",
+                              "name": "IL Total Beds Used"
+                          },
+                          {
+                              "field": "state_pct_hospital_beds_available",
+                              "name": "IL Hospital Bed Available (percent)"
+                          },
+                          {
+                              "field": "state_icu_open_beds",
+                              "name": "IL ICU Open Beds"
+                          },
+                          {
+                              "field": "state_icu_beds_used",
+                              "name": "IL ICU Beds in Use"
+                          },
+                          {
+                              "field": "state_icu_open_beds_pct",
+                              "name": "IL ICU Open Beds (percent)"
+                          },
+                          {
+                              "field": "state_covid_pui_patients",
+                              "name": "IL COVID-19 PUI Patients"
+                          },
+                          {
+                              "field": "state_Ventilators_open_pct",
+                              "name": "IL Ventilators Open (percent)"
+                          },
+                          {
+                              "field": "state_ventilators_in_use",
+                              "name": "IL Ventilators In Use"
+                          },
+                          {
+                              "field": "state_ventilators_covid_patients_pct",
+                              "name": "IL Ventilators COVID-19 Patients (percent)"
+                          },
+                          {
+                              "field": "state_covid_patients_non_icu",
+                              "name": "IL COVID-19 Patients Non ICU"
+                          },
+                          {
+                              "field": "state_total_covid_pui_in_icu",
+                              "name": "IL Total COVID-19 PUI ICU"
+                          },
+                          {
+                              "field": "state_total_covid_pui_in_hospital",
+                              "name": "IL COVID-19 PUI Hospitalized"
+                          },
+                          {
+                              "field": "state_pct_beds_covid_pui",
+                              "name": "IL Percentage Beds COVID-19 PUI"
+                          },
+                          {
+                              "field": "total_in_use_beds_non_covid",
+                              "name": "IL Total In Use Non-COVID-19 Beds "
+                          },
+                          {
+                              "field": "total_in_use_beds_covid",
+                              "name": "IL Total In Use COVID-19 Beds"
+                          },
+                          {
+                              "field": "hhinc_mean",
+                              "name": "Mean Household Income (US Currency)"
+                          },
+                          {
+                              "field": "med_hhinc",
+                              "name": "Median Household Income (USD)"
+                          },
+                          {
+                              "field": "population_density",
+                              "name": "Population Density (residents per square mile)"
+                          },
+                          {
+                              "field": "job_density",
+                              "name": "Job Density (per square mile)"
+                          },
+                          {
+                              "field": "jail",
+                              "name": "Incarcerated"
+                          },
+                          {
+                              "field": "project_date_collected",
+                              "name": "Data Collection Status"
+                          }
+                      ],
+                      "nodeCountTitle": "Locations",
+                      "manifestMapping": {
+                          "referenceIdFieldInResourceIndex": "project_id"
+                      },
+                      "accessibleFieldCheckList": [
+                          "project_id"
+                      ],
+                      "accessibleValidationField": "project_id"
+                  }
+              }
+          ],
+          "resourceBrowser": {
+              "title": "COVID-19 Jupyter Notebooks",
+              "public": true,
+              "description": "The Jupyter notebooks contained in this notebook viewer pull data from various external sources to generate and output useful tables, charts, graphs, and models. Each notebook is static, meaning the data being used by the notebooks is not updated in real time. These notebooks are also available in the Gen3 Workspace and can be launched by following the instructions listed in the readme.md file. When running the notebooks from the Workspace the most recent data is pulled from the originating source in real time and the notebook will render the most updated information.",
+              "resources": [
+                  {
+                      "title": "Exploring the Demographics of COVID-19 Cases",
+                      "description": "In this notebook, we explore some of the demographic data associated with COVID-19 cases in the Chicagoland Pandemic Response Commons.",
+                      "link": "/dashboard/Public/notebooks/kaggle_data_analysis_04072020.html",
+                      "imageUrl": "/dashboard/Public/notebooks/kaggle_data_analysis_04072020.png"
+                  },
+                  {
+                      "title": "Chicago COVID-19 forecasting using SEIR models",
+                      "description": "In this notebook, we construct an SEIR model for COVID-19 in Cook County, Illinois, using data sourced from Johns Hopkins University, but available within the Chicagoland COVID-19 Commons. We then perform an optimization of initial model parameter values and do some simple validation.",
+                      "link": "/dashboard/Public/notebooks/covid19_seir.html",
+                      "imageUrl": "/dashboard/Public/notebooks/covid19_seir.png"
+                  },
+                  {
+                      "title": "Visualizing Global COVID-19 data",
+                      "description": "We demonstrate the visualization of the Johns Hopkins COVID-19 data currently available in the Chicagoland Pandemic Response Commons. We plot the trend of confirmed, deaths and recovered infected cases for countries of interest.",
+                      "link": "/dashboard/Public/notebooks/COVID-19-JHU_data_analysis_04072020.html",
+                      "imageUrl": "/dashboard/Public/notebooks/COVID-19-JHU_data_analysis_04072020.png"
+                  },
+                  {
+                      "title": "A Live View of COVID-19\u2019s Global Presence",
+                      "description": "In this R notebook, we track COVID-19 local (US) and global cases with active, confirmed, recovered and death toll on the map at the latest time point. The interactive maps indicate the concentration of coronavirus cases across the US and around the world.",
+                      "link": "/dashboard/Public/notebooks/jhu_map.html",
+                      "imageUrl": "/dashboard/Public/notebooks/jhu_map.png"
+                  },
+                  {
+                      "title": "An Extended SEIR Model For COVID-19",
+                      "description": "In this notebook we implement an extended SEIR model of the COVID-19 outbreak, fit probability distributions to model parameters, and apply monte carlo methods to the resulting stochastic model.",
+                      "link": "/dashboard/Public/notebooks/extended-seir.html",
+                      "imageUrl": "/dashboard/Public/notebooks/extended-seir.png"
+                  },
+                  {
+                      "title": "COVID-19 Testing Over Time in the US",
+                      "description": "COVID-19 testing is very crucial to understand the spread of the pandemic. In this Python notebook, we have focused our efforts on visualizing the COVID-19 testing data across the U.S. States and Territories from the COVID Tracking Project. The animations will allow you to see how testing data has changed over time.",
+                      "link": "/dashboard/Public/notebooks/CTP_testing.html",
+                      "imageUrl": "/dashboard/Public/notebooks/CTP_testing.png"
+                  },
+                  {
+                      "title": "Cross Dataset Analysis on COVID-19 Symptoms and Fatality Rate",
+                      "description": "In this notebook, we are performing some visual analysis on the individual case reports that provide aggregated data on clinical states (e.g. deceased, recovered, alive, etc) and symptoms. We are looking at whether the fatality rates and symptoms are similar across different datasets.",
+                      "link": "/dashboard/Public/notebooks/symptoms_and_fatality_covid19.html",
+                      "imageUrl": "/dashboard/Public/notebooks/symptoms_and_fatality_covid19.png"
+                  },
+                  {
+                      "title": "Demo: Exploring clinical data from multiple commons",
+                      "description": "In this notebook, we obtain the clinical data for multiple projects from the Chicagoland Pandemic Response Commons and the NCI Genomic Data Commons (GDC) and visualize some of the clinical attributes. This notebook is for demonstration purposes only and not biologically meaningful.",
+                      "link": "/dashboard/Public/notebooks/TCGA_OV_COVID.html",
+                      "imageUrl": "/dashboard/Public/notebooks/TCGA_OV_COVID.png"
+                  },
+                  {
+                      "title": "Visualize Statistical Summary Reports from Partnering Healthcare Providers",
+                      "description": "This notebook provides an example on how to visualize the status of COVID-19 and general patients information at multiple regional healthcare providers using the demo Statistical Summary Report data from 03/10/2020 to 11/10/2020.",
+                      "link": "/dashboard/Public/notebooks/SSR_notebook.html",
+                      "imageUrl": "/dashboard/Public/notebooks/SSR_notebook.png"
+                  },
+                  {
+                      "title": "COVID-19 X-ray images classification",
+                      "description": "This notebook replicates the DarkCovidNet model and performes transfer learning with the GoogLeNet model to classify radiological images as indicative of either 'COVID-19', 'Normal' or 'Pneumonia' to assist in the diagnosis of COVID-19.",
+                      "link": "/dashboard/Public/notebooks/CNN_XRAY_CF.html",
+                      "imageUrl": "/dashboard/Public/notebooks/CNN_XRAY_CF.png"
+                  },
+                  {
+                      "title": "Google Mobility Data Visualization",
+                      "description": "In this notebook, we demonstrate how to query the google mobility data using the BigQuery API client python library, and visualize the mobility changes over time across the United States since February 2020.",
+                      "link": "/dashboard/Public/notebooks/google_mobility.html",
+                      "imageUrl": "/dashboard/Public/notebooks/google_mobility.png"
+                  },
+                  {
+                      "title": "COVID-19 Data Visualization in Illinois",
+                      "description": "This notebook provides a snapshot of publicly available data related to COVID-19 in Illinois from the Illinois Department of Public Health, Google and Johns Hopkins CSSE. Graphics illustrate the demographics, administered vaccine doses, google mobility data and forecasted COVID-19 cases in Illinois.",
+                      "link": "/dashboard/Public/notebooks/IL_tab_charts.html",
+                      "imageUrl": "/dashboard/Public/notebooks/IL_tab_charts.png"
+                  }
+              ]
+          },
+          "workspacePageTitle": "Welcome to the Gen3 Workspace",
+          "workspacePageDescription": "<dl><dt>What is a Gen3 Workspace?</dt><dd>Gen3 workspaces are secure data analysis environments in the cloud that can access data from one or more data resources, including Gen3 Data Commons.</dd><dt>What can I do with a Gen3 Workspace?</dt><dd>By default Gen3 Workspaces include Jupyter notebooks and RStudio but can be configured to host virtually any application, including analysis workflows, data processing pipelines, or data visualization apps.</dd><dt>How do I get started with Gen3 Workspaces?</dt><dd>Click on any of the images below to start analyzing data!</dd></dl>",
+          "useArboristUI": true,
+          "showArboristAuthzOnProfile": true,
+          "showFenceAuthzOnProfile": false,
+          "componentToResourceMapping": {
+              "Workspace": {
+                  "resource": "/workspace",
+                  "method": "access",
+                  "service": "jupyterhub"
+              }
+          },
+          "studyViewerConfig": [
+              {
+                  "dataType": "project",
+                  "title": "Subjects",
+                  "titleField": "breed",
+                  "rowAccessor": "subject_id",
+                  "listItemConfig": {
+                      "blockFields": [
+                          "project_id"
+                      ],
+                      "tableFields": [
+                          "submitter_id",
+                          "disease_type",
+                          "primary_site"
+                      ]
+                  },
+                  "openMode": "close-all",
+                  "buttons": [
+                      {
+                          "type": "request_access",
+                          "resourceDisplayNameField": "breed"
+                      }
+                  ]
+              }
+          ]
+      }
     logo: |-
       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
     sponsors:
