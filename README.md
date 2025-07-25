@@ -24,7 +24,11 @@ pip3 install boto3
 python3 helm-migration-script/migrate-to-helm.py
 ```
 
-This will generate a `values.yaml` file in the current folder. Use `scp` to copy this file to your local machine for the next steps.
+This will generate a `values.yaml` file in the current folder. Use `scp` to copy this file to your local machine for the next steps. Example:
+
+```bash
+scp pauline@10.128.7.28:cloud-automation/helm-migration-script/pauline.planx-pla.net-values.yaml ~/Downloads/pauline.planx-pla.net-values.yaml
+```
 
 ## Important Disclaimer
 
