@@ -38,19 +38,19 @@ pip3 install boto3
 python3 helm-migration-script/migrate-to-helm.py
 ```
 
-This will generate a `values.yaml` file in the current folder. Use `scp` to copy this file to your local machine for the next steps ("Deployment Process" below).
+This will generate a `values.yaml` file in the current folder. The actual filename will contain your hostname found in `Gen3Secrets/00configmap.yaml`, e.g. `aoliu.planx-pla.net`, so the filename is `aoliu.planx-pla.net-values.yaml`. Use `scp` to copy this file to your local machine for the next steps ("Deployment Process" below).
 
 Example:
 
 ```bash
-scp pauline@10.128.7.28:cloud-automation/helm-migration-script/pauline.planx-pla.net-values.yaml ~/Downloads/pauline.planx-pla.net-values.yaml
+scp pauline@10.128.7.28:cloud-automation/pauline.planx-pla.net-values.yaml ~/Downloads/values.yaml
 ```
 
 ## Deployment Process
 
 ### Setting Up Your Environment
 
-1. `git clone` this repository
+1. `git clone` this repository, and create a new local branch before making the following changes. 
 2. **Copy the "copy-me" folder** into the "dev-environments" folder and rename it to match your environment name:
    ```
    cd gen3-gitops-dev
