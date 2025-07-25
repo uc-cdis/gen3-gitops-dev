@@ -20,8 +20,8 @@ To execute the migration in your environment:
 cd cloud-automation
 git checkout master
 git pull
-cd helm-migration-script
-python3 migrate-to-helm.py
+pip3 install boto3
+python3 helm-migration-script/migrate-to-helm.py
 ```
 
 This will generate a `values.yaml` file in the current folder. Use `scp` to copy this file to your local machine for the next steps.
