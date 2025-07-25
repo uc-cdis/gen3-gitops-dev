@@ -38,7 +38,7 @@ pip3 install boto3
 python3 helm-migration-script/migrate-to-helm.py
 ```
 
-This will generate a `values.yaml` file in the current folder. Use `scp` to copy this file to your local machine for the next steps ("Deployment Process" below).
+This will generate a `values.yaml` file in the current folder. The actual filename will contain your hostname found in `Gen3Secrets/00configmap.yaml`, e.g. `aoliu.planx-pla.net`, so the filename is `aoliu.planx-pla.net-values.yaml`. Use `scp` to copy this file to your local machine for the next steps ("Deployment Process" below).
 
 Example:
 
