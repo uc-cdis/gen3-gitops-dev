@@ -65,8 +65,8 @@ scp pauline@10.128.7.28:cloud-automation/pauline.planx-pla.net-values.yaml ~/Dow
 
 3. **Update the copied values.yaml file** in the root of your new environment folder (not the one in values/values.yaml). Update the following fields:
    - `name:` - Change this to your environment name
-   - `helmBranch:` - Set to your desired Helm branch
-   - `gitopsBranch:` - Set to your desired GitOps branch
+   - `helmBranch:` - Set to your desired [Helm](http://github.com/uc-cdis/gen3-helm) branch
+   - `gitopsBranch:` - Set to your desired [GitOps](http://github.com/uc-cdis/gen3-gitops-dev) branch
 
 
 ![alt text](images/root-values.png)
