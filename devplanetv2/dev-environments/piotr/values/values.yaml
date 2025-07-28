@@ -12,14 +12,14 @@ arborist:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/arborist
-    tag: '2025.03'
+    tag: "2025.03"
 audit:
   enabled: true
   externalSecrets:
     auditG3auto: piotr-audit-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/audit-service
-    tag: '2024.12'
+    tag: "2024.12"
 aws-es-proxy:
   enabled: true
   image:
@@ -46,12 +46,12 @@ fluentd:
     tag: v1.15.3-debian-cloudwatch-1.0
 global:
   aws:
-    account: '707767160287'
+    account: "707767160287"
     awsEsProxyRole: devplanetv2--piotr--es-access
     enabled: true
     secretStoreServiceAccount:
       enabled: true
-      roleArn: arn:aws:iam::707767160287:role/piotr-external-secrets-sa
+      roleArn: arn:aws:iam::707767160287:role/devplanetv2-external-secrets-sa
   dev: false
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json
   environment: piotr
@@ -62,7 +62,7 @@ global:
     es7: true
     kube_bucket: kube-piotr-gen3
     logs_bucket: logs-piotr-gen3
-    sync_from_dbgap: 'True'
+    sync_from_dbgap: "True"
     useryaml_s3path: s3://cdis-gen3-users/dev/user.yaml
   portalApp: gitops
   postgres:
@@ -79,18 +79,18 @@ guppy:
     authFilterField: auth_resource_path
     configIndex: dev_case-array-config
     indices:
-    - index: dev_case
-      type: case
-    - index: dev_file
-      type: file
+      - index: dev_case
+        type: case
+      - index: dev_file
+        type: file
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/guppy
-    tag: '2025.03'
+    tag: "2025.03"
 hatchery:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
-    tag: '2025.03'
+    tag: "2025.03"
 indexd:
   autoscaling:
     enabled: true
@@ -102,7 +102,7 @@ indexd:
     serviceCreds: piotr-indexd-service-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexd
-    tag: '2025.03'
+    tag: "2025.03"
 manifestservice:
   enabled: true
   externalSecrets:
@@ -121,7 +121,7 @@ metadata:
     metadataG3auto: piotr-metadata-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
-    tag: '2024.12'
+    tag: "2024.12"
 peregrine:
   autoscaling:
     enabled: true
@@ -131,7 +131,7 @@ peregrine:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/peregrine
-    tag: '2025.03'
+    tag: "2025.03"
 portal:
   autoscaling:
     enabled: true
@@ -140,7 +140,8 @@ portal:
     targetCPUUtilizationPercentage: 40
   enabled: true
   gitops:
-    json: "{\n    \"graphql\": {\n        \"boardCounts\": [\n            {\n    \
+    json:
+      "{\n    \"graphql\": {\n        \"boardCounts\": [\n            {\n    \
       \            \"graphql\": \"_case_count\",\n                \"name\": \"Case\"\
       ,\n                \"plural\": \"Cases\"\n            },\n            {\n  \
       \              \"graphql\": \"_experiment_count\",\n                \"name\"\
@@ -342,7 +343,7 @@ revproxy:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/nginx
-    tag: '2024.12'
+    tag: "2024.12"
   ingress:
     aws:
       group: piotr-helm
@@ -363,97 +364,97 @@ sower:
     sowerjobsG3auto: piotr-sower-jobs-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sower
-    tag: '2025.03'
+    tag: "2025.03"
   sowerConfig:
-  - action: export
-    container:
-      cpu-limit: '1'
-      env:
-      - name: DICTIONARY_URL
-        valueFrom:
-          configMapKeyRef:
-            key: dictionary_url
-            name: manifest-global
-      - name: GEN3_HOSTNAME
-        valueFrom:
-          configMapKeyRef:
-            key: hostname
-            name: manifest-global
-      - name: ROOT_NODE
-        value: case
-      image: quay.io/cdis/pelican-export:master
-      memory-limit: 4Gi
-      name: job-task
-      pull_policy: Always
-      volumeMounts:
-      - mountPath: /pelican-creds.json
-        name: pelican-creds-volume
-        readOnly: true
-        subPath: config.json
-      - mountPath: /peregrine-creds.json
-        name: peregrine-creds-volume
-        readOnly: true
-        subPath: creds.json
-    name: pelican-export
-    restart_policy: Never
-    volumes:
-    - name: pelican-creds-volume
-      secret:
-        secretName: pelicanservice-g3auto
-    - name: peregrine-creds-volume
-      secret:
-        secretName: peregrine-creds
-  - action: import
-    container:
-      cpu-limit: '1'
-      env:
-      - name: DICTIONARY_URL
-        valueFrom:
-          configMapKeyRef:
-            key: dictionary_url
-            name: manifest-global
-      - name: GEN3_HOSTNAME
-        valueFrom:
-          configMapKeyRef:
-            key: hostname
-            name: manifest-global
-      image: quay.io/cdis/pelican-import:master
-      memory-limit: 4Gi
-      name: job-task
-      pull_policy: Always
-      volumeMounts:
-      - mountPath: /sheepdog-creds.json
-        name: sheepdog-creds-volume
-        readOnly: true
-        subPath: creds.json
-    name: pelican-import
-    restart_policy: Never
-    volumes:
-    - name: sheepdog-creds-volume
-      secret:
-        secretName: sheepdog-creds
+    - action: export
+      container:
+        cpu-limit: "1"
+        env:
+          - name: DICTIONARY_URL
+            valueFrom:
+              configMapKeyRef:
+                key: dictionary_url
+                name: manifest-global
+          - name: GEN3_HOSTNAME
+            valueFrom:
+              configMapKeyRef:
+                key: hostname
+                name: manifest-global
+          - name: ROOT_NODE
+            value: case
+        image: quay.io/cdis/pelican-export:master
+        memory-limit: 4Gi
+        name: job-task
+        pull_policy: Always
+        volumeMounts:
+          - mountPath: /pelican-creds.json
+            name: pelican-creds-volume
+            readOnly: true
+            subPath: config.json
+          - mountPath: /peregrine-creds.json
+            name: peregrine-creds-volume
+            readOnly: true
+            subPath: creds.json
+      name: pelican-export
+      restart_policy: Never
+      volumes:
+        - name: pelican-creds-volume
+          secret:
+            secretName: pelicanservice-g3auto
+        - name: peregrine-creds-volume
+          secret:
+            secretName: peregrine-creds
+    - action: import
+      container:
+        cpu-limit: "1"
+        env:
+          - name: DICTIONARY_URL
+            valueFrom:
+              configMapKeyRef:
+                key: dictionary_url
+                name: manifest-global
+          - name: GEN3_HOSTNAME
+            valueFrom:
+              configMapKeyRef:
+                key: hostname
+                name: manifest-global
+        image: quay.io/cdis/pelican-import:master
+        memory-limit: 4Gi
+        name: job-task
+        pull_policy: Always
+        volumeMounts:
+          - mountPath: /sheepdog-creds.json
+            name: sheepdog-creds-volume
+            readOnly: true
+            subPath: creds.json
+      name: pelican-import
+      restart_policy: Never
+      volumes:
+        - name: sheepdog-creds-volume
+          secret:
+            secretName: sheepdog-creds
 spark:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-spark
-    tag: '2025.03'
+    tag: "2025.03"
 ssjdispatcher:
   enabled: true
   externalSecrets:
     credsFile: piotr-ssjdispatcher-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ssjdispatcher
-    tag: '2025.03'
+    tag: "2025.03"
   indexing: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexs3client:2024.03
 tube:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/tube
-    tag: '2025.03'
+    tag: "2025.03"
 wts:
   enabled: true
   externalSecrets:
     wtsG3auto: piotr-wts-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/workspace-token-service
-    tag: '2025.03'
+    tag: "2025.03"

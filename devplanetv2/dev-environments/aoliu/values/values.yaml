@@ -9,7 +9,7 @@ arborist:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/arborist
-    tag: '2023.04'
+    tag: "2023.04"
 argo-wrapper:
   enabled: true
   image:
@@ -38,10 +38,10 @@ audit:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--aoliu-helm--audit-sqs-receiver
 aws-es-proxy:
   enabled: true
-  esEndpoint: ''
+  esEndpoint: ""
   image:
     repository: quay.io/cdis/aws-es-proxy
-    tag: '0.8'
+    tag: "0.8"
 dashboard:
   dashboardConfig:
     bucket: dashboard-707767160287-devplanetv1-gen3
@@ -56,88 +56,88 @@ dashboard:
 etl:
   esEndpoint: elasticsearch
   mappings:
-  - aggregated_props:
-    - fn: count
-      name: _samples_count
-      path: samples
-    - fn: count
-      name: _aliquots_count
-      path: samples.aliquots
-    - fn: count
-      name: _submitted_methylations_count
-      path: samples.aliquots.submitted_methylation_files
-    - fn: count
-      name: _submitted_copy_number_files_on_aliquots_count
-      path: samples.aliquots.submitted_copy_number_files
-    - fn: count
-      name: _read_groups_count
-      path: samples.aliquots.read_groups
-    - fn: count
-      name: _submitted_aligned_reads_count
-      path: samples.aliquots.read_groups.submitted_aligned_reads_files
-    - fn: count
-      name: _submitted_unaligned_reads_count
-      path: samples.aliquots.read_groups.submitted_unaligned_reads_files
-    - fn: count
-      name: _submitted_copy_number_files_on_read_groups_count
-      path: samples.aliquots.read_groups.submitted_copy_number_files
-    - fn: count
-      name: _submitted_somatic_mutations_count
-      path: samples.aliquots.read_groups.submitted_somatic_mutations
-    doc_type: case
-    flatten_props:
-    - path: demographics
+    - aggregated_props:
+        - fn: count
+          name: _samples_count
+          path: samples
+        - fn: count
+          name: _aliquots_count
+          path: samples.aliquots
+        - fn: count
+          name: _submitted_methylations_count
+          path: samples.aliquots.submitted_methylation_files
+        - fn: count
+          name: _submitted_copy_number_files_on_aliquots_count
+          path: samples.aliquots.submitted_copy_number_files
+        - fn: count
+          name: _read_groups_count
+          path: samples.aliquots.read_groups
+        - fn: count
+          name: _submitted_aligned_reads_count
+          path: samples.aliquots.read_groups.submitted_aligned_reads_files
+        - fn: count
+          name: _submitted_unaligned_reads_count
+          path: samples.aliquots.read_groups.submitted_unaligned_reads_files
+        - fn: count
+          name: _submitted_copy_number_files_on_read_groups_count
+          path: samples.aliquots.read_groups.submitted_copy_number_files
+        - fn: count
+          name: _submitted_somatic_mutations_count
+          path: samples.aliquots.read_groups.submitted_somatic_mutations
+      doc_type: case
+      flatten_props:
+        - path: demographics
+          props:
+            - name: gender
+              value_mappings:
+                - female: F
+                - male: M
+            - name: race
+              value_mappings:
+                - american indian or alaskan native: Indian
+            - name: ethnicity
+            - name: year_of_birth
+      joining_props:
+        - index: file
+          join_on: _case_id
+          props:
+            - fn: set
+              name: data_format
+              src: data_format
+            - fn: set
+              name: data_type
+              src: data_type
+      name: dev_case
       props:
-      - name: gender
-        value_mappings:
-        - female: F
-        - male: M
-      - name: race
-        value_mappings:
-        - american indian or alaskan native: Indian
-      - name: ethnicity
-      - name: year_of_birth
-    joining_props:
-    - index: file
-      join_on: _case_id
-      props:
-      - fn: set
-        name: data_format
-        src: data_format
-      - fn: set
-        name: data_type
-        src: data_type
-    name: dev_case
-    props:
-    - name: submitter_id
-    - name: project_id
-    - name: disease_type
-    - name: primary_site
-    root: case
-    type: aggregator
-  - category: data_file
-    doc_type: file
-    injecting_props:
-      case:
-        props:
-        - fn: set
-          name: _case_id
-          src: id
+        - name: submitter_id
         - name: project_id
-    name: dev_file
-    props:
-    - name: object_id
-    - name: md5sum
-    - name: file_name
-    - name: file_size
-    - name: data_format
-    - name: data_type
-    - name: state
-    root: None
-    target_nodes:
-    - name: slide_image
-      path: slides.samples.cases
-    type: collector
+        - name: disease_type
+        - name: primary_site
+      root: case
+      type: aggregator
+    - category: data_file
+      doc_type: file
+      injecting_props:
+        case:
+          props:
+            - fn: set
+              name: _case_id
+              src: id
+            - name: project_id
+      name: dev_file
+      props:
+        - name: object_id
+        - name: md5sum
+        - name: file_name
+        - name: file_size
+        - name: data_format
+        - name: data_type
+        - name: state
+      root: None
+      target_nodes:
+        - name: slide_image
+          path: slides.samples.cases
+      type: collector
 fence:
   autoscaling:
     enabled: true
@@ -159,13 +159,13 @@ fluentd:
     tag: v1.2-debian-cloudwatch
 global:
   aws:
-    account: '707767160287'
+    account: "707767160287"
     awsEsProxyRole: devplanetv2--aoliu-helm--es-access
     enabled: true
     hatchery_role: devplanetv2--aoliu-helm--hatchery-sa
     secretStoreServiceAccount:
       enabled: true
-      roleArn: arn:aws:iam::707767160287:role/aoliu-external-secrets-sa
+      roleArn: arn:aws:iam::707767160287:role/devplanetv2-external-secrets-sa
   dev: false
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json
   environment: aoliu
@@ -176,7 +176,7 @@ global:
     es7: true
     kube_bucket: kube-elise-gen3
     logs_bucket: logs-elise-gen3
-    sync_from_dbgap: 'False'
+    sync_from_dbgap: "False"
     useryaml_s3path: s3://cdis-gen3-users/dev/user.yaml
   portalApp: gitops
   postgres:
@@ -196,10 +196,10 @@ guppy:
     repository: quay.io/cdis/guppy
     tag: feat_es7
   indices:
-  - index: dev_case
-    type: case
-  - index: dev_file
-    type: file
+    - index: dev_case
+      type: case
+    - index: dev_file
+      type: file
 hatchery:
   enabled: true
   image:
@@ -251,7 +251,8 @@ portal:
     targetCPUUtilizationPercentage: 40
   enabled: true
   gitops:
-    json: "{\n  \"graphql\": {\n    \"boardCounts\": [\n      {\n        \"graphql\"\
+    json:
+      "{\n  \"graphql\": {\n    \"boardCounts\": [\n      {\n        \"graphql\"\
       : \"_case_count\",\n        \"name\": \"Case\",\n        \"plural\": \"Cases\"\
       \n      },\n      {\n        \"graphql\": \"_experiment_count\",\n        \"\
       name\": \"Experiment\",\n        \"plural\": \"Experiments\"\n      },\n   \
@@ -370,7 +371,7 @@ portal:
       : \"object_id\"\n    }\n  }\n}\n"
   image:
     repository: quay.io/cdis/data-portal
-    tag: '2023.02'
+    tag: "2023.02"
 revproxy:
   autoscaling:
     enabled: true
@@ -403,73 +404,73 @@ sower:
     repository: quay.io/cdis/sower
     tag: master
   sowerConfig:
-  - action: export
-    container:
-      cpu-limit: '1'
-      env:
-      - name: DICTIONARY_URL
-        valueFrom:
-          configMapKeyRef:
-            key: dictionary_url
-            name: manifest-global
-      - name: GEN3_HOSTNAME
-        valueFrom:
-          configMapKeyRef:
-            key: hostname
-            name: manifest-global
-      - name: ROOT_NODE
-        value: case
-      image: quay.io/cdis/pelican-export:master
-      memory-limit: 4Gi
-      name: job-task
-      pull_policy: Always
-      volumeMounts:
-      - mountPath: /pelican-creds.json
-        name: pelican-creds-volume
-        readOnly: true
-        subPath: config.json
-      - mountPath: /peregrine-creds.json
-        name: peregrine-creds-volume
-        readOnly: true
-        subPath: creds.json
-    name: pelican-export
-    restart_policy: Never
-    volumes:
-    - name: pelican-creds-volume
-      secret:
-        secretName: pelicanservice-g3auto
-    - name: peregrine-creds-volume
-      secret:
-        secretName: peregrine-creds
-  - action: import
-    container:
-      cpu-limit: '1'
-      env:
-      - name: DICTIONARY_URL
-        valueFrom:
-          configMapKeyRef:
-            key: dictionary_url
-            name: manifest-global
-      - name: GEN3_HOSTNAME
-        valueFrom:
-          configMapKeyRef:
-            key: hostname
-            name: manifest-global
-      image: quay.io/cdis/pelican-import:master
-      memory-limit: 4Gi
-      name: job-task
-      pull_policy: Always
-      volumeMounts:
-      - mountPath: /sheepdog-creds.json
-        name: sheepdog-creds-volume
-        readOnly: true
-        subPath: creds.json
-    name: pelican-import
-    restart_policy: Never
-    volumes:
-    - name: sheepdog-creds-volume
-      secret:
-        secretName: sheepdog-creds
+    - action: export
+      container:
+        cpu-limit: "1"
+        env:
+          - name: DICTIONARY_URL
+            valueFrom:
+              configMapKeyRef:
+                key: dictionary_url
+                name: manifest-global
+          - name: GEN3_HOSTNAME
+            valueFrom:
+              configMapKeyRef:
+                key: hostname
+                name: manifest-global
+          - name: ROOT_NODE
+            value: case
+        image: quay.io/cdis/pelican-export:master
+        memory-limit: 4Gi
+        name: job-task
+        pull_policy: Always
+        volumeMounts:
+          - mountPath: /pelican-creds.json
+            name: pelican-creds-volume
+            readOnly: true
+            subPath: config.json
+          - mountPath: /peregrine-creds.json
+            name: peregrine-creds-volume
+            readOnly: true
+            subPath: creds.json
+      name: pelican-export
+      restart_policy: Never
+      volumes:
+        - name: pelican-creds-volume
+          secret:
+            secretName: pelicanservice-g3auto
+        - name: peregrine-creds-volume
+          secret:
+            secretName: peregrine-creds
+    - action: import
+      container:
+        cpu-limit: "1"
+        env:
+          - name: DICTIONARY_URL
+            valueFrom:
+              configMapKeyRef:
+                key: dictionary_url
+                name: manifest-global
+          - name: GEN3_HOSTNAME
+            valueFrom:
+              configMapKeyRef:
+                key: hostname
+                name: manifest-global
+        image: quay.io/cdis/pelican-import:master
+        memory-limit: 4Gi
+        name: job-task
+        pull_policy: Always
+        volumeMounts:
+          - mountPath: /sheepdog-creds.json
+            name: sheepdog-creds-volume
+            readOnly: true
+            subPath: creds.json
+      name: pelican-import
+      restart_policy: Never
+      volumes:
+        - name: sheepdog-creds-volume
+          secret:
+            secretName: sheepdog-creds
 spark:
   enabled: true
   image:
