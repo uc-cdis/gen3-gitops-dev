@@ -8,6 +8,8 @@ global:
     enabled: false
     dbSubnet: ""
   environment: dev
+  externalSecrets:
+    deploy: true
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json
   # We disable portal by default to save $$$
   frontendRoot: gen3ff
