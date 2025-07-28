@@ -3,6 +3,9 @@ global:
   dev: true
   aws:
     enabled: true
+    secretStoreServiceAccount:
+      enabled: true
+      roleArn: arn:aws:iam::707767160287:role/devplanetv2-external-secrets-sa
   netPolicy:
     # TODO: Figure out netpols with local dbs
     enabled: false
