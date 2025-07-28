@@ -165,6 +165,7 @@ global:
     hatchery_role: devplanetv2--aoliu-helm--hatchery-sa
     secretStoreServiceAccount:
       enabled: true
+      name: "secret-store-sa"
       roleArn: arn:aws:iam::707767160287:role/devplanetv2-external-secrets-sa
   dev: false
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json
@@ -226,8 +227,7 @@ metadata:
   esEndpoint: http://elasticsearch:9200
   externalSecrets:
     metadataG3auto: aoliu-metadata-g3auto
-mutatingWebhook:
-  enabled: true
+
 peregrine:
   autoscaling:
     enabled: true
