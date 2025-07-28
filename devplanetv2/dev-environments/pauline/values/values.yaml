@@ -80,7 +80,7 @@ fluentd:
 global:
     aws:
         account: "707767160287"
-        awsEsProxyRole: devplanetv2--pauline-helm--es-access
+        awsEsProxyRole: devplanetv2-esproxy-sa
         enabled: true
         hatchery_role: devplanetv2--pauline-helm--hatchery-sa
         secretStoreServiceAccount:

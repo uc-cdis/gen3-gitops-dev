@@ -95,7 +95,7 @@ frontend-framework:
 global:
   aws:
     account: "707767160287"
-    awsEsProxyRole: qaplanetv1--qa-mickey--es-access
+    awsEsProxyRole: devplanetv2-esproxy-sa
     hatchery_role: gen3_service/qaplanetv1-hatchery-service-account-role
     enabled: true
     secretStoreServiceAccount:
