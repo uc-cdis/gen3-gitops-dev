@@ -1756,8 +1756,7 @@ metadata:
         repository: quay.io/cdis/metadata-service
         tag: "2025.03"
     useAggMds: true
-mutatingWebhook:
-    enabled: true
+
 peregrine:
     autoscaling:
         enabled: true

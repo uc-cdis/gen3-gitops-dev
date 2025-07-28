@@ -348,8 +348,7 @@ metadata:
     externalSecrets:
         metadataG3auto: pauline-metadata-g3auto
 
-mutatingWebhook:
-    enabled: true
+
 
 portal:
     enabled: true
