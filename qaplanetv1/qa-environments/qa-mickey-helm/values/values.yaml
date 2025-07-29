@@ -95,7 +95,7 @@ frontend-framework:
 global:
   aws:
     account: "707767160287"
-    awsEsProxyRole: qaplanetv1--qa-mickey--es-access
+    awsEsProxyRole: devplanetv2-esproxy-sa
     hatchery_role: gen3_service/qaplanetv1-hatchery-service-account-role
     enabled: true
     secretStoreServiceAccount:
@@ -603,5 +603,4 @@ wts:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/workspace-token-service
     tag: "2025.04"
 
-mutatingWebhook:
-  enabled: true
+
