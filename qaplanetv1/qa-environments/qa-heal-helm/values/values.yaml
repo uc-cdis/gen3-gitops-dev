@@ -136,6 +136,10 @@ frontend-framework:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/heal-data-commons
     tag: main
 global:
+  crossplane:
+    enabled: true
+    oidcProviderUrl: "oidc.eks.us-east-1.amazonaws.com/id/CC02898351A01FE1B43EFDA3F3796737"
+    accountId: "707767160287"
   aws:
     account: '707767160287'
     awsEsProxyRole: qaplanetv1--qa-heal-helm--es-access
