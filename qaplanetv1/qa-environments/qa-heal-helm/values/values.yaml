@@ -16,7 +16,7 @@ audit:
     auditG3auto: qa-heal-audit-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/audit-service
-    tag: '2025.05'
+    tag: '2025.07'
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/qaplanetv1--qa-heal-helm--audit-sqs-receiver
@@ -43,7 +43,7 @@ dashboard:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-statics
-    tag: '2025.05'
+    tag: '2025.07'
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/qaplanetv1--qa-heal-helm--dashboard-access
@@ -124,7 +124,7 @@ fence:
     fenceJwtKeys: qa-heal-fence-jwt
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
-    tag: '2025.05'
+    tag: '2025.07'
 fluentd:
   enabled: true
   image:
@@ -173,7 +173,7 @@ hatchery:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
-    tag: '2025.05'
+    tag: '2025.07'
   json: |-
     {
       "user-namespace": "jupyter-pods-qa-heal",
@@ -191,7 +191,7 @@ hatchery:
       "sidecar": {
         "cpu-limit": "1.0",
         "memory-limit": "256Mi",
-        "image": "quay.io/cdis/ecs-ws-sidecar:2025.05",
+        "image": "quay.io/cdis/ecs-ws-sidecar:2025.07",
         "env": {
           "NAMESPACE": "qa-heal"
         },
@@ -377,14 +377,14 @@ indexd:
     serviceCreds: qa-heal-indexd-service-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexd
-    tag: '2025.05'
+    tag: '2025.07'
 manifestservice:
   enabled: true
   externalSecrets:
     manifestserviceG3auto: qa-heal-manifestservice-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/manifestservice
-    tag: '2025.05'
+    tag: '2025.07'
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/qaplanetv1--qa-heal-helm--manifest-service-sa
@@ -1648,7 +1648,7 @@ metadata:
     metadataG3auto: qa-heal-metadata-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
-    tag: '2025.05'
+    tag: '2025.07'
   useAggMds: true
 mutatingWebhook:
   enabled: true
@@ -1661,7 +1661,7 @@ peregrine:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/peregrine
-    tag: '2025.05'
+    tag: '2025.07'
 portal:
   autoscaling:
     enabled: true
@@ -2306,7 +2306,7 @@ requestor:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/requestor
-    tag: '2025.05'
+    tag: '2025.07'
 revproxy:
   autoscaling:
     enabled: true
@@ -2316,7 +2316,7 @@ revproxy:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/nginx
-    tag: '2025.05'
+    tag: '2025.07'
   ingress:
     aws:
       group: qa-heal-helm
@@ -2329,7 +2329,7 @@ sheepdog:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sheepdog
-    tag: '2025.05'
+    tag: '2025.07'
 sower:
   enabled: true
   externalSecrets:
@@ -2337,7 +2337,7 @@ sower:
     sowerjobsG3auto: qa-heal-sower-jobs-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sower
-    tag: '2025.05'
+    tag: '2025.07'
   sowerConfig:
   - action: batch-export
     activeDeadlineSeconds: 600
@@ -2369,8 +2369,8 @@ ssjdispatcher:
     credsFile: qa-heal-ssjdispatcher-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ssjdispatcher
-    tag: '2025.05'
-  indexing: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexs3client:2025.05
+    tag: '2025.07'
+  indexing: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexs3client:2025.07
 wts:
   enabled: true
   externalSecrets:
@@ -2379,4 +2379,4 @@ wts:
     wtsOidcClient: qa-heal-wts-client-secret
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/workspace-token-service
-    tag: '2025.05'
+    tag: '2025.07'
