@@ -2375,7 +2375,6 @@ ssjdispatcher:
 wts:
   enabled: true
   externalSecrets:
-    createWtsOidcClientSecret: false
     wtsG3auto: qa-heal-wts-g3auto
     wtsOidcClient: qa-heal-wts-client-secret
   image:
