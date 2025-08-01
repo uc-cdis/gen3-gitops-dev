@@ -152,7 +152,7 @@ global:
   dev: false
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/heal_dictionary/1.1.0/schema.json
   dispatcherJobNum: '10'
-  environment: qa-heal
+  environment: qaplanetv1
   externalSecrets:
     deploy: true
   frontendRoot: gen3ff
