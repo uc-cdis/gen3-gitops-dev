@@ -1,6 +1,8 @@
 ambassador:
   jupyterNamespace: qa-heal
 arborist:
+  externalSecrets:
+    dbcreds: qa-heal-arborist-creds
   autoscaling:
     enabled: true
     maxReplicas: 1
@@ -14,6 +16,7 @@ audit:
   enabled: true
   externalSecrets:
     auditG3auto: qa-heal-audit-g3auto
+    dbcreds: qa-heal-audit-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/audit-service
     tag: '2025.07'
@@ -123,6 +126,7 @@ fence:
     fenceGoogleAppCredsSecret: qa-heal-fence-google-app-creds
     fenceGoogleStorageCredsSecret: qa-heal-fence-google-storage-creds
     fenceJwtKeys: qa-heal-fence-jwt
+    dbcreds: qa-heal-fence-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
     tag: '2025.07'
@@ -376,6 +380,7 @@ indexd:
   enabled: true
   externalSecrets:
     serviceCreds: qa-heal-indexd-service-creds
+    dbcreds: qa-heal-indexd-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexd
     tag: '2025.07'
@@ -1647,6 +1652,7 @@ metadata:
   esEndpoint: http://elasticsearch:9200
   externalSecrets:
     metadataG3auto: qa-heal-metadata-g3auto
+    dbcreds: qa-heal-metadata-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
     tag: '2025.07'
@@ -1663,6 +1669,8 @@ peregrine:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/peregrine
     tag: '2025.07'
+  externalSecrets:
+    dbcreds: qa-heal-peregrine-creds
 portal:
   autoscaling:
     enabled: true
@@ -2308,6 +2316,8 @@ requestor:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/requestor
     tag: '2025.07'
+  externalSecrets:
+    dbcreds: qa-heal-requestor-creds
 revproxy:
   autoscaling:
     enabled: true
@@ -2331,6 +2341,8 @@ sheepdog:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sheepdog
     tag: '2025.07'
+  externalSecrets:
+    dbcreds: qa-heal-sheepdog-creds
 sower:
   enabled: true
   externalSecrets:
@@ -2377,6 +2389,7 @@ wts:
   externalSecrets:
     wtsG3auto: qa-heal-wts-g3auto
     wtsOidcClient: qa-heal-wts-client-secret
+    dbcreds: qa-heal-wts-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/workspace-token-service
     tag: '2025.07'
