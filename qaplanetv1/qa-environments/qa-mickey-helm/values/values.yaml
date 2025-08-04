@@ -7,8 +7,8 @@ ambassador:
 arborist:
   autoscaling:
     enabled: true
-    maxReplicas: 1
-    minReplicas: 1
+    maxReplicas: 2
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   image:
@@ -53,8 +53,8 @@ dashboard:
     prefix: qa-mickey.planx-pla.net
   autoscaling:
     enabled: true
-    maxReplicas: 1
-    minReplicas: 1
+    maxReplicas: 2
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   image:
@@ -69,8 +69,8 @@ fence:
     userYamlS3Path: "s3://cdis-gen3-users/qa-mickey/user.yaml"
   autoscaling:
     enabled: true
-    maxReplicas: 1
-    minReplicas: 1
+    maxReplicas: 2
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   externalSecrets:
@@ -105,6 +105,7 @@ global:
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/vadictionary/0.4.2/schema.json
   dispatcherJobNum: "10"
   environment: qa-mickey
+  pdb: true
   externalSecrets:
     deploy: true
   frontendRoot: gen3ff
@@ -249,8 +250,8 @@ hatchery:
 indexd:
   autoscaling:
     enabled: true
-    maxReplicas: 1
-    minReplicas: 1
+    maxReplicas: 2
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   externalSecrets:
@@ -268,8 +269,8 @@ manifestservice:
 metadata:
   autoscaling:
     enabled: true
-    maxReplicas: 1
-    minReplicas: 1
+    maxReplicas: 2
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   externalSecrets:
@@ -290,8 +291,8 @@ ohdsi-webapi:
 peregrine:
   autoscaling:
     enabled: true
-    maxReplicas: 1
-    minReplicas: 1
+    maxReplicas: 2
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   image:
@@ -300,8 +301,8 @@ peregrine:
 portal:
   autoscaling:
     enabled: true
-    maxReplicas: 1
-    minReplicas: 1
+    maxReplicas: 2
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   gitops:
@@ -427,8 +428,8 @@ requestor:
 revproxy:
   autoscaling:
     enabled: true
-    maxReplicas: 1
-    minReplicas: 1
+    maxReplicas: 2
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   image:
@@ -441,8 +442,8 @@ revproxy:
 sheepdog:
   autoscaling:
     enabled: true
-    maxReplicas: 1
-    minReplicas: 1
+    maxReplicas: 2
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   image:
