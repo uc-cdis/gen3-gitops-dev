@@ -7,8 +7,8 @@ ambassador:
 arborist:
   autoscaling:
     enabled: false
-    replicaCount: 2
     targetCPUUtilizationPercentage: 40
+  replicaCount: 2
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/arborist
@@ -52,8 +52,8 @@ dashboard:
     prefix: qa-mickey.planx-pla.net
   autoscaling:
     enabled: false
-    replicaCount: 2
     targetCPUUtilizationPercentage: 40
+  replicaCount: 2
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-statics
@@ -67,8 +67,8 @@ fence:
     userYamlS3Path: "s3://cdis-gen3-users/qa-mickey/user.yaml"
   autoscaling:
     enabled: false
-    replicaCount: 2
     targetCPUUtilizationPercentage: 40
+  replicaCount: 2
   enabled: true
   externalSecrets:
     createK8sGoogleAppSecrets: false
@@ -247,8 +247,8 @@ hatchery:
 indexd:
   autoscaling:
     enabled: false
-    replicaCount: 2
     targetCPUUtilizationPercentage: 40
+  replicaCount: 2
   enabled: true
   externalSecrets:
     serviceCreds: qa-mickey-indexd-service-creds
@@ -265,8 +265,8 @@ manifestservice:
 metadata:
   autoscaling:
     enabled: false
-    replicaCount: 2
     targetCPUUtilizationPercentage: 40
+  replicaCount: 2
   enabled: true
   externalSecrets:
     metadataG3auto: qa-mickey-metadata-g3auto
@@ -286,8 +286,8 @@ ohdsi-webapi:
 peregrine:
   autoscaling:
     enabled: false
-    replicaCount: 2
     targetCPUUtilizationPercentage: 40
+  replicaCount: 2
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/peregrine
@@ -295,8 +295,8 @@ peregrine:
 portal:
   autoscaling:
     enabled: false
-    replicaCount: 2
     targetCPUUtilizationPercentage: 40
+  replicaCount: 2
   enabled: true
   gitops:
     css:
@@ -421,8 +421,8 @@ requestor:
 revproxy:
   autoscaling:
     enabled: false
-    replicaCount: 2
     targetCPUUtilizationPercentage: 40
+  replicaCount: 2
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/nginx
@@ -434,8 +434,8 @@ revproxy:
 sheepdog:
   autoscaling:
     enabled: false
-    replicaCount: 2
     targetCPUUtilizationPercentage: 40
+  replicaCount: 2
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sheepdog
