@@ -7,8 +7,7 @@ ambassador:
 arborist:
   autoscaling:
     enabled: false
-    maxReplicas: 2
-    minReplicas: 2
+    replicaCount: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   image:
@@ -53,8 +52,7 @@ dashboard:
     prefix: qa-mickey.planx-pla.net
   autoscaling:
     enabled: false
-    maxReplicas: 2
-    minReplicas: 2
+    replicaCount: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   image:
@@ -69,8 +67,7 @@ fence:
     userYamlS3Path: "s3://cdis-gen3-users/qa-mickey/user.yaml"
   autoscaling:
     enabled: false
-    maxReplicas: 2
-    minReplicas: 2
+    replicaCount: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   externalSecrets:
@@ -250,8 +247,7 @@ hatchery:
 indexd:
   autoscaling:
     enabled: false
-    maxReplicas: 2
-    minReplicas: 2
+    replicaCount: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   externalSecrets:
@@ -269,8 +265,7 @@ manifestservice:
 metadata:
   autoscaling:
     enabled: false
-    maxReplicas: 2
-    minReplicas: 2
+    replicaCount: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   externalSecrets:
@@ -291,8 +286,7 @@ ohdsi-webapi:
 peregrine:
   autoscaling:
     enabled: false
-    maxReplicas: 2
-    minReplicas: 2
+    replicaCount: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   image:
@@ -301,8 +295,7 @@ peregrine:
 portal:
   autoscaling:
     enabled: false
-    maxReplicas: 2
-    minReplicas: 2
+    replicaCount: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   gitops:
@@ -428,8 +421,7 @@ requestor:
 revproxy:
   autoscaling:
     enabled: false
-    maxReplicas: 2
-    minReplicas: 2
+    replicaCount: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   image:
@@ -442,8 +434,7 @@ revproxy:
 sheepdog:
   autoscaling:
     enabled: false
-    maxReplicas: 2
-    minReplicas: 2
+    replicaCount: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   image:
