@@ -120,6 +120,7 @@ global:
   postgres:
     dbCreate: false
   revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/520ede2f-fc82-4bb9-af96-4b4af7deabbd
+  logoutInactiveUsers: false
 guppy:
   authFilterField: auth_resource_path
   configIndex: etl_mickey_array-config
