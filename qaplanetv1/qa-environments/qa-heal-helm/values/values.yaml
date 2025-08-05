@@ -167,6 +167,8 @@ global:
   revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/c676c81c-9546-4e9a-9a72-725dd3912bc8
 hatchery:
   enabled: true
+  externalSecrets:
+    stataG3auto: "qa-heal-stata-workspace-gen3-license"
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
     tag: '2025.05'
