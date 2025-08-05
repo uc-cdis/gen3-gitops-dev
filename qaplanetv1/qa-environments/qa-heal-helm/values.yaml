@@ -2,7 +2,7 @@
 name: qa-heal-helm
 
 # What branch of helm -- http://github.com/uc-cdis/gen3-helm
-helmBranch: chore/handle-stata-license-secret
+helmBranch: feat/additional-crossplane
 
 # What branch of gitops -- http://github.com/uc-cdis/gen3-gitops-dev
-gitopsBranch: chore/update-stata-license-secret
+gitopsBranch: feat/crossplane-test
