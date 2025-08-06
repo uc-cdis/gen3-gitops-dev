@@ -78,7 +78,9 @@ global:
     enabled: true
     secretStoreServiceAccount:
       enabled: true
-      roleArn: arn:aws:iam::707767160287:role/qa-midrc-external-secrets-sa
+      # roleArn: arn:aws:iam::707767160287:role/qa-midrc-external-secrets-sa
+      # temporarily using shared role
+      roleArn: arn:aws:iam::707767160287:role/devplanetv2-external-secrets-sa
   dev: false
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/midrc_dictionary/1.3.9/schema.json
   dispatcherJobNum: '10'
