@@ -25,6 +25,9 @@ guppy:
 
 indexd:
     enabled: true
+    # Do not rely on external secret for indexd creds :grimacing:
+    externalSecrets:
+      createK8sServiceCredsSecret: true
 
 orthanc:
     enabled: false
