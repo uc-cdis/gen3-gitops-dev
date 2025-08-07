@@ -1632,7 +1632,7 @@ revproxy:
         tag: "2025.01"
     ingress:
         aws:
-            group: pauline-helm
+            group: devplanetv2
     replicas: 1
 
 sower:
