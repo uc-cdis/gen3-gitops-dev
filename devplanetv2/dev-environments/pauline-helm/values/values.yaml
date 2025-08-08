@@ -24,7 +24,11 @@ guppy:
     enabled: true
 
 indexd:
-    enabled: false
+    enabled: true
+    defaultPrefix: pauline/
+    # Do not rely on external secret for indexd creds :grimacing:
+    externalSecrets:
+      createK8sServiceCredsSecret: true
 
 orthanc:
     enabled: false
@@ -104,7 +108,7 @@ global:
     portalApp: gitops
     postgres:
         dbCreate: false
-    revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/c676c81c-9546-4e9a-9a72-725dd3912bc8
+    revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/520ede2f-fc82-4bb9-af96-4b4af7deabbd
 
 hatchery:
     enabled: false
@@ -1629,7 +1633,8 @@ revproxy:
         tag: "2025.01"
     ingress:
         aws:
-            group: pauline-helm
+            group: devplanetv2
+            sslPolicy: ELBSecurityPolicy-TLS13-1-2-FIPS-2023-04
     replicas: 1
 
 sower:

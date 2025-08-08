@@ -6,10 +6,9 @@ ambassador:
   jupyterNamespace: "jupyter-pods-qa-mickey"
 arborist:
   autoscaling:
-    enabled: true
-    maxReplicas: 1
-    minReplicas: 1
+    enabled: false
     targetCPUUtilizationPercentage: 40
+  replicaCount: 2
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/arborist
@@ -52,10 +51,9 @@ dashboard:
     bucket: dashboard-707767160287-qaplanetv1-gen3
     prefix: qa-mickey.planx-pla.net
   autoscaling:
-    enabled: true
-    maxReplicas: 1
-    minReplicas: 1
+    enabled: false
     targetCPUUtilizationPercentage: 40
+  replicaCount: 2
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-statics
@@ -68,10 +66,9 @@ fence:
     usersync: true
     userYamlS3Path: "s3://cdis-gen3-users/qa-mickey/user.yaml"
   autoscaling:
-    enabled: true
-    maxReplicas: 1
-    minReplicas: 1
+    enabled: false
     targetCPUUtilizationPercentage: 40
+  replicaCount: 2
   enabled: true
   externalSecrets:
     createK8sGoogleAppSecrets: false
@@ -105,6 +102,7 @@ global:
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/vadictionary/0.4.2/schema.json
   dispatcherJobNum: "10"
   environment: qa-mickey
+  pdb: true
   externalSecrets:
     deploy: true
   frontendRoot: gen3ff
@@ -122,6 +120,7 @@ global:
   postgres:
     dbCreate: false
   revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/520ede2f-fc82-4bb9-af96-4b4af7deabbd
+  logoutInactiveUsers: false
 guppy:
   authFilterField: auth_resource_path
   configIndex: etl_mickey_array-config
@@ -165,7 +164,7 @@ hatchery:
                   "cpu-limit": "1.0",
                   "memory-limit": "512Mi",
                   "name": "R Studio",
-                  "image": "quay.io/cdis/rstudio:4.2.1",
+                  "image": "quay.io/cdis/rstudio:4.4.0",
                   "env": {
                       "DISABLE_AUTH": "true"
                   },
@@ -180,43 +179,12 @@ hatchery:
                   "cpu-limit": "1.0",
                   "memory-limit": "512Mi",
                   "name": "Jupyter Notebook Bio Python",
-                  "image": "quay.io/cdis/jupyter-notebook:1.0.2",
+                  "image": "quay.io/cdis/jupyter-superslim-r:2.0.1",
                   "env": {
                       "NAMESPACE": "qa-mickey"
                   },
                   "args": [
                       "--NotebookApp.base_url=/lw-workspace/proxy/",
-                      "--NotebookApp.password=''",
-                      "--NotebookApp.token=''",
-                      "--NotebookApp.shutdown_no_activity_timeout=5400"
-                  ],
-                  "command": [
-                      "start-notebook.sh"
-                  ],
-                  "path-rewrite": "/lw-workspace/proxy/",
-                  "use-tls": "false",
-                  "ready-probe": "/lw-workspace/proxy/",
-                  "lifecycle-post-start": [
-                      "/bin/sh",
-                      "-c",
-                      "export IAM=`whoami`; rm -rf /home/$IAM/pd/dockerHome; ln -s $(pwd) /home/$IAM/pd/dockerHome; mkdir -p /home/$IAM/.jupyter/custom; echo \"define(['base/js/namespace'], function(Jupyter){Jupyter._target = '_self';})\" >/home/$IAM/.jupyter/custom/custom.js; ln -s /data /home/$IAM/pd/; true"
-                  ],
-                  "user-uid": 1000,
-                  "fs-gid": 100,
-                  "user-volume-location": "/home/jovyan/pd"
-              },
-              {
-                  "target-port": 8888,
-                  "cpu-limit": "1.0",
-                  "memory-limit": "512Mi",
-                  "name": "Jupyter Notebook Bio Python (Lab Edition)",
-                  "image": "quay.io/cdis/jupyter-notebook:1.0.2",
-                  "env": {
-                      "NAMESPACE": "qa-mickey"
-                  },
-                  "args": [
-                      "--NotebookApp.base_url=/lw-workspace/proxy/",
-                      "--NotebookApp.default_url=/lab",
                       "--NotebookApp.password=''",
                       "--NotebookApp.token=''",
                       "--NotebookApp.shutdown_no_activity_timeout=5400"
@@ -241,16 +209,20 @@ hatchery:
                   "cpu-limit": "1.0",
                   "memory-limit": "2Gi",
                   "name": "Jupyter Notebook Bio Python (Lab Edition)",
-                  "image": "quay.io/cdis/jupyter-notebook:1.0.2",
+                  "image": "quay.io/cdis/jupyter-superslim-r:2.0.1",
                   "env": {
-                      "NAMESPACE": "qa-mickey"
+                      "NAMESPACE": "qa-mickey",
+                      "FRAME_ANCESTORS": "https://qa-mickey.planx-pla.net"
                   },
                   "args": [
-                      "--NotebookApp.base_url=/lw-workspace/proxy/",
-                      "--NotebookApp.default_url=/lab",
-                      "--NotebookApp.password=''",
-                      "--NotebookApp.token=''",
-                      "--NotebookApp.shutdown_no_activity_timeout=5400"
+                    "--JupyterNotebookApp.base_url=/lw-workspace/proxy/",
+                    "--JupyterNotebookApp.default_url=/lab",
+                    "--JupyterNotebookApp.password=''",
+                    "--JupyterNotebookApp.token=''",
+                    "--JupyterNotebookApp.ip='*'",
+                    "--JupyterNotebookApp.notebook_dir='/home/jovyan'",
+                    "--JupyterNotebookApp.shutdown_no_activity_timeout=5400",
+                    "--JupyterNotebookApp.quit_button=False"
                   ],
                   "command": [
                       "start-notebook.sh"
@@ -266,116 +238,6 @@ hatchery:
                   "user-uid": 1000,
                   "fs-gid": 100,
                   "user-volume-location": "/home/jovyan/pd"
-              },
-              {
-                  "target-port": 5800,
-                  "cpu-limit": "1.0",
-                  "memory-limit": "1024Mi",
-                  "name": "R Studio thru noVNC",
-                  "image": "heliumdatastage/rstudio-server:1",
-                  "env": {
-                      "DISABLE_AUTH": "true"
-                  },
-                  "args": [],
-                  "path-rewrite": "/",
-                  "use-tls": "false",
-                  "ready-probe": "/",
-                  "fs-gid": 100,
-                  "use-shared-memory": "true",
-                  "friends": [
-                      {
-                          "name": "firefox",
-                          "image": "quay.io/cdis/docker-firefox:v1.13.0_ctds.1.0.0",
-                          "volumeMounts": [
-                              {
-                                  "name": "dshm",
-                                  "mountPath": "/dev/shm"
-                              }
-                          ],
-                          "securityContext": {
-                              "privileged": true
-                          },
-                          "env": [
-                              {
-                                  "name": "LANDING_URL",
-                                  "value": "http://localhost:8787/"
-                              }
-                          ],
-                          "resources": {
-                              "limits": {
-                                  "cpu": "1.0",
-                                  "memory": "3Gi"
-                              }
-                          },
-                          "ports": [
-                              {
-                                  "containerPort": 5800
-                              }
-                          ]
-                      }
-                  ]
-              },
-              {
-                  "target-port": 5800,
-                  "cpu-limit": "1.0",
-                  "memory-limit": "512Mi",
-                  "name": "Jupyter Notebook Bio Python (Lab Edition) thru noVNC",
-                  "image": "quay.io/cdis/jupyter-notebook:1.0.2",
-                  "env": {
-                      "NAMESPACE": "qa-mickey"
-                  },
-                  "args": [
-                      "--NotebookApp.base_url=/",
-                      "--NotebookApp.default_url=/lab",
-                      "--NotebookApp.password=''",
-                      "--NotebookApp.token=''"
-                  ],
-                  "command": [
-                      "start-notebook.sh"
-                  ],
-                  "path-rewrite": "/",
-                  "use-tls": "false",
-                  "ready-probe": "/",
-                  "lifecycle-post-start": [
-                      "/bin/sh",
-                      "-c",
-                      "export IAM=`whoami`; rm -rf /home/$IAM/pd/dockerHome; ln -s $(pwd) /home/$IAM/pd/dockerHome; mkdir -p /home/$IAM/.jupyter/custom; echo \"define(['base/js/namespace'], function(Jupyter){Jupyter._target = '_self';})\" >/home/$IAM/.jupyter/custom/custom.js; ln -s /data /home/$IAM/pd/; true"
-                  ],
-                  "user-volume-location": "/home/jovyan/pd",
-                  "use-shared-memory": "true",
-                  "fs-gid": 100,
-                  "friends": [
-                      {
-                          "name": "firefox",
-                          "image": "quay.io/cdis/docker-firefox:v1.13.0_ctds.1.0.0",
-                          "volumeMounts": [
-                              {
-                                  "name": "dshm",
-                                  "mountPath": "/dev/shm"
-                              }
-                          ],
-                          "securityContext": {
-                              "privileged": true
-                          },
-                          "env": [
-                              {
-                                  "name": "LANDING_URL",
-                                  "value": "http://localhost:8888/"
-                              }
-                          ],
-                          "resources": {
-                              "limits": {
-                                  "cpu": "1.0",
-                                  "memory": "3Gi"
-                              }
-                          },
-                          "ports": [
-                              {
-                                  "containerPort": 5800
-                              }
-                          ]
-                      }
-                  ]
               }
           ]
       }
@@ -385,10 +247,9 @@ hatchery:
     tag: "2025.04"
 indexd:
   autoscaling:
-    enabled: true
-    maxReplicas: 1
-    minReplicas: 1
+    enabled: false
     targetCPUUtilizationPercentage: 40
+  replicaCount: 2
   enabled: true
   externalSecrets:
     serviceCreds: qa-mickey-indexd-service-creds
@@ -404,10 +265,9 @@ manifestservice:
     tag: "2025.04"
 metadata:
   autoscaling:
-    enabled: true
-    maxReplicas: 1
-    minReplicas: 1
+    enabled: false
     targetCPUUtilizationPercentage: 40
+  replicaCount: 2
   enabled: true
   externalSecrets:
     metadataG3auto: qa-mickey-metadata-g3auto
@@ -426,20 +286,18 @@ ohdsi-webapi:
     tag: feat_pull_upstream_into_2.15_DEV
 peregrine:
   autoscaling:
-    enabled: true
-    maxReplicas: 1
-    minReplicas: 1
+    enabled: false
     targetCPUUtilizationPercentage: 40
+  replicaCount: 2
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/peregrine
     tag: "2025.04"
 portal:
   autoscaling:
-    enabled: true
-    maxReplicas: 1
-    minReplicas: 1
+    enabled: false
     targetCPUUtilizationPercentage: 40
+  replicaCount: 2
   enabled: true
   gitops:
     css:
@@ -563,10 +421,9 @@ requestor:
     tag: "2025.04"
 revproxy:
   autoscaling:
-    enabled: true
-    maxReplicas: 1
-    minReplicas: 1
+    enabled: false
     targetCPUUtilizationPercentage: 40
+  replicaCount: 2
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/nginx
@@ -577,10 +434,9 @@ revproxy:
       sslPolicy: ELBSecurityPolicy-TLS13-1-2-FIPS-2023-04
 sheepdog:
   autoscaling:
-    enabled: true
-    maxReplicas: 1
-    minReplicas: 1
+    enabled: false
     targetCPUUtilizationPercentage: 40
+  replicaCount: 2
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sheepdog
