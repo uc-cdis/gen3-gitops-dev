@@ -12,11 +12,14 @@ arborist:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/arborist
-    tag: '2025.05'
+    tag: '2025.07'
+  externalSecrets:
+    dbcreds: qa-midrc-arborist-creds
 audit:
   enabled: true
   externalSecrets:
     auditG3auto: qa-midrc-audit-g3auto
+    dbcreds: qa-midrc-audit-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/audit-service
     tag: master
@@ -29,12 +32,12 @@ awshelper:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/awshelper
-    tag: '2025.05'
+    tag: '2025.07'
 dashboard:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-statics
-    tag: '2025.05'
+    tag: '2025.07'
 dicom-server:
   enabled: true
   image:
@@ -53,6 +56,7 @@ fence:
     fenceGoogleAppCredsSecret: qa-midrc-fence-google-app-creds
     fenceGoogleStorageCredsSecret: qa-midrc-fence-google-storage-creds
     fenceJwtKeys: qa-midrc-fence-jwt
+    dbcreds: qa-midrc-fence-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
     tag: 11.2.1
@@ -72,6 +76,10 @@ gen3-workflow:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-workflow
     tag: test_plugin-support-with-logs
 global:
+  crossplane:
+    enabled: true
+    oidcProviderUrl: "oidc.eks.us-east-1.amazonaws.com/id/F057519C0E32B7DE2580904C4007BB21"
+    accountId: "707767160287"
   aws:
     account: '707767160287'
     awsEsProxyRole: devplanetv2--qa-midrc--es-access
@@ -82,7 +90,7 @@ global:
   dev: false
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/midrc_dictionary/1.3.9/schema.json
   dispatcherJobNum: '10'
-  environment: qa-midrc
+  environment: devplanetv2
   externalSecrets:
     deploy: true
   frontendRoot: portal
@@ -101,7 +109,7 @@ global:
   portalApp: gitops
   postgres:
     dbCreate: false
-  revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/c676c81c-9546-4e9a-9a72-725dd3912bc8
+  revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/520ede2f-fc82-4bb9-af96-4b4af7deabbd
 guppy:
   autoscaling:
     enabled: true
@@ -125,7 +133,7 @@ guppy:
       type: imaging_study
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/guppy
-    tag: '2025.05'
+    tag: '2025.07'
 indexd:
   autoscaling:
     enabled: true
@@ -135,16 +143,17 @@ indexd:
   enabled: true
   externalSecrets:
     serviceCreds: qa-midrc-indexd-service-creds
+    dbcreds: qa-midrc-indexd-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexd
-    tag: '2025.05'
+    tag: '2025.07'
 manifestservice:
   enabled: true
   externalSecrets:
     manifestserviceG3auto: qa-midrc-manifestservice-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/manifestservice
-    tag: '2025.05'
+    tag: '2025.07'
 metadata:
   autoscaling:
     enabled: true
@@ -154,9 +163,10 @@ metadata:
   enabled: true
   externalSecrets:
     metadataG3auto: qa-midrc-metadata-g3auto
+    dbcreds: qa-midrc-metadata-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
-    tag: '2025.05'
+    tag: '2025.07'
 peregrine:
   autoscaling:
     enabled: true
@@ -166,7 +176,7 @@ peregrine:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/peregrine
-    tag: '2025.05'
+    tag: '2025.07'
 portal:
   autoscaling:
     enabled: true
@@ -2198,7 +2208,7 @@ portal:
     - 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
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/data-portal
-    tag: '2025.05'
+    tag: '2025.07'
 revproxy:
   autoscaling:
     enabled: true
@@ -2208,7 +2218,7 @@ revproxy:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/nginx
-    tag: '2025.05'
+    tag: '2025.07'
   ingress:
     aws:
       group: qa-midrc-helm
@@ -2221,29 +2231,33 @@ sheepdog:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sheepdog
-    tag: '2025.05'
+    tag: '2025.07'
+  externalSecrets:
+    dbcreds: qa-midrc-sheepdog-creds
 spark:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-spark
-    tag: '2025.05'
+    tag: '2025.07'
 ssjdispatcher:
   enabled: true
   externalSecrets:
     credsFile: qa-midrc-ssjdispatcher-creds
+    dbcreds: qa-midrc-ssjdispatcher-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ssjdispatcher
-    tag: '2025.05'
+    tag: '2025.07'
   indexing: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexs3client:2024.09
 tube:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/tube
-    tag: '2025.05'
+    tag: '2025.07'
 wts:
   enabled: true
   externalSecrets:
     wtsG3auto: qa-midrc-wts-g3auto
+    dbcreds: qa-midrc-wts-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/workspace-token-service
-    tag: '2025.05'
+    tag: '2025.07'
