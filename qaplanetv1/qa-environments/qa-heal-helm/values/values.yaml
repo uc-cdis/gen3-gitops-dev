@@ -1,6 +1,8 @@
 ambassador:
   jupyterNamespace: qa-heal
 arborist:
+  externalSecrets:
+    dbcreds: qa-heal-arborist-creds
   autoscaling:
     enabled: true
     maxReplicas: 1
@@ -14,9 +16,10 @@ audit:
   enabled: true
   externalSecrets:
     auditG3auto: qa-heal-audit-g3auto
+    dbcreds: qa-heal-audit-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/audit-service
-    tag: '2025.05'
+    tag: '2025.07'
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/qaplanetv1--qa-heal-helm--audit-sqs-receiver
@@ -40,10 +43,11 @@ dashboard:
   dashboardConfig:
     bucket: dashboard-707767160287-qaplanetv1-gen3
     prefix: qa-heal.planx-pla.net
+    gitopsRepo: "https://github.com/uc-cdis/gitops-qa"
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-statics
-    tag: '2025.05'
+    tag: '2025.07'
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/qaplanetv1--qa-heal-helm--dashboard-access
@@ -122,9 +126,10 @@ fence:
     fenceGoogleAppCredsSecret: qa-heal-fence-google-app-creds
     fenceGoogleStorageCredsSecret: qa-heal-fence-google-storage-creds
     fenceJwtKeys: qa-heal-fence-jwt
+    dbcreds: qa-heal-fence-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
-    tag: '2025.05'
+    tag: '2025.07'
 fluentd:
   enabled: true
   image:
@@ -136,6 +141,10 @@ frontend-framework:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/heal-data-commons
     tag: main
 global:
+  crossplane:
+    enabled: true
+    oidcProviderUrl: "oidc.eks.us-east-1.amazonaws.com/id/CC02898351A01FE1B43EFDA3F3796737"
+    accountId: "707767160287"
   aws:
     account: '707767160287'
     awsEsProxyRole: qaplanetv1--qa-heal-helm--es-access
@@ -147,7 +156,7 @@ global:
   dev: false
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/heal_dictionary/1.1.0/schema.json
   dispatcherJobNum: '10'
-  environment: qa-heal
+  environment: qaplanetv1
   externalSecrets:
     deploy: true
   frontendRoot: gen3ff
@@ -164,206 +173,207 @@ global:
   portalApp: gitops
   postgres:
     dbCreate: false
-  revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/c676c81c-9546-4e9a-9a72-725dd3912bc8
+  revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/520ede2f-fc82-4bb9-af96-4b4af7deabbd
 hatchery:
+  externalSecrets:
+    stataG3auto: "qa-heal-stata-workspace-gen3-license"
   enabled: true
   externalSecrets:
     stataG3auto: "qa-heal-stata-workspace-gen3-license"
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
-    tag: '2025.05'
-  json: |-
-    {
-      "user-namespace": "jupyter-pods-qa-heal",
-      "sub-dir": "/lw-workspace",
-      "user-volume-size": "10Gi",
-      "default-pay-model": {
-        "workspace_type": "Trial Workspace",
-        "local": true
-      },
-      "pay-models": [],
-      "pay-models-dynamodb-table": "bmh-admin-portal-backend-bmhworkspacetableD4D73E43-BAFEMVG0IMKE",
-      "pay-models-dynamodb-arn": "arn:aws:iam::840048274993:role/qaplanetv1-sa-permissions",
-      "license-user-maps-dynamodb-table": "gen3-license-user-maps",
-      "license-user-maps-global-secondary-index": "activeUsersIndex",
-      "sidecar": {
-        "cpu-limit": "1.0",
-        "memory-limit": "256Mi",
-        "image": "quay.io/cdis/ecs-ws-sidecar:2025.05",
-        "env": {
-          "NAMESPACE": "qa-heal"
+    tag: '2025.07'
+  hatchery:
+    json: |-
+      {
+        "user-namespace": "jupyter-pods-qa-heal",
+        "sub-dir": "/lw-workspace",
+        "user-volume-size": "10Gi",
+        "default-pay-model": {
+          "workspace_type": "Trial Workspace",
+          "local": true
         },
-        "args": [],
-        "command": [
-          "/bin/bash",
-          "./sidecar.sh"
-        ],
-        "lifecycle-pre-stop": [
-          "su",
-          "-c",
-          "echo test",
-          "-s",
-          "/bin/sh",
-          "root"
-        ]
-      },
-      "containers": [
-        {
-          "target-port": 8888,
+        "pay-models": [],
+        "license-user-maps-dynamodb-table": "gen3-license-user-maps",
+        "license-user-maps-global-secondary-index": "activeUsersIndex",
+        "sidecar": {
           "cpu-limit": "1.0",
-          "memory-limit": "2Gi",
-          "name": "(Generic) Jupyter Lab Notebook with R Kernel",
-          "image": "quay.io/cdis/heal-notebooks:generic_rkernel__a446922e0751453477295f010e18119cee4dd543",
+          "memory-limit": "256Mi",
+          "image": "quay.io/cdis/ecs-ws-sidecar:2025.07",
           "env": {
-            "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
+            "NAMESPACE": "qa-heal-helm"
           },
-          "args": [
-            "--JupyterNotebookApp.base_url=/lw-workspace/proxy/",
-            "--JupyterNotebookApp.default_url=/lab",
-            "--JupyterNotebookApp.password=''",
-            "--JupyterNotebookApp.token=''",
-            "--JupyterNotebookApp.ip='*'",
-            "--JupyterNotebookApp.notebook_dir='/home/jovyan'",
-            "--JupyterNotebookApp.shutdown_no_activity_timeout=3600",
-            "--JupyterNotebookApp.quit_button=False",
-            "--Application.log_level=DEBUG",
-            "--JupyterNotebookApp.log_level=DEBUG",
-            "--JupyterApp.log_level=DEBUG",
-            "--Session.debug=True"
-          ],
-          "command": [
-            "start-notebook.sh"
-          ],
-          "path-rewrite": "/lw-workspace/proxy/",
-          "use-tls": "false",
-          "ready-probe": "/lw-workspace/proxy/",
-          "lifecycle-post-start": [
-            "/bin/sh",
-            "-c",
-            "export IAM=`whoami`; rm -rf /home/$IAM/pd/dockerHome; rm -rf /home/$IAM/pd/lost+found; ln -s /data /home/$IAM/; rm /home/$IAM/pd/data; wget -O /data/external_data_download.ipynb https://raw.githubusercontent.com/uc-cdis/heal-platform-sdk/refs/heads/master/notebooks/external_data_download.ipynb; wget -O /data/NDA_data_package_download.ipynb https://raw.githubusercontent.com/uc-cdis/heal-platform-sdk/refs/heads/master/notebooks/NDA_data_package_download.ipynb; true"
-          ],
-          "user-uid": 1000,
-          "fs-gid": 100,
-          "user-volume-location": "/home/jovyan/pd",
-          "gen3-volume-location": "/home/jovyan/.gen3"
-        },
-        {
-          "target-port": 8888,
-          "cpu-limit": "1.0",
-          "memory-limit": "2Gi",
-          "name": "(Generic, User-licensed) Stata Notebook ",
-          "image": "quay.io/cdis/jupyter-pystata-user-licensed:2.0.0",
-          "env": {
-            "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
-          },
-          "args": [
-            "--JupyterNotebookApp.base_url=/lw-workspace/proxy/",
-            "--JupyterNotebookApp.default_url=/lab",
-            "--JupyterNotebookApp.password=''",
-            "--JupyterNotebookApp.token=''",
-            "--JupyterNotebookApp.ip='*'",
-            "--JupyterNotebookApp.notebook_dir='/home/jovyan'",
-            "--JupyterNotebookApp.shutdown_no_activity_timeout=3600",
-            "--JupyterNotebookApp.quit_button=False"
-          ],
-          "command": [
-            "start-notebook.sh"
-          ],
-          "path-rewrite": "/lw-workspace/proxy/",
-          "use-tls": "false",
-          "ready-probe": "/lw-workspace/proxy/",
-          "lifecycle-post-start": [
-            "/bin/sh",
-            "-c",
-            "export IAM=`whoami`; rm -rf /home/$IAM/pd/dockerHome; rm -rf /home/$IAM/pd/lost+found; ln -s /data /home/$IAM/; rm /home/$IAM/pd/data; true"
-          ],
-          "user-uid": 1000,
-          "fs-gid": 100,
-          "user-volume-location": "/home/jovyan/pd",
-          "gen3-volume-location": "/home/jovyan/.gen3"
-        },
-        {
-          "target-port": 8888,
-          "cpu-limit": "1.0",
-          "memory-limit": "2Gi",
-          "name": "(Generic, Limited Gen3-licensed) Stata Notebook",
-          "image": "quay.io/cdis/jupyter-pystata-gen3-licensed:2.0.0",
-          "env": {
-            "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
-          },
-          "license": {
-            "enabled": true,
-            "license-type": "STATA-HEAL",
-            "max-license-ids": 5,
-            "g3auto-name": "stata-workspace-gen3-license-g3auto",
-            "g3auto-key": "stata_license.txt",
-            "file-path": "stata.lic",
-            "workspace-flavor": "gen3-licensed"
-          },
-          "args": [
-            "--JupyterNotebookApp.base_url=/lw-workspace/proxy/",
-            "--JupyterNotebookApp.default_url=/lab",
-            "--JupyterNotebookApp.password=''",
-            "--JupyterNotebookApp.token=''",
-            "--JupyterNotebookApp.ip='*'",
-            "--JupyterNotebookApp.notebook_dir='/home/jovyan'",
-            "--JupyterNotebookApp.shutdown_no_activity_timeout=3600",
-            "--JupyterNotebookApp.quit_button=False"
-          ],
+          "args": [],
           "command": [
             "/bin/bash",
-            "/tmp/wait_for_license.sh"
+            "./sidecar.sh"
           ],
-          "path-rewrite": "/lw-workspace/proxy/",
-          "use-tls": "false",
-          "ready-probe": "/lw-workspace/proxy/",
-          "lifecycle-post-start": [
-            "/bin/sh",
+          "lifecycle-pre-stop": [
+            "su",
             "-c",
-            "export IAM=`whoami`; rm -rf /home/$IAM/pd/dockerHome; rm -rf /home/$IAM/pd/lost+found; ln -s /data /home/$IAM/; rm /home/$IAM/pd/data; true"
-          ],
-          "user-uid": 1000,
-          "fs-gid": 100,
-          "user-volume-location": "/home/jovyan/pd",
-          "gen3-volume-location": "/home/jovyan/.gen3"
+            "echo test",
+            "-s",
+            "/bin/sh",
+            "root"
+          ]
         },
-        {
-          "target-port": 8888,
-          "cpu-limit": "1.0",
-          "memory-limit": "2Gi",
-          "name": "(Tutorials) Example Analysis Jupyter Lab Notebooks",
-          "image": "quay.io/cdis/heal-notebooks:combined_tutorials__22ec8d31c349ea76590d1071e8ceb1072eb69c72",
-          "env": {
-            "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
+        "containers": [
+          {
+            "target-port": 8888,
+            "cpu-limit": "1.0",
+            "memory-limit": "2Gi",
+            "name": "(Generic) Jupyter Lab Notebook with R Kernel",
+            "image": "quay.io/cdis/heal-notebooks:generic_rkernel__a446922e0751453477295f010e18119cee4dd543",
+            "env": {
+              "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
+            },
+            "args": [
+              "--JupyterNotebookApp.base_url=/lw-workspace/proxy/",
+              "--JupyterNotebookApp.default_url=/lab",
+              "--JupyterNotebookApp.password=''",
+              "--JupyterNotebookApp.token=''",
+              "--JupyterNotebookApp.ip='*'",
+              "--JupyterNotebookApp.notebook_dir='/home/jovyan'",
+              "--JupyterNotebookApp.shutdown_no_activity_timeout=3600",
+              "--JupyterNotebookApp.quit_button=False",
+              "--Application.log_level=DEBUG",
+              "--JupyterNotebookApp.log_level=DEBUG",
+              "--JupyterApp.log_level=DEBUG",
+              "--Session.debug=True"
+            ],
+            "command": [
+              "start-notebook.sh"
+            ],
+            "path-rewrite": "/lw-workspace/proxy/",
+            "use-tls": "false",
+            "ready-probe": "/lw-workspace/proxy/",
+            "lifecycle-post-start": [
+              "/bin/sh",
+              "-c",
+              "export IAM=`whoami`; rm -rf /home/$IAM/pd/dockerHome; rm -rf /home/$IAM/pd/lost+found; ln -s /data /home/$IAM/; rm /home/$IAM/pd/data; wget -O /data/external_data_download.ipynb https://raw.githubusercontent.com/uc-cdis/heal-platform-sdk/refs/heads/master/notebooks/external_data_download.ipynb; wget -O /data/NDA_data_package_download.ipynb https://raw.githubusercontent.com/uc-cdis/heal-platform-sdk/refs/heads/master/notebooks/NDA_data_package_download.ipynb; true"
+            ],
+            "user-uid": 1000,
+            "fs-gid": 100,
+            "user-volume-location": "/home/jovyan/pd",
+            "gen3-volume-location": "/home/jovyan/.gen3"
           },
-          "args": [
-            "--JupyterNotebookApp.base_url=/lw-workspace/proxy/",
-            "--JupyterNotebookApp.default_url=/lab",
-            "--JupyterNotebookApp.password=''",
-            "--JupyterNotebookApp.token=''",
-            "--JupyterNotebookApp.ip='*'",
-            "--JupyterNotebookApp.notebook_dir='/home/jovyan'",
-            "--JupyterNotebookApp.shutdown_no_activity_timeout=3600",
-            "--JupyterNotebookApp.quit_button=False"
-          ],
-          "command": [
-            "start-notebook.sh"
-          ],
-          "path-rewrite": "/lw-workspace/proxy/",
-          "use-tls": "false",
-          "ready-probe": "/lw-workspace/proxy/",
-          "lifecycle-post-start": [
-            "/bin/sh",
-            "-c",
-            "export IAM=`whoami`; rm -rf /home/$IAM/pd/dockerHome; rm -rf /home/$IAM/pd/lost+found; ln -s /data /home/$IAM/; rm /home/$IAM/pd/data; true"
-          ],
-          "user-uid": 1000,
-          "fs-gid": 100,
-          "user-volume-location": "/home/jovyan/pd",
-          "gen3-volume-location": "/home/jovyan/.gen3"
-        }
-      ]
-    }
+          {
+            "target-port": 8888,
+            "cpu-limit": "1.0",
+            "memory-limit": "2Gi",
+            "name": "(Generic, User-licensed) Stata Notebook ",
+            "image": "quay.io/cdis/jupyter-pystata-user-licensed:2.0.0",
+            "env": {
+              "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
+            },
+            "args": [
+              "--JupyterNotebookApp.base_url=/lw-workspace/proxy/",
+              "--JupyterNotebookApp.default_url=/lab",
+              "--JupyterNotebookApp.password=''",
+              "--JupyterNotebookApp.token=''",
+              "--JupyterNotebookApp.ip='*'",
+              "--JupyterNotebookApp.notebook_dir='/home/jovyan'",
+              "--JupyterNotebookApp.shutdown_no_activity_timeout=3600",
+              "--JupyterNotebookApp.quit_button=False"
+            ],
+            "command": [
+              "start-notebook.sh"
+            ],
+            "path-rewrite": "/lw-workspace/proxy/",
+            "use-tls": "false",
+            "ready-probe": "/lw-workspace/proxy/",
+            "lifecycle-post-start": [
+              "/bin/sh",
+              "-c",
+              "export IAM=`whoami`; rm -rf /home/$IAM/pd/dockerHome; rm -rf /home/$IAM/pd/lost+found; ln -s /data /home/$IAM/; rm /home/$IAM/pd/data; true"
+            ],
+            "user-uid": 1000,
+            "fs-gid": 100,
+            "user-volume-location": "/home/jovyan/pd",
+            "gen3-volume-location": "/home/jovyan/.gen3"
+          },
+          {
+            "target-port": 8888,
+            "cpu-limit": "1.0",
+            "memory-limit": "2Gi",
+            "name": "(Generic, Limited Gen3-licensed) Stata Notebook",
+            "image": "quay.io/cdis/jupyter-pystata-gen3-licensed:2.0.0",
+            "env": {
+              "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
+            },
+            "license": {
+              "enabled": true,
+              "license-type": "STATA-HEAL",
+              "max-license-ids": 5,
+              "g3auto-name": "stata-workspace-gen3-license",
+              "g3auto-key": "stata-license.txt",
+              "file-path": "stata.lic",
+              "workspace-flavor": "gen3-licensed"
+            },
+            "args": [
+              "--JupyterNotebookApp.base_url=/lw-workspace/proxy/",
+              "--JupyterNotebookApp.default_url=/lab",
+              "--JupyterNotebookApp.password=''",
+              "--JupyterNotebookApp.token=''",
+              "--JupyterNotebookApp.ip='*'",
+              "--JupyterNotebookApp.notebook_dir='/home/jovyan'",
+              "--JupyterNotebookApp.shutdown_no_activity_timeout=3600",
+              "--JupyterNotebookApp.quit_button=False"
+            ],
+            "command": [
+              "/bin/bash",
+              "/tmp/wait_for_license.sh"
+            ],
+            "path-rewrite": "/lw-workspace/proxy/",
+            "use-tls": "false",
+            "ready-probe": "/lw-workspace/proxy/",
+            "lifecycle-post-start": [
+              "/bin/sh",
+              "-c",
+              "export IAM=`whoami`; rm -rf /home/$IAM/pd/dockerHome; rm -rf /home/$IAM/pd/lost+found; ln -s /data /home/$IAM/; rm /home/$IAM/pd/data; true"
+            ],
+            "user-uid": 1000,
+            "fs-gid": 100,
+            "user-volume-location": "/home/jovyan/pd",
+            "gen3-volume-location": "/home/jovyan/.gen3"
+          },
+          {
+            "target-port": 8888,
+            "cpu-limit": "1.0",
+            "memory-limit": "2Gi",
+            "name": "(Tutorials) Example Analysis Jupyter Lab Notebooks",
+            "image": "quay.io/cdis/heal-notebooks:combined_tutorials__22ec8d31c349ea76590d1071e8ceb1072eb69c72",
+            "env": {
+              "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
+            },
+            "args": [
+              "--JupyterNotebookApp.base_url=/lw-workspace/proxy/",
+              "--JupyterNotebookApp.default_url=/lab",
+              "--JupyterNotebookApp.password=''",
+              "--JupyterNotebookApp.token=''",
+              "--JupyterNotebookApp.ip='*'",
+              "--JupyterNotebookApp.notebook_dir='/home/jovyan'",
+              "--JupyterNotebookApp.shutdown_no_activity_timeout=3600",
+              "--JupyterNotebookApp.quit_button=False"
+            ],
+            "command": [
+              "start-notebook.sh"
+            ],
+            "path-rewrite": "/lw-workspace/proxy/",
+            "use-tls": "false",
+            "ready-probe": "/lw-workspace/proxy/",
+            "lifecycle-post-start": [
+              "/bin/sh",
+              "-c",
+              "export IAM=`whoami`; rm -rf /home/$IAM/pd/dockerHome; rm -rf /home/$IAM/pd/lost+found; ln -s /data /home/$IAM/; rm /home/$IAM/pd/data; true"
+            ],
+            "user-uid": 1000,
+            "fs-gid": 100,
+            "user-volume-location": "/home/jovyan/pd",
+            "gen3-volume-location": "/home/jovyan/.gen3"
+          }
+        ]
+      }
 indexd:
   autoscaling:
     enabled: true
@@ -373,16 +383,17 @@ indexd:
   enabled: true
   externalSecrets:
     serviceCreds: qa-heal-indexd-service-creds
+    dbcreds: qa-heal-indexd-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexd
-    tag: '2025.05'
+    tag: '2025.07'
 manifestservice:
   enabled: true
   externalSecrets:
     manifestserviceG3auto: qa-heal-manifestservice-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/manifestservice
-    tag: '2025.05'
+    tag: '2025.07'
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/qaplanetv1--qa-heal-helm--manifest-service-sa
@@ -1644,9 +1655,10 @@ metadata:
   esEndpoint: http://elasticsearch:9200
   externalSecrets:
     metadataG3auto: qa-heal-metadata-g3auto
+    dbcreds: qa-heal-metadata-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
-    tag: '2025.05'
+    tag: '2025.07'
   useAggMds: true
 mutatingWebhook:
   enabled: true
@@ -1659,7 +1671,9 @@ peregrine:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/peregrine
-    tag: '2025.05'
+    tag: '2025.07'
+  externalSecrets:
+    dbcreds: qa-heal-peregrine-creds
 portal:
   autoscaling:
     enabled: true
@@ -2304,7 +2318,9 @@ requestor:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/requestor
-    tag: '2025.05'
+    tag: '2025.07'
+  externalSecrets:
+    dbcreds: qa-heal-requestor-creds
 revproxy:
   autoscaling:
     enabled: true
@@ -2314,7 +2330,7 @@ revproxy:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/nginx
-    tag: '2025.05'
+    tag: '2025.07'
   ingress:
     aws:
       group: qa-heal-helm
@@ -2327,7 +2343,9 @@ sheepdog:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sheepdog
-    tag: '2025.05'
+    tag: '2025.07'
+  externalSecrets:
+    dbcreds: qa-heal-sheepdog-creds
 sower:
   enabled: true
   externalSecrets:
@@ -2335,7 +2353,7 @@ sower:
     sowerjobsG3auto: qa-heal-sower-jobs-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sower
-    tag: '2025.05'
+    tag: '2025.07'
   sowerConfig:
   - action: batch-export
     activeDeadlineSeconds: 600
@@ -2367,14 +2385,14 @@ ssjdispatcher:
     credsFile: qa-heal-ssjdispatcher-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ssjdispatcher
-    tag: '2025.05'
-  indexing: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexs3client:2025.05
+    tag: '2025.07'
+  indexing: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexs3client:2025.07
 wts:
   enabled: true
   externalSecrets:
-    createWtsOidcClientSecret: false
     wtsG3auto: qa-heal-wts-g3auto
     wtsOidcClient: qa-heal-wts-client-secret
+    dbcreds: qa-heal-wts-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/workspace-token-service
-    tag: '2025.05'
+    tag: '2025.07'
