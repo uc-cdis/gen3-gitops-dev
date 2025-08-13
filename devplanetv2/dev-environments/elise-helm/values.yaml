@@ -1,5 +1,5 @@
 # Change this to your env. 
-name: elise
+name: elise-helm
 
 # What branch of helm
 helmBranch: master
