@@ -19,6 +19,8 @@ global:
   postgres:
     dbCreate: true
     externalSecret: "devplanetv2-aurora-master-creds"
+    master:
+      host: "devplanetv2-aurora-cluster.cluster-cwvizkxhzjt8.us-east-1.rds.amazonaws.com"
   # This is the cert for *.dev.planx-pla.net
   revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/798e629d-05ee-4bc5-b51f-a86861f29b68
   crossplane:
@@ -33,8 +35,6 @@ global:
     s3:
       # -- (string) The kms key id for the s3 bucket.
       kmsKeyId: "387b8ebf-c8b8-4887-9b2c-639aee77654c"
-postgres:
-  host: devplanetv2-aurora-cluster.cluster-cwvizkxhzjt8.us-east-1.rds.amazonaws.com
 aws-es-proxy:
   enabled: true
   esEndpoint: vpc-devplanetv2-gen3-metadata-2-xkwr2f3gbxua5mqqi7rhnat4la.us-east-1.es.amazonaws.com
