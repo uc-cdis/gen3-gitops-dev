@@ -6,6 +6,8 @@ global:
     secretStoreServiceAccount:
       enabled: true
       name: secret-store-sa
+  # Disabling local Elasticasearch and Postgres. 
+  dev: false
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json
   dispatcherJobNum: "10"
   environment: elise
