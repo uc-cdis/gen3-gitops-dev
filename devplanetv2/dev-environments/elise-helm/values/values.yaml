@@ -18,7 +18,7 @@ global:
   portalApp: gitops
   postgres:
     dbCreate: true
-    externalSecret: "devplanetv2-aurora-master-creds"
+    externalSecret: "devplanetv2-aurora-master-dbcreds"
     master:
       host: "devplanetv2-aurora-cluster.cluster-cwvizkxhzjt8.us-east-1.rds.amazonaws.com"
   # This is the cert for *.dev.planx-pla.net
