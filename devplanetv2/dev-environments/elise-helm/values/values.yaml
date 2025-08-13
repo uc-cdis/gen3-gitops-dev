@@ -11,6 +11,7 @@ global:
   environment: elise
   externalSecrets:
     deploy: true
+    dbCreate: true
   hostname: elise.dev.planx-pla.net
   portalApp: gitops
   postgres:
