@@ -56,10 +56,10 @@ audit:
     createK8sAuditSecret: true
 fence:
   externalSecrets:
-  createK8sFenceConfigSecret: false
-  createK8sJwtKeysSecret: true
-  createK8sGoogleAppSecrets: true
-  fenceConfig: "devplanetv2-generic-fence-config"
+    createK8sFenceConfigSecret: false
+    createK8sJwtKeysSecret: true
+    createK8sGoogleAppSecrets: true
+    fenceConfig: "devplanetv2-generic-fence-config"
   usersync:
     usersync: true
     userYamlS3Path: s3://cdis-gen3-users/dev/user.yaml
