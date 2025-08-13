@@ -1,0 +1,8 @@
+# Change this to your env. 
+name: elise
+
+# What branch of helm
+helmBranch: master
+
+# What branch of gitops
+gitopsBranch: master
