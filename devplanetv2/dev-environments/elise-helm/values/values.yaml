@@ -17,6 +17,7 @@ global:
   hostname: elise.dev.planx-pla.net
   portalApp: gitops
   postgres:
+    host: devplanetv2-aurora-cluster.cluster-cwvizkxhzjt8.us-east-1.rds.amazonaws.com
     dbCreate: true
     externalSecret: "devplanetv2-aurora-master-creds"
   # This is the cert for *.dev.planx-pla.net
