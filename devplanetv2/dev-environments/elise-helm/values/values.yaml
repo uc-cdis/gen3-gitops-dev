@@ -27,7 +27,7 @@ global:
     # -- (string) OIDC provider URL. This is used for authentication of roles/service accounts.
     oidcProviderUrl: https://oidc.eks.us-east-1.amazonaws.com/id/F057519C0E32B7DE2580904C4007BB21
     # -- (string) The account ID of the AWS account.
-    accountId: 707767160287
+    accountId: "707767160287"
     s3:
       # -- (string) The kms key id for the s3 bucket.
       kmsKeyId: "387b8ebf-c8b8-4887-9b2c-639aee77654c"
