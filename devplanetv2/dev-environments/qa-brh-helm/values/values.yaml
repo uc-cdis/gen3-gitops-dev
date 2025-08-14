@@ -13,9 +13,12 @@ arborist:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/arborist
     tag: "2025.03"
+  externalSecrets:
+    dbcreads: qa-brh-arborist-creds
 audit:
   externalSecrets:
     auditG3auto: qa-brh-audit-g3auto
+    dbcreads: qa-brh-audit-creds
 aws-es-proxy:
   enabled: true
   image:
@@ -42,6 +45,7 @@ fence:
     fenceGoogleAppCredsSecret: qa-brh-fence-google-app-creds
     fenceGoogleStorageCredsSecret: qa-brh-fence-google-storage-creds
     fenceJwtKeys: qa-brh-fence-jwt
+    dbcreds: qa-brh-fence-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
     tag: "2025.03"
@@ -94,6 +98,7 @@ indexd:
   enabled: true
   externalSecrets:
     serviceCreds: qa-brh-indexd-service-creds
+    dbcreds: qa-brh-indexd-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexd
     tag: "2025.03"
@@ -113,6 +118,7 @@ metadata:
   enabled: true
   externalSecrets:
     metadataG3auto: qa-brh-metadata-g3auto
+    dbcreds: qa-brh-metadata-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
     tag: "2025.03"
@@ -121,6 +127,8 @@ peregrine:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/peregrine
     tag: "2025.03"
+  externalSecrets:
+    dbcreds: qa-brh-peregrine-creds
 portal:
   enabled: true
   gitops:
@@ -395,6 +403,8 @@ requestor:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/requestor
     tag: "2025.03"
+  externalSecrets:
+    dbcreds: qa-brh-requestor-creds
 revproxy:
   autoscaling:
     enabled: true
@@ -413,12 +423,15 @@ sheepdog:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sheepdog
     tag: "2025.03"
+  externalSecrets:
+    dbcreds: qa-brh-sheepdog-creds
 wts:
   enabled: true
   externalSecrets:
     wtsG3auto: qa-brh-wts-g3auto
     wtsOidcClient: qa-brh-wts-client-secret
     createWtsOidcClientSecret: false
+    dbcreds: qa-brh-wts-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/workspace-token-service
     tag: "2025.03"
