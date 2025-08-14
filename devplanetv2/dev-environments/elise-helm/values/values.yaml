@@ -8,7 +8,7 @@ global:
       roleArn: arn:aws:iam::707767160287:role/devplanetv2-external-secrets-sa
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json
   dispatcherJobNum: "10"
-  environment: elise
+  environment: devplanetv2
   externalSecrets:
     deploy: true
   hostname: elise.dev.planx-pla.net
