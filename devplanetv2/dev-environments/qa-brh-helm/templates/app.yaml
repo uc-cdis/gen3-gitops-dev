@@ -1,29 +1,32 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: gen3-qa-brh
+  name: gen3-dev-{{ .Values.name }}
   namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   sources:
     - path: helm/gen3
       repoURL: https://github.com/uc-cdis/gen3-helm
-      targetRevision: chore/argocd-degraded
+      targetRevision: {{ .Values.helmBranch }}
       helm:
-        releaseName: gen3-qa-brh
+        releaseName: {{ .Values.Name }}
         valueFiles:
-          - $values/devplanetv2/qa-brh.planx-pla.net/values/values.yaml
-    - repoURL: 'https://github.com/uc-cdis/gen3-gitops.git'
-      targetRevision: chore/qa-mickey-helm-migration
+          - $values/devplanetv2/dev-environments/{{ .Values.name }}/values/values.yaml
+    - repoURL: 'https://github.com/uc-cdis/gen3-gitops-dev.git'
+      targetRevision: {{ .Values.gitopsBranch }}
       ref: values
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: qa-brh-helm
+    namespace: {{ .Values.name }}
+  ignoreDifferences:
+    - 
+      kind: "Secret"
+      jsonPointers:
+      - /data
   syncPolicy:
-    managedNamespaceMetadata:
-      labels:
-        role: gen3
     syncOptions:
-    - CreateNamespace=false
-    automated:
-      selfHeal: true
+      - CreateNamespace=true
+      - RespectIgnoreDifferences=true
