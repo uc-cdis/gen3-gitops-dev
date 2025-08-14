@@ -10,7 +10,7 @@ global:
   dev: false
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json
   dispatcherJobNum: "10"
-  environment: elise
+  environment: devplanetv2
   externalSecrets:
     deploy: true
     dbCreate: true
