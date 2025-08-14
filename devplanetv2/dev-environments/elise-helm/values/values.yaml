@@ -5,17 +5,22 @@ global:
     scheme: "internal"
     secretStoreServiceAccount:
       enabled: true
-      roleArn: arn:aws:iam::707767160287:role/devplanetv2-external-secrets-sa
+      name: secret-store-sa
+  # Disabling local Elasticasearch and Postgres. 
+  dev: false
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json
   dispatcherJobNum: "10"
   environment: devplanetv2
   externalSecrets:
     deploy: true
+    dbCreate: true
   hostname: elise.dev.planx-pla.net
   portalApp: gitops
   postgres:
     dbCreate: true
-    externalSecret: "devplanetv2_aurora-master-creds"
+    externalSecret: "devplanetv2-aurora-master-dbcreds"
+    master:
+      host: "devplanetv2-aurora-cluster.cluster-cwvizkxhzjt8.us-east-1.rds.amazonaws.com"
   # This is the cert for *.dev.planx-pla.net
   revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/798e629d-05ee-4bc5-b51f-a86861f29b68
   crossplane:
@@ -24,15 +29,21 @@ global:
     # -- (string) The name of the crossplane provider config.
     providerConfigName: provider-aws
     # -- (string) OIDC provider URL. This is used for authentication of roles/service accounts.
-    oidcProviderUrl: https://oidc.eks.us-east-1.amazonaws.com/id/F057519C0E32B7DE2580904C4007BB21
+    oidcProviderUrl: "oidc.eks.us-east-1.amazonaws.com/id/F057519C0E32B7DE2580904C4007BB21"
     # -- (string) The account ID of the AWS account.
-    accountId: 707767160287
+    accountId: "707767160287"
     s3:
       # -- (string) The kms key id for the s3 bucket.
       kmsKeyId: "387b8ebf-c8b8-4887-9b2c-639aee77654c"
 aws-es-proxy:
   enabled: true
   esEndpoint: vpc-devplanetv2-gen3-metadata-2-xkwr2f3gbxua5mqqi7rhnat4la.us-east-1.es.amazonaws.com
+metadata:
+  externalSecrets:
+    createK8sMetadataSecret: true
+hatchery:
+  externalSecrets:
+    createK8sStataSecret: true
 guppy:
   enabled: true
   esEndpoint: http://elasticsearch:9200
@@ -51,12 +62,19 @@ wts:
   externalSecrets:
     createWtsOidcClientSecret: true
     createK8sWtsSecret: true
+manifestservice:
+  enabled: true
+  externalSecrets:
+    createK8sManifestServiceSecret: true
+audit:
+  externalSecrets:
+    createK8sAuditSecret: true
 fence:
   externalSecrets:
-  createK8sFenceConfigSecret: false
-  createK8sJwtKeysSecret: true
-  createK8sGoogleAppSecrets: true
-  fenceConfig: "devplanetv2-generic-fence-config"
+    createK8sFenceConfigSecret: false
+    createK8sJwtKeysSecret: true
+    createK8sGoogleAppSecrets: true
+    fenceConfig: "devplanetv2-generic-fence-config"
   usersync:
     usersync: true
     userYamlS3Path: s3://cdis-gen3-users/dev/user.yaml
@@ -147,8 +165,13 @@ fence:
 
     # List of enabled login options (used by data-portal to display login buttons).
     LOGIN_OPTIONS:
-      - name: "Login from Google"
-    idp: google
+      - name: 'Login from Google'
+        idp: google
+      - name: 'ORCID Login'
+        idp: fence
+        fence_idp: orcid
+      - name: 'Login from RAS'
+        idp: ras
 
     # -- (string) Default login provider. - must be configured in LOGIN_OPTIONS and OPENID_CONNECT - - if several options in LOGIN_OPTIONS are defined for this IDP, will default to the first one
     DEFAULT_LOGIN_IDP: google
@@ -185,8 +208,8 @@ fence:
     SESSION_COOKIE_DOMAIN:
 
     OAUTH2_TOKEN_EXPIRES_IN:
-    "authorization_code": 1200
-    "implicit": 1200
+      "authorization_code": 1200
+      "implicit": 1200
 
     # The number of seconds after an access token is issued until it expires.
     ACCESS_TOKEN_EXPIRES_IN: 1200
@@ -283,10 +306,10 @@ fence:
 
     # Configuration for various storage systems for the backend
     STORAGE_CREDENTIALS:
-    "google":
-      backend: google
-      # this should be the project id where the Google Groups for data access are managed
-      google_project_id: dcf-integration
+      'google':
+        backend: google
+        # this should be the project id where the Google Groups for data access are managed
+        google_project_id: dcf-integration
 
     # //////////////////////////////////////////////////////////////////////////////////////
     # AWS BUCKETS AND CREDENTIALS
@@ -294,13 +317,13 @@ fence:
     # //////////////////////////////////////////////////////////////////////////////////////
     # the cred values should be keys in section `AWS_CREDENTIALS`.
     S3_BUCKETS:
-    cdis-presigned-url-test:
-      region: "us-east-1"
-      cred: "cdistest"
-    gen3-helm-data-upload-bucket:
-      region: "us-east-1"
-      cred: "cdistest"
-    DATA_UPLOAD_BUCKET: "gen3-helm-data-upload-bucket"
+      cdis-presigned-url-test:
+        region: 'us-east-1'
+        cred: 'cdistest'
+      gen3-helm-data-upload-bucket:
+        region: 'us-east-1'
+        cred: 'cdistest'
+    DATA_UPLOAD_BUCKET: 'gen3-helm-data-upload-bucket'
 
     # //////////////////////////////////////////////////////////////////////////////////////
     # PROXY
@@ -308,8 +331,8 @@ fence:
     # //////////////////////////////////////////////////////////////////////////////////////
     # this is only used by the Google Oauth2Client at the moment if provided
     HTTP_PROXY:
-    host: "cloud-proxy.internal.io"
-    port: 3128
+      host: 'cloud-proxy.internal.io'
+      port: 3128
 
     # //////////////////////////////////////////////////////////////////////////////////////
     # MICROSERVICE PATHS
@@ -329,20 +352,20 @@ fence:
     # This will be dynamically replaced by env_setup.sh script.
     AUDIT_SERVICE: "http://audit-service"
     ENABLE_AUDIT_LOGS:
-    presigned_url: true
-    login: true
+      presigned_url: true
+      login: true
     # `PUSH_AUDIT_LOGS_CONFIG.type` is one of: [api, aws_sqs].
     # - if type == api: logs are created by hitting the log creation endpoint.
     # - if type == aws_sqs: logs are pushed to an SQS and `aws_sqs_config` fields
     # `sqs_url` and `region` are required. Field `aws_cred` is optional and it
     # should be a key in section `AWS_CREDENTIALS`.
     PUSH_AUDIT_LOGS_CONFIG:
-    type: aws_sqs
-    aws_sqs_config:
-      # This will be dynamically replaced by env_setup.sh script.
-      sqs_url: https://sqs.us-east-1.amazonaws.com/707767160287/audit-service-sqs
-      region: us-east-1
-      aws_cred: "cdistest"
+      type: aws_sqs
+      aws_sqs_config:
+        # This will be dynamically replaced by env_setup.sh script.
+        sqs_url: https://sqs.us-east-1.amazonaws.com/707767160287/audit-service-sqs
+        region: us-east-1
+        aws_cred: 'cdistest'
 
     # A Google Project identitifier representing the default project to bill to for
     # accessing Google Requester Pays buckets (for signed urls and/or temporary service account
@@ -436,9 +459,9 @@ fence:
     GLOBAL_PARSE_VISAS_ON_LOGIN: false
     # Settings for usersync with visas
     USERSYNC:
-    sync_from_visas: false
-    # fallback to dbgap sftp when there are no valid visas for a user i.e. if they're expired or if they're malformed
-    fallback_to_dbgap_sftp: false
-    visa_types:
-      ras: ["https://ras.nih.gov/visas/v1", "https://ras.nih.gov/visas/v1.1"]
+      sync_from_visas: false
+      # fallback to dbgap sftp when there are no valid visas for a user i.e. if they're expired or if they're malformed
+      fallback_to_dbgap_sftp: false
+      visa_types:
+        ras: ["https://ras.nih.gov/visas/v1", "https://ras.nih.gov/visas/v1.1"]
     RAS_USERINFO_ENDPOINT: "/openid/connect/v1.1/userinfo"
