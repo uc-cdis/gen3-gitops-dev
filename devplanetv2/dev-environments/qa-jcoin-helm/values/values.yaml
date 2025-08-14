@@ -24,10 +24,10 @@ audit:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--qa-jcoin-helm--audit-sqs-receiver
 aws-es-proxy:
   enabled: true
-  esEndpoint: ''
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/aws-es-proxy
     tag: v1.3.1
+  esEndpoint: vpc-devplanetv2-gen3-metadata-2-xkwr2f3gbxua5mqqi7rhnat4la.us-east-1.es.amazonaws.com
 dashboard:
   autoscaling:
     enabled: true
@@ -1254,9 +1254,9 @@ ssjdispatcher:
 wts:
   enabled: true
   externalSecrets:
-    createWtsOidcClientSecret: false
+    createWtsOidcClientSecret: true
     wtsG3auto: qa-jcoin-wts-g3auto
-    wtsOidcClient: qa-jcoin-wts-client-secret
+    # wtsOidcClient: qa-jcoin-wts-client-secret
     dbcreds: qa-brh-wts-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/workspace-token-service
