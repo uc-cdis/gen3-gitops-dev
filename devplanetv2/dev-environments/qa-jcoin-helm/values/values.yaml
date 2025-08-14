@@ -55,94 +55,94 @@ etl:
       tag: '2025.07'
   etlMapping:
     mappings:
-    - doc_type: participant
-      flatten_props:
-      - path: demographics
+      - doc_type: participant
+        flatten_props:
+        - path: demographics
+          props:
+          - name: gender
+          - name: race
+          - name: hispanic
+        name: jcoin_etl
+        parent_props:
+        - path: projects[protocol,project_name:name]
         props:
+        - name: submitter_id
+        - name: project_id
+        - name: quarter_enrolled
+        - name: role_in_project
+        - name: current_study_status
+        root: participant
+        type: aggregator
+      - doc_type: time_point
+        name: jcoin_etl_time_points
+        parent_props:
+        - path: participants.projects[protocol,project_name:name]
+        - path: participants[quarter_enrolled,role_in_project,current_study_status]
+        props:
+        - name: submitter_id
+        - name: project_id
+        - name: days_from_baseline_session
+        - name: visit_month
+        - name: visit_type
+        - name: visit_number
+        root: time_point
+        type: aggregator
+      - category: data_file
+        doc_type: file
+        injecting_props:
+          core_metadata_collection:
+            props:
+            - fn: set
+              name: cmc_data_type
+              src: data_type
+            - fn: set
+              name: cmc_title
+              src: title
+            - fn: set
+              name: cmc_subject
+              src: subject
+            - fn: set
+              name: cmc_source
+              src: source
+            - fn: set
+              name: cmc_relation
+              src: relation
+          project:
+            props:
+            - fn: set
+              name: project_code
+              src: code
+            - fn: set
+              name: project_name
+              src: name
+        name: jcoin_file
+        props:
+        - name: object_id
+        - name: md5sum
+        - name: file_name
+        - name: file_size
+        - name: data_format
+        - name: data_type
+        - name: state
+        - name: data_category
+        root: None
+        type: collector
+      - doc_type: serious_adverse_event
+        name: jcoin_saes
+        parent_props:
+        - path: projects[protocol,project_name:name]
+        props:
+        - name: project_id
+        - name: submitter_id
+        - name: quarter_of_sae
+        - name: is_related_to_study
+        - name: was_expected
+        - name: on_opioid_medication
         - name: gender
         - name: race
         - name: hispanic
-      name: jcoin_etl
-      parent_props:
-      - path: projects[protocol,project_name:name]
-      props:
-      - name: submitter_id
-      - name: project_id
-      - name: quarter_enrolled
-      - name: role_in_project
-      - name: current_study_status
-      root: participant
-      type: aggregator
-    - doc_type: time_point
-      name: jcoin_etl_time_points
-      parent_props:
-      - path: participants.projects[protocol,project_name:name]
-      - path: participants[quarter_enrolled,role_in_project,current_study_status]
-      props:
-      - name: submitter_id
-      - name: project_id
-      - name: days_from_baseline_session
-      - name: visit_month
-      - name: visit_type
-      - name: visit_number
-      root: time_point
-      type: aggregator
-    - category: data_file
-      doc_type: file
-      injecting_props:
-        core_metadata_collection:
-          props:
-          - fn: set
-            name: cmc_data_type
-            src: data_type
-          - fn: set
-            name: cmc_title
-            src: title
-          - fn: set
-            name: cmc_subject
-            src: subject
-          - fn: set
-            name: cmc_source
-            src: source
-          - fn: set
-            name: cmc_relation
-            src: relation
-        project:
-          props:
-          - fn: set
-            name: project_code
-            src: code
-          - fn: set
-            name: project_name
-            src: name
-      name: jcoin_file
-      props:
-      - name: object_id
-      - name: md5sum
-      - name: file_name
-      - name: file_size
-      - name: data_format
-      - name: data_type
-      - name: state
-      - name: data_category
-      root: None
-      type: collector
-    - doc_type: serious_adverse_event
-      name: jcoin_saes
-      parent_props:
-      - path: projects[protocol,project_name:name]
-      props:
-      - name: project_id
-      - name: submitter_id
-      - name: quarter_of_sae
-      - name: is_related_to_study
-      - name: was_expected
-      - name: on_opioid_medication
-      - name: gender
-      - name: race
-      - name: hispanic
-      root: serious_adverse_event
-      type: aggregator
+        root: serious_adverse_event
+        type: aggregator
 fence:
   usersync:
     usersync: true
