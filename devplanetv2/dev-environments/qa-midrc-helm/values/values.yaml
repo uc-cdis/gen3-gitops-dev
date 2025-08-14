@@ -28,7 +28,7 @@ aws-es-proxy:
   image:
     repository: quay.io/cdis/aws-es-proxy
     tag: v1.3.1
-    esEndpoint: vpc-devplanetv2-gen3-metadata-2-xkwr2f3gbxua5mqqi7rhnat4la.us-east-1.es.amazonaws.com
+  esEndpoint: vpc-devplanetv2-gen3-metadata-2-xkwr2f3gbxua5mqqi7rhnat4la.us-east-1.es.amazonaws.com
 awshelper:
   enabled: true
   image:
