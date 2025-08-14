@@ -42,7 +42,8 @@ dashboard:
 orthanc:
   enabled: true
   externalSecrets:
-    orthancS3G3Auto: qa-midrc-orthanc-s3-g3auto
+    # orthancS3G3Auto: qa-midrc-orthanc-s3-g3auto
+    orthancS3G3Auto: ci-orthanc-s3-g3auto
     dbcreds: qa-midrc-orthanc-s3-creds
 dicom-server:
   enabled: true
@@ -50,7 +51,8 @@ dicom-server:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-orthanc
     tag: gen3-0.1.2
   externalSecrets:
-    orthancG3Auto: qa-midrc-orthanc-g3auto
+    # orthancG3Auto: qa-midrc-orthanc-g3auto
+    orthancG3Auto: ci-orthanc-s3-g3auto
     dbcreds: qa-midrc-orthanc-creds
 fence:
   autoscaling:
