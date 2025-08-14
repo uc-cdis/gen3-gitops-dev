@@ -14,11 +14,11 @@ arborist:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/arborist
     tag: "2025.03"
   externalSecrets:
-    dbcreads: qa-brh-arborist-creds
+    dbcreds: qa-brh-arborist-creds
 audit:
   externalSecrets:
     auditG3auto: qa-brh-audit-g3auto
-    dbcreads: qa-brh-audit-creds
+    dbcreds: qa-brh-audit-creds
 aws-es-proxy:
   enabled: true
   image:
