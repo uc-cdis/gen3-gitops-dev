@@ -43,6 +43,7 @@ orthanc:
   enabled: true
   externalSecrets:
     orthancS3G3Auto: qa-midrc-orthanc-s3-g3auto
+    dbcreds: qa-midrc-orthanc-s3-creds
 dicom-server:
   enabled: true
   image:
@@ -50,6 +51,7 @@ dicom-server:
     tag: gen3-0.1.2
   externalSecrets:
     orthancG3Auto: qa-midrc-orthanc-g3auto
+    dbcreds: qa-midrc-orthanc-creds
 fence:
   autoscaling:
     enabled: true
