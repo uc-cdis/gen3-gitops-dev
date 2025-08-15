@@ -21,11 +21,11 @@ spec:
   destination:
     server: "https://kubernetes.default.svc"
     namespace: {{ .Values.name }}
-  #ignoreDifferences:
-    #- 
-    #  kind: "Secret"
-    #  jsonPointers:
-    #  - /data
+  ignoreDifferences:
+    - 
+      kind: "Secret"
+      jsonPointers:
+      - /data
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
