@@ -255,7 +255,7 @@ global:
   dev: false
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/gtexdictionary/4.6.4/schema.json
   dispatcherJobNum: '10'
-  environment: qa-dcp
+  environment: devplanetv2
   externalSecrets:
     deploy: true
   hostname: qa-dcp.planx-pla.net
@@ -271,7 +271,10 @@ global:
     useryaml_s3path: s3://cdis-gen3-users/qa/user.yaml
   portalApp: gitops
   postgres:
-    dbCreate: false
+    dbCreate: true
+    externalSecret: "devplanetv2-aurora-master-dbcreds"
+    master:
+      host: "devplanetv2-aurora-cluster.cluster-cwvizkxhzjt8.us-east-1.rds.amazonaws.com"
   revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/520ede2f-fc82-4bb9-af96-4b4af7deabbd
 guppy:
   authFilterField: auth_resource_path
