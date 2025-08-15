@@ -1,4 +1,4 @@
-name: qa-midrc-helm
+name: qa-dcf-helm
 
 # What branch of helm -- http://github.com/uc-cdis/gen3-helm
 helmBranch: master
