@@ -72,6 +72,7 @@ aws-es-proxy:
 
 dashboard:
   dashboardConfig:
+    gitopsRepo: https://github.com/uc-cdis/giotps-qa
     bucket: dashboard-707767160287-qa-vpodc-gen3
     prefix: qa-vpodc.planx-pla.net
   enabled: true
