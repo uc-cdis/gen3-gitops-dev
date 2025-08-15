@@ -260,6 +260,7 @@ global:
   dispatcherJobNum: '10'
   environment: devplanetv2
   externalSecrets:
+    dbCreate: true
     deploy: true
   hostname: qa-dcp.planx-pla.net
   manifestGlobalExtraValues:
