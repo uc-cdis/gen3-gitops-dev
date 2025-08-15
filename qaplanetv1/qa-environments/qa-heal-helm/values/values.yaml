@@ -156,7 +156,6 @@ global:
     secretStoreServiceAccount:
       enabled: true
       roleArn: arn:aws:iam::707767160287:role/qa-heal-external-secrets-sa
-    sower_role: qaplanetv1-batch-export-sa-role
   dev: false
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/heal_dictionary/1.1.0/schema.json
   dispatcherJobNum: '10'
@@ -2349,9 +2348,6 @@ sower:
   serviceAccount:
     # -- (bool) Specifies whether a service account should be created.
     create: true
-    # -- (string) The name of the service account to use.
-    # If not set and create is true, a name is generated using the fullname template
-    name: "batch-export-sa"
   externalSecrets:
     pelicanserviceG3auto: qa-heal-pelicanservice-g3auto
     sowerjobsG3auto: qa-heal-sower-jobs-g3auto
@@ -2370,7 +2366,7 @@ sower:
             key: hostname
             name: manifest-global
       - name: BUCKET
-        value: qa-heal-planx-pla-net-batch-export-bucket
+        value: qaplanetv1-qa-heal-helm-sower-service-bucket
       image: quay.io/cdis/batch-export:5.0.2
       labels:
         internet: 'yes'
@@ -2379,7 +2375,7 @@ sower:
       pull_policy: Always
     name: batch-export
     restart_policy: Never
-    serviceAccountName: batch-export-sa
+    serviceAccountName: sower-service-account
 ssjdispatcher:
   enabled: true
   externalSecrets:
