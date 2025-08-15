@@ -1,3 +1,117 @@
+ambassador:
+  jupyterNamespace: binamb
+ambassador-gen3:
+  enabled: true
+  image:
+    tag: master
+arborist:
+  enabled: true
+  image:
+    tag: master
+audit:
+  externalSecrets:
+    auditG3auto: binamb-audit-g3auto
+  serviceAccount:
+    annotations:
+      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--binamb-helm--audit-sqs-receiver
+aws-es-proxy:
+  enabled: true
+  esEndpoint: ''
+  image:
+    tag: '0.8'
+dashboard:
+  dashboardConfig:
+    bucket: dashboard-707767160287-devplanetv1-gen3
+    prefix: binamb.planx-pla.net
+  enabled: true
+  image:
+    tag: master
+  serviceAccount:
+    annotations:
+      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--binamb-helm--dashboard-access
+etl:
+  esEndpoint: elasticsearch
+  mappings:
+  - aggregated_props:
+    - fn: count
+      name: _samples_count
+      path: samples
+    - fn: count
+      name: _aliquots_count
+      path: samples.aliquots
+    - fn: count
+      name: _submitted_methylations_count
+      path: samples.aliquots.submitted_methylation_files
+    - fn: count
+      name: _read_groups_count
+      path: samples.aliquots.read_groups
+    - fn: count
+      name: _submitted_aligned_reads_count
+      path: samples.aliquots.read_groups.submitted_aligned_reads_files
+    - fn: count
+      name: _submitted_copy_number_files_on_read_groups_count
+      path: samples.aliquots.read_groups.submitted_copy_number_files
+    - fn: count
+      name: _submitted_somatic_mutations_count
+      path: samples.aliquots.read_groups.submitted_somatic_mutations
+    doc_type: case
+    flatten_props:
+    - path: demographics
+      props:
+      - name: gender
+      - name: race
+      - name: ethnicity
+      - name: year_of_birth
+    joining_props:
+    - index: file
+      join_on: case_id
+      props:
+      - fn: set
+        name: data_format
+        src: data_format
+      - fn: set
+        name: data_type
+        src: data_type
+    name: binamb_etl
+    props:
+    - name: submitter_id
+    - name: project_id
+    root: case
+    type: aggregator
+  - category: data_file
+    doc_type: file
+    injecting_props:
+      case:
+        props:
+        - fn: set
+          name: case_id
+          src: id
+        - name: project_id
+    name: binamb_file
+    props:
+    - name: object_id
+    - name: md5sum
+    - name: file_name
+    - name: file_size
+    - name: data_format
+    - name: data_type
+    - name: state
+    root: None
+    type: collector
+fence:
+  enabled: true
+  externalSecrets:
+    createK8sGoogleAppSecrets: false
+    fenceConfig: binamb-fence-config
+    fenceGoogleAppCredsSecret: binamb-fence-google-app-creds
+    fenceGoogleStorageCredsSecret: binamb-fence-google-storage-creds
+    fenceJwtKeys: binamb-fence-jwt
+  image:
+    tag: feat_usersync_update_authz
+fluentd:
+  enabled: true
+  image:
+    tag: v1.15.3-debian-cloudwatch-1.0
 global:
   # Disabling local Elasticasearch and Postgres. 
   dev: false
@@ -21,24 +135,90 @@ global:
   # We disable portal by default to save $$$
   frontendRoot: gen3ff
   postgres:
-    dbCreate: true
-    externalSecret: "devplanetv2-aurora-master-dbcreds"
-    master:
-      host: "devplanetv2-aurora-cluster.cluster-cwvizkxhzjt8.us-east-1.rds.amazonaws.com"
-  # Wildcard cert for  *.dev.planx-pla.net
-  revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/798e629d-05ee-4bc5-b51f-a86861f29b68
-  crossplane:
-    # -- (bool) Set to true if deploying to AWS and want to use crossplane for AWS resources.
-    enabled: true
-    # The name of the crossplane provider config.
-    providerConfigName: provider-aws
-    # OIDC provider URL. This is used for authentication of roles/service accounts.
-    oidcProviderUrl: "oidc.eks.us-east-1.amazonaws.com/id/F057519C0E32B7DE2580904C4007BB21"
-    # The account ID of the AWS account.
-    accountId: "707767160287"
-    s3:
-      # The kms key id for the s3 bucket.
-      kmsKeyId: "387b8ebf-c8b8-4887-9b2c-639aee77654c"
+    dbCreate: false
+  revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/c676c81c-9546-4e9a-9a72-725dd3912bc8
+guppy:
+  authFilterField: auth_resource_path
+  configIndex: binamb_array-config
+  enabled: true
+  esEndpoint: http://elasticsearch:9200
+  image:
+    tag: feat_es7
+  indices:
+  - index: binamb_etl
+    type: case
+  - index: binamb_file
+    type: file
+hatchery:
+  enabled: true
+  image:
+    tag: master
+  json: |+
+    {
+        "user-namespace": "jupyter-pods-binamb",
+        "sub-dir": "/lw-workspace",
+        "user-volume-size": "10Gi",
+        "sidecar": {
+            "cpu-limit": "1.0",
+            "memory-limit": "256Mi",
+            "image": "quay.io/cdis/ecs-ws-sidecar:2024.12",
+            "env": {
+                "NAMESPACE": "binamb",
+                "GEN3_ENDPOINT": "binamb.planx-pla.net",
+                "HOSTNAME": "binamb.planx-pla.net"
+            },
+            "args": [],
+            "command": [
+                "/bin/bash",
+                "./sidecar.sh"
+            ],
+            "lifecycle-pre-stop": [
+                "su",
+                "-c",
+                "echo test",
+                "-s",
+                "/bin/sh",
+                "root"
+            ]
+        },
+        "containers": [
+            {
+                "target-port": 8888,
+                "cpu-limit": "1.0",
+                "memory-limit": "2Gi",
+                "name": "(Generic) Jupyter Lab Notebook with R Kernel",
+                "image": "quay.io/cdis/jupyter-superslim-r:master",
+                "env": {
+                    "FRAME_ANCESTORS": "https://binamb.planx-pla.net"
+                },
+                "args": [
+                    "--JupyterNotebookApp.base_url=/lw-workspace/proxy/",
+                    "--JupyterNotebookApp.default_url=/lab",
+                    "--JupyterNotebookApp.password=''",
+                    "--JupyterNotebookApp.token=''",
+                    "--JupyterNotebookApp.ip='*'",
+                    "--JupyterNotebookApp.notebook_dir='/home/jovyan'",
+                    "--JupyterNotebookApp.shutdown_no_activity_timeout=5400",
+                    "--JupyterNotebookApp.quit_button=False"
+                ],
+                "command": [
+                    "start-notebook.sh"
+                ],
+                "path-rewrite": "/lw-workspace/proxy/",
+                "use-tls": "false",
+                "ready-probe": "/lw-workspace/proxy/",
+                "lifecycle-post-start": [
+                    "/bin/sh",
+                    "-c",
+                    "export IAM=`whoami`; rm -rf /home/$IAM/pd/dockerHome; rm -rf /home/$IAM/pd/lost+found; ln -s /data /home/$IAM/pd/; true"
+                ],
+                "user-uid": 1000,
+                "fs-gid": 100,
+                "user-volume-location": "/home/jovyan/pd",
+                "gen3-volume-location": "/home/jovyan/.gen3"
+            }
+        ]
+    }
 
 aws-es-proxy:
   enabled: true
@@ -50,6 +230,25 @@ ambassador:
       cpu: "15m"
 
 arborist:
+  image:
+    tag: chore_log_indexd_driver
+manifestservice:
+  enabled: true
+  externalSecrets:
+    manifestserviceG3auto: binamb-manifestservice-g3auto
+  image:
+    tag: 0.1.1
+  serviceAccount:
+    annotations:
+      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--binamb-helm--manifest-service-sa
+metadata:
+  esEndpoint: http://elasticsearch:9200
+  externalSecrets:
+    metadataG3auto: binamb-metadata-g3auto
+mutatingWebhook:
+  enabled: true
+peregrine:
+  enabled: true
   image:
     tag: master
   resources:
@@ -138,7 +337,6 @@ portal:
   #     cpu: "15m"
   #     memory: 100Mi
   image:
-    repository: quay.io/cdis/data-portal
     tag: master
 
 etl:
@@ -188,92 +386,7 @@ guppy:
       memory: "105Mi"
       cpu: "15m"
   image:
-    repository: quay.io/cdis/guppy
-    tag: master
-  esEndpoint: http://elasticsearch:9200
-
-indexd:
-  image:
-    tag: master
-  resources:
-    requests:
-      memory: "105Mi"
-      cpu: "15m"
-  defaultPrefix: dev/
-  externalSecrets:
-    createK8sServiceCredsSecret: true
-
-metadata:
-  externalSecrets:
-    createK8sMetadataSecret: true
-  resources:
-    requests:
-      memory: "105Mi"
-      cpu: "15m"
-  # image:
-  # repository:
-  # tag:
-  enabled: true
-  useAggMds: "True"
-  # -- (string) Namespace to use if AggMds is enabled.
-  aggMdsNamespace: default
-  aggMdsConfig: |
-    {
-      "gen3_commons": {
-        "HEAL": {
-          "mds_url": "https://data.midrc.org/", 
-          "commons_url" : "data.midrc.org",
-          "adapter": "gen3",
-          "config" : {
-            "guid_type": "discovery_metadata",
-            "study_field": "gen3_discovery"
-          },
-        "keep_original_fields": false,
-        "field_mappings" : {
-        "authz": "path:authz",
-        "tags": "path:tags",
-        "_unique_id": "path:_unique_id",
-        "study_id": "path:_unique_id",
-        "study_description": "path:data_description",
-        "full_name": "path:full_name",
-        "short_name": "path:short_name",
-        "commons": "Medical Imaging and Data Resource Center (MIDRC)",
-        "study_url": "path:data_url",
-        "_subjects_count" : {"path":"cases_count", "default" : 0 },
-        "__manifest": "path:__manifest",
-        "commons_url" : "data.midrc.org"
-      }
-      }
-      },
-      "adapter_commons": {}
-    }
-
-manifestservice:
-  resources:
-    requests:
-      memory: "105Mi"
-      cpu: "15m"
-  externalSecrets:
-    createK8sManifestServiceSecret: true
-
-ssjdispatcher:
-  enabled: false
-
-sower:
-  enabled: false
-
-peregrine:
-  resources:
-    requests:
-      memory: "105Mi"
-      cpu: "15m"
-  image:
-
-revproxy:
-  resources:
-    requests:
-      memory: "105Mi"
-      cpu: "15m"
+    tag: '2025.01'
   ingress:
     aws:
       # Do not change- this will break DNS for your env.
@@ -289,7 +402,93 @@ sheepdog:
 
 requestor:
   enabled: true
-
+  externalSecrets:
+    pelicanserviceG3auto: binamb-pelicanservice-g3auto
+    sowerjobsG3auto: binamb-sower-jobs-g3auto
+  image:
+    tag: master
+  sowerConfig:
+  - action: export
+    container:
+      cpu-limit: '1'
+      env:
+      - name: DICTIONARY_URL
+        valueFrom:
+          configMapKeyRef:
+            key: dictionary_url
+            name: manifest-global
+      - name: GEN3_HOSTNAME
+        valueFrom:
+          configMapKeyRef:
+            key: hostname
+            name: manifest-global
+      - name: ROOT_NODE
+        value: case
+      image: quay.io/cdis/pelican-export:master
+      memory-limit: 4Gi
+      name: job-task
+      pull_policy: Always
+      volumeMounts:
+      - mountPath: /pelican-creds.json
+        name: pelican-creds-volume
+        readOnly: true
+        subPath: config.json
+      - mountPath: /peregrine-creds.json
+        name: peregrine-creds-volume
+        readOnly: true
+        subPath: creds.json
+    name: pelican-export
+    restart_policy: Never
+    volumes:
+    - name: pelican-creds-volume
+      secret:
+        secretName: pelicanservice-g3auto
+    - name: peregrine-creds-volume
+      secret:
+        secretName: peregrine-creds
+  - action: import
+    container:
+      cpu-limit: '1'
+      env:
+      - name: DICTIONARY_URL
+        valueFrom:
+          configMapKeyRef:
+            key: dictionary_url
+            name: manifest-global
+      - name: GEN3_HOSTNAME
+        valueFrom:
+          configMapKeyRef:
+            key: hostname
+            name: manifest-global
+      image: quay.io/cdis/pelican-import:master
+      memory-limit: 4Gi
+      name: job-task
+      pull_policy: Always
+      volumeMounts:
+      - mountPath: /sheepdog-creds.json
+        name: sheepdog-creds-volume
+        readOnly: true
+        subPath: creds.json
+    name: pelican-import
+    restart_policy: Never
+    volumes:
+    - name: sheepdog-creds-volume
+      secret:
+        secretName: sheepdog-creds
+spark:
+  enabled: true
+  image:
+    tag: master
+ssjdispatcher:
+  enabled: true
+  externalSecrets:
+    credsFile: binamb-ssjdispatcher-creds
+  image:
+    tag: master
+tube:
+  enabled: true
+  image:
+    tag: feat_new-es-7
 wts:
   image:
     tag: master
