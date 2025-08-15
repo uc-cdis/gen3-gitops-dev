@@ -2345,6 +2345,9 @@ sheepdog:
     dbcreds: qa-heal-sheepdog-creds
 sower:
   enabled: true
+  serviceAccount:
+    # -- (bool) Specifies whether a service account should be created.
+    create: true
   externalSecrets:
     pelicanserviceG3auto: qa-heal-pelicanservice-g3auto
     sowerjobsG3auto: qa-heal-sower-jobs-g3auto
@@ -2363,10 +2366,7 @@ sower:
             key: hostname
             name: manifest-global
       - name: BUCKET
-        valueFrom:
-          configMapKeyRef:
-            key: bucket_name
-            name: batch-export-g3auto
+        value: qaplanetv1-qa-heal-helm-sower-service-bucket
       image: quay.io/cdis/batch-export:5.0.2
       labels:
         internet: 'yes'
@@ -2375,7 +2375,7 @@ sower:
       pull_policy: Always
     name: batch-export
     restart_policy: Never
-    serviceAccountName: batch-export-sa
+    serviceAccountName: sower-service-account
 ssjdispatcher:
   enabled: true
   externalSecrets:
