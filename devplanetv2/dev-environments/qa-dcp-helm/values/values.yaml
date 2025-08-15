@@ -13,9 +13,6 @@ arborist:
 audit:
   externalSecrets:
     auditG3auto: qa-dcp-audit-g3auto
-  serviceAccount:
-    annotations:
-      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/qaplanetv1--qa-dcp-helm--audit-sqs-receiver
 aws-es-proxy:
   enabled: true
   esEndpoint: ''
@@ -26,9 +23,6 @@ dashboard:
   dashboardConfig:
     bucket: dashboard-707767160287-devplanetv1-gen3
     prefix: qa-dcp.planx-pla.net
-  serviceAccount:
-    annotations:
-      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/qaplanetv1--qa-dcp-helm--dashboard-access
 etl:
   esEndpoint: elasticsearch
   mappings:
@@ -248,12 +242,16 @@ fluentd:
 global:
   aws:
     account: '707767160287'
-    awsEsProxyRole: qaplanetv1--qa-dcp-helm--es-access
+    #awsEsProxyRole: qaplanetv1--qa-dcp-helm--es-access
     enabled: true
-    hatchery_role: qaplanetv1--qa-dcp-helm--hatchery-sa
+    #hatchery_role: qaplanetv1--qa-dcp-helm--hatchery-sa
     secretStoreServiceAccount:
       enabled: true
       roleArn: arn:aws:iam::707767160287:role/qa-dcp-external-secrets-sa
+  crossplane:
+    enabled: true
+    oidcProviderUrl: "oidc.eks.us-east-1.amazonaws.com/id/F057519C0E32B7DE2580904C4007BB21"
+    accountId: "707767160287"      
   dev: false
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/gtexdictionary/4.6.4/schema.json
   dispatcherJobNum: '10'
@@ -264,9 +262,7 @@ global:
   manifestGlobalExtraValues:
     dd_enabled: true
     es7: true
-    kube_bucket: kube-qaplanetv1-gen3
     lb_type: internal
-    logs_bucket: logs-qaplanetv1-gen3
     netpolicy: 'on'
     public_datasets: true
     sync_from_dbgap: 'False'
@@ -276,7 +272,7 @@ global:
   portalApp: gitops
   postgres:
     dbCreate: false
-  revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/c676c81c-9546-4e9a-9a72-725dd3912bc8
+  revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/520ede2f-fc82-4bb9-af96-4b4af7deabbd
 guppy:
   authFilterField: auth_resource_path
   autoscaling:
@@ -599,9 +595,6 @@ manifestservice:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/manifestservice
     tag: '2025.08'
-  serviceAccount:
-    annotations:
-      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/qaplanetv1--qa-dcp-helm--manifest-service-sa
 metadata:
   autoscaling:
     enabled: true
