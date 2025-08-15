@@ -1,5 +1,50 @@
+global:
+  aws:
+    account: '707767160287'
+    awsEsProxyRole: devplanetv2--qa-vpodc-helm--es-access
+    enabled: true
+    hatchery_role: devplanetv2--qa-vpodc-helm--hatchery-sa
+    secretStoreServiceAccount:
+      enabled: true
+      roleArn: arn:aws:iam::707767160287:role/qa-vpodc-external-secrets-sa
+  dev: false
+  dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/vadictionary/0.5.4/schema.json
+  dispatcherJobNum: '10'
+  environment: qa-vpodc
+  externalSecrets:
+    deploy: true
+  frontendRoot: gen3ff
+  hostname: qa-vpodc.planx-pla.net
+  manifestGlobalExtraValues:
+    ecr-access-job-role-arn: arn:aws:iam::654654631253:role/EcrRepoPolicyUpdateRole
+    kube_bucket: kube_bucket.devplanetv1.gen3
+    logs_bucket: logs-devplanetv1-gen3
+    netpolicy: 'on'
+    public_datasets: true
+    sync_from_dbgap: 'False'
+    tier_access_level: regular
+    tier_access_limit: 50
+    useryaml_s3path: s3://cdis-gen3-users/pdp/user.yaml
+  portalApp: gitops
+  postgres:
+    dbCreate: false
+  revproxyArn: arn:aws:acm:us-east-1:851725307933:certificate/94dc6b22-6ad2-481f-aff5-59ad7381e9c6
+  crossplane:
+    # -- (bool) Set to true if deploying to AWS and want to use crossplane for AWS resources.
+    enabled: true
+    # The name of the crossplane provider config.
+    providerConfigName: provider-aws
+    # OIDC provider URL. This is used for authentication of roles/service accounts.
+    oidcProviderUrl: "oidc.eks.us-east-1.amazonaws.com/id/F057519C0E32B7DE2580904C4007BB21"
+    # The account ID of the AWS account.
+    accountId: "707767160287"
+    s3:
+      # The kms key id for the s3 bucket.
+      kmsKeyId: "387b8ebf-c8b8-4887-9b2c-639aee77654c"
+
 ambassador:
   jupyterNamespace: qa-vpodc
+
 arborist:
   autoscaling:
     enabled: true
@@ -10,18 +55,21 @@ arborist:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/arborist
     tag: '2025.04'
+
 audit:
   externalSecrets:
     auditG3auto: qa-vpodc-audit-g3auto
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--qa-vpodc-helm--audit-sqs-receiver
+
 aws-es-proxy:
   enabled: true
   esEndpoint: vpc-devplanetv2-gen3-metadata-2-xkwr2f3gbxua5mqqi7rhnat4la.us-east-1.es.amazonaws.com
   image:
     repository: quay.io/cdis/aws-es-proxy
     tag: v1.3.1
+
 dashboard:
   dashboardConfig:
     bucket: dashboard-707767160287-qa-vpodc-gen3
@@ -33,6 +81,7 @@ dashboard:
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--qa-vpodc-helm--dashboard-access
+
 etl:
   esEndpoint: elasticsearch
   mappings:
@@ -94,6 +143,7 @@ etl:
     - name: object_id
     root: None
     type: collector
+
 fence:
   autoscaling:
     enabled: true
@@ -108,47 +158,13 @@ fence:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
     tag: '2025.04'
-fluentd:
-  enabled: true
-  image:
-    repository: fluent/fluentd-kubernetes-daemonset
-    tag: v1.15.3-debian-cloudwatch-1.0
+
 frontend-framework:
   enabled: true
   image:
     repository: quay.io/cdis/vpodc-data-commons
     tag: main
-global:
-  aws:
-    account: '707767160287'
-    awsEsProxyRole: devplanetv2--qa-vpodc-helm--es-access
-    enabled: true
-    hatchery_role: devplanetv2--qa-vpodc-helm--hatchery-sa
-    secretStoreServiceAccount:
-      enabled: true
-      roleArn: arn:aws:iam::707767160287:role/qa-vpodc-external-secrets-sa
-  dev: false
-  dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/vadictionary/0.5.4/schema.json
-  dispatcherJobNum: '10'
-  environment: qa-vpodc
-  externalSecrets:
-    deploy: true
-  frontendRoot: gen3ff
-  hostname: qa-vpodc.planx-pla.net
-  manifestGlobalExtraValues:
-    ecr-access-job-role-arn: arn:aws:iam::654654631253:role/EcrRepoPolicyUpdateRole
-    kube_bucket: kube_bucket.devplanetv1.gen3
-    logs_bucket: logs-devplanetv1-gen3
-    netpolicy: 'on'
-    public_datasets: true
-    sync_from_dbgap: 'False'
-    tier_access_level: regular
-    tier_access_limit: 50
-    useryaml_s3path: s3://cdis-gen3-users/pdp/user.yaml
-  portalApp: gitops
-  postgres:
-    dbCreate: false
-  revproxyArn: arn:aws:acm:us-east-1:851725307933:certificate/94dc6b22-6ad2-481f-aff5-59ad7381e9c6
+
 guppy:
   authFilterField: auth_resource_path
   enabled: true
