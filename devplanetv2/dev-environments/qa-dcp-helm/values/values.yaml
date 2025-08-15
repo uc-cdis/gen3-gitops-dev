@@ -12,7 +12,7 @@ arborist:
     tag: '2025.08'
 audit:
   externalSecrets:
-    auditG3auto: qa-dcp-audit-g3auto
+    createK8sAuditSecret: true
 aws-es-proxy:
   enabled: true
   esEndpoint: ''
@@ -607,7 +607,7 @@ metadata:
   enabled: true
   esEndpoint: http://elasticsearch:9200
   externalSecrets:
-    metadataG3auto: qa-dcp-metadata-g3auto
+    createK8sMetadataSecret: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
     tag: '2025.08'
@@ -1394,9 +1394,8 @@ tube:
 wts:
   enabled: true
   externalSecrets:
-    createWtsOidcClientSecret: false
-    wtsG3auto: qa-dcp-wts-g3auto
-    wtsOidcClient: qa-dcp-wts-client-secret
+    createWtsOidcClientSecret: true
+    createK8sWtsSecret: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/workspace-token-service
     tag: '2025.08'
