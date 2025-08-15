@@ -71,17 +71,12 @@ fence:
     dbcreds: qa-midrc-fence-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
-    tag: 11.2.1
+    tag: '2025.07'
 fluentd:
   enabled: true
   image:
     repository: fluent/fluentd-kubernetes-daemonset
     tag: v1.15.3-debian-cloudwatch-1.0
-frontend-framework:
-  enabled: true
-  image:
-    repository: quay.io/cdis/frontend-framework
-    tag: feat_n3c
 gen3-workflow:
   enabled: true
   image:
@@ -107,7 +102,6 @@ global:
   environment: devplanetv2
   externalSecrets:
     deploy: true
-  frontendRoot: portal
   hostname: qa-midrc.planx-pla.net
   manifestGlobalExtraValues:
     kube_bucket: kube-qaplanetv2-gen3
