@@ -14,7 +14,7 @@ audit:
   externalSecrets:
     createK8sAuditSecret: true
   image:
-    repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/arborist
+    repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/audit-service
     tag: '2025.06'    
 aws-es-proxy:
   enabled: true
