@@ -16,7 +16,7 @@ global:
   externalSecrets:
     deploy: true
     dbCreate: true
-  hostname: <change me>.dev.planx-pla.net
+  hostname: avantol-helm.dev.planx-pla.net
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json
   # We disable portal by default to save $$$
   frontendRoot: gen3ff
