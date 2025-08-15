@@ -1,5 +1,5 @@
 ambassador:
-  jupyterNamespace: qa-heal
+  jupyterNamespace: jupyter-pods-qa-heal-helm
 arborist:
   externalSecrets:
     dbcreds: qa-heal-arborist-creds
@@ -183,7 +183,7 @@ hatchery:
   hatchery:
     json: |-
       {
-        "user-namespace": "jupyter-pods-qa-heal",
+        "user-namespace": "jupyter-pods-qa-heal-helm",
         "sub-dir": "/lw-workspace",
         "user-volume-size": "10Gi",
         "default-pay-model": {
