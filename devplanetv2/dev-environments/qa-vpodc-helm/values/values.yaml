@@ -1335,7 +1335,7 @@ wts:
   enabled: true
   oidc_job_enabled: true
   externalSecrets:
-    createWtsOidcClientSecret: true
+    createWtsOidcClientSecret: false
     wtsG3auto: qa-vpodc-wts-g3auto
     wtsOidcClient: qa-vpodc-wts-client-secret
   image:
