@@ -98,7 +98,7 @@ global:
   portalApp: gitops
   postgres:
     dbCreate: false
-  revproxyArn: arn:aws:acm:us-east-1:733512436101:certificate/2137c4c4-3513-4f89-b763-7b6edf2f229f
+  revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/520ede2f-fc82-4bb9-af96-4b4af7deabbd
 google-sa-validation:
   enabled: true
   image:
