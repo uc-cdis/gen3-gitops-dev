@@ -13,6 +13,7 @@ arborist:
   externalSecrets:
     dbcreds: qa-prometheus-arborist-creds    
 audit:
+  enabled: false
   externalSecrets:
     auditG3auto: qa-prometheus-audit-g3auto
   serviceAccount:
