@@ -57,6 +57,7 @@ arborist:
     tag: '2025.04'
 
 audit:
+  enabled: false
   externalSecrets:
     auditG3auto: qa-vpodc-audit-g3auto
   serviceAccount:
