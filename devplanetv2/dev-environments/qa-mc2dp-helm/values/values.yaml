@@ -1,5 +1,5 @@
 ambassador:
-  jupyterNamespace: qa-prometheus
+  jupyterNamespace: jupyter-pods-qa-prometheus
 arborist:
   autoscaling:
     enabled: true
@@ -10,6 +10,8 @@ arborist:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/arborist
     tag: '2025.04'
+  externalSecrets:
+    dbcreds: qa-prometheus-arborist-creds    
 audit:
   externalSecrets:
     auditG3auto: qa-prometheus-audit-g3auto
@@ -39,11 +41,15 @@ fence:
     maxReplicas: 1
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
+  usersync:
+    usersync: true
+    userYamlS3Path: s3://cdis-gen3-users/pdp/user.yaml 
   enabled: true
   externalSecrets:
     createK8sGoogleAppSecrets: true
     fenceConfig: qa-prometheus-fence-config
     fenceJwtKeys: qa-prometheus-fence-jwt
+    dbcreds: qa-prometheus-fence-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
     tag: '2025.04'
@@ -62,6 +68,8 @@ gen3-user-data-library:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-user-data-library
     tag: 1.1.0
+  externalSecrets:
+    dbcreds: qa-prometheus-gen3userdatalibrary-creds 
 global:
   crossplane:
     enabled: true
@@ -120,6 +128,7 @@ indexd:
   enabled: true
   externalSecrets:
     serviceCreds: qa-prometheus-indexd-service-creds
+    dbcreds: qa-prometheus-indexd-creds    
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexd
     tag: '2025.04'
@@ -1225,6 +1234,7 @@ metadata:
   esEndpoint: http://elasticsearch:9200
   externalSecrets:
     metadataG3auto: qa-prometheus-metadata-g3auto
+    dbcreds: qa-prometheus-metadata-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
     tag: master
@@ -1244,6 +1254,8 @@ requestor:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/requestor
     tag: '2025.04'
+  externalSecrets:
+    dbcreds: qa-prometheus-requestor-creds 
 revproxy:
   autoscaling:
     enabled: true
@@ -1262,10 +1274,13 @@ sheepdog:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sheepdog
     tag: '2025.04'
+  externalSecrets:
+    dbcreds: qa-prometheus-sheepdog-creds    
 ssjdispatcher:
   enabled: true
   externalSecrets:
     credsFile: qa-prometheus-ssjdispatcher-creds
+    dbcreds: qa-prometheus-ssjdispatcher-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ssjdispatcher
     tag: '2025.04'
@@ -1276,6 +1291,7 @@ wts:
     createWtsOidcClientSecret: false
     wtsG3auto: qa-prometheus-wts-g3auto
     wtsOidcClient: qa-prometheus-wts-client-secret
+    dbcreds: qa-prometheus-wts-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/workspace-token-service
     tag: 0.4.4
