@@ -222,6 +222,12 @@ hatchery:
             }
         ]
     }
+  workspaceLaunchTest:
+    workspaceLaunchTest: true
+    schedule: "*/30 * * * *"
+    workspaceImages: "(Generic) Jupyter Lab Notebook with R Kernel+(Tutorials) Example Analysis Jupyter Lab Notebooks"
+    operatorName: "binamb@uchicago.edu"
+    hostname: "https://binamb.planx-pla.net/"
 
 indexd:
   enabled: true
@@ -509,9 +515,3 @@ wts:
     wtsOidcClient: binamb-wts-client-secret
   image:
     tag: master
-workspace_launch_test:
-  workspace_launch_test: true
-  schedule: "0 * * * *"
-  workspaceImages: "(Generic) Jupyter Lab Notebook with R Kernel+(Tutorials) Example Analysis Jupyter Lab Notebooks"
-  operatorName: "binamb@uchicago.edu"
-  hostname: "https://binamb.planx-pla.net/"
