@@ -179,7 +179,7 @@ hatchery:
     stataG3auto: "qa-heal-stata-workspace-gen3-license"
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
-    tag: '2025.07'
+    tag: 'chore_remove-stata-license-from-mount-file'
   hatchery:
     json: |-
       {
@@ -196,7 +196,7 @@ hatchery:
         "sidecar": {
           "cpu-limit": "1.0",
           "memory-limit": "256Mi",
-          "image": "quay.io/cdis/ecs-ws-sidecar:2025.07",
+          "image": "quay.io/cdis/ecs-ws-sidecar:chore_skip-mounting-stata-license",
           "env": {
             "NAMESPACE": "qa-heal-helm"
           },
@@ -294,7 +294,7 @@ hatchery:
             "cpu-limit": "1.0",
             "memory-limit": "2Gi",
             "name": "(Generic, Limited Gen3-licensed) Stata Notebook",
-            "image": "quay.io/cdis/jupyter-pystata-gen3-licensed:2.0.0",
+            "image": "quay.io/cdis/jupyter-pystata-gen3-licensed:chore_get-stata-license-from-env",
             "env": {
               "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
             },
