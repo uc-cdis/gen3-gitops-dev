@@ -63,6 +63,10 @@ gen3-user-data-library:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-user-data-library
     tag: 1.1.0
 global:
+  crossplane:
+    enabled: true
+    oidcProviderUrl: "oidc.eks.us-east-1.amazonaws.com/id/F057519C0E32B7DE2580904C4007BB21"
+    accountId: "707767160287"
   aws:
     account: '707767160287'
     awsEsProxyRole: devplanetv2--qa-prometheus-helm--es-access
