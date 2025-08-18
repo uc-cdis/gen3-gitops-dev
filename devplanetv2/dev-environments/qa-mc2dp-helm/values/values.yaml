@@ -71,6 +71,7 @@ gen3-user-data-library:
     tag: 1.1.0
   externalSecrets:
     dbcreds: qa-prometheus-gen3userdatalibrary-creds 
+    gen3UserDataLibraryG3auto: qa-prometheus-gen3userdatalibrary-g3auto
 global:
   crossplane:
     enabled: true
