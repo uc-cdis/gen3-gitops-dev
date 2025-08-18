@@ -544,3 +544,5 @@ manifestservice:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/manifestservice
     tag: "2025.07"
+wts:
+  enabled: false
