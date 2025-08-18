@@ -1279,7 +1279,7 @@ sheepdog:
   externalSecrets:
     dbcreds: qa-prometheus-sheepdog-creds    
 ssjdispatcher:
-  enabled: true
+  enabled: false
   externalSecrets:
     credsFile: qa-prometheus-ssjdispatcher-creds
     dbcreds: qa-prometheus-ssjdispatcher-creds
