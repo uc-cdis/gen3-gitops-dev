@@ -179,7 +179,9 @@ hatchery:
     stataG3auto: "qa-heal-stata-workspace-gen3-license"
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
-    tag: '2025.07'
+    # tag: '2025.07'
+    # test s3 mounting in qa-heal
+    tag: 'feat_s3-mount'
   hatchery:
     json: |-
       {
@@ -193,6 +195,11 @@ hatchery:
         "pay-models": [],
         "license-user-maps-dynamodb-table": "gen3-license-user-maps",
         "license-user-maps-global-secondary-index": "activeUsersIndex",
+        "s3": {
+          "bucketname": "workspace-software-s3-qa-heal",
+          "PrefixBase": "qa-heal",
+          "region": "us-east-1"
+        },
         "sidecar": {
           "cpu-limit": "1.0",
           "memory-limit": "256Mi",
