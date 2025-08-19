@@ -196,8 +196,8 @@ hatchery:
         "license-user-maps-dynamodb-table": "gen3-license-user-maps",
         "license-user-maps-global-secondary-index": "activeUsersIndex",
         "s3-config": {
-          "bucketname": "workspace-software-s3-qa-heal",
-          "PrefixBase": "qa-heal",
+          "bucketName": "workspace-software-s3-qa-heal",
+          "prefixBase": "qa-heal",
           "region": "us-east-1"
         },
         "sidecar": {
