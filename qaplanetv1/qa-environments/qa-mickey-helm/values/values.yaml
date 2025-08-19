@@ -21,8 +21,8 @@ argo-wrapper:
   scalingGroups:
     default: "{{workflow.name}}"
     custom:
-      "zchen138@uchicago.edu": "{{workflow.name}}"
-      "aprokh@uchicago.edu": "{{workflow.name}}"
+      zchen138@uchicago.edu: "{{workflow.name}}"
+      aprokh@uchicago.edu: "{{workflow.name}}"
   s3Bucket: second-argo-bucket
   internalS3Bucket: gen3-argo-707767160287-devplanetv1
   environment: qa-mickey-helm
