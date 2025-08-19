@@ -183,7 +183,7 @@ hatchery:
   hatchery:
     json: |-
       {
-        "user-namespace": "jupyter-pods-qa-heal-helm",
+        "user-namespace": "jupyter-pods-qa-heal",
         "sub-dir": "/lw-workspace",
         "user-volume-size": "10Gi",
         "default-pay-model": {
