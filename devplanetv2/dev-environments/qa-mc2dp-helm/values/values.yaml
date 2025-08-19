@@ -1298,3 +1298,19 @@ wts:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/workspace-token-service
     tag: 0.4.4
+
+# AuroraRDSCopy Job configuration
+auroraRdsCopyJob:
+  enabled: true
+  auroraMasterSecret: aurora-creds
+  sourceNamespace: qa-mc2dp-helm
+  targetNamespace: qa-mc2dp-helm
+  writeToK8sSecret: true
+  pushToAwsSecret: true
+  services:
+    - serviceName: indexd
+      sourceSecret: indexd-dbcreds
+      targetSecret: indexd-dbcreds
+    - serviceName: metadata
+      sourceSecret: metadata-dbcreds
+      targetSecret: metadata-dbcreds
