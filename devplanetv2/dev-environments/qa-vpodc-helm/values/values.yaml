@@ -1333,7 +1333,6 @@ tube:
     tag: '2025.04'
 wts:
   enabled: true
-  oidc_job_enabled: true
   externalSecrets:
     createWtsOidcClientSecret: false
     wtsG3auto: qa-vpodc-wts-g3auto
