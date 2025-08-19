@@ -112,7 +112,7 @@ guppy:
   esEndpoint: http://elasticsearch:9200
   image:
     repository: quay.io/cdis/guppy
-    tag: '2025.07'
+    tag: '2025.04'
   indices:
   - index: pdp-commons-commons-index
     type: metadata
@@ -1321,8 +1321,6 @@ peregrine:
     tag: '2025.04'
 portal:
   enabled: false
-  gitops:
-    gen3Bundle: ecosystem
 requestor:
   enabled: true
   image:
