@@ -415,8 +415,6 @@ revproxy:
       group: binamb-helm
 sheepdog:
   enabled: true
-  image:
-    tag: master
 sower:
   enabled: true
   externalSecrets:
