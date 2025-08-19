@@ -117,7 +117,7 @@ guppy:
   - index: pdp-commons-commons-index
     type: metadata
 hatchery:
-  enabled: false
+  enabled: true
   replicaCount: 2
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
@@ -125,7 +125,7 @@ hatchery:
   hatchery:
     json: |
         {
-            "user-namespace": "jupyter-pods",
+            "user-namespace": "jupyter-pods-qa-prometheus",
             "sub-dir": "/lw-workspace",
             "user-volume-size": "10Gi",
             "default-pay-model": {
@@ -137,8 +137,8 @@ hatchery:
                 "memory-limit": "256Mi",
                 "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ecs-ws-sidecar:2025.03",
                 "env": {
-                    "NAMESPACE": "default",
-                    "HOSTNAME": "mc2dp.data-commons.org"
+                    "NAMESPACE": "qa-prometheus",
+                    "HOSTNAME": "qa-prometheus.planx-pla.net"
                 },
                 "args": [],
                 "command": [
@@ -162,7 +162,7 @@ hatchery:
                     "name": "(Generic) Jupyter Lab Notebook with R Kernel",
                     "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-prometheus:prometheus-master",
                     "env": {
-                        "FRAME_ANCESTORS": "https://mc2dp.data-commons.org"
+                        "FRAME_ANCESTORS": "https://qa-prometheus.planx-pla.net"
                     },
                     "args": [
                         "--NotebookApp.base_url=/lw-workspace/proxy/",
