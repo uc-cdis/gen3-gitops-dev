@@ -195,7 +195,7 @@ hatchery:
         "pay-models": [],
         "license-user-maps-dynamodb-table": "gen3-license-user-maps",
         "license-user-maps-global-secondary-index": "activeUsersIndex",
-        "s3": {
+        "s3-config": {
           "bucketname": "workspace-software-s3-qa-heal",
           "PrefixBase": "qa-heal",
           "region": "us-east-1"
