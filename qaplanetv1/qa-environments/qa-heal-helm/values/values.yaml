@@ -2703,6 +2703,7 @@ wts:
   externalSecrets:
     wtsG3auto: qa-heal-wts-g3auto
     wtsOidcClient: qa-heal-wts-client-secret
+    createWtsOidcClientSecret: false
     dbcreds: qa-heal-wts-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/workspace-token-service
