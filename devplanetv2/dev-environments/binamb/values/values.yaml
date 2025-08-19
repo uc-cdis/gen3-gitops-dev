@@ -107,7 +107,7 @@ fence:
     fenceJwtKeys: binamb-fence-jwt
   image:
     repository: quay.io/cdis/fence
-    tag: feat_usersync_update_authz
+    tag: master
 fluentd:
   enabled: true
   image:
