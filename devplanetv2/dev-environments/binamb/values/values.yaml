@@ -16,9 +16,9 @@ audit:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--binamb-helm--audit-sqs-receiver
 aws-es-proxy:
   enabled: true
-  esEndpoint: ''
+  esEndpoint: ""
   image:
-    tag: '0.8'
+    tag: "0.8"
 dashboard:
   dashboardConfig:
     bucket: dashboard-707767160287-devplanetv1-gen3
@@ -32,72 +32,72 @@ dashboard:
 etl:
   esEndpoint: elasticsearch
   mappings:
-  - aggregated_props:
-    - fn: count
-      name: _samples_count
-      path: samples
-    - fn: count
-      name: _aliquots_count
-      path: samples.aliquots
-    - fn: count
-      name: _submitted_methylations_count
-      path: samples.aliquots.submitted_methylation_files
-    - fn: count
-      name: _read_groups_count
-      path: samples.aliquots.read_groups
-    - fn: count
-      name: _submitted_aligned_reads_count
-      path: samples.aliquots.read_groups.submitted_aligned_reads_files
-    - fn: count
-      name: _submitted_copy_number_files_on_read_groups_count
-      path: samples.aliquots.read_groups.submitted_copy_number_files
-    - fn: count
-      name: _submitted_somatic_mutations_count
-      path: samples.aliquots.read_groups.submitted_somatic_mutations
-    doc_type: case
-    flatten_props:
-    - path: demographics
+    - aggregated_props:
+        - fn: count
+          name: _samples_count
+          path: samples
+        - fn: count
+          name: _aliquots_count
+          path: samples.aliquots
+        - fn: count
+          name: _submitted_methylations_count
+          path: samples.aliquots.submitted_methylation_files
+        - fn: count
+          name: _read_groups_count
+          path: samples.aliquots.read_groups
+        - fn: count
+          name: _submitted_aligned_reads_count
+          path: samples.aliquots.read_groups.submitted_aligned_reads_files
+        - fn: count
+          name: _submitted_copy_number_files_on_read_groups_count
+          path: samples.aliquots.read_groups.submitted_copy_number_files
+        - fn: count
+          name: _submitted_somatic_mutations_count
+          path: samples.aliquots.read_groups.submitted_somatic_mutations
+      doc_type: case
+      flatten_props:
+        - path: demographics
+          props:
+            - name: gender
+            - name: race
+            - name: ethnicity
+            - name: year_of_birth
+      joining_props:
+        - index: file
+          join_on: case_id
+          props:
+            - fn: set
+              name: data_format
+              src: data_format
+            - fn: set
+              name: data_type
+              src: data_type
+      name: binamb_etl
       props:
-      - name: gender
-      - name: race
-      - name: ethnicity
-      - name: year_of_birth
-    joining_props:
-    - index: file
-      join_on: case_id
-      props:
-      - fn: set
-        name: data_format
-        src: data_format
-      - fn: set
-        name: data_type
-        src: data_type
-    name: binamb_etl
-    props:
-    - name: submitter_id
-    - name: project_id
-    root: case
-    type: aggregator
-  - category: data_file
-    doc_type: file
-    injecting_props:
-      case:
-        props:
-        - fn: set
-          name: case_id
-          src: id
+        - name: submitter_id
         - name: project_id
-    name: binamb_file
-    props:
-    - name: object_id
-    - name: md5sum
-    - name: file_name
-    - name: file_size
-    - name: data_format
-    - name: data_type
-    - name: state
-    root: None
-    type: collector
+      root: case
+      type: aggregator
+    - category: data_file
+      doc_type: file
+      injecting_props:
+        case:
+          props:
+            - fn: set
+              name: case_id
+              src: id
+            - name: project_id
+      name: binamb_file
+      props:
+        - name: object_id
+        - name: md5sum
+        - name: file_name
+        - name: file_size
+        - name: data_format
+        - name: data_type
+        - name: state
+      root: None
+      type: collector
 fence:
   enabled: true
   externalSecrets:
@@ -114,13 +114,13 @@ fluentd:
     tag: v1.15.3-debian-cloudwatch-1.0
 global:
   aws:
-    account: '707767160287'
+    account: "707767160287"
     awsEsProxyRole: devplanetv2--binamb-helm--es-access
     enabled: true
     hatchery_role: devplanetv2--binamb-helm--hatchery-sa
     secretStoreServiceAccount:
       enabled: true
-      roleArn: arn:aws:iam::707767160287:role/binamb-external-secrets-sa
+      roleArn: arn:aws:iam::707767160287:role/devplanetv2-external-secrets-sa
   dev: false
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json
   environment: binamb
@@ -132,7 +132,7 @@ global:
     kube_bucket: kube_bucket.devplanetv1.gen3
     logs_bucket: logs-devplanetv1-gen3
     public_datasets: true
-    sync_from_dbgap: 'False'
+    sync_from_dbgap: "False"
     tier_access_level: regular
     tier_access_limit: 50
     useryaml_s3path: s3://cdis-gen3-users/dev/user.yaml
@@ -148,10 +148,10 @@ guppy:
   image:
     tag: feat_es7
   indices:
-  - index: binamb_etl
-    type: case
-  - index: binamb_file
-    type: file
+    - index: binamb_etl
+      type: case
+    - index: binamb_file
+      type: file
 hatchery:
   enabled: true
   image:
@@ -285,7 +285,8 @@ portal:
         }
     favicon: |-
       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w///+Y////gP///4H////B//////////////////
-    json: "{\n  \"gaTrackingId\": \"UA-119127212-6\",\n  \"graphql\": {\n    \"boardCounts\"\
+    json:
+      "{\n  \"gaTrackingId\": \"UA-119127212-6\",\n  \"graphql\": {\n    \"boardCounts\"\
       : [\n      {\n        \"graphql\": \"_case_count\",\n        \"name\": \"Case\"\
       ,\n        \"plural\": \"Cases\"\n      },\n      {\n        \"graphql\": \"\
       _experiment_count\",\n        \"name\": \"Experiment\",\n        \"plural\"\
@@ -410,7 +411,7 @@ portal:
 revproxy:
   enabled: true
   image:
-    tag: '2025.01'
+    tag: "2025.01"
   ingress:
     aws:
       group: binamb-helm
@@ -426,73 +427,73 @@ sower:
   image:
     tag: master
   sowerConfig:
-  - action: export
-    container:
-      cpu-limit: '1'
-      env:
-      - name: DICTIONARY_URL
-        valueFrom:
-          configMapKeyRef:
-            key: dictionary_url
-            name: manifest-global
-      - name: GEN3_HOSTNAME
-        valueFrom:
-          configMapKeyRef:
-            key: hostname
-            name: manifest-global
-      - name: ROOT_NODE
-        value: case
-      image: quay.io/cdis/pelican-export:master
-      memory-limit: 4Gi
-      name: job-task
-      pull_policy: Always
-      volumeMounts:
-      - mountPath: /pelican-creds.json
-        name: pelican-creds-volume
-        readOnly: true
-        subPath: config.json
-      - mountPath: /peregrine-creds.json
-        name: peregrine-creds-volume
-        readOnly: true
-        subPath: creds.json
-    name: pelican-export
-    restart_policy: Never
-    volumes:
-    - name: pelican-creds-volume
-      secret:
-        secretName: pelicanservice-g3auto
-    - name: peregrine-creds-volume
-      secret:
-        secretName: peregrine-creds
-  - action: import
-    container:
-      cpu-limit: '1'
-      env:
-      - name: DICTIONARY_URL
-        valueFrom:
-          configMapKeyRef:
-            key: dictionary_url
-            name: manifest-global
-      - name: GEN3_HOSTNAME
-        valueFrom:
-          configMapKeyRef:
-            key: hostname
-            name: manifest-global
-      image: quay.io/cdis/pelican-import:master
-      memory-limit: 4Gi
-      name: job-task
-      pull_policy: Always
-      volumeMounts:
-      - mountPath: /sheepdog-creds.json
-        name: sheepdog-creds-volume
-        readOnly: true
-        subPath: creds.json
-    name: pelican-import
-    restart_policy: Never
-    volumes:
-    - name: sheepdog-creds-volume
-      secret:
-        secretName: sheepdog-creds
+    - action: export
+      container:
+        cpu-limit: "1"
+        env:
+          - name: DICTIONARY_URL
+            valueFrom:
+              configMapKeyRef:
+                key: dictionary_url
+                name: manifest-global
+          - name: GEN3_HOSTNAME
+            valueFrom:
+              configMapKeyRef:
+                key: hostname
+                name: manifest-global
+          - name: ROOT_NODE
+            value: case
+        image: quay.io/cdis/pelican-export:master
+        memory-limit: 4Gi
+        name: job-task
+        pull_policy: Always
+        volumeMounts:
+          - mountPath: /pelican-creds.json
+            name: pelican-creds-volume
+            readOnly: true
+            subPath: config.json
+          - mountPath: /peregrine-creds.json
+            name: peregrine-creds-volume
+            readOnly: true
+            subPath: creds.json
+      name: pelican-export
+      restart_policy: Never
+      volumes:
+        - name: pelican-creds-volume
+          secret:
+            secretName: pelicanservice-g3auto
+        - name: peregrine-creds-volume
+          secret:
+            secretName: peregrine-creds
+    - action: import
+      container:
+        cpu-limit: "1"
+        env:
+          - name: DICTIONARY_URL
+            valueFrom:
+              configMapKeyRef:
+                key: dictionary_url
+                name: manifest-global
+          - name: GEN3_HOSTNAME
+            valueFrom:
+              configMapKeyRef:
+                key: hostname
+                name: manifest-global
+        image: quay.io/cdis/pelican-import:master
+        memory-limit: 4Gi
+        name: job-task
+        pull_policy: Always
+        volumeMounts:
+          - mountPath: /sheepdog-creds.json
+            name: sheepdog-creds-volume
+            readOnly: true
+            subPath: creds.json
+      name: pelican-import
+      restart_policy: Never
+      volumes:
+        - name: sheepdog-creds-volume
+          secret:
+            secretName: sheepdog-creds
 spark:
   enabled: true
   image:
