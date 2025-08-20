@@ -411,7 +411,7 @@ revproxy:
     aws:
       group: binamb-helm
 sheepdog:
-  enabled: false
+  enabled: true
 sower:
   enabled: true
   externalSecrets:
