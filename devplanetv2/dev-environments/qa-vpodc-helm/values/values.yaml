@@ -43,7 +43,7 @@ global:
       kmsKeyId: "387b8ebf-c8b8-4887-9b2c-639aee77654c"
 
 ambassador:
-  jupyterNamespace: qa-vpodc
+  jupyterNamespace: jupyter-pods-qa-vpodc
 
 arborist:
   autoscaling:
