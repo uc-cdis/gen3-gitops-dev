@@ -152,17 +152,16 @@ global:
   revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/c676c81c-9546-4e9a-9a72-725dd3912bc8
 guppy:
   enabled: true
-  # authFilterField: auth_resource_path
-  # configIndex: binamb_array-config
-  # enabled: true
-  # esEndpoint: http://elasticsearch:9200
-  # image:
-  #   tag: feat_es7
-  # indices:
-  # - index: binamb_etl
-  #   type: case
-  # - index: binamb_file
-  #   type: file
+  authFilterField: auth_resource_path
+  configIndex: binamb_array-config
+  esEndpoint: http://elasticsearch:9200
+  image:
+    tag: feat_es7
+  indices:
+  - index: binamb_etl
+    type: case
+  - index: binamb_file
+    type: file
 hatchery:
   enabled: true
   image:
@@ -425,7 +424,7 @@ revproxy:
     aws:
       group: binamb-helm
 sheepdog:
-  enabled: false
+  enabled: true
 sower:
   enabled: true
   externalSecrets:

@@ -182,7 +182,7 @@ etl:
   esEndpoint: "gen3-elasticsearch-master"
 
 guppy:
-  enabled: true
+  enabled: false
   resources:
     requests:
       memory: "105Mi"
@@ -281,7 +281,6 @@ revproxy:
       group: devplanetv2-internal
 
 sheepdog:
-  enabled: true
   resources:
     requests:
       memory: "105Mi"
