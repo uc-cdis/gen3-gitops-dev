@@ -16,9 +16,9 @@ audit:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--binamb-helm--audit-sqs-receiver
 aws-es-proxy:
   enabled: true
-  esEndpoint: ""
+  esEndpoint: vpc-devplanetv2-gen3-metadata-2-xkwr2f3gbxua5mqqi7rhnat4la.us-east-1.es.amazonaws.com
   image:
-    tag: "0.8"
+    tag: "v1.3.1"
 dashboard:
   dashboardConfig:
     bucket: dashboard-707767160287-devplanetv1-gen3
