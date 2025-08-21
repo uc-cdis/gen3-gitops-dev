@@ -221,7 +221,7 @@ hatchery:
         ]
     }
   workspaceLaunchTest:
-    workspaceLaunchTest: true
+    enableWorkspaceLaunchTest: true
     schedule: "*/30 * * * *"
     workspaceImages: "(Generic) Jupyter Lab Notebook with R Kernel+(Tutorials) Example Analysis Jupyter Lab Notebooks"
     operatorName: "binamb@uchicago.edu"
