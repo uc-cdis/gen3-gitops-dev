@@ -43,7 +43,7 @@ global:
       kmsKeyId: "387b8ebf-c8b8-4887-9b2c-639aee77654c"
 
 ambassador:
-  jupyterNamespace: qa-vpodc
+  jupyterNamespace: jupyter-pods-qa-vpodc
 
 arborist:
   autoscaling:
@@ -1333,7 +1333,6 @@ tube:
     tag: '2025.04'
 wts:
   enabled: true
-  oidc_job_enabled: true
   externalSecrets:
     createWtsOidcClientSecret: false
     wtsG3auto: qa-vpodc-wts-g3auto

@@ -16,88 +16,86 @@ audit:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--binamb-helm--audit-sqs-receiver
 aws-es-proxy:
   enabled: true
-  esEndpoint: ''
+  esEndpoint: vpc-devplanetv2-gen3-metadata-2-xkwr2f3gbxua5mqqi7rhnat4la.us-east-1.es.amazonaws.com
   image:
-    tag: '0.8'
+    tag: "v1.3.1"
 dashboard:
   dashboardConfig:
     bucket: dashboard-707767160287-devplanetv1-gen3
     prefix: binamb.planx-pla.net
   enabled: true
-  image:
-    tag: master
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--binamb-helm--dashboard-access
 etl:
   esEndpoint: elasticsearch
   mappings:
-  - aggregated_props:
-    - fn: count
-      name: _samples_count
-      path: samples
-    - fn: count
-      name: _aliquots_count
-      path: samples.aliquots
-    - fn: count
-      name: _submitted_methylations_count
-      path: samples.aliquots.submitted_methylation_files
-    - fn: count
-      name: _read_groups_count
-      path: samples.aliquots.read_groups
-    - fn: count
-      name: _submitted_aligned_reads_count
-      path: samples.aliquots.read_groups.submitted_aligned_reads_files
-    - fn: count
-      name: _submitted_copy_number_files_on_read_groups_count
-      path: samples.aliquots.read_groups.submitted_copy_number_files
-    - fn: count
-      name: _submitted_somatic_mutations_count
-      path: samples.aliquots.read_groups.submitted_somatic_mutations
-    doc_type: case
-    flatten_props:
-    - path: demographics
+    - aggregated_props:
+        - fn: count
+          name: _samples_count
+          path: samples
+        - fn: count
+          name: _aliquots_count
+          path: samples.aliquots
+        - fn: count
+          name: _submitted_methylations_count
+          path: samples.aliquots.submitted_methylation_files
+        - fn: count
+          name: _read_groups_count
+          path: samples.aliquots.read_groups
+        - fn: count
+          name: _submitted_aligned_reads_count
+          path: samples.aliquots.read_groups.submitted_aligned_reads_files
+        - fn: count
+          name: _submitted_copy_number_files_on_read_groups_count
+          path: samples.aliquots.read_groups.submitted_copy_number_files
+        - fn: count
+          name: _submitted_somatic_mutations_count
+          path: samples.aliquots.read_groups.submitted_somatic_mutations
+      doc_type: case
+      flatten_props:
+        - path: demographics
+          props:
+            - name: gender
+            - name: race
+            - name: ethnicity
+            - name: year_of_birth
+      joining_props:
+        - index: file
+          join_on: case_id
+          props:
+            - fn: set
+              name: data_format
+              src: data_format
+            - fn: set
+              name: data_type
+              src: data_type
+      name: binamb_etl
       props:
-      - name: gender
-      - name: race
-      - name: ethnicity
-      - name: year_of_birth
-    joining_props:
-    - index: file
-      join_on: case_id
-      props:
-      - fn: set
-        name: data_format
-        src: data_format
-      - fn: set
-        name: data_type
-        src: data_type
-    name: binamb_etl
-    props:
-    - name: submitter_id
-    - name: project_id
-    root: case
-    type: aggregator
-  - category: data_file
-    doc_type: file
-    injecting_props:
-      case:
-        props:
-        - fn: set
-          name: case_id
-          src: id
+        - name: submitter_id
         - name: project_id
-    name: binamb_file
-    props:
-    - name: object_id
-    - name: md5sum
-    - name: file_name
-    - name: file_size
-    - name: data_format
-    - name: data_type
-    - name: state
-    root: None
-    type: collector
+      root: case
+      type: aggregator
+    - category: data_file
+      doc_type: file
+      injecting_props:
+        case:
+          props:
+            - fn: set
+              name: case_id
+              src: id
+            - name: project_id
+      name: binamb_file
+      props:
+        - name: object_id
+        - name: md5sum
+        - name: file_name
+        - name: file_size
+        - name: data_format
+        - name: data_type
+        - name: state
+      root: None
+      type: collector
 fence:
   enabled: true
   externalSecrets:
@@ -107,20 +105,32 @@ fence:
     fenceGoogleStorageCredsSecret: binamb-fence-google-storage-creds
     fenceJwtKeys: binamb-fence-jwt
   image:
-    tag: feat_usersync_update_authz
+    tag: master
 fluentd:
   enabled: true
   image:
     tag: v1.15.3-debian-cloudwatch-1.0
 global:
-  aws:
-    account: '707767160287'
-    awsEsProxyRole: devplanetv2--binamb-helm--es-access
+  crossplane:
+    # -- (bool) Set to true if deploying to AWS and want to use crossplane for AWS resources.
     enabled: true
-    hatchery_role: devplanetv2--binamb-helm--hatchery-sa
+    # The name of the crossplane provider config.
+    providerConfigName: provider-aws
+    # OIDC provider URL. This is used for authentication of roles/service accounts.
+    oidcProviderUrl: "oidc.eks.us-east-1.amazonaws.com/id/F057519C0E32B7DE2580904C4007BB21"
+    # The account ID of the AWS account.
+    accountId: "707767160287"
+    s3:
+      # The kms key id for the s3 bucket.
+      kmsKeyId: "387b8ebf-c8b8-4887-9b2c-639aee77654c"
+  aws:
+    account: "707767160287"
+    awsEsProxyRole: binamb-binamb-aws-es-proxy-sa
+    enabled: true
+    hatchery_role: binamb-binamb-aws-es-hatchery-sa
     secretStoreServiceAccount:
       enabled: true
-      roleArn: arn:aws:iam::707767160287:role/binamb-external-secrets-sa
+      roleArn: arn:aws:iam::707767160287:role/devplanetv2-external-secrets-sa
   dev: false
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json
   environment: binamb
@@ -132,7 +142,7 @@ global:
     kube_bucket: kube_bucket.devplanetv1.gen3
     logs_bucket: logs-devplanetv1-gen3
     public_datasets: true
-    sync_from_dbgap: 'False'
+    sync_from_dbgap: "False"
     tier_access_level: regular
     tier_access_limit: 50
     useryaml_s3path: s3://cdis-gen3-users/dev/user.yaml
@@ -141,9 +151,9 @@ global:
     dbCreate: false
   revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/c676c81c-9546-4e9a-9a72-725dd3912bc8
 guppy:
+  enabled: true
   authFilterField: auth_resource_path
   configIndex: binamb_array-config
-  enabled: true
   esEndpoint: http://elasticsearch:9200
   image:
     tag: feat_es7
@@ -222,6 +232,12 @@ hatchery:
             }
         ]
     }
+  workspaceLaunchTest:
+    workspaceLaunchTest: true
+    schedule: "*/30 * * * *"
+    workspaceImages: "(Generic) Jupyter Lab Notebook with R Kernel+(Tutorials) Example Analysis Jupyter Lab Notebooks"
+    operatorName: "binamb@uchicago.edu"
+    hostname: "https://binamb.planx-pla.net/"
 
 indexd:
   enabled: true
@@ -247,7 +263,7 @@ mutatingWebhook:
 peregrine:
   enabled: true
   image:
-    tag: master
+    tag:
 pidgin:
   enabled: true
   image:
@@ -279,7 +295,8 @@ portal:
         }
     favicon: |-
       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w///+Y////gP///4H////B//////////////////
-    json: "{\n  \"gaTrackingId\": \"UA-119127212-6\",\n  \"graphql\": {\n    \"boardCounts\"\
+    json:
+      "{\n  \"gaTrackingId\": \"UA-119127212-6\",\n  \"graphql\": {\n    \"boardCounts\"\
       : [\n      {\n        \"graphql\": \"_case_count\",\n        \"name\": \"Case\"\
       ,\n        \"plural\": \"Cases\"\n      },\n      {\n        \"graphql\": \"\
       _experiment_count\",\n        \"name\": \"Experiment\",\n        \"plural\"\
@@ -399,19 +416,15 @@ portal:
       \  \"useArboristUI\": true,\n  \"showArboristAuthzOnProfile\": true\n}\n"
     logo: |- # pragma: allowlist secret
       iVBORw0KGgoAAAANSUhEUgAAASwAAADcCAYAAADKmJzYAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFIGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOCAoTWFjaW50b3NoKSIgeG1wOkNyZWF0ZURhdGU9IjIwMTgtMDItMTNUMTQ6MTE6MDktMDY6MDAiIHhtcDpNb2RpZnlEYXRlPSIyMDE4LTA0LTE1VDE1OjQ0OjA5LTA1OjAwIiB4bXA6TWV0YWRhdGFEYXRlPSIyMDE4LTA0LTE1VDE1OjQ0OjA5LTA1OjAwIiBkYzpmb3JtYXQ9ImltYWdlL3BuZyIgcGhvdG9zaG9wOkNvbG9yTW9kZT0iMyIgcGhvdG9zaG9wOklDQ1Byb2ZpbGU9InNSR0IgSUVDNjE5NjYtMi4xIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOmU5MWI1NjAyLTI1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
-  image:
-    tag: master
 revproxy:
   enabled: true
   image:
-    tag: '2025.01'
+    tag: "2025.01"
   ingress:
     aws:
       group: binamb-helm
 sheepdog:
   enabled: true
-  image:
-    tag: master
 sower:
   enabled: true
   externalSecrets:
@@ -420,73 +433,73 @@ sower:
   image:
     tag: master
   sowerConfig:
-  - action: export
-    container:
-      cpu-limit: '1'
-      env:
-      - name: DICTIONARY_URL
-        valueFrom:
-          configMapKeyRef:
-            key: dictionary_url
-            name: manifest-global
-      - name: GEN3_HOSTNAME
-        valueFrom:
-          configMapKeyRef:
-            key: hostname
-            name: manifest-global
-      - name: ROOT_NODE
-        value: case
-      image: quay.io/cdis/pelican-export:master
-      memory-limit: 4Gi
-      name: job-task
-      pull_policy: Always
-      volumeMounts:
-      - mountPath: /pelican-creds.json
-        name: pelican-creds-volume
-        readOnly: true
-        subPath: config.json
-      - mountPath: /peregrine-creds.json
-        name: peregrine-creds-volume
-        readOnly: true
-        subPath: creds.json
-    name: pelican-export
-    restart_policy: Never
-    volumes:
-    - name: pelican-creds-volume
-      secret:
-        secretName: pelicanservice-g3auto
-    - name: peregrine-creds-volume
-      secret:
-        secretName: peregrine-creds
-  - action: import
-    container:
-      cpu-limit: '1'
-      env:
-      - name: DICTIONARY_URL
-        valueFrom:
-          configMapKeyRef:
-            key: dictionary_url
-            name: manifest-global
-      - name: GEN3_HOSTNAME
-        valueFrom:
-          configMapKeyRef:
-            key: hostname
-            name: manifest-global
-      image: quay.io/cdis/pelican-import:master
-      memory-limit: 4Gi
-      name: job-task
-      pull_policy: Always
-      volumeMounts:
-      - mountPath: /sheepdog-creds.json
-        name: sheepdog-creds-volume
-        readOnly: true
-        subPath: creds.json
-    name: pelican-import
-    restart_policy: Never
-    volumes:
-    - name: sheepdog-creds-volume
-      secret:
-        secretName: sheepdog-creds
+    - action: export
+      container:
+        cpu-limit: "1"
+        env:
+          - name: DICTIONARY_URL
+            valueFrom:
+              configMapKeyRef:
+                key: dictionary_url
+                name: manifest-global
+          - name: GEN3_HOSTNAME
+            valueFrom:
+              configMapKeyRef:
+                key: hostname
+                name: manifest-global
+          - name: ROOT_NODE
+            value: case
+        image: quay.io/cdis/pelican-export:master
+        memory-limit: 4Gi
+        name: job-task
+        pull_policy: Always
+        volumeMounts:
+          - mountPath: /pelican-creds.json
+            name: pelican-creds-volume
+            readOnly: true
+            subPath: config.json
+          - mountPath: /peregrine-creds.json
+            name: peregrine-creds-volume
+            readOnly: true
+            subPath: creds.json
+      name: pelican-export
+      restart_policy: Never
+      volumes:
+        - name: pelican-creds-volume
+          secret:
+            secretName: pelicanservice-g3auto
+        - name: peregrine-creds-volume
+          secret:
+            secretName: peregrine-creds
+    - action: import
+      container:
+        cpu-limit: "1"
+        env:
+          - name: DICTIONARY_URL
+            valueFrom:
+              configMapKeyRef:
+                key: dictionary_url
+                name: manifest-global
+          - name: GEN3_HOSTNAME
+            valueFrom:
+              configMapKeyRef:
+                key: hostname
+                name: manifest-global
+        image: quay.io/cdis/pelican-import:master
+        memory-limit: 4Gi
+        name: job-task
+        pull_policy: Always
+        volumeMounts:
+          - mountPath: /sheepdog-creds.json
+            name: sheepdog-creds-volume
+            readOnly: true
+            subPath: creds.json
+      name: pelican-import
+      restart_policy: Never
+      volumes:
+        - name: sheepdog-creds-volume
+          secret:
+            secretName: sheepdog-creds
 spark:
   enabled: true
   image:
@@ -509,9 +522,3 @@ wts:
     wtsOidcClient: binamb-wts-client-secret
   image:
     tag: master
-workspace_launch_test:
-  workspace_launch_test: true
-  schedule: "0 * * * *"
-  workspaceImages: "(Generic) Jupyter Lab Notebook with R Kernel+(Tutorials) Example Analysis Jupyter Lab Notebooks"
-  operatorName: "binamb@uchicago.edu"
-  hostname: "https://binamb.planx-pla.net/"
