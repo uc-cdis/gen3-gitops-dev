@@ -48,8 +48,12 @@ ambassador:
     requests:
       memory: "105Mi"
       cpu: "15m"
-
+ambassador-gen3:
+  enabled: true
+  image:
+    tag: 0.60.3
 arborist:
+  enabled: true
   image:
     tag: master
   resources:
@@ -131,7 +135,7 @@ hatchery:
 
 portal:
   # Disable portal by default
-  enabled: false
+  enabled: true
   # 
   # resources:
   #   requests:
@@ -182,7 +186,7 @@ etl:
   esEndpoint: "gen3-elasticsearch-master"
 
 guppy:
-  enabled: false
+  enabled: true
   resources:
     requests:
       memory: "105Mi"
@@ -193,6 +197,7 @@ guppy:
   esEndpoint: http://elasticsearch:9200
 
 indexd:
+  enabled: true
   image:
     tag: master
   resources:
@@ -249,6 +254,7 @@ metadata:
     }
 
 manifestservice:
+  enabled: true
   resources:
     requests:
       memory: "105Mi"
@@ -257,12 +263,13 @@ manifestservice:
     createK8sManifestServiceSecret: true
 
 ssjdispatcher:
-  enabled: false
+  enabled: true
 
 sower:
-  enabled: false
+  enabled: true
 
 peregrine:
+  enabled: true
   resources:
     requests:
       memory: "105Mi"
@@ -270,6 +277,7 @@ peregrine:
   image:
 
 revproxy:
+  enabled: true
   resources:
     requests:
       memory: "105Mi"
@@ -280,6 +288,7 @@ revproxy:
       group: devplanetv2-internal
 
 sheepdog:
+  enabled: true
   resources:
     requests:
       memory: "105Mi"
@@ -291,6 +300,7 @@ requestor:
   enabled: true
 
 wts:
+  enabled: true
   image:
     tag: master
   resources:
@@ -316,6 +326,7 @@ postgresql:
       enabled: true
 
 fence:
+  enabled: true
   externalSecrets:
     createK8sFenceConfigSecret: false
     createK8sJwtKeysSecret: true
