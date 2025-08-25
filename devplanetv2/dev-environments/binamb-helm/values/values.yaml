@@ -36,6 +36,7 @@ datareplicate:
     tag: "master"
   googleBucketReplicateJob:
     # -- (bool) Whether to enable the Google bucket replicate job
+    enabled: true
     PROJECT: dcf-prod-buckets
     MAX_WORKERS: 80
     RELEASE: DR43
