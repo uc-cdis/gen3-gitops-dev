@@ -161,7 +161,7 @@ hatchery:
                     "cpu-limit": "1.0",
                     "memory-limit": "4Gi",
                     "name": "(Generic) Jupyter Lab Notebook with R Kernel",
-                    "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-prometheus:prometheus-master",
+                    "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-prometheus:prometheus-MC2DP-362",
                     "env": {
                         "FRAME_ANCESTORS": "https://qa-prometheus.planx-pla.net"
                     },
