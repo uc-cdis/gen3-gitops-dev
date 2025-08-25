@@ -120,6 +120,10 @@ fence:
     fenceJwtKeys: binamb-fence-jwt
   image:
     tag: master
+  usersync:
+    usersync: true
+    syncFromDbgap: true
+    userYamlS3Path: s3://cdis-gen3-users/dev/user.yaml
 fluentd:
   enabled: true
   image:
@@ -234,12 +238,12 @@ hatchery:
             }
         ]
     }
-  workspaceLaunchTest:
-    enableWorkspaceLaunchTest: true
-    schedule: "*/30 * * * *"
-    workspaceImages: "(Generic) Jupyter Lab Notebook with R Kernel+(Tutorials) Example Analysis Jupyter Lab Notebooks"
-    operatorName: "binamb@uchicago.edu"
-    hostname: "https://binamb.planx-pla.net/"
+  # workspaceLaunchTest:
+  #   enableWorkspaceLaunchTest: true
+  #   schedule: "*/30 * * * *"
+  #   workspaceImages: "(Generic) Jupyter Lab Notebook with R Kernel+(Tutorials) Example Analysis Jupyter Lab Notebooks"
+  #   operatorName: "binamb@uchicago.edu"
+  #   hostname: "https://binamb.planx-pla.net/"
 
 indexd:
   enabled: true
