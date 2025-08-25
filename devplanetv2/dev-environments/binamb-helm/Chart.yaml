@@ -1,5 +1,5 @@
 apiVersion: v2
-name: main.dev.planx-pla.net
+name: binamb.dev.planx-pla.net
 description: A template manifest for spinning up dev environments using gitops
 
 # A chart can be either an 'application' or a 'library' chart.
