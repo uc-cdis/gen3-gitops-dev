@@ -87,7 +87,7 @@ frontend-framework:
   enabled: true
   image:
     repository: quay.io/cdis/vadc-data-commons
-    tag: main
+    tag: fix_prior_outcome
 global:
   aws:
     account: "707767160287"
