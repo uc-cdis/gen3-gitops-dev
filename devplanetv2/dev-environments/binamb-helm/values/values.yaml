@@ -22,7 +22,7 @@ aws-es-proxy:
 dashboard:
   dashboardConfig:
     bucket: dashboard-707767160287-devplanetv1-gen3
-    prefix: binamb.planx-pla.net
+    prefix: binamb.dev.planx-pla.net
   enabled: true
   serviceAccount:
     annotations:
@@ -143,9 +143,9 @@ global:
       kmsKeyId: "387b8ebf-c8b8-4887-9b2c-639aee77654c"
   aws:
     account: "707767160287"
-    awsEsProxyRole: binamb-binamb-aws-es-proxy-sa
+    awsEsProxyRole: binamb-aws-es-proxy-sa
     enabled: true
-    hatchery_role: binamb-binamb-aws-es-hatchery-sa
+    hatchery_role: binamb-aws-es-hatchery-sa
     secretStoreServiceAccount:
       enabled: true
       roleArn: arn:aws:iam::707767160287:role/devplanetv2-external-secrets-sa
@@ -195,8 +195,8 @@ hatchery:
             "image": "quay.io/cdis/ecs-ws-sidecar:2024.12",
             "env": {
                 "NAMESPACE": "binamb",
-                "GEN3_ENDPOINT": "binamb.planx-pla.net",
-                "HOSTNAME": "binamb.planx-pla.net"
+                "GEN3_ENDPOINT": "binamb.dev.planx-pla.net",
+                "HOSTNAME": "binamb.dev.planx-pla.net"
             },
             "args": [],
             "command": [
@@ -220,7 +220,7 @@ hatchery:
                 "name": "(Generic) Jupyter Lab Notebook with R Kernel",
                 "image": "quay.io/cdis/jupyter-superslim-r:master",
                 "env": {
-                    "FRAME_ANCESTORS": "https://binamb.planx-pla.net"
+                    "FRAME_ANCESTORS": "https://binamb.dev.planx-pla.net"
                 },
                 "args": [
                     "--JupyterNotebookApp.base_url=/lw-workspace/proxy/",
@@ -255,7 +255,7 @@ hatchery:
   #   schedule: "*/30 * * * *"
   #   workspaceImages: "(Generic) Jupyter Lab Notebook with R Kernel+(Tutorials) Example Analysis Jupyter Lab Notebooks"
   #   operatorName: "binamb@uchicago.edu"
-  #   hostname: "https://binamb.planx-pla.net/"
+  #   hostname: "https://binamb.dev.planx-pla.net/"
 
 indexd:
   enabled: true
@@ -323,26 +323,26 @@ portal:
       \    ],\n    \"chartCounts\": [\n      {\n        \"graphql\": \"_case_count\"\
       ,\n        \"name\": \"Case\"\n      },\n      {\n        \"graphql\": \"_experiment_count\"\
       ,\n        \"name\": \"Experiment\"\n      }\n    ],\n    \"projectDetails\"\
-      : \"boardCounts\"\n  },\n  \"components\": {\n    \"appName\": \"The Michael\
+      : \"boardCounts\"\n  },\n  \"components\": {\n    \"appName\": \"The Binam\
       \ Commons Portal\",\n    \"index\": {\n      \"introduction\": {\n        \"\
-      heading\": \"Michael Commons\",\n        \"text\": \"The Michael Commons supports\
-      \ the management, analysis and sharing of Michael for the research community\
-      \ and aims to accelerate discovery and development of Michael\",\n        \"\
+      heading\": \"Binam Commons\",\n        \"text\": \"The Binam Commons supports\
+      \ the management, analysis and sharing of Binam for the research community\
+      \ and aims to accelerate discovery and development of Binam\",\n        \"\
       link\": \"/submission\"\n      },\n      \"buttons\": [\n        {\n       \
       \   \"name\": \"Define Data Field\",\n          \"icon\": \"data-field-define\"\
-      ,\n          \"body\": \"The Michael Commons defines its data in a cool way.\"\
+      ,\n          \"body\": \"The Binam Commons defines its data in a cool way.\"\
       ,\n          \"link\": \"/DD\",\n          \"label\": \"Learn less\"\n     \
       \   },\n        {\n          \"name\": \"Explore Data\",\n          \"icon\"\
       : \"data-explore\",\n          \"body\": \"The Exploration Page gives you candy\
       \ and donuts.\",\n          \"link\": \"/explorer\",\n          \"label\": \"\
       Explore data\"\n        },\n        {\n          \"name\": \"Access Data\",\n\
-      \          \"icon\": \"data-access\",\n          \"body\": \"Bla bla bla Michael.\"\
+      \          \"icon\": \"data-access\",\n          \"body\": \"Bla bla bla Binam.\"\
       ,\n          \"link\": \"/query\",\n          \"label\": \"Query data\"\n  \
       \      },\n        {\n          \"name\": \"Analyze Data\",\n          \"icon\"\
       : \"data-analyze\",\n          \"body\": \"Analyze your selected cases using\
       \ Casio calculators in our secure cloud environment\",\n          \"link\":\
       \ \"#hostname#workspace/\",\n          \"label\": \"Run analysis\"\n       \
-      \ }\n      ]\n    },\n    \"navigation\": {\n      \"title\": \"Michael Commons\"\
+      \ }\n      ]\n    },\n    \"navigation\": {\n      \"title\": \"Binam Commons\"\
       ,\n      \"items\": [\n        {\n          \"icon\": \"dictionary\",\n    \
       \      \"link\": \"/DD\",\n          \"color\": \"#a2a2a2\",\n          \"name\"\
       : \"Dictionary\"\n        },\n        {\n          \"icon\": \"exploration\"\
@@ -356,7 +356,7 @@ portal:
       color\": \"#a2a2a2\",\n          \"name\": \"Workspace\"\n        },\n     \
       \   {\n          \"icon\": \"profile\",\n          \"link\": \"/identity\",\n\
       \          \"color\": \"#a2a2a2\",\n          \"name\": \"Profile\"\n      \
-      \  }\n      ]\n    },\n    \"login\": {\n      \"title\": \"Michaels Commons\"\
+      \  }\n      ]\n    },\n    \"login\": {\n      \"title\": \"Binams Commons\"\
       ,\n      \"subTitle\": \"search, compare, and ignore data\",\n      \"text\"\
       : \"A centralized, cloud-based discovery portal that is super buzzword compliant\
       \ impacting the brain.\",\n      \"contact\": \"If you have any questions about\
