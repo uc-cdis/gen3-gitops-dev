@@ -142,7 +142,7 @@ global:
   environment: binamb
   externalSecrets:
     deploy: true
-  hostname: binamb.planx-pla.net
+  hostname: binamb.dev.planx-pla.net
   manifestGlobalExtraValues:
     es7: true
     kube_bucket: kube_bucket.devplanetv1.gen3
