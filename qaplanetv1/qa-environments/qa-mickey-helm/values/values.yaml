@@ -17,16 +17,15 @@ argo-wrapper:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/argo-wrapper
-    tag: feat_support_plp_submission
+    tag: master
   scalingGroups:
-    "zchen138@uchicago.edu": "workflow"
-    "aprokh@uchicago.edu": "workflow"
-    "Scott.DuVall@va.gov": "workflow2"
-    "Hamid.Saoudian@va.gov": "workflow3"
-    "Craig.Teerlink@va.gov": "workflow4"
+    default: "{{workflow.name}}"
+    custom:
+      zchen138@uchicago.edu: "{{workflow.name}}"
+      aprokh@uchicago.edu: "{{workflow.name}}"
   s3Bucket: second-argo-bucket
   internalS3Bucket: gen3-argo-707767160287-devplanetv1
-  environment: qa-mickey
+  environment: qa-mickey-helm
 audit:
   enabled: true
   externalSecrets:
@@ -88,7 +87,7 @@ frontend-framework:
   enabled: true
   image:
     repository: quay.io/cdis/vadc-data-commons
-    tag: fix_submit
+    tag: fix_prior_outcome
 global:
   aws:
     account: "707767160287"

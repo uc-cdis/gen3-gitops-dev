@@ -43,7 +43,7 @@ global:
       kmsKeyId: "387b8ebf-c8b8-4887-9b2c-639aee77654c"
 
 ambassador:
-  jupyterNamespace: qa-vpodc
+  jupyterNamespace: jupyter-pods-qa-vpodc
 
 arborist:
   autoscaling:
@@ -57,6 +57,7 @@ arborist:
     tag: '2025.04'
 
 audit:
+  enabled: false
   externalSecrets:
     auditG3auto: qa-vpodc-audit-g3auto
   serviceAccount:
@@ -72,7 +73,7 @@ aws-es-proxy:
 
 dashboard:
   dashboardConfig:
-    gitopsRepo: https://github.com/uc-cdis/giotps-qa
+    gitopsRepo: https://github.com/uc-cdis/gitops-qa
     bucket: dashboard-707767160287-qa-vpodc-gen3
     prefix: qa-vpodc.planx-pla.net
   enabled: true
@@ -146,6 +147,9 @@ etl:
     type: collector
 
 fence:
+  usersync:
+    usersync: true
+    userYamlS3Path: s3://cdis-gen3-users/pdp/user.yaml
   autoscaling:
     enabled: true
     maxReplicas: 1
