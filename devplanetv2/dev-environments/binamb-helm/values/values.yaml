@@ -148,6 +148,7 @@ global:
     awsEsProxyRole: binamb-aws-es-proxy-sa
     enabled: true
     hatchery_role: binamb-aws-es-hatchery-sa
+    scheme: "internal"
     secretStoreServiceAccount:
       enabled: true
       roleArn: arn:aws:iam::707767160287:role/devplanetv2-external-secrets-sa
