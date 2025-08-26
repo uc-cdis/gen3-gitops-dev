@@ -49,7 +49,7 @@ ambassador:
       memory: "105Mi"
       cpu: "15m"
 ambassador-gen3:
-  enabled: true
+  enabled: false
   image:
     tag: 0.60.3
 arborist:
@@ -92,7 +92,13 @@ datareplicate:
     MANIFEST_FILE: gs://replication-input/GDC_full_sync_active_manifest_20190326_post_DR43.0.tsv
     IGNORED_FILE: gs://replication-input/ignored_files_manifest.csv
     LOG_BUCKET: datarefresh-log
-
+  removeObjectsFromCloudsJob:
+    enabled: true
+    DRY_RUN: true
+  removeObjectsFromCloudsJob:
+    enabled: true
+    OUT_FILES: replication_validation_output_manifest.tsv
+    FORCE_CREATE_MANIFEST: true
 etl:
   enabled: true
   etlMapping:
@@ -146,7 +152,7 @@ frontend-framework:
       cpu: "15m"
 
 guppy:
-  enabled: true
+  enabled: false
   resources:
     requests:
       memory: "105Mi"
@@ -232,7 +238,7 @@ metadata:
   # image:
   # repository:
   # tag:
-  enabled: true
+  enabled: false
   useAggMds: "True"
   # -- (string) Namespace to use if AggMds is enabled.
   aggMdsNamespace: default
@@ -279,7 +285,7 @@ peregrine:
 
 portal:
   # Disable portal by default
-  enabled: true
+  enabled: false
   # 
   # resources:
   #   requests:
