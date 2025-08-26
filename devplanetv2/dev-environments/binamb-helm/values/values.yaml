@@ -442,7 +442,7 @@ revproxy:
     tag: "2025.01"
   ingress:
     aws:
-      group: binamb-helm
+      group: devplanetv2-internal
 sheepdog:
   enabled: true
 sower:
