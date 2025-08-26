@@ -3421,7 +3421,7 @@ revproxy:
         tag: "2025.03"
     ingress:
         aws:
-            group: georget-helm
+            group: devplanetv2-internal
 sheepdog:
     autoscaling:
         enabled: true
