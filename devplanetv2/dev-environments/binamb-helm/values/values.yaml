@@ -27,22 +27,21 @@ dashboard:
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--binamb-helm--dashboard-access
-datareplicate:
-  enabled: true
-  image:
-  # -- (string) Docker repository.
-    repository: quay.io/cdis/datareplicate
-    # -- (string) Overrides the image tag whose default is the chart appVersion.
-    tag: "master"
-  googleBucketReplicateJob:
-    # -- (bool) Whether to enable the Google bucket replicate job
-    enabled: true
-    PROJECT: dcf-prod-buckets
-    MAX_WORKERS: 80
-    RELEASE: DR43
-    MANIFEST_FILE: gs://replication-input/GDC_full_sync_active_manifest_20190326_post_DR43.0.tsv
-    IGNORED_FILE: gs://replication-input/ignored_files_manifest.csv
-    LOG_BUCKET: datarefresh-log
+# datareplicate:
+#   image:
+#   # -- (string) Docker repository.
+#     repository: quay.io/cdis/datareplicate
+#     # -- (string) Overrides the image tag whose default is the chart appVersion.
+#     tag: "master"
+#   googleBucketReplicateJob:
+#     # -- (bool) Whether to enable the Google bucket replicate job
+#     enabled: true
+#     PROJECT: dcf-prod-buckets
+#     MAX_WORKERS: 80
+#     RELEASE: DR43
+#     MANIFEST_FILE: gs://replication-input/GDC_full_sync_active_manifest_20190326_post_DR43.0.tsv
+#     IGNORED_FILE: gs://replication-input/ignored_files_manifest.csv
+#     LOG_BUCKET: datarefresh-log
 etl:
   esEndpoint: elasticsearch
   mappings:
@@ -253,12 +252,12 @@ hatchery:
             }
         ]
     }
-  # workspaceLaunchTest:
-  #   enableWorkspaceLaunchTest: true
-  #   schedule: "*/30 * * * *"
-  #   workspaceImages: "(Generic) Jupyter Lab Notebook with R Kernel+(Tutorials) Example Analysis Jupyter Lab Notebooks"
-  #   operatorName: "binamb@uchicago.edu"
-  #   hostname: "https://binamb.dev.planx-pla.net/"
+  workspaceLaunchTest:
+    enable: true
+    schedule: "*/20 * * * *"
+    workspaceImages: "(Generic) Jupyter Lab Notebook with R Kernel+(Tutorials) Example Analysis Jupyter Lab Notebooks"
+    operatorName: "binamb@uchicago.edu"
+    hostname: "https://binamb.dev.planx-pla.net/"
 
 indexd:
   enabled: true
