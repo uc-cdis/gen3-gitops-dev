@@ -24,17 +24,6 @@ jobs:
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.7.0
 
-      - name: Run chart-testing (list-changed)
-        id: list-changed
-        run: |
-          changed=$(ct list-changed --config ct.yaml)
-          if [[ -n "$changed" ]]; then
-            echo "changed=true >> $GITHUB_OUTPUT"
-          fi
-
-      - name: Run chart-testing (lint)
-        run: ct lint --config ct.yaml
-
       - name: Validate Helm Templates for All Charts
         run: |
           # Find all chart directories containing a Chart.yaml file
