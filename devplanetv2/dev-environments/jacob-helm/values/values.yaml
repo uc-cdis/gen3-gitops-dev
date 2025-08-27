@@ -16,10 +16,10 @@ global:
   externalSecrets:
     deploy: true
     dbCreate: true
-  hostname: jian.dev.planx-pla.net
+  hostname: jacobdaugherty.dev.planx-pla.net
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json
   # We disable portal by default to save $$$
-  frontendRoot: gen3ff
+  #frontendRoot: gen3ff
   postgres:
     dbCreate: true
     externalSecret: "devplanetv2-aurora-master-dbcreds"
@@ -48,12 +48,8 @@ ambassador:
     requests:
       memory: "105Mi"
       cpu: "15m"
-ambassador-gen3:
-  enabled: false
-  image:
-    tag: 0.60.3
+
 arborist:
-  enabled: true
   image:
     tag: master
   resources:
@@ -76,92 +72,18 @@ audit:
   #   tag: local
   #   pullPolicy: Never
 
-datareplicate:
-  enabled: true
-  image:
-  # -- (string) Docker repository.
-    repository: quay.io/cdis/dcf-dataservice
-    # -- (string) Overrides the image tag whose default is the chart appVersion.
-    tag: "master"
-  googleBucketReplicateJob:
-    # -- (bool) Whether to enable the Google bucket replicate job
-    enabled: true
-    PROJECT: dcf-prod-buckets
-    MAX_WORKERS: 80
-    RELEASE: DR43
-    MANIFEST_FILE: gs://replication-input/GDC_full_sync_active_manifest_20190326_post_DR43.0.tsv
-    IGNORED_FILE: gs://replication-input/ignored_files_manifest.csv
-    LOG_BUCKET: datarefresh-log
-  removeObjectsFromCloudsJob:
-    enabled: true
-    DRY_RUN: true
-  removeObjectsFromCloudsJob:
-    enabled: true
-    OUT_FILES: replication_validation_output_manifest.tsv
-    FORCE_CREATE_MANIFEST: true
-etl:
-  enabled: true
-  etlMapping:
-    mappings:
-      - name: mmrf_case
-        doc_type: case
-        type: aggregator
-        root: case
-        props:
-          - name: project_id
-          - name: submitter_id
-          - name: batch_id
-          - name: disease_type
-          - name: index_date
-          - name: primary_site
-      - name: mmrf_data_file
-        doc_type: data_file
-        type: collector
-        root: None
-        category: data_file
-        props:
-          - name: source_node
-          - name: project_id
-          - name: submitter_id
-          - name: object_id
-          - name: md5sum
-          - name: file_name
-          - name: file_size
-          - name: data_format
-          - name: data_type
-          - name: data_category
-          - name: experimental_strategy
-          - name: platform
-
-  # image:
-  # tube:
-  #repository: tube
-  # tag: master
-  esEndpoint: "gen3-elasticsearch-master"
-
 frontend-framework:
   # image:
   #   tag: main
   #   repository:
   customConfig:
-    enabled: true
+    enabled: false
   enabled: true
   resources:
     requests:
       memory: "256Mi"
       cpu: "15m"
 
-guppy:
-  enabled: false
-  resources:
-    requests:
-      memory: "105Mi"
-      cpu: "15m"
-  image:
-    repository: quay.io/cdis/guppy
-    tag: master
-  esEndpoint: http://elasticsearch:9200
-  
 hatchery:
   externalSecrets:
     createK8sStataSecret: true
@@ -207,8 +129,70 @@ hatchery:
         user-volume-location: "/home/jovyan/pd"
         gen3-volume-location: "/home/jovyan/.gen3"
 
-indexd:
+portal:
+  # Disable portal by default
   enabled: true
+  # 
+  # resources:
+  #   requests:
+  #     cpu: "15m"
+  #     memory: 100Mi
+  image:
+    repository: quay.io/cdis/data-portal
+    tag: master
+
+etl:
+  enabled: true
+  etlMapping:
+    mappings:
+      - name: mmrf_case
+        doc_type: case
+        type: aggregator
+        root: case
+        props:
+          - name: project_id
+          - name: submitter_id
+          - name: batch_id
+          - name: disease_type
+          - name: index_date
+          - name: primary_site
+      - name: mmrf_data_file
+        doc_type: data_file
+        type: collector
+        root: None
+        category: data_file
+        props:
+          - name: source_node
+          - name: project_id
+          - name: submitter_id
+          - name: object_id
+          - name: md5sum
+          - name: file_name
+          - name: file_size
+          - name: data_format
+          - name: data_type
+          - name: data_category
+          - name: experimental_strategy
+          - name: platform
+
+  # image:
+  # tube:
+  #repository: tube
+  # tag: master
+  esEndpoint: "gen3-elasticsearch-master"
+
+guppy:
+  enabled: false
+  resources:
+    requests:
+      memory: "105Mi"
+      cpu: "15m"
+  image:
+    repository: quay.io/cdis/guppy
+    tag: master
+  esEndpoint: http://elasticsearch:9200
+
+indexd:
   image:
     tag: master
   resources:
@@ -219,16 +203,8 @@ indexd:
   externalSecrets:
     createK8sServiceCredsSecret: true
 
-manifestservice:
-  enabled: true
-  resources:
-    requests:
-      memory: "105Mi"
-      cpu: "15m"
-  externalSecrets:
-    createK8sManifestServiceSecret: true
-
 metadata:
+  esEndpoint: http://elasticsearch:9200
   externalSecrets:
     createK8sMetadataSecret: true
   resources:
@@ -238,7 +214,7 @@ metadata:
   # image:
   # repository:
   # tag:
-  enabled: false
+  enabled: true
   useAggMds: "True"
   # -- (string) Namespace to use if AggMds is enabled.
   aggMdsNamespace: default
@@ -273,33 +249,28 @@ metadata:
       "adapter_commons": {}
     }
 
-peregrine:
+manifestservice:
+  resources:
+    requests:
+      memory: "105Mi"
+      cpu: "15m"
+  externalSecrets:
+    createK8sManifestServiceSecret: true
+
+ssjdispatcher:
   enabled: false
+
+sower:
+  enabled: false
+
+peregrine:
   resources:
     requests:
       memory: "105Mi"
       cpu: "15m"
   image:
-    repository: quay.io/cdis/peregrine
-    tag: master
-
-portal:
-  # Disable portal by default
-  enabled: false
-  # 
-  # resources:
-  #   requests:
-  #     cpu: "15m"
-  #     memory: 100Mi
-  image:
-    repository: quay.io/cdis/data-portal
-    tag: master
-
-requestor:
-  enabled: false
 
 revproxy:
-  enabled: true
   resources:
     requests:
       memory: "105Mi"
@@ -310,7 +281,6 @@ revproxy:
       group: devplanetv2-internal
 
 sheepdog:
-  enabled: false
   resources:
     requests:
       memory: "105Mi"
@@ -318,14 +288,10 @@ sheepdog:
   image:
     tag: master
 
-sower:
-  enabled: false
-
-ssjdispatcher:
-  enabled: false
+requestor:
+  enabled: true
 
 wts:
-  enabled: true
   image:
     tag: master
   resources:
@@ -350,8 +316,12 @@ postgresql:
       # -- (bool) Option to persist the dbs data.
       enabled: true
 
-fence:
+
+# enable data dictionary
+gen3-user-data-library:
   enabled: true
+
+fence:
   externalSecrets:
     createK8sFenceConfigSecret: false
     createK8sJwtKeysSecret: true

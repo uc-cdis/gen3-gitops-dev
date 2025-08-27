@@ -185,7 +185,7 @@ guppy:
         maxReplicas: 2
         minReplicas: 1
         targetCPUUtilizationPercentage: 40
-    enabled: true
+    enabled: false
     esEndpoint: http://elasticsearch:9200
     image:
         repository: quay.io/cdis/guppy
@@ -3421,7 +3421,7 @@ revproxy:
         tag: "2025.03"
     ingress:
         aws:
-            group: georget-helm
+            group: devplanetv2-internal
 sheepdog:
     autoscaling:
         enabled: true
