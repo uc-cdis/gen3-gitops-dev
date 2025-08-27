@@ -123,8 +123,10 @@ fence:
     tag: master
   usersync:
     usersync: true
-    syncFromDbgap: true
+    syncFromDbgap: false
     userYamlS3Path: s3://cdis-gen3-users/dev/user.yaml
+  FENCE_CONFIG_PUBLIC: 
+    BASE_URL: "binamb.dev.planx-pla.net"
 fluentd:
   enabled: true
   image:
