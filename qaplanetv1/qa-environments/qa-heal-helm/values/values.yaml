@@ -378,6 +378,12 @@ hatchery:
           }
         ]
       }
+  workspaceLaunchTest:
+  enable: true
+  schedule: "*/30 * * * *"
+  workspaceImages: "(Generic) Jupyter Lab Notebook with R Kernel+(Tutorials) Example Analysis Jupyter Lab Notebooks"
+  operatorName: "planxdemo@gmail.com"
+  hostname: "https://qa-heal.planx-pla.net/"
 indexd:
   autoscaling:
     enabled: true
