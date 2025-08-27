@@ -80,9 +80,8 @@ jobs:
                   exit 1
                 fi
               fi
-            done
           fi
-        done
+          done
 
       - name: Lint All Charts with Custom Values Files
         run: |
