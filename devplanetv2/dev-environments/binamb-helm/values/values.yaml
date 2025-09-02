@@ -29,6 +29,7 @@ dashboard:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--binamb-helm--dashboard-access
 datareplicate:
   enabled: true
+  suspendCronjob: true
   image:
   # -- (string) Docker repository.
     repository: quay.io/cdis/datareplicate
