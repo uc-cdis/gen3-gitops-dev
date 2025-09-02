@@ -30,6 +30,10 @@ dashboard:
 datareplicate:
   enabled: true
   suspendCronjob: true
+  externalSecrets:
+    deploy: true
+    googleCredsSecret: binamb-gcloud-creds-secret
+    dcfDataserviceSettingsSecret: binamb-dcf-dataservice-settings-secrets
   image:
   # -- (string) Docker repository.
     repository: quay.io/cdis/datareplicate
