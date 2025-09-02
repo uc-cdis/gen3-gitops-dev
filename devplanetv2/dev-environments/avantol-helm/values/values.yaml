@@ -327,7 +327,7 @@ fence:
     usersync: true
     userYamlS3Path: s3://cdis-gen3-users/dev/user.yaml
   FENCE_CONFIG_PUBLIC:
-    BASE_URL: https://avantol-helm.dev.planx-pla.net
+    BASE_URL: https://avantol-helm.dev.planx-pla.net/user
 
     # Prefix to namespace Google Groups on a single Cloud Identity
     # This will be dynamically replaced by env_setup.sh script.
