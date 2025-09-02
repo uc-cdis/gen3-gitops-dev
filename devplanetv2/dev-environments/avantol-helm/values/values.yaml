@@ -204,6 +204,7 @@ indexd:
     createK8sServiceCredsSecret: true
 
 metadata:
+  esEndpoint: http://elasticsearch:9200
   externalSecrets:
     createK8sMetadataSecret: true
   resources:
