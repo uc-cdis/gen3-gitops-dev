@@ -327,7 +327,7 @@ hatchery:
             ],
             "command": [
               "/bin/bash",
-              "/tmp/wait_for_license.sh"
+              "/tmp/wait_for_license.sh STATA_WORKSPACE_GEN3_LICENSE stata-license.txt"
             ],
             "path-rewrite": "/lw-workspace/proxy/",
             "use-tls": "false",
