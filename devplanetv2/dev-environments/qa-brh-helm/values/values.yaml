@@ -328,6 +328,7 @@ manifestservice:
 metadata:
   useAggMds: "True"
   aggMdsNamespace: "qa-brh"
+  esEndpoint: "elasticsearch"
   aggMdsConfig: |
     {
       "configuration": {
