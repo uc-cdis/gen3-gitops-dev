@@ -42,10 +42,10 @@ datareplicate:
   googleBucketReplicateJob:
     # -- (bool) Whether to enable the Google bucket replicate job
     enabled: true
-    PROJECT: dcf-prod-buckets
+    PROJECT: cdis-test-188416
     MAX_WORKERS: 80
     RELEASE: DR43
-    MANIFEST_FILE: gs://test-data-replication-manifest/GDC_only_3plusgig_open_active_manifest.tsv
+    MANIFEST_FILE: gs://test-data-replication-manifest/GDC_only_3plusgig_open_manifest.tsv
     IGNORED_FILE: gs://test-data-replication-manifest/ignored_files_manifest.csv
     LOG_BUCKET: test-data-replication-manifest
 etl:
