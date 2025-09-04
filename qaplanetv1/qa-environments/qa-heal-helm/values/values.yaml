@@ -204,7 +204,7 @@ hatchery:
         "sidecar": {
           "cpu-limit": "1.0",
           "memory-limit": "256Mi",
-          "image": "quay.io/cdis/ecs-ws-sidecar:chore_skip-mounting-stata-license",
+          "image": "quay.io/cdis/ecs-ws-sidecar:feat_update-uid",
           "env": {
             "NAMESPACE": "qa-heal-helm"
           },
