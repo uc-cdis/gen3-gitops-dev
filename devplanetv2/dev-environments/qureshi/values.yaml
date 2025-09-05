@@ -1,5 +1,5 @@
 # Change this to your env
 name: qureshi
 
-helmBranch: feat/ci-fixes
-gitopsBranch: test/changes
+helmBranch: master
+gitopsBranch: master

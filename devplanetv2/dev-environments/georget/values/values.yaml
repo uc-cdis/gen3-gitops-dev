@@ -154,6 +154,7 @@ global:
         account: "707767160287"
         awsEsProxyRole: devplanetv2-esproxy-sa
         enabled: true
+        scheme: internal
         hatchery_role: devplanetv2--georget-helm--hatchery-sa
         secretStoreServiceAccount:
             enabled: true
@@ -178,7 +179,7 @@ global:
     portalApp: gitops
     postgres:
         dbCreate: false
-    revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/c676c81c-9546-4e9a-9a72-725dd3912bc8
+    revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/798e629d-05ee-4bc5-b51f-a86861f29b68
 guppy:
     autoscaling:
         enabled: true
