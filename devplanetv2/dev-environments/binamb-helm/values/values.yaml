@@ -27,13 +27,13 @@ dashboard:
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--binamb-helm--dashboard-access
-datareplicate:
-  enabled: true
-  suspendCronjob: true
-  externalSecrets:
-    deploy: true
-    googleCredsSecret: binamb-gcloud-creds-secret
-    dcfDataserviceSettingsSecret: binamb-dcf-dataservice-settings-secrets
+# datareplicate:
+#   enabled: true
+#   suspendCronjob: true
+#   externalSecrets:
+#     deploy: true
+#     googleCredsSecret: binamb-gcloud-creds-secret
+#     dcfDataserviceSettingsSecret: binamb-dcf-dataservice-settings-secrets
   image:
   # -- (string) Docker repository.
     repository: quay.io/cdis/dcf-dataservice
@@ -260,12 +260,12 @@ hatchery:
             }
         ]
     }
-  # workspaceLaunchTest:
-  #   enable: true
-  #   schedule: "*/20 * * * *"
-  #   workspaceImages: "(Generic) Jupyter Lab Notebook with R Kernel+(Tutorials) Example Analysis Jupyter Lab Notebooks"
-  #   operatorName: "binamb@uchicago.edu"
-  #   hostname: "https://binamb.dev.planx-pla.net/"
+  workspaceLaunchTest:
+    enable: true
+    schedule: "*/20 * * * *"
+    workspaceImages: "(Generic) Jupyter Lab Notebook with R Kernel+(Tutorials) Example Analysis Jupyter Lab Notebooks"
+    operatorName: "binamb@uchicago.edu"
+    hostname: "https://binamb.dev.planx-pla.net/"
 
 indexd:
   enabled: true
