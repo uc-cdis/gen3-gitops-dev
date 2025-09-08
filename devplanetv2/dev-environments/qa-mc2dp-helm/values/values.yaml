@@ -365,91 +365,6 @@ metadata:
             }
         },
         "adapter_commons": {
-            "Windber-subject-level-metadata": {
-                "mds_url": "https://t-apps.wriwindber.org/prometheus-mesh-api/v1/metadata",
-                "commons_url": "externalgen3.prometheus.data-commons.org",
-                "adapter": "windbersubject",
-                "config": {
-                    "guid_type": "Windber_subject_metadata",
-                    "study_field": "gen3_discovery"
-                },
-                "keep_original_fields": false,
-                "field_mappings": {
-                    "authz": "",
-                    "tags": "path:tags",
-                    "_unique_id": "path:external_windber_id",
-                    "commons": "Windber",
-                    "subject_id": "path:external_windber_id",
-                    "subject_apollo_id": "path:apollo_id",
-                    "subject_race": "path:race",
-                    "data_source": "Windber",
-                    "commons_url": "externalgen3.prometheus.data-commons.org",
-                    "mc2dp_global_id": "",
-                    "is_synthetic": "Yes",
-                    "subject_gender": {
-                        "path": "gender",
-                        "filters": [
-                            "normalize_value"
-                        ],
-                        "filterParams": {
-                            "normalize_value": {
-                                "male": "Male",
-                                "female": "Female",
-                                "m": "Male",
-                                "f": "Female",
-                                "Male": "Male",
-                                "Female": "Female",
-                                "not reported": "Not Reported",
-                                "Not Reported": "Not Reported"
-                            }
-                        },
-                        "default": ""
-                    },
-                    "subject_ethnicity": {
-                        "path": "ethnicity",
-                        "filters": [
-                            "normalize_value"
-                        ],
-                        "filterParams": {
-                            "normalize_value": {
-                                "NOT HISPANIC OR LATINO": "Not Hispanic or Latino",
-                                "not reported": "Not Reported",
-                                "Not Reported": "Not Reported",
-                                "DECLINED TO ANSWER": "Declined to Answer",
-                                "HISPANIC OR LATINO": "Hispanic or Latino",
-                                "Not Spanish/Hispanic/Latino": "Not Hispanic or Latino",
-                                "Unknown": "Unknown"
-                            }
-                        },
-                        "default": ""
-                    },
-                    "subject_metastasis": "",
-                    "subject_cancer_type": "",
-                    "subject_cancer_grade": {
-                        "path": "cancer_grade",
-                        "filters": [
-                            "normalize_value"
-                        ],
-                        "filterParams": {
-                            "normalize_value": {
-                                "Grade 1": "I",
-                                "G1": "I",
-                                "Grade I": "I",
-                                "Grade 2": "II",
-                                "G2": "II",
-                                "Grade II": "II",
-                                "Grade 3": "III",
-                                "G3": "III",
-                                "Grade III": "III",
-                                "Grade 4": "IV",
-                                "G4": "IV",
-                                "Grade IV": "IV"
-                            }
-                        },
-                        "default": ""
-                    }
-                }
-            },
             "aggregated-subject-level-metadata": {
                 "mds_url": "https://externalgen3.prometheus.data-commons.org/",
                 "commons_url": "externalgen3.prometheus.data-commons.org",
@@ -467,8 +382,81 @@ metadata:
                     "subject_id_list": "path:data_source_ids",
                     "subject_metastasis": "path:metastasis",
                     "subject_cancer_type": "path:cancer_type",
+                    "subject_cancer_grade": {
+                        "path": "cancer_grade",
+                        "filters": [
+                            "normalize_value"
+                        ],
+                        "filterParams": {
+                            "normalize_value": {
+                                "i": "I",
+                                "ii": "II",
+                                "iii": "III",
+                                "iv": "IV"
+                            }
+                        },
+                        "default": ""
+                    }
                     "subject_primary_disease": "path:primary_disease",
                     "subject_type_of_exposures": "path:type_of_exposures",
+                    "subject_ethnicity": {
+                        "path": "subject_ethnicity",
+                        "filters": [
+                            "normalize_value"
+                        ],
+                        "filterParams": {
+                            "normalize_value": {
+                              "spanish/hispanic/latino (of any race)": "Hispanic or Latino",
+                              "not hispanic or latino": "Not Hispanic or Latino",
+                              "hispanic or latino": "Hispanic or Latino",
+                              "unknown": "Unknown",
+                              "not available": "Declined to Answer",
+                              "declined to answer": "Declined to Answer",
+                              "not hispanic or latino, declined to answer": "Not Hispanic or Latino / Declined to Answer",
+                              "not reported / unknown": "Unknown"
+                          }
+                        },
+                        "default": ""
+                    },
+                    "subject_gender": {
+                        "path": "gender",
+                        "filters": [
+                            "normalize_value"
+                        ],
+                        "filterParams": {
+                            "normalize_value": {
+                                "male": "Male",
+                                "female": "Female",
+                                "female, male" : "Female, Male",
+                                "male, female" : "Male, Female",
+                                "not reported": "Not Reported",
+                                "Not Reported": "Not Reported"
+                            }
+                        },
+                        "default": ""
+                    },
+                    "subject_race": {
+                        "path": "race",
+                        "filters": [
+                            "normalize_value"
+                        ],
+                        "filterParams": {
+                            "normalize_value": {
+                              "black or african american": "Black or African American",
+                              "american indian / alaskan native": "American Indian / Alaskan Native",
+                              "black or african american; white": "Black or African American / White",
+                              "black or african american; white; other(mixed)": "Black or African American / White / Other",
+                              "not available": "Not Reported",
+                              "native hawaiian or other pacific islander": "Native Hawaiian or Other Pacific Islander",
+                              "asian": "Asian",
+                              "not reported, white": Declined to Answer, White",
+                              "declined to answer": "Declined to Answer",
+                              "asian; black or african american": "Asian / Black or African American",
+                              "white": "White"
+                          }
+                        },
+                        "default": ""
+                    },
                     "data_source": "aggregated data",
                     "commons_url": "externalgen3.prometheus.data-commons.org",
                     "mc2dp_global_id": "path:mc2dp_global_id",
