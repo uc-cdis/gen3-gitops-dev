@@ -132,7 +132,7 @@ fence:
     dbcreds: qa-heal-fence-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
-    tag: 'chore_track-x-headers'
+    tag: '2025.07'
 fluentd:
   enabled: true
   image:
@@ -309,7 +309,7 @@ hatchery:
             "license": {
               "enabled": true,
               "license-type": "STATA-HEAL",
-              "max-license-ids": 4,
+              "max-license-ids": 5,
               "g3auto-name": "stata-workspace-gen3-license",
               "g3auto-key": "stata-license.txt",
               "file-path": "stata.lic",
