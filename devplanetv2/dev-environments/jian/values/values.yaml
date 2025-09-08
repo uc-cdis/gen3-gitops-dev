@@ -360,9 +360,10 @@ fence:
   enabled: true
   externalSecrets:
     createK8sFenceConfigSecret: false
-    createK8sJwtKeysSecret: true
+    createK8sJwtKeysSecret: false
     createK8sGoogleAppSecrets: true
     fenceConfig: "devplanetv2-generic-fence-config"
+    fenceJwtKeys: jian-jwt-fence
   usersync:
     usersync: true
     userYamlS3Path: s3://cdis-gen3-users/dev/user.yaml
