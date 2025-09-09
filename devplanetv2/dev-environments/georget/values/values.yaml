@@ -1760,6 +1760,8 @@ metadata:
         repository: quay.io/cdis/metadata-service
         tag: "2025.03"
     useAggMds: true
+    schedule: "4 3 2 1 *"
+    suspendCronjob: false
 
 peregrine:
     autoscaling:
