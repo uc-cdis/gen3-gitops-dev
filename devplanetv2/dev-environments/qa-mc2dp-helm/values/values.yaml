@@ -396,7 +396,7 @@ metadata:
                             }
                         },
                         "default": ""
-                    }
+                    },
                     "subject_primary_disease": "path:primary_disease",
                     "subject_type_of_exposures": "path:type_of_exposures",
                     "subject_ethnicity": {
@@ -449,7 +449,7 @@ metadata:
                               "not available": "Not Reported",
                               "native hawaiian or other pacific islander": "Native Hawaiian or Other Pacific Islander",
                               "asian": "Asian",
-                              "not reported, white": Declined to Answer, White",
+                              "not reported, white": "Declined to Answer, White",
                               "declined to answer": "Declined to Answer",
                               "asian; black or african american": "Asian / Black or African American",
                               "white": "White"
