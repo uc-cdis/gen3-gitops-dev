@@ -272,6 +272,7 @@ hatchery:
   externalSecrets:
     deploy: true
     fenceConfig: binamb-fence-config
+    fenceJwtKeys: binamb-fence-jwt
 
 indexd:
   enabled: true
