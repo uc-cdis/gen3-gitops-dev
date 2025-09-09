@@ -44,7 +44,7 @@ cohort-middleware:
     cohortMiddlewareG3Auto: qa-mickey-cohort-middleware-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/cohort-middleware
-    tag: feat_new_endpoints_for_plp_scenarios
+    tag: feat_change_cohort2_start_date_constraint 
 dashboard:
   dashboardConfig:
     bucket: dashboard-707767160287-qaplanetv1-gen3
