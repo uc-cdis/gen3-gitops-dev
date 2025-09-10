@@ -9,6 +9,9 @@ global:
     secretStoreServiceAccount:
       enabled: true
       name: secret-store-sa
+    wafv2:
+      enabled: true
+      wafAclArn: "arn:aws:wafv2:us-east-1:707767160287:regional/webacl/devplanetv2-waf/30660590-f707-4ecf-aeae-ddfbe381f388"
   netPolicy:
     # TODO: Figure out netpols with local dbs
     enabled: false

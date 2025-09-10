@@ -8,6 +8,9 @@ global:
     secretStoreServiceAccount:
       enabled: true
       name: secret-store-sa
+    wafv2:
+      enabled: true
+      wafAclArn: "arn:aws:wafv2:us-east-1:707767160287:regional/webacl/devplanetv2-waf/30660590-f707-4ecf-aeae-ddfbe381f388"
   netPolicy:
     # TODO: Figure out netpols with local dbs
     enabled: false
@@ -78,6 +81,12 @@ audit:
 
 datareplicate:
   enabled: true
+  suspendCronjob: true
+  externalSecrets:
+    deploy: true
+    googleCredsSecret: binamb-gcloud-creds-secret
+    dcfDataserviceSettingsSecret: binamb-dcf-dataservice-settings-secrets
+    dcfAwsCredsSecret: dcf-aws-creds-secret
   image:
   # -- (string) Docker repository.
     repository: quay.io/cdis/dcf-dataservice
@@ -95,7 +104,7 @@ datareplicate:
   removeObjectsFromCloudsJob:
     enabled: true
     DRY_RUN: true
-  removeObjectsFromCloudsJob:
+  remplicateValidationJob:
     enabled: true
     OUT_FILES: replication_validation_output_manifest.tsv
     FORCE_CREATE_MANIFEST: true
@@ -354,9 +363,10 @@ fence:
   enabled: true
   externalSecrets:
     createK8sFenceConfigSecret: false
-    createK8sJwtKeysSecret: true
+    createK8sJwtKeysSecret: false
     createK8sGoogleAppSecrets: true
     fenceConfig: "devplanetv2-generic-fence-config"
+    fenceJwtKeys: jian-jwt-fence
   usersync:
     usersync: true
     userYamlS3Path: s3://cdis-gen3-users/dev/user.yaml
