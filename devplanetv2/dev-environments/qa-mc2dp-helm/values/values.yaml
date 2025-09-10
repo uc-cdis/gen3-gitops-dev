@@ -400,7 +400,7 @@ metadata:
                     "subject_primary_disease": "path:primary_disease",
                     "subject_type_of_exposures": "path:type_of_exposures",
                     "subject_ethnicity": {
-                        "path": "subject_ethnicity",
+                        "path": "ethnicity",
                         "filters": [
                             "normalize_value"
                         ],
@@ -419,7 +419,7 @@ metadata:
                         "default": ""
                     },
                     "subject_gender": {
-                        "path": "gender",
+                        "path": "biological_sex",
                         "filters": [
                             "normalize_value"
                         ],
