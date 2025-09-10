@@ -380,7 +380,7 @@ metadata:
                     "_unique_id": "path:mc2dp_global_id",
                     "commons": "path:data_source",
                     "subject_id_list": "path:data_source_ids",
-                    "subject_metastasis": "path:metastasis",
+                    "subject_metastasis": "path:subject_metastasis",
                     "subject_cancer_type": "path:cancer_type",
                     "subject_cancer_grade": {
                         "path": "cancer_grade",
