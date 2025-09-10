@@ -392,10 +392,38 @@ metadata:
                         ],
                         "filterParams": {
                             "normalize_value": {
-                                "i": "I",
-                                "ii": "II",
-                                "iii": "III",
-                                "iv": "IV"
+                                "grade i": "I",
+                                "grade ii": "II",
+                                "grade iii": "III",
+                                "grade iv": "IV",
+                                "unknown" : "Unknown"
+                            }
+                        },
+                        "default": ""
+                    },
+                    "subject_cancer_stage" :  {
+                        "path": "cancer_stage",
+                        "filters": [
+                            "normalize_value"
+                        ],
+                        "filterParams": {
+                            "normalize_value": {
+                              "ia": "IA",
+                              "ib": "IB",
+                              "iia": "IIA",
+                              "iib": "IIB",
+                              "iiia": "IIIA",
+                              "iiib": "IIIB",
+                              "iiic": "IIIC",
+                              "iva": "IVA",
+                              "ivc": "IVC",
+                              "i": "I",
+                              "ii": "II",
+                              "iii": "III",
+                              "iv": "IV",
+                              "0": "0",
+                              "0a": "0A",
+                              "unknown": "Unknown"
                             }
                         },
                         "default": ""
@@ -403,7 +431,7 @@ metadata:
                     "subject_primary_disease": "path:primary_disease",
                     "subject_type_of_exposures": "path:type_of_exposures",
                     "subject_ethnicity": {
-                        "path": "subject_ethnicity",
+                        "path": "ethnicity",
                         "filters": [
                             "normalize_value"
                         ],
@@ -422,7 +450,7 @@ metadata:
                         "default": ""
                     },
                     "subject_gender": {
-                        "path": "gender",
+                        "path": "biological_sex",
                         "filters": [
                             "normalize_value"
                         ],
