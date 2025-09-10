@@ -389,14 +389,11 @@ metadata:
                         ],
                         "filterParams": {
                             "normalize_value": {
-                                "i": "I",
-                                "ii": "II",
-                                "iii": "III",
-                                "iv": "IV",
                                 "grade i": "I",
                                 "grade ii": "II",
                                 "grade iii": "III",
-                                "grade iv": "IV"
+                                "grade iv": "IV",
+                                "unknown" : "Unknown"
                             }
                         },
                         "default": ""
