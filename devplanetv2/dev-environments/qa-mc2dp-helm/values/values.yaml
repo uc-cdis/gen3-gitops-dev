@@ -85,6 +85,9 @@ global:
     secretStoreServiceAccount:
       enabled: true
       roleArn: arn:aws:iam::707767160287:role/qa-prometheus-external-secrets-sa
+    wafv2:
+      enabled: true
+      wafAclArn: "arn:aws:wafv2:us-east-1:707767160287:regional/webacl/devplanetv2-waf/30660590-f707-4ecf-aeae-ddfbe381f388"
   dev: false
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/pdp_dictionary/0.0.5/schema.json
   dispatcherJobNum: '10'
@@ -389,18 +392,46 @@ metadata:
                         ],
                         "filterParams": {
                             "normalize_value": {
-                                "i": "I",
-                                "ii": "II",
-                                "iii": "III",
-                                "iv": "IV"
+                                "grade i": "I",
+                                "grade ii": "II",
+                                "grade iii": "III",
+                                "grade iv": "IV",
+                                "unknown" : "Unknown"
                             }
                         },
                         "default": ""
-                    }
+                    },
+                    "subject_cancer_stage" :  {
+                        "path": "cancer_stage",
+                        "filters": [
+                            "normalize_value"
+                        ],
+                        "filterParams": {
+                            "normalize_value": {
+                              "ia": "IA",
+                              "ib": "IB",
+                              "iia": "IIA",
+                              "iib": "IIB",
+                              "iiia": "IIIA",
+                              "iiib": "IIIB",
+                              "iiic": "IIIC",
+                              "iva": "IVA",
+                              "ivc": "IVC",
+                              "i": "I",
+                              "ii": "II",
+                              "iii": "III",
+                              "iv": "IV",
+                              "0": "0",
+                              "0a": "0A",
+                              "unknown": "Unknown"
+                            }
+                        },
+                        "default": ""
+                    },
                     "subject_primary_disease": "path:primary_disease",
                     "subject_type_of_exposures": "path:type_of_exposures",
                     "subject_ethnicity": {
-                        "path": "subject_ethnicity",
+                        "path": "ethnicity",
                         "filters": [
                             "normalize_value"
                         ],
@@ -419,7 +450,7 @@ metadata:
                         "default": ""
                     },
                     "subject_gender": {
-                        "path": "gender",
+                        "path": "biological_sex",
                         "filters": [
                             "normalize_value"
                         ],
@@ -449,7 +480,7 @@ metadata:
                               "not available": "Not Reported",
                               "native hawaiian or other pacific islander": "Native Hawaiian or Other Pacific Islander",
                               "asian": "Asian",
-                              "not reported, white": Declined to Answer, White",
+                              "not reported, white": "Declined to Answer, White",
                               "declined to answer": "Declined to Answer",
                               "asian; black or african american": "Asian / Black or African American",
                               "white": "White"
