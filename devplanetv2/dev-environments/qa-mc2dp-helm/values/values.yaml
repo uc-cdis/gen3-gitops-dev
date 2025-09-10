@@ -85,6 +85,9 @@ global:
     secretStoreServiceAccount:
       enabled: true
       roleArn: arn:aws:iam::707767160287:role/qa-prometheus-external-secrets-sa
+    wafv2:
+      enabled: true
+      wafAclArn: "arn:aws:wafv2:us-east-1:707767160287:regional/webacl/devplanetv2-waf/30660590-f707-4ecf-aeae-ddfbe381f388"
   dev: false
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/pdp_dictionary/0.0.5/schema.json
   dispatcherJobNum: '10'
@@ -380,7 +383,7 @@ metadata:
                     "_unique_id": "path:mc2dp_global_id",
                     "commons": "path:data_source",
                     "subject_id_list": "path:data_source_ids",
-                    "subject_metastasis": "path:subject_metastasis",
+                    "subject_metastasis": "path:metastasis",
                     "subject_cancer_type": "path:cancer_type",
                     "subject_cancer_grade": {
                         "path": "cancer_grade",
