@@ -392,7 +392,11 @@ metadata:
                                 "i": "I",
                                 "ii": "II",
                                 "iii": "III",
-                                "iv": "IV"
+                                "iv": "IV",
+                                "grade i": "I",
+                                "grade ii": "II",
+                                "grade iii": "III",
+                                "grade iv": "IV"
                             }
                         },
                         "default": ""
