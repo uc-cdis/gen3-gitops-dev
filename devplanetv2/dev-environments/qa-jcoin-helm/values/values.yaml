@@ -219,6 +219,8 @@ guppy:
     - index: jcoin_etl_time_points
       type: time_point
 hatchery:
+  externalSecrets:
+    stataG3auto: qa-jcoin-stata-workspace-gen3-license
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
