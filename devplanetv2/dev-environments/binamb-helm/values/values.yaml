@@ -27,27 +27,27 @@ dashboard:
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--binamb-helm--dashboard-access
-# datareplicate:
-#   enabled: true
-#   suspendCronjob: true
-#   externalSecrets:
-#     deploy: true
-#     googleCredsSecret: binamb-gcloud-creds-secret
-#     dcfDataserviceSettingsSecret: binamb-dcf-dataservice-settings-secrets
-  # image:
-  # # -- (string) Docker repository.
-  #   repository: quay.io/cdis/dcf-dataservice
-  #   # -- (string) Overrides the image tag whose default is the chart appVersion.
-  #   tag: "master"
-  # googleBucketReplicateJob:
-  #   # -- (bool) Whether to enable the Google bucket replicate job
-  #   enabled: true
-  #   PROJECT: cdis-test-188416
-  #   MAX_WORKERS: 80
-  #   RELEASE: DR43
-  #   MANIFEST_FILE: gs://test-data-replication-manifest/GDC_only_3plusgig_open_active_manifest.tsv
-  #   IGNORED_FILE: gs://test-data-replication-manifest/ignored_files_manifest.csv
-  #   LOG_BUCKET: test-data-replication-manifest
+datareplicate:
+  enabled: true
+  suspendCronjob: true
+  externalSecrets:
+    deploy: true
+    googleCredsSecret: binamb-gcloud-creds-secret
+    dcfDataserviceSettingsSecret: binamb-dcf-dataservice-settings-secrets
+  image:
+  # -- (string) Docker repository.
+    repository: quay.io/cdis/dcf-dataservice
+    # -- (string) Overrides the image tag whose default is the chart appVersion.
+    tag: "master"
+  googleBucketReplicateJob:
+    # -- (bool) Whether to enable the Google bucket replicate job
+    enabled: true
+    PROJECT: cdis-test-188416
+    MAX_WORKERS: 80
+    RELEASE: DR43
+    MANIFEST_FILE: gs://test-data-replication-manifest/GDC_only_3plusgig_open_active_manifest.tsv
+    IGNORED_FILE: gs://test-data-replication-manifest/ignored_files_manifest.csv
+    LOG_BUCKET: test-data-replication-manifest
 etl:
   esEndpoint: elasticsearch
   mappings:
@@ -260,16 +260,16 @@ hatchery:
             }
         ]
     }
-  workspaceLaunchTest:
-    enable: true
-    schedule: "*/20 * * * *"
-    workspaceImages: "(Generic) Jupyter Lab Notebook with R Kernel+(Tutorials) Example Analysis Jupyter Lab Notebooks"
-    operatorName: "binamb@uchicago.edu"
-    hostname: "https://binamb.dev.planx-pla.net/"
-  externalSecrets:
-    deploy: true
-    fenceConfig: binamb-fence-config
-    fenceJwtKeys: binamb-fence-jwt
+  # workspaceLaunchTest:
+  #   enable: true
+  #   schedule: "*/20 * * * *"
+  #   workspaceImages: "(Generic) Jupyter Lab Notebook with R Kernel+(Tutorials) Example Analysis Jupyter Lab Notebooks"
+  #   operatorName: "binamb@uchicago.edu"
+  #   hostname: "https://binamb.dev.planx-pla.net/"
+  # externalSecrets:
+  #   deploy: true
+  #   fenceConfig: binamb-fence-config
+  #   fenceJwtKeys: binamb-fence-jwt
 
 indexd:
   enabled: true
