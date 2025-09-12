@@ -103,12 +103,11 @@ datareplicate:
     LOG_BUCKET: test-data-replication-manifest
   removeObjectsFromCloudsJob:
     enabled: true
+    DRY_RUN: true
     RELEASE: DR43
-    MANIFEST_FILE: s3://test-data-replication-manifest/GDC_full_sync_active_manifest_20250219_post_DR2.0.tsv
+    MANIFEST_FILE: s3://test-data-replication-manifest/GDC_full_sync_active_manifest_20220114_post_DR1.0.tsv
     IGNORED_FILE: s3://test-data-replication-manifest/ignored_files_manifest.csv
     LOG_BUCKET: test-data-replication-manifest
-    enabled: true
-    DRY_RUN: true
   remplicateValidationJob:
     enabled: true
     OUT_FILES: replication_validation_output_manifest.tsv
