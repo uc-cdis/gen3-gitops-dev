@@ -82,8 +82,8 @@ datareplicate:
   externalSecrets:
     deploy: true
     googleCredsSecret: binamb-gcloud-creds-secret
+    awsCredsSecret: jian-dcf-aws-creds-secret
     dcfDataserviceSettingsSecret: binamb-dcf-dataservice-settings-secrets
-    dcfAwsCredsSecret: jian-dcf-aws-creds-secret
   image:
     repository: quay.io/cdis/dcf-dataservice
     # -- (string) Overrides the image tag whose default is the chart appVersion.
