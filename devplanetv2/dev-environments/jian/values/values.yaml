@@ -108,8 +108,12 @@ datareplicate:
     MANIFEST_FILE: s3://test-data-replication-manifest/GDC_full_sync_active_manifest_20220114_post_DR1.0.tsv
     IGNORED_FILE: s3://test-data-replication-manifest/ignored_files_manifest.csv
     LOG_BUCKET: test-data-replication-manifest
-  remplicateValidationJob:
+  replicateValidationJob:
     enabled: true
+    RELEASE: DR43
+    MANIFEST_FILE: s3://test-data-replication-manifest/GDC_full_sync_active_manifest_20220114_post_DR1.0.tsv
+    IGNORED_FILE: s3://test-data-replication-manifest/ignored_files_manifest.csv
+    LOG_BUCKET: test-data-replication-manifest
     OUT_FILES: replication_validation_output_manifest.tsv
     FORCE_CREATE_MANIFEST: true
 etl:
