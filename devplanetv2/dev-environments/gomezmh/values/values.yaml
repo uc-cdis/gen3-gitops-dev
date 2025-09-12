@@ -77,7 +77,7 @@ audit:
   #   pullPolicy: Never
 
 datareplicate:
-  enabled: false
+  enabled: true
   # suspendCronjob: true
   # externalSecrets:
   #   deploy: true
