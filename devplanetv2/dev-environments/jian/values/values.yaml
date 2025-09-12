@@ -104,8 +104,8 @@ datareplicate:
   removeObjectsFromCloudsJob:
     enabled: true
     RELEASE: DR43
-    MANIFEST_FILE: gs://test-data-replication-manifest/GDC_only_3plusgig_open_active_manifest.tsv
-    IGNORED_FILE: gs://test-data-replication-manifest/ignored_files_manifest.csv
+    MANIFEST_FILE: s3://test-data-replication-manifest/GDC_full_sync_active_manifest_20250219_post_DR2.0.tsv
+    IGNORED_FILE: s3://test-data-replication-manifest/ignored_files_manifest.csv
     LOG_BUCKET: test-data-replication-manifest
     enabled: true
     DRY_RUN: true
