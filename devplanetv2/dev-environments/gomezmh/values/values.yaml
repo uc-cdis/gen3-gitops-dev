@@ -78,7 +78,7 @@ audit:
 
 datareplicate:
   enabled: true
-  # suspendCronjob: true
+  suspendCronjob: true
   # externalSecrets:
   #   deploy: true
   #   googleCredsSecret: binamb-gcloud-creds-secret
