@@ -202,6 +202,11 @@ hatchery:
     image:
         repository: quay.io/cdis/hatchery
         tag: fix_mitigate-path-traversal
+    volumeMounts:
+        - name: hatchery-config
+          mountPath: "/hatchery/hatchery.json"
+          readOnly: true
+          subPath: json
     json: |
         {
           "user-namespace": "jupyter-pods-georget",
