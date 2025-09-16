@@ -420,7 +420,7 @@ fence:
     # -- (bool) if true, will fake a successful login response from Google in /login/google
     # NOTE: this will also modify the behavior of /link/google endpoints
     # will login as the username set in cookie DEV_LOGIN_COOKIE_NAME
-    MOCK_GOOGLE_AUTH: true
+    MOCK_GOOGLE_AUTH: false
 
     # -- (str) the name of the cookie set by mock authentication (used for testing only)
     DEV_LOGIN_COOKIE_NAME: "dev_login"
@@ -756,7 +756,7 @@ fence:
     # Optional user registration feature: Ask users to register (provide firstname/lastname/org/email) on login.
     # If user registers, add them to configured Arborist group; idea is that the Arborist group
     # will have access to download data.
-    REGISTER_USERS_ON: true
+    REGISTER_USERS_ON: false
     REGISTERED_USERS_GROUP: ""
     # RAS refresh_tokens expire in 15 days
     RAS_REFRESH_EXPIRATION: 1296000
