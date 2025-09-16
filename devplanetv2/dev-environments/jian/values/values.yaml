@@ -327,7 +327,7 @@ revproxy:
       group: devplanetv2-internal
 
 sheepdog:
-  enabled: false
+  enabled: true
   resources:
     requests:
       memory: "105Mi"
@@ -373,12 +373,15 @@ fence:
     createK8sFenceConfigSecret: false
     createK8sJwtKeysSecret: false
     createK8sGoogleAppSecrets: true
+    fenceGoogleAppCredsSecret: ci-fence-google-app-creds-secret
+    fenceGoogleStorageCredsSecret: ci-fence-google-storage-creds-secretß
     fenceConfig: "devplanetv2-generic-fence-config"
     fenceJwtKeys: jian-jwt-fence
   usersync:
     usersync: true
     userYamlS3Path: s3://cdis-gen3-users/dev/user.yaml
   FENCE_CONFIG_PUBLIC:
+    BASE_URL: https://jian.planx-pla.net/user
     # Prefix to namespace Google Groups on a single Cloud Identity
     # This will be dynamically replaced by env_setup.sh script.
     GOOGLE_GROUP_PREFIX:
@@ -399,7 +402,7 @@ fence:
     # -- (bool) if true, will fake a successful login response from Google in /login/google
     # NOTE: this will also modify the behavior of /link/google endpoints
     # will login as the username set in cookie DEV_LOGIN_COOKIE_NAME
-    MOCK_GOOGLE_AUTH: true
+    MOCK_GOOGLE_AUTH: false
 
     # -- (str) the name of the cookie set by mock authentication (used for testing only)
     DEV_LOGIN_COOKIE_NAME: "dev_login"
