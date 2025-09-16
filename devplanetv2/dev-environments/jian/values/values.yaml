@@ -372,9 +372,9 @@ fence:
   externalSecrets:
     createK8sFenceConfigSecret: false
     createK8sJwtKeysSecret: false
-    createK8sGoogleAppSecrets: true
+    createK8sGoogleAppSecrets: false
     fenceGoogleAppCredsSecret: ci-fence-google-app-creds-secret
-    fenceGoogleStorageCredsSecret: ci-fence-google-storage-creds-secretß
+    fenceGoogleStorageCredsSecret: ci-fence-google-storage-creds-secret
     fenceConfig: "devplanetv2-generic-fence-config"
     fenceJwtKeys: jian-jwt-fence
   usersync:
