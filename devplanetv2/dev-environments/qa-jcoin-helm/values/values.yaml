@@ -1,5 +1,5 @@
 ambassador:
-  jupyterNamespace: jupyter-pods-qa-jcoin
+  jupyterNamespace: jupyter-pods-qa-jcoin-helm
 arborist:
   autoscaling:
     enabled: true
@@ -228,7 +228,7 @@ hatchery:
   hatchery:
     json: |-
       {
-        "user-namespace": "jupyter-pods-qa-jcoin",
+        "user-namespace": "jupyter-pods-qa-jcoin-helm",
         "sub-dir": "/lw-workspace",
         "user-volume-size": "10Gi",
         "license-user-maps-dynamodb-table": "gen3-license-user-maps-qa-jcoin",
