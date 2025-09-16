@@ -102,16 +102,20 @@ datareplicate:
     IGNORED_FILE: gs://test-data-replication-manifest/ignored_files_manifest.csv
     LOG_BUCKET: test-data-replication-manifest
   removeObjectsFromCloudsJob:
+    suspendCronjob: true
+    schedule: "*/30 * * * *"
     enabled: true
     DRY_RUN: true
     RELEASE: DR43
-    MANIFEST_FILE: s3://test-data-replication-manifest/GDC_full_sync_active_manifest_20220114_post_DR1.0.tsv
+    MANIFEST_FILE: s3://test-data-replication-manifest/helm_test_manifest.tsv
     IGNORED_FILE: s3://test-data-replication-manifest/ignored_files_manifest.csv
     LOG_BUCKET: test-data-replication-manifest
   replicateValidationJob:
+    suspendCronjob: true
+    schedule: "*/30 * * * *"
     enabled: true
     RELEASE: DR43
-    MANIFEST_FILE: s3://test-data-replication-manifest/GDC_full_sync_active_manifest_20220114_post_DR1.0.tsv
+    MANIFEST_FILE: s3://test-data-replication-manifest/helm_test_manifest.tsv
     IGNORED_FILE: s3://test-data-replication-manifest/ignored_files_manifest.csv
     LOG_BUCKET: test-data-replication-manifest
     OUT_FILES: replication_validation_output_manifest.tsv
