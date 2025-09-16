@@ -618,7 +618,7 @@ fence:
     # When true, this modifies usersync (not fence service itself) such that when syncing user
     # access to a Google storage backend happens in "bulk" by doing a diff *per google group*
     # between what's in Google and what's expected.
-    GOOGLE_BULK_UPDATES: true
+    GOOGLE_BULK_UPDATES: false
 
     # Configuration for various storage systems for the backend
     STORAGE_CREDENTIALS:
