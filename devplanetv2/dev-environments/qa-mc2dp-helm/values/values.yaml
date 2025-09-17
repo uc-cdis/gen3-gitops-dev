@@ -266,10 +266,7 @@ metadata:
                 "primary_site": {},
                 "authz": {},
                 "subject_id": {},
-                "subject_id_list": {
-                    "type": "array",
-                    "default": []
-                },
+                "subject_id_list": {},
                 "subject_apollo_id": {},
                 "subject_race": {},
                 "subject_gender": {},
@@ -281,9 +278,7 @@ metadata:
                 "subject_year_of_birth": {},
                 "subject_primary_disease": {},
                 "subject_type_of_exposure": {},
-                "subject_type_of_exposures": {
-                    "type": "array"
-                },
+                "subject_type_of_exposures": {},
                 "subject_chemical_agents_of_exposure": {},
                 "subject_run_id": {},
                 "subject_class": {},
