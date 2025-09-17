@@ -2,7 +2,7 @@
 name: georget
 
 # What branch of helm
-helmBranch: feat/configure-agg-mds-schedule
+helmBranch: feat/update-hatchery-path
 
 # What branch of gitops
 gitopsBranch: master
