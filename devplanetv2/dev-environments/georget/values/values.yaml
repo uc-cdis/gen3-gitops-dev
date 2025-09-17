@@ -201,7 +201,7 @@ hatchery:
     enabled: true
     image:
         repository: quay.io/cdis/hatchery
-        tag: "2025.09"
+        tag: "fix_mitigate-path-traversal"
     json: |
         {
           "user-namespace": "jupyter-pods-georget",
