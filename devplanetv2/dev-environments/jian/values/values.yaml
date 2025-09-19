@@ -161,9 +161,9 @@ etl:
   esEndpoint: "gen3-elasticsearch-master"
 
 frontend-framework:
-  image:
-    tag: main
-    repository:
+  # image:
+  #   tag: main
+  #   repository:
   customConfig:
     enabled: true
   enabled: true
