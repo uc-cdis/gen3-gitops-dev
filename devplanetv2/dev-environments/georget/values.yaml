@@ -2,7 +2,7 @@
 name: georget
 
 # What branch of helm
-helmBranch: feat/update-hatchery-path
+helmBranch: master
 
 # What branch of gitops
 gitopsBranch: master
