@@ -65,7 +65,7 @@ datareplicate:
   #     limits:
   #       memory: 2Gi
   awsBatchReplicationJob:
-    enabled: false
+    enabled: true
 etl:
   esEndpoint: elasticsearch
   mappings:
