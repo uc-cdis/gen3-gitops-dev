@@ -322,7 +322,7 @@ hatchery:
         ]
       }
   workspaceLaunchTest:
-    enable: true
+    enable: false
     schedule: "0 */4 * * *"
     workspaceImages: "(Generic) Jupyter Lab Notebook with R Kernel+(Tutorials) Example Analysis Jupyter Lab Notebooks"
     operatorName: "planxdemo@gmail.com"
