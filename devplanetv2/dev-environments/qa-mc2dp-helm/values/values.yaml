@@ -292,9 +292,15 @@ metadata:
                 "subject_injection": {},
                 "subject_plate_position": {},
                 "mc2dp_global_id": {},
-                "data_files": {
-                    "type": "array"
-                },
+                "data_source_project" : {},
+                 "data_files": {
+                     "type": "array",
+                     "properties" : {
+                       "file_data_size": {
+                         "type": "integer"
+                       }
+                     }
+                 },
                 "filesCount": {
                     "type": "array",
                     "properties": {
@@ -359,7 +365,8 @@ metadata:
                 }
             },
             "settings": {
-                "cache_drs": true
+                "cache_drs": true,
+                "array_config_prefix": "gen3_discovery"
             }
         },
         "adapter_commons": {
@@ -380,6 +387,7 @@ metadata:
                     "subject_id_list": "path:values_of_data_source_ids",
                     "subject_metastasis": "path:metastasis",
                     "subject_cancer_type": "path:cancer_type",
+                    "data_source_project" : "path:data_source_project",
                     "subject_cancer_grade": {
                         "path": "cancer_grade",
                         "filters": [
