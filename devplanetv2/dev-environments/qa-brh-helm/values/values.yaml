@@ -1161,7 +1161,7 @@ revproxy:
     tag: "2025.09"
   ingress:
     aws:
-      group: qa-brh-helm
+      group: devplanetv2
 sheepdog:
   enabled: true
   image:
