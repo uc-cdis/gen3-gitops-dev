@@ -105,7 +105,7 @@ datareplicate:
     suspendCronjob: true
     schedule: "*/30 * * * *"
     enabled: true
-    DRY_RUN: false
+    DRY_RUN: "False" #Value Must be capitalized string value
     RELEASE: DR43
     MANIFEST_FILE: s3://test-data-replication-manifest/helm_test_redaction_manifest.tsv
     IGNORED_FILE: s3://test-data-replication-manifest/ignored_files_manifest.csv
