@@ -86,7 +86,7 @@ datareplicate:
     deploy: true
     googleCredsSecret: binamb-gcloud-creds-secret
     dcfDataserviceSettingsSecret: jian-dcf-dataservice-settings-secrets
-    dcfAwsCredsSecret: jian-dcf-aws-creds-secret
+    awsCredsSecret: jian-dcf-aws-creds-secret
   image:
   # -- (string) Docker repository.
     repository: quay.io/cdis/dcf-dataservice
