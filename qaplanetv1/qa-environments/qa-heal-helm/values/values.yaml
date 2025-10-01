@@ -180,9 +180,8 @@ hatchery:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
     # tag: '2025.07'
-    # test branch of hatchery
-    tag: 'chore_remove-stata-license-from-mount-file'
-
+    # new tag
+    tag: '2.5.0'
   hatchery:
     json: |-
       {
@@ -204,7 +203,7 @@ hatchery:
         "sidecar": {
           "cpu-limit": "1.0",
           "memory-limit": "256Mi",
-          "image": "quay.io/cdis/ecs-ws-sidecar:feat_update-uid",
+          "image": "quay.io/cdis/ecs-ws-sidecar:0.3.0",
           "env": {
             "NAMESPACE": "qa-heal-helm",
             "USER_UID": "1010"
@@ -268,7 +267,7 @@ hatchery:
             "cpu-limit": "1.0",
             "memory-limit": "2Gi",
             "name": "(Generic, User-licensed) Stata Notebook ",
-            "image": "quay.io/cdis/jupyter-pystata-user-licensed:2.0.0",
+            "image": "quay.io/cdis/jupyter-pystata-user-licensed:3.1.0",
             "env": {
               "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
             },
@@ -303,7 +302,7 @@ hatchery:
             "cpu-limit": "1.0",
             "memory-limit": "2Gi",
             "name": "(Generic, Limited Gen3-licensed) Stata Notebook",
-            "image": "quay.io/cdis/jupyter-pystata-gen3-licensed:chore_get-stata-license-from-env",
+            "image": "quay.io/cdis/jupyter-pystata-gen3-licensed:3.1.0",
             "env": {
               "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
             },
