@@ -4,7 +4,7 @@
 name: jian
 
 # What branch of helm -- http://github.com/uc-cdis/gen3-helm
-helmBranch: feat/dcf-validation
+helmBranch: master
 
 # What branch of gitops -- http://github.com/uc-cdis/gen3-gitops-dev
 gitopsBranch: master
