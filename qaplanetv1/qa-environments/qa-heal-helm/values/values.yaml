@@ -124,7 +124,8 @@ hatchery:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
     # tag: '2025.09'
     # test s3 mounting in qa-heal
-    tag: "feat_s3-mount"
+    # tag: "feat_s3-mount"
+    tag: "2.5.0"
   hatchery:
     json: |-
       {
@@ -146,9 +147,10 @@ hatchery:
         "sidecar": {
           "cpu-limit": "1.0",
           "memory-limit": "256Mi",
-          "image": "quay.io/cdis/ecs-ws-sidecar:2025.09",
+          "image": "quay.io/cdis/ecs-ws-sidecar:0.3.0",
           "env": {
-            "NAMESPACE": "qa-heal-helm"
+            "NAMESPACE": "qa-heal-helm",
+            "USER_UID": "1010"
           },
           "args": [],
           "command": [
@@ -209,7 +211,7 @@ hatchery:
             "cpu-limit": "1.0",
             "memory-limit": "2Gi",
             "name": "(Generic, User-licensed) Stata Notebook ",
-            "image": "quay.io/cdis/jupyter-pystata-user-licensed:2.0.0",
+            "image": "quay.io/cdis/jupyter-pystata-user-licensed:3.1.0",
             "env": {
               "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
             },
@@ -234,7 +236,7 @@ hatchery:
               "-c",
               "export IAM=`whoami`; rm -rf /home/$IAM/pd/dockerHome; rm -rf /home/$IAM/pd/lost+found; ln -s /data /home/$IAM/; rm /home/$IAM/pd/data; true"
             ],
-            "user-uid": 1000,
+            "user-uid": 1010,
             "fs-gid": 100,
             "user-volume-location": "/home/jovyan/pd",
             "gen3-volume-location": "/home/jovyan/.gen3"
@@ -244,7 +246,7 @@ hatchery:
             "cpu-limit": "1.0",
             "memory-limit": "2Gi",
             "name": "(Generic, Limited Gen3-licensed) Stata Notebook",
-            "image": "quay.io/cdis/jupyter-pystata-gen3-licensed:2.0.0",
+            "image": "quay.io/cdis/jupyter-pystata-gen3-licensed:3.1.0",
             "env": {
               "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
             },
@@ -279,7 +281,7 @@ hatchery:
               "-c",
               "export IAM=`whoami`; rm -rf /home/$IAM/pd/dockerHome; rm -rf /home/$IAM/pd/lost+found; ln -s /data /home/$IAM/; rm /home/$IAM/pd/data; true"
             ],
-            "user-uid": 1000,
+            "user-uid": 1010,
             "fs-gid": 100,
             "user-volume-location": "/home/jovyan/pd",
             "gen3-volume-location": "/home/jovyan/.gen3"
