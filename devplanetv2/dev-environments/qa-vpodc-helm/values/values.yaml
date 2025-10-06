@@ -62,6 +62,14 @@ argo-wrapper:
   internalS3Bucket: qa-vpodc-argo-bucket
   environment: qa-vpodc-helm
 
+cohort-middleware:
+  enabled: true
+  externalSecrets:
+    cohortMiddlewareG3Auto: qa-vpodc-cohort-middleware-g3auto
+  image:
+    repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/cohort-middleware
+    tag: master
+
 arborist:
   autoscaling:
     enabled: true
