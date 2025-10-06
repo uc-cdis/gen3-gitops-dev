@@ -72,7 +72,11 @@ fence:
     dbcreds: qa-heal-fence-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
-    tag: "2025.09"
+    # tag: "2025.09"
+    tag: "fix_update-deny"
+  FENCE_CONFIG_PUBLIC:
+    GLOBAL_USERNAME_DENY_REGEX: ".*gmail.com"
+
 fluentd:
   enabled: true
   image:
