@@ -122,9 +122,6 @@ hatchery:
     stataG3auto: "qa-heal-stata-workspace-gen3-license"
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
-    # tag: '2025.09'
-    # test s3 mounting in qa-heal
-    # tag: "feat_s3-mount"
     tag: "2.5.0"
   hatchery:
     json: |-
