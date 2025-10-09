@@ -258,7 +258,7 @@ global:
       enabled: true
       wafAclArn: "arn:aws:wafv2:us-east-1:707767160287:regional/webacl/qaplanetv1-waf/c05150c9-4200-4a0e-8a46-3856379b12bc"
   dev: false
-  dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/gtexdictionary/4.6.4/schema.json
+  dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/gtexdictionary/feat/update_bdc_dd/schema.json
   dispatcherJobNum: '10'
   environment: qa-dcp
   externalSecrets:
