@@ -184,12 +184,7 @@ global:
         dbCreate: false
     revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/798e629d-05ee-4bc5-b51f-a86861f29b68
 guppy:
-    autoscaling:
-        enabled: true
-        maxReplicas: 2
-        minReplicas: 1
-        targetCPUUtilizationPercentage: 40
-    enabled: false
+    enabled: true
     esEndpoint: http://elasticsearch:9200
     image:
         repository: quay.io/cdis/guppy
