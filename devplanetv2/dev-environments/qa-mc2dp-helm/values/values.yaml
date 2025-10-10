@@ -162,7 +162,7 @@ hatchery:
                 {
                     "target-port": 8888,
                     "cpu-limit": "1.0",
-                    "memory-limit": "4Gi",
+                    "memory-limit": "1Gi",
                     "name": "(Generic) Jupyter Lab Notebook with R Kernel",
                     "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-prometheus:prometheus-MC2DP-362",
                     "env": {
