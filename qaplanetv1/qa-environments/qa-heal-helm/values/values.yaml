@@ -72,7 +72,12 @@ fence:
     dbcreds: qa-heal-fence-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
-    tag: "2025.09"
+    tag: 'chore_add-hide-idps'
+  FENCE_CONFIG_PUBLIC:
+      # The following names will be hidden from the InCommons drop down list when shib_idps=*
+      # eg, HIDE_IDPS = ["The University of Texas Southwestern Medical Center"]
+      HIDE_IDPS: ["The University of Texas Southwestern Medical Center"]
+
 fluentd:
   enabled: true
   image:
