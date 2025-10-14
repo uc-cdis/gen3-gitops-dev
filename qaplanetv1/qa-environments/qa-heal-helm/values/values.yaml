@@ -11,7 +11,7 @@ arborist:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/arborist
-    tag: "2025.09"
+    tag: "2025.10"
 audit:
   enabled: true
   externalSecrets:
@@ -19,7 +19,7 @@ audit:
     dbcreds: qa-heal-audit-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/audit-service
-    tag: "2025.09"
+    tag: "2025.10"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/qaplanetv1--qa-heal-helm--audit-sqs-receiver
@@ -47,7 +47,7 @@ dashboard:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-statics
-    tag: "2025.09"
+    tag: "2025.10"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/qaplanetv1--qa-heal-helm--dashboard-access
@@ -72,7 +72,7 @@ fence:
     dbcreds: qa-heal-fence-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
-    tag: "2025.09"
+    tag: "2025.10"
 fluentd:
   enabled: true
   image:
@@ -338,14 +338,14 @@ indexd:
     dbcreds: qa-heal-indexd-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexd
-    tag: "2025.09"
+    tag: "2025.10"
 manifestservice:
   enabled: true
   externalSecrets:
     manifestserviceG3auto: qa-heal-manifestservice-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/manifestservice
-    tag: "2025.09"
+    tag: "2025.10"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/qaplanetv1--qa-heal-helm--manifest-service-sa
@@ -1430,7 +1430,7 @@ metadata:
     dbcreds: qa-heal-metadata-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
-    tag: "2025.09"
+    tag: "2025.10"
   useAggMds: true
 mutatingWebhook:
   enabled: true
@@ -1443,7 +1443,7 @@ peregrine:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/peregrine
-    tag: "2025.09"
+    tag: "2025.10"
   externalSecrets:
     dbcreds: qa-heal-peregrine-creds
 portal:
@@ -2397,7 +2397,7 @@ requestor:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/requestor
-    tag: "2025.09"
+    tag: "2025.10"
   externalSecrets:
     dbcreds: qa-heal-requestor-creds
 revproxy:
@@ -2409,7 +2409,7 @@ revproxy:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/nginx
-    tag: "2025.09"
+    tag: "2025.10"
   ingress:
     aws:
       group: qa-heal-helm
@@ -2422,7 +2422,7 @@ sheepdog:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sheepdog
-    tag: "2025.09"
+    tag: "2025.10"
   externalSecrets:
     dbcreds: qa-heal-sheepdog-creds
 sower:
@@ -2435,7 +2435,7 @@ sower:
     sowerjobsG3auto: qa-heal-sower-jobs-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sower
-    tag: "2025.09"
+    tag: "2025.10"
   sowerConfig:
     - action: batch-export
       activeDeadlineSeconds: 600
@@ -2464,8 +2464,8 @@ ssjdispatcher:
     credsFile: qa-heal-ssjdispatcher-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ssjdispatcher
-    tag: "2025.09"
-  indexing: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexs3client:2025.09
+    tag: "2025.10"
+  indexing: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexs3client:2025.10
 wts:
   enabled: true
   externalSecrets:
@@ -2475,4 +2475,4 @@ wts:
     dbcreds: qa-heal-wts-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/workspace-token-service
-    tag: "2025.09"
+    tag: "2025.10"
