@@ -1432,6 +1432,8 @@ metadata:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
     tag: "2025.10"
   useAggMds: true
+  schedule: "0 14,20 * * *"
+  suspendCronjob: false
 mutatingWebhook:
   enabled: true
 peregrine:
