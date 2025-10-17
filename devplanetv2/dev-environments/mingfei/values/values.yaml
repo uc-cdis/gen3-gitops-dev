@@ -227,13 +227,13 @@ etl:
           - name: submitter_id
         nested_props:
           - name: case_diagnosis
-            path: diagnosis
+            path: diagnoses
             props:
               - name: vital_status
               - name: tumor_stage
             nested_props:
               - name: diagnosis_treatment
-                path: treatment
+                path: treatments
                 props:
                   - name: therapeutic_agents
                   - name: diagnoses
