@@ -72,7 +72,11 @@ fence:
     dbcreds: qa-heal-fence-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
-    tag: "2025.10"
+    tag: 'chore_add-hide-idps'
+  FENCE_CONFIG_PUBLIC:
+    # Setting the HIDE_IDPS list will hide items from the InCommons drop down list
+    # eg, HIDE_IDPS = ["https://idp.uca.fr/idp/shibboleth", "urn:mace:incommon:osu.edu"]
+    HIDE_IDPS: ["https://shib2.swmed.edu/idp/shibboleth"]
 fluentd:
   enabled: true
   image:
