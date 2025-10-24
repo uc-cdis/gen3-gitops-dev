@@ -1168,6 +1168,7 @@ revproxy:
   ingress:
     aws:
       group: devplanetv2
+      sslPolicy: ELBSecurityPolicy-TLS13-1-2-FIPS-2023-04
 sheepdog:
   enabled: true
   image:
