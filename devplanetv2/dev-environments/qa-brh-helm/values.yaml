@@ -1,7 +1,7 @@
 name: qa-brh-helm
 
 # What branch of helm -- http://github.com/uc-cdis/gen3-helm
-helmBranch: master
+helmBranch: feat/hatchery-crossplane
 
 # What branch of gitops -- http://github.com/uc-cdis/gen3-gitops-dev
 gitopsBranch: master
