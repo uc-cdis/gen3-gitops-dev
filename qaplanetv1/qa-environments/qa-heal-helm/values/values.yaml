@@ -72,7 +72,7 @@ fence:
     dbcreds: qa-heal-fence-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
-    tag: 'chore_add-hide-idps'
+    tag: '2025.10'
 fluentd:
   enabled: true
   image:
