@@ -52,7 +52,7 @@ argo-wrapper:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/argo-wrapper
-    tag: fix_sanitize_params_at_submit_endpoint
+    tag: master
   scalingGroups:
     default: "{{workflow.name}}"
     custom:
