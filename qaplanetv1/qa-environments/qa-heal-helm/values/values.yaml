@@ -72,7 +72,7 @@ fence:
     dbcreds: qa-heal-fence-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
-    tag: '2025.10'
+    tag: "2025.10"
 fluentd:
   enabled: true
   image:
@@ -2453,7 +2453,7 @@ sower:
             value: qaplanetv1-qa-heal-helm-sower-service-bucket
         image: quay.io/cdis/batch-export:5.0.2
         labels:
-          internet: "yes"     
+          internet: "yes"
         memory-limit: 1Gi
         name: job-task
         pull_policy: Always
