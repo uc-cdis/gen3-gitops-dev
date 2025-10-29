@@ -73,6 +73,7 @@ datareplicate:
     MANIFEST_PATH: s3://test-data-replication-manifest/test_manifest_20201025.tsv
     JOB_QUEUE: binamb-planx-pla-net-bucket-replicate-jqhu_queue_job
     JOB_DEFINITION: binamb-planx-pla-net-bucket-replicate-jqhu-batch_job_definition
+    OUTPUT_MANIFEST_BUCKET: test-data-replication-manifest
 etl:
   esEndpoint: elasticsearch
   mappings:
