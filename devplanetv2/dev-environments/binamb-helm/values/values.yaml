@@ -221,12 +221,22 @@ guppy:
 hatchery:
   enabled: true
   image:
-    tag: master
+    tag: feat_record-timing-add-table
   json: |+
     {
+        "pricing": {
+          "cpu": 0.04048,
+          "memory": 0.004445
+        },
         "user-namespace": "jupyter-pods-binamb",
         "sub-dir": "/lw-workspace",
         "user-volume-size": "10Gi",
+        "default-pay-model": {
+          "workspace_type": "Trial Workspace",
+          "local": true,
+          "hard-limit": 5,
+          "soft-limit": 4
+        },
         "sidecar": {
             "cpu-limit": "1.0",
             "memory-limit": "256Mi",
