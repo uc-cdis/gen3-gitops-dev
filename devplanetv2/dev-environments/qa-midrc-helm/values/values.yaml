@@ -86,7 +86,18 @@ gen3-workflow:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-workflow
-    tag: test_plugin-support-with-logs
+    tag: chore_create_iam_role_for_worker_pods
+  externalSecrets:
+    gen3workflowG3auto: "qa-midrc-test-gen3workflow-g3auto"
+    funnelOidcClient: "qa-midrc-test-funnel-oidc-client"
+  funnel:
+    Kubernetes:
+      Namespace: qa-midrc-helm
+      JobsNamespace: gen3-qa-midrc-helm-workflow-pods
+    Plugins:
+      Params:
+        S3Url: gen3-workflow-service.qa-midrc-helm.svc.cluster.local
+        OidcTokenUrl: https://qa-midrc.planx-pla.net/user
 global:
   crossplane:
     enabled: true
