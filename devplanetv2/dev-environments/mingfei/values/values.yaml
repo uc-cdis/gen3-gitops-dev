@@ -218,35 +218,25 @@ etl:
   enabled: true
   etlMapping:
     mappings:
-      - name: mmrf_case
+      - name: mingfei_case
         doc_type: case
         type: aggregator
         root: case
         props:
-          - name: project_id
+          - name: type
           - name: submitter_id
-          - name: batch_id
-          - name: disease_type
-          - name: index_date
-          - name: primary_site
-      - name: mmrf_data_file
-        doc_type: data_file
-        type: collector
-        root: None
-        category: data_file
-        props:
-          - name: source_node
-          - name: project_id
-          - name: submitter_id
-          - name: object_id
-          - name: md5sum
-          - name: file_name
-          - name: file_size
-          - name: data_format
-          - name: data_type
-          - name: data_category
-          - name: experimental_strategy
-          - name: platform
+        nested_props:
+          - name: case_diagnosis
+            path: diagnoses
+            props:
+              - name: vital_status
+              - name: tumor_stage
+            nested_props:
+              - name: diagnosis_treatment
+                path: treatments
+                props:
+                  - name: therapeutic_agents
+                  - name: diagnoses
 
   # image:
   # tube:

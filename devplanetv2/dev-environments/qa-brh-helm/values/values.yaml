@@ -93,17 +93,22 @@ hatchery:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
     tag: "2025.09"
-  gitops:
+  hatchery:
     json: |
       {
+        "pricing": {
+          "cpu": 0.04048,
+          "memory": 0.004445
+        },
         "user-namespace": "jupyter-pods-qa-brh",
         "sub-dir": "/lw-workspace",
         "user-volume-size": "10Gi",
         "default-pay-model": {
           "workspace_type": "Trial Workspace",
-          "local": true
+          "local": true,
+          "hard-limit": 5,
+          "soft-limit": 4
         },
-        "pay-models": [],
         "pay-models-dynamodb-table": "bmh-admin-portal-backend-bmhworkspacetableD4D73E43-4U08KIUG3YW3",
         "sidecar": {
           "cpu-limit": "1.0",
@@ -308,6 +313,7 @@ hatchery:
           }
         ]
       }
+
 indexd:
   autoscaling:
     enabled: true
@@ -1162,6 +1168,7 @@ revproxy:
   ingress:
     aws:
       group: devplanetv2
+      sslPolicy: ELBSecurityPolicy-TLS13-1-2-FIPS-2023-04
 sheepdog:
   enabled: true
   image:
