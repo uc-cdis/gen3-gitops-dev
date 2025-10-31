@@ -57,7 +57,7 @@ datareplicate:
     LOG_BUCKET: test-data-replication-manifest
     RELEASE: DR43
     QUICK_TEST: true
-    MANIFEST_FILE: s3://test-data-replication-manifest/test_manifest_20201025.tsv
+    MANIFEST_FILE: s3://test-data-replication-manifest/test_manifest_20251025.tsv
     resources:
       requests:
         cpu: "2"
