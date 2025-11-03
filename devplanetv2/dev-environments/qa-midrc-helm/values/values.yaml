@@ -90,6 +90,8 @@ gen3-workflow:
   externalSecrets:
     gen3workflowG3auto: "qa-midrc-test-gen3workflow-g3auto"
     funnelOidcClient: "qa-midrc-test-funnel-oidc-client"
+  workflowConfig:
+    taskImageWhitelist: ['*']
   funnel:
     Kubernetes:
       Namespace: qa-midrc-helm
