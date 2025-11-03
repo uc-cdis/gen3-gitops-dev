@@ -99,6 +99,8 @@ gen3-workflow:
     Plugins:
       Path: plugin-binaries/auth-plugin
       Params:
+        OidcClientId: <redacted>
+        OidcClientSecret: <redacted>
         S3Url: gen3-workflow-service.qa-midrc-helm.svc.cluster.local
         OidcTokenUrl: https://qa-midrc.planx-pla.net/user
 global:
