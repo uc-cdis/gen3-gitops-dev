@@ -95,6 +95,7 @@ gen3-workflow:
       Namespace: qa-midrc-helm
       JobsNamespace: gen3-qa-midrc-helm-workflow-pods
     Plugins:
+      Path: plugin-binaries/auth-plugin
       Params:
         S3Url: gen3-workflow-service.qa-midrc-helm.svc.cluster.local
         OidcTokenUrl: https://qa-midrc.planx-pla.net/user
