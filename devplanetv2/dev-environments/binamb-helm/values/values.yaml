@@ -311,6 +311,7 @@ hatchery:
   #   fenceJwtKeys: binamb-fence-jwt
 
 indexd:
+  useSingleTable: 'true'
   enabled: true
   externalSecrets:
     serviceCreds: binamb-indexd-service-creds
