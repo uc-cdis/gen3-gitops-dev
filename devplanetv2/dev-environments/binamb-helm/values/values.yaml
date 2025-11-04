@@ -22,11 +22,58 @@ aws-es-proxy:
 dashboard:
   dashboardConfig:
     bucket: dashboard-707767160287-devplanetv1-gen3
-    prefix: binamb.planx-pla.net
+    prefix: binamb.dev.planx-pla.net
   enabled: true
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--binamb-helm--dashboard-access
+datareplicate:
+  enabled: true
+  suspendCronjob: true
+  externalSecrets:
+    deploy: true
+    googleCredsSecret: binamb-gcloud-creds-secret
+    dcfDataserviceSettingsSecret: binamb-dcf-dataservice-settings-secrets
+  image:
+  # -- (string) Docker repository.
+    repository: quay.io/cdis/dcf-dataservice
+    # -- (string) Overrides the image tag whose default is the chart appVersion.
+    tag: "master"
+  # googleBucketReplicateJob:
+  #   # -- (bool) Whether to enable the Google bucket replicate job
+  #   enabled: true
+  #   PROJECT: cdis-test-188416
+  #   MAX_WORKERS: 80
+  #   RELEASE: DR43
+  #   MANIFEST_FILE: gs://test-data-replication-manifest/GDC_only_3plusgig_open_active_manifest.tsv
+  #   IGNORED_FILE: gs://test-data-replication-manifest/ignored_files_manifest.csv
+  #   LOG_BUCKET: test-data-replication-manifest
+  awsBucketReplicateJob:
+    enabled: true
+    schedule: "*/30 * * * *"
+    THREAD_NUM: 20
+    CHUNK_SIZE: 1
+    GDC_BUCKET_NAME: test-gdc-bucket
+    LOG_BUCKET: test-data-replication-manifest
+    RELEASE: DR43
+    QUICK_TEST: true
+    MANIFEST_FILE: s3://test-data-replication-manifest/test_manifest_20251025.tsv
+    resources:
+      requests:
+        cpu: "2"
+        memory: 128Mi
+      limits:
+        memory: 2Gi
+  awsBatchReplicateJob:
+    enabled: true
+    schedule: "*/30 * * * *"
+    REGION: us-east-1
+    THREAD_COUNT: 3
+    MAX_RETRIES: 10
+    MANIFEST_PATH: s3://test-data-replication-manifest/test_manifest_20251025_short.tsv
+    JOB_QUEUE: binamb-planx-pla-net-bucket-replicate-jqhu_queue_job
+    JOB_DEFINITION: binamb-planx-pla-net-bucket-replicate-jqhu-batch_job_definition
+    OUTPUT_MANIFEST_BUCKET: test-data-replication-manifest
 etl:
   esEndpoint: elasticsearch
   mappings:
@@ -106,6 +153,12 @@ fence:
     fenceJwtKeys: binamb-fence-jwt
   image:
     tag: master
+  usersync:
+    usersync: true
+    syncFromDbgap: false
+    userYamlS3Path: s3://cdis-gen3-users/dev/user.yaml
+  FENCE_CONFIG_PUBLIC: 
+    BASE_URL: https://binamb.dev.planx-pla.net
 fluentd:
   enabled: true
   image:
@@ -125,18 +178,22 @@ global:
       kmsKeyId: "387b8ebf-c8b8-4887-9b2c-639aee77654c"
   aws:
     account: "707767160287"
-    awsEsProxyRole: binamb-binamb-aws-es-proxy-sa
+    awsEsProxyRole: binamb-aws-es-proxy-sa
     enabled: true
-    hatchery_role: binamb-binamb-aws-es-hatchery-sa
+    hatchery_role: binamb-aws-es-hatchery-sa
+    scheme: "internal"
     secretStoreServiceAccount:
       enabled: true
       roleArn: arn:aws:iam::707767160287:role/devplanetv2-external-secrets-sa
+    wafv2:
+      enabled: true
+      wafAclArn: "arn:aws:wafv2:us-east-1:707767160287:regional/webacl/devplanetv2-waf/30660590-f707-4ecf-aeae-ddfbe381f388"
   dev: false
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json
   environment: binamb
   externalSecrets:
     deploy: true
-  hostname: binamb.planx-pla.net
+  hostname: binamb.dev.planx-pla.net
   manifestGlobalExtraValues:
     es7: true
     kube_bucket: kube_bucket.devplanetv1.gen3
@@ -149,7 +206,7 @@ global:
   portalApp: gitops
   postgres:
     dbCreate: false
-  revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/c676c81c-9546-4e9a-9a72-725dd3912bc8
+  revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/798e629d-05ee-4bc5-b51f-a86861f29b68
 guppy:
   enabled: true
   authFilterField: auth_resource_path
@@ -165,20 +222,30 @@ guppy:
 hatchery:
   enabled: true
   image:
-    tag: master
+    tag: feat_record-timing-add-table
   json: |+
     {
+        "pricing": {
+          "cpu": 0.04048,
+          "memory": 0.004445
+        },
         "user-namespace": "jupyter-pods-binamb",
         "sub-dir": "/lw-workspace",
         "user-volume-size": "10Gi",
+        "default-pay-model": {
+          "workspace_type": "Trial Workspace",
+          "local": true,
+          "hard-limit": 5,
+          "soft-limit": 4
+        },
         "sidecar": {
             "cpu-limit": "1.0",
             "memory-limit": "256Mi",
             "image": "quay.io/cdis/ecs-ws-sidecar:2024.12",
             "env": {
                 "NAMESPACE": "binamb",
-                "GEN3_ENDPOINT": "binamb.planx-pla.net",
-                "HOSTNAME": "binamb.planx-pla.net"
+                "GEN3_ENDPOINT": "binamb.dev.planx-pla.net",
+                "HOSTNAME": "binamb.dev.planx-pla.net"
             },
             "args": [],
             "command": [
@@ -202,7 +269,7 @@ hatchery:
                 "name": "(Generic) Jupyter Lab Notebook with R Kernel",
                 "image": "quay.io/cdis/jupyter-superslim-r:master",
                 "env": {
-                    "FRAME_ANCESTORS": "https://binamb.planx-pla.net"
+                    "FRAME_ANCESTORS": "https://binamb.dev.planx-pla.net"
                 },
                 "args": [
                     "--JupyterNotebookApp.base_url=/lw-workspace/proxy/",
@@ -232,12 +299,16 @@ hatchery:
             }
         ]
     }
-  workspaceLaunchTest:
-    workspaceLaunchTest: true
-    schedule: "*/30 * * * *"
-    workspaceImages: "(Generic) Jupyter Lab Notebook with R Kernel+(Tutorials) Example Analysis Jupyter Lab Notebooks"
-    operatorName: "binamb@uchicago.edu"
-    hostname: "https://binamb.planx-pla.net/"
+  # workspaceLaunchTest:
+  #   enable: true
+  #   schedule: "*/20 * * * *"
+  #   workspaceImages: "(Generic) Jupyter Lab Notebook with R Kernel+(Tutorials) Example Analysis Jupyter Lab Notebooks"
+  #   operatorName: "binamb@uchicago.edu"
+  #   hostname: "https://binamb.dev.planx-pla.net/"
+  # externalSecrets:
+  #   deploy: true
+  #   fenceConfig: binamb-fence-config
+  #   fenceJwtKeys: binamb-fence-jwt
 
 indexd:
   enabled: true
@@ -305,26 +376,26 @@ portal:
       \    ],\n    \"chartCounts\": [\n      {\n        \"graphql\": \"_case_count\"\
       ,\n        \"name\": \"Case\"\n      },\n      {\n        \"graphql\": \"_experiment_count\"\
       ,\n        \"name\": \"Experiment\"\n      }\n    ],\n    \"projectDetails\"\
-      : \"boardCounts\"\n  },\n  \"components\": {\n    \"appName\": \"The Michael\
+      : \"boardCounts\"\n  },\n  \"components\": {\n    \"appName\": \"The Binam\
       \ Commons Portal\",\n    \"index\": {\n      \"introduction\": {\n        \"\
-      heading\": \"Michael Commons\",\n        \"text\": \"The Michael Commons supports\
-      \ the management, analysis and sharing of Michael for the research community\
-      \ and aims to accelerate discovery and development of Michael\",\n        \"\
+      heading\": \"Binam Commons\",\n        \"text\": \"The Binam Commons supports\
+      \ the management, analysis and sharing of Binam for the research community\
+      \ and aims to accelerate discovery and development of Binam\",\n        \"\
       link\": \"/submission\"\n      },\n      \"buttons\": [\n        {\n       \
       \   \"name\": \"Define Data Field\",\n          \"icon\": \"data-field-define\"\
-      ,\n          \"body\": \"The Michael Commons defines its data in a cool way.\"\
+      ,\n          \"body\": \"The Binam Commons defines its data in a cool way.\"\
       ,\n          \"link\": \"/DD\",\n          \"label\": \"Learn less\"\n     \
       \   },\n        {\n          \"name\": \"Explore Data\",\n          \"icon\"\
       : \"data-explore\",\n          \"body\": \"The Exploration Page gives you candy\
       \ and donuts.\",\n          \"link\": \"/explorer\",\n          \"label\": \"\
       Explore data\"\n        },\n        {\n          \"name\": \"Access Data\",\n\
-      \          \"icon\": \"data-access\",\n          \"body\": \"Bla bla bla Michael.\"\
+      \          \"icon\": \"data-access\",\n          \"body\": \"Bla bla bla Binam.\"\
       ,\n          \"link\": \"/query\",\n          \"label\": \"Query data\"\n  \
       \      },\n        {\n          \"name\": \"Analyze Data\",\n          \"icon\"\
       : \"data-analyze\",\n          \"body\": \"Analyze your selected cases using\
       \ Casio calculators in our secure cloud environment\",\n          \"link\":\
       \ \"#hostname#workspace/\",\n          \"label\": \"Run analysis\"\n       \
-      \ }\n      ]\n    },\n    \"navigation\": {\n      \"title\": \"Michael Commons\"\
+      \ }\n      ]\n    },\n    \"navigation\": {\n      \"title\": \"Binam Commons\"\
       ,\n      \"items\": [\n        {\n          \"icon\": \"dictionary\",\n    \
       \      \"link\": \"/DD\",\n          \"color\": \"#a2a2a2\",\n          \"name\"\
       : \"Dictionary\"\n        },\n        {\n          \"icon\": \"exploration\"\
@@ -338,7 +409,7 @@ portal:
       color\": \"#a2a2a2\",\n          \"name\": \"Workspace\"\n        },\n     \
       \   {\n          \"icon\": \"profile\",\n          \"link\": \"/identity\",\n\
       \          \"color\": \"#a2a2a2\",\n          \"name\": \"Profile\"\n      \
-      \  }\n      ]\n    },\n    \"login\": {\n      \"title\": \"Michaels Commons\"\
+      \  }\n      ]\n    },\n    \"login\": {\n      \"title\": \"Binams Commons\"\
       ,\n      \"subTitle\": \"search, compare, and ignore data\",\n      \"text\"\
       : \"A centralized, cloud-based discovery portal that is super buzzword compliant\
       \ impacting the brain.\",\n      \"contact\": \"If you have any questions about\
@@ -422,7 +493,7 @@ revproxy:
     tag: "2025.01"
   ingress:
     aws:
-      group: binamb-helm
+      group: devplanetv2-internal
 sheepdog:
   enabled: true
 sower:

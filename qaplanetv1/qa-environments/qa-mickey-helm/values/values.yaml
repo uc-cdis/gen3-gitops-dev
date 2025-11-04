@@ -17,7 +17,7 @@ argo-wrapper:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/argo-wrapper
-    tag: feat_support_plp_submission
+    tag: master
   scalingGroups:
     default: "{{workflow.name}}"
     custom:
@@ -44,7 +44,7 @@ cohort-middleware:
     cohortMiddlewareG3Auto: qa-mickey-cohort-middleware-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/cohort-middleware
-    tag: feat_new_endpoints_for_plp_scenarios
+    tag: master
 dashboard:
   dashboardConfig:
     bucket: dashboard-707767160287-qaplanetv1-gen3
@@ -97,6 +97,9 @@ global:
     secretStoreServiceAccount:
       enabled: true
       roleArn: arn:aws:iam::707767160287:role/qaplanetv1-external-secrets-sa
+    wafv2:
+      enabled: true
+      wafAclArn: "arn:aws:wafv2:us-east-1:707767160287:regional/webacl/qaplanetv1-waf/c05150c9-4200-4a0e-8a46-3856379b12bc"
   dev: false
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/vadictionary/0.4.2/schema.json
   dispatcherJobNum: "10"

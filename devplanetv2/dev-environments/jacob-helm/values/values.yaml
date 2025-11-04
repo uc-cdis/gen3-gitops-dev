@@ -19,10 +19,10 @@ global:
   externalSecrets:
     deploy: true
     dbCreate: true
-  hostname: mingfei.planx-pla.net
+  hostname: jacobdaugherty.dev.planx-pla.net
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json
   # We disable portal by default to save $$$
-  frontendRoot: gen3ff
+  #frontendRoot: gen3ff
   postgres:
     dbCreate: true
     externalSecret: "devplanetv2-aurora-master-dbcreds"
@@ -80,7 +80,7 @@ frontend-framework:
   #   tag: main
   #   repository:
   customConfig:
-    enabled: true
+    enabled: false
   enabled: true
   resources:
     requests:
@@ -107,7 +107,7 @@ hatchery:
         cpu-limit: "2"
         memory-limit: 3Gi
         name: "(Tutorials) Example Analysis Jupyter Lab Notebooks"
-        image: quay.io/cdis/jupyter-superslim:2.1.0
+        image: quay.io/cdis/jupyter-superslim:1.0.5
         env:
           FRAME_ANCESTORS: https://{{ .Values.global.hostname }}
         args:
@@ -140,76 +140,6 @@ portal:
   #   requests:
   #     cpu: "15m"
   #     memory: 100Mi
-  gitops:
-    json: |
-      {
-        "grafanaFaroConfig": {
-          "grafanaFaroEnable": false,
-        },
-        "graphql": {
-          "boardCounts": [],
-          "chartCounts": [],
-          "projectDetails": "boardCounts"
-        },
-        "components": {
-          "appName": "Mingfei Dev Env",
-          "banner": [],
-          "index": {
-            "introduction": {
-              "heading": "Mingfei Dev Env",
-              "text": "This is Mingfei Dev Env.",
-              "link": "/submission"
-            },
-            "buttons": []
-          },
-          "navigation": {
-            "title": "Mingfei Dev Env",
-            "items": [
-              {
-                "name": "Data Dictionary",
-                "icon": "data-field-define",
-                "link": "/DD",
-              },
-              {
-                "icon": "workspace",
-                "link": "/workspace",
-                "name": "Workspace"
-              },
-              {
-                "name": "Example Analysis",
-                "link": "/resource-browser",
-                "icon": "bar-chart"
-              {
-                "icon": "profile",
-                "link": "/identity",
-                "name": "Profile"
-              }
-            ]
-          },
-          "topBar": {
-            "items": []
-          },
-          "login": {
-            "title": "Mingfei Dev Env",
-            "subTitle": "Explore, Analyze, and Share Data",
-            "contact": "If you have any questions about access or the registration process, please contact ",
-            "email": "support@gen3.org"
-          },
-          "footer": {}
-        },
-        "requiredCerts": [],
-        "featureFlags": {
-          "explorer": false,
-          "analysis": false,
-          "discovery": false,
-          "workspaceTokenServiceRefreshTokenAtLogin": true
-        },
-        "useArboristUI": true,
-        "showArboristAuthzOnProfile": true,
-        "showFenceAuthzOnProfile": false,
-        "showExternalLoginsOnProfile": true,
-        "componentToResourceMapping": {}
-      }
   image:
     repository: quay.io/cdis/data-portal
     tag: master
@@ -218,25 +148,35 @@ etl:
   enabled: true
   etlMapping:
     mappings:
-      - name: mingfei_case
+      - name: mmrf_case
         doc_type: case
         type: aggregator
         root: case
         props:
-          - name: type
+          - name: project_id
           - name: submitter_id
-        nested_props:
-          - name: case_diagnosis
-            path: diagnoses
-            props:
-              - name: vital_status
-              - name: tumor_stage
-            nested_props:
-              - name: diagnosis_treatment
-                path: treatments
-                props:
-                  - name: therapeutic_agents
-                  - name: diagnoses
+          - name: batch_id
+          - name: disease_type
+          - name: index_date
+          - name: primary_site
+      - name: mmrf_data_file
+        doc_type: data_file
+        type: collector
+        root: None
+        category: data_file
+        props:
+          - name: source_node
+          - name: project_id
+          - name: submitter_id
+          - name: object_id
+          - name: md5sum
+          - name: file_name
+          - name: file_size
+          - name: data_format
+          - name: data_type
+          - name: data_category
+          - name: experimental_strategy
+          - name: platform
 
   # image:
   # tube:
@@ -292,22 +232,22 @@ metadata:
             "guid_type": "discovery_metadata",
             "study_field": "gen3_discovery"
           },
-          "keep_original_fields": false,
-          "field_mappings" : {
-            "authz": "path:authz",
-            "tags": "path:tags",
-            "_unique_id": "path:_unique_id",
-            "study_id": "path:_unique_id",
-            "study_description": "path:data_description",
-            "full_name": "path:full_name",
-            "short_name": "path:short_name",
-            "commons": "Medical Imaging and Data Resource Center (MIDRC)",
-            "study_url": "path:data_url",
-            "_subjects_count" : {"path":"cases_count", "default" : 0 },
-            "__manifest": "path:__manifest",
-            "commons_url" : "data.midrc.org"
-          }
-        }
+        "keep_original_fields": false,
+        "field_mappings" : {
+        "authz": "path:authz",
+        "tags": "path:tags",
+        "_unique_id": "path:_unique_id",
+        "study_id": "path:_unique_id",
+        "study_description": "path:data_description",
+        "full_name": "path:full_name",
+        "short_name": "path:short_name",
+        "commons": "Medical Imaging and Data Resource Center (MIDRC)",
+        "study_url": "path:data_url",
+        "_subjects_count" : {"path":"cases_count", "default" : 0 },
+        "__manifest": "path:__manifest",
+        "commons_url" : "data.midrc.org"
+      }
+      }
       },
       "adapter_commons": {}
     }
@@ -379,6 +319,11 @@ postgresql:
       # -- (bool) Option to persist the dbs data.
       enabled: true
 
+
+# enable data dictionary
+gen3-user-data-library:
+  enabled: true
+
 fence:
   externalSecrets:
     createK8sFenceConfigSecret: false
@@ -389,7 +334,6 @@ fence:
     usersync: true
     userYamlS3Path: s3://cdis-gen3-users/dev/user.yaml
   FENCE_CONFIG_PUBLIC:
-    BASE_URL: https://mingfei.planx-pla.net/user
     # Prefix to namespace Google Groups on a single Cloud Identity
     # This will be dynamically replaced by env_setup.sh script.
     GOOGLE_GROUP_PREFIX:
@@ -410,7 +354,7 @@ fence:
     # -- (bool) if true, will fake a successful login response from Google in /login/google
     # NOTE: this will also modify the behavior of /link/google endpoints
     # will login as the username set in cookie DEV_LOGIN_COOKIE_NAME
-    MOCK_GOOGLE_AUTH: false
+    MOCK_GOOGLE_AUTH: true
 
     # -- (str) the name of the cookie set by mock authentication (used for testing only)
     DEV_LOGIN_COOKIE_NAME: "dev_login"
@@ -608,7 +552,7 @@ fence:
     # When true, this modifies usersync (not fence service itself) such that when syncing user
     # access to a Google storage backend happens in "bulk" by doing a diff *per google group*
     # between what's in Google and what's expected.
-    GOOGLE_BULK_UPDATES: false
+    GOOGLE_BULK_UPDATES: true
 
     # Configuration for various storage systems for the backend
     STORAGE_CREDENTIALS:
@@ -746,7 +690,7 @@ fence:
     # Optional user registration feature: Ask users to register (provide firstname/lastname/org/email) on login.
     # If user registers, add them to configured Arborist group; idea is that the Arborist group
     # will have access to download data.
-    REGISTER_USERS_ON: false
+    REGISTER_USERS_ON: true
     REGISTERED_USERS_GROUP: ""
     # RAS refresh_tokens expire in 15 days
     RAS_REFRESH_EXPIRATION: 1296000

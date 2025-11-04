@@ -14,23 +14,13 @@ spec:
       helm:
         releaseName: {{ .Values.Name }}
         valueFiles:
-          - $values/devplanetv2/dev-environments/qureshi/values/values.yaml
-        values: |
-            global:
-              hostname: {{ .Values.name }}.dev.planx-pla.net
-            fence:
-              FENCE_CONFIG_PUBLIC:
-                BASE_URL: https://{{ .Values.name }}.dev.planx-pla.net/user
-            sheepdog:
-              # Need this to avoid the audience issue
-              fenceUrl: https://{{ .Values.name }}.dev.planx-pla.net
+          - $values/devplanetv2/dev-environments/{{ .Values.name }}/values/values.yaml
     - repoURL: 'https://github.com/uc-cdis/gen3-gitops-dev.git'
       targetRevision: {{ .Values.gitopsBranch }}
       ref: values
   destination:
     server: "https://kubernetes.default.svc"
     namespace: {{ .Values.name }}
-  # So argocd doesn't change auto-generated secrets
   ignoreDifferences:
     - 
       kind: "Secret"
@@ -40,6 +30,3 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - RespectIgnoreDifferences=true
-    # automated:
-    #   selfHeal: false
-    #   prune: true

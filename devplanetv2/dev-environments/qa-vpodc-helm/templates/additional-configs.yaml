@@ -1,31 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: gen3-dev-{{ .Values.name }}
+  name: {{ .Values.name }}-additional-configs
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   sources:
-    - path: helm/gen3
-      repoURL: https://github.com/uc-cdis/gen3-helm
-      targetRevision: {{ .Values.helmBranch }}
-      helm:
-        releaseName: {{ .Values.name }}
-        valueFiles:
-          - $values/qaplanetv1/qa-environments/{{ .Values.name }}/values/values.yaml
     - repoURL: 'https://github.com/uc-cdis/gen3-gitops-dev.git'
       targetRevision: {{ .Values.gitopsBranch }}
-      ref: values
+      path: devplanetv2/dev-environments/{{ .Values.name }}/additional-configs
   destination:
     server: "https://kubernetes.default.svc"
     namespace: {{ .Values.name }}
-  ignoreDifferences:
-    - 
-      kind: "Secret"
-      jsonPointers:
-      - /data
   syncPolicy:
     syncOptions:
       - CreateNamespace=true

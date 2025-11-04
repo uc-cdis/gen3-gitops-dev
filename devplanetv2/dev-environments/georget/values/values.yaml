@@ -154,10 +154,14 @@ global:
         account: "707767160287"
         awsEsProxyRole: devplanetv2-esproxy-sa
         enabled: true
+        scheme: internal
         hatchery_role: devplanetv2--georget-helm--hatchery-sa
         secretStoreServiceAccount:
             enabled: true
             roleArn: arn:aws:iam::707767160287:role/devplanetv2-external-secrets-sa
+        wafv2:
+            enabled: true
+            wafAclArn: "arn:aws:wafv2:us-east-1:707767160287:regional/webacl/devplanetv2-waf/30660590-f707-4ecf-aeae-ddfbe381f388"
     dev: false
     dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json
     dispatcherJobNum: "10"
@@ -178,13 +182,8 @@ global:
     portalApp: gitops
     postgres:
         dbCreate: false
-    revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/c676c81c-9546-4e9a-9a72-725dd3912bc8
+    revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/798e629d-05ee-4bc5-b51f-a86861f29b68
 guppy:
-    autoscaling:
-        enabled: true
-        maxReplicas: 2
-        minReplicas: 1
-        targetCPUUtilizationPercentage: 40
     enabled: true
     esEndpoint: http://elasticsearch:9200
     image:
@@ -197,7 +196,7 @@ hatchery:
     enabled: true
     image:
         repository: quay.io/cdis/hatchery
-        tag: test_updates-to-cost
+        tag: "fix_mitigate-path-traversal"
     json: |
         {
           "user-namespace": "jupyter-pods-georget",
@@ -1756,6 +1755,8 @@ metadata:
         repository: quay.io/cdis/metadata-service
         tag: "2025.03"
     useAggMds: true
+    schedule: "4 3 2 1 *"
+    suspendCronjob: false
 
 peregrine:
     autoscaling:
@@ -3421,7 +3422,7 @@ revproxy:
         tag: "2025.03"
     ingress:
         aws:
-            group: georget-helm
+            group: devplanetv2-internal
 sheepdog:
     autoscaling:
         enabled: true

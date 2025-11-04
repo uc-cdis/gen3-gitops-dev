@@ -8,6 +8,9 @@ global:
     secretStoreServiceAccount:
       enabled: true
       name: secret-store-sa
+    wafv2:
+      enabled: true
+      wafAclArn: "arn:aws:wafv2:us-east-1:707767160287:regional/webacl/devplanetv2-waf/30660590-f707-4ecf-aeae-ddfbe381f388"
   netPolicy:
     # TODO: Figure out netpols with local dbs
     enabled: false
@@ -48,8 +51,12 @@ ambassador:
     requests:
       memory: "105Mi"
       cpu: "15m"
-
+ambassador-gen3:
+  enabled: false
+  image:
+    tag: 0.60.3
 arborist:
+  enabled: true
   image:
     tag: master
   resources:
@@ -72,6 +79,87 @@ audit:
   #   tag: local
   #   pullPolicy: Never
 
+datareplicate:
+  enabled: true
+  suspendCronjob: true
+  externalSecrets:
+    deploy: true
+    googleCredsSecret: binamb-gcloud-creds-secret
+    dcfDataserviceSettingsSecret: jian-dcf-dataservice-settings-secrets
+    awsCredsSecret: jian-dcf-aws-creds-secret
+  image:
+  # -- (string) Docker repository.
+    repository: quay.io/cdis/dcf-dataservice
+    # -- (string) Overrides the image tag whose default is the chart appVersion.
+    tag: "master"
+  googleBucketReplicateJob:
+    # -- (bool) Whether to enable the Google bucket replicate job
+    enabled: true
+    PROJECT: dcf-prod-buckets
+    MAX_WORKERS: 80
+    RELEASE: DR43
+    MANIFEST_FILE: gs://test-data-replication-manifest/GDC_only_3plusgig_open_active_manifest.tsv
+    IGNORED_FILE: gs://test-data-replication-manifest/ignored_files_manifest.csv
+    LOG_BUCKET: test-data-replication-manifest
+  removeObjectsFromCloudsJob:
+    suspendCronjob: true
+    schedule: "*/30 * * * *"
+    enabled: true
+    DRY_RUN: "False" #Value Must be capitalized string value
+    RELEASE: DR43
+    MANIFEST_FILE: s3://test-data-replication-manifest/helm_test_redaction_manifest.tsv
+    IGNORED_FILE: s3://test-data-replication-manifest/ignored_files_manifest.csv
+    LOG_BUCKET: test-data-replication-manifest
+  replicateValidationJob:
+    suspendCronjob: true
+    schedule: "*/30 * * * *"
+    enabled: true
+    RELEASE: DR43
+    MANIFEST_FILE: s3://test-data-replication-manifest/helm_test_manifest.tsv
+    IGNORED_FILE: s3://test-data-replication-manifest/ignored_files_manifest.csv
+    LOG_BUCKET: test-data-replication-manifest
+    OUT_FILES: replication_validation_output_manifest.tsv
+    FORCE_CREATE_MANIFEST: true
+etl:
+  enabled: true
+  etlMapping:
+    mappings:
+      - name: mmrf_case
+        doc_type: case
+        type: aggregator
+        root: case
+        props:
+          - name: project_id
+          - name: submitter_id
+          - name: batch_id
+          - name: disease_type
+          - name: index_date
+          - name: primary_site
+      - name: mmrf_data_file
+        doc_type: data_file
+        type: collector
+        root: None
+        category: data_file
+        props:
+          - name: source_node
+          - name: project_id
+          - name: submitter_id
+          - name: object_id
+          - name: md5sum
+          - name: file_name
+          - name: file_size
+          - name: data_format
+          - name: data_type
+          - name: data_category
+          - name: experimental_strategy
+          - name: platform
+
+  # image:
+  # tube:
+  #repository: tube
+  # tag: master
+  esEndpoint: "gen3-elasticsearch-master"
+
 frontend-framework:
   # image:
   #   tag: main
@@ -84,6 +172,17 @@ frontend-framework:
       memory: "256Mi"
       cpu: "15m"
 
+guppy:
+  enabled: false
+  resources:
+    requests:
+      memory: "105Mi"
+      cpu: "15m"
+  image:
+    repository: quay.io/cdis/guppy
+    tag: master
+  esEndpoint: http://elasticsearch:9200
+  
 hatchery:
   externalSecrets:
     createK8sStataSecret: true
@@ -129,70 +228,8 @@ hatchery:
         user-volume-location: "/home/jovyan/pd"
         gen3-volume-location: "/home/jovyan/.gen3"
 
-portal:
-  # Disable portal by default
-  enabled: false
-  # 
-  # resources:
-  #   requests:
-  #     cpu: "15m"
-  #     memory: 100Mi
-  image:
-    repository: quay.io/cdis/data-portal
-    tag: master
-
-etl:
-  enabled: true
-  etlMapping:
-    mappings:
-      - name: mmrf_case
-        doc_type: case
-        type: aggregator
-        root: case
-        props:
-          - name: project_id
-          - name: submitter_id
-          - name: batch_id
-          - name: disease_type
-          - name: index_date
-          - name: primary_site
-      - name: mmrf_data_file
-        doc_type: data_file
-        type: collector
-        root: None
-        category: data_file
-        props:
-          - name: source_node
-          - name: project_id
-          - name: submitter_id
-          - name: object_id
-          - name: md5sum
-          - name: file_name
-          - name: file_size
-          - name: data_format
-          - name: data_type
-          - name: data_category
-          - name: experimental_strategy
-          - name: platform
-
-  # image:
-  # tube:
-  #repository: tube
-  # tag: master
-  esEndpoint: "gen3-elasticsearch-master"
-
-guppy:
-  enabled: false
-  resources:
-    requests:
-      memory: "105Mi"
-      cpu: "15m"
-  image:
-    repository: quay.io/cdis/guppy
-    tag: master
-  esEndpoint: http://elasticsearch:9200
-
 indexd:
+  enabled: true
   image:
     tag: master
   resources:
@@ -202,6 +239,15 @@ indexd:
   defaultPrefix: dev/
   externalSecrets:
     createK8sServiceCredsSecret: true
+
+manifestservice:
+  enabled: true
+  resources:
+    requests:
+      memory: "105Mi"
+      cpu: "15m"
+  externalSecrets:
+    createK8sManifestServiceSecret: true
 
 metadata:
   externalSecrets:
@@ -213,7 +259,7 @@ metadata:
   # image:
   # repository:
   # tag:
-  enabled: true
+  enabled: false
   useAggMds: "True"
   # -- (string) Namespace to use if AggMds is enabled.
   aggMdsNamespace: default
@@ -248,28 +294,33 @@ metadata:
       "adapter_commons": {}
     }
 
-manifestservice:
-  resources:
-    requests:
-      memory: "105Mi"
-      cpu: "15m"
-  externalSecrets:
-    createK8sManifestServiceSecret: true
-
-ssjdispatcher:
-  enabled: false
-
-sower:
-  enabled: false
-
 peregrine:
+  enabled: false
   resources:
     requests:
       memory: "105Mi"
       cpu: "15m"
   image:
+    repository: quay.io/cdis/peregrine
+    tag: master
+
+portal:
+  # Disable portal by default
+  enabled: false
+  # 
+  # resources:
+  #   requests:
+  #     cpu: "15m"
+  #     memory: 100Mi
+  image:
+    repository: quay.io/cdis/data-portal
+    tag: master
+
+requestor:
+  enabled: false
 
 revproxy:
+  enabled: true
   resources:
     requests:
       memory: "105Mi"
@@ -280,6 +331,7 @@ revproxy:
       group: devplanetv2-internal
 
 sheepdog:
+  enabled: true
   resources:
     requests:
       memory: "105Mi"
@@ -287,10 +339,14 @@ sheepdog:
   image:
     tag: master
 
-requestor:
-  enabled: true
+sower:
+  enabled: false
+
+ssjdispatcher:
+  enabled: false
 
 wts:
+  enabled: true
   image:
     tag: master
   resources:
@@ -316,15 +372,20 @@ postgresql:
       enabled: true
 
 fence:
+  enabled: true
   externalSecrets:
     createK8sFenceConfigSecret: false
-    createK8sJwtKeysSecret: true
-    createK8sGoogleAppSecrets: true
+    createK8sJwtKeysSecret: false
+    createK8sGoogleAppSecrets: false
+    fenceGoogleAppCredsSecret: ci-fence-google-app-creds-secret
+    fenceGoogleStorageCredsSecret: ci-fence-google-storage-creds-secret
     fenceConfig: "devplanetv2-generic-fence-config"
+    fenceJwtKeys: jian-jwt-fence
   usersync:
     usersync: true
     userYamlS3Path: s3://cdis-gen3-users/dev/user.yaml
   FENCE_CONFIG_PUBLIC:
+    BASE_URL: https://jian.planx-pla.net/user
     # Prefix to namespace Google Groups on a single Cloud Identity
     # This will be dynamically replaced by env_setup.sh script.
     GOOGLE_GROUP_PREFIX:
@@ -345,7 +406,7 @@ fence:
     # -- (bool) if true, will fake a successful login response from Google in /login/google
     # NOTE: this will also modify the behavior of /link/google endpoints
     # will login as the username set in cookie DEV_LOGIN_COOKIE_NAME
-    MOCK_GOOGLE_AUTH: true
+    MOCK_GOOGLE_AUTH: false
 
     # -- (str) the name of the cookie set by mock authentication (used for testing only)
     DEV_LOGIN_COOKIE_NAME: "dev_login"

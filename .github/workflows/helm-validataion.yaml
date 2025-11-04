@@ -1,0 +1,124 @@
+name: Lint and Test Charts
+
+on: pull_request
+
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: v3.10.0
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          check-latest: true
+
+      - name: Set up chart-testing
+        uses: helm/chart-testing-action@v2.7.0
+
+      - name: Validate Helm Templates for All Charts
+        run: |
+          # Find all chart directories containing a Chart.yaml file
+          find . -name 'Chart.yaml' | while read chart_yaml; do
+            chart_dir=$(dirname "$chart_yaml")  # Get the directory path of the chart
+            values_dir="$chart_dir/values"  # Assume a 'values' subdirectory for custom values files
+            echo "Processing chart directory: $chart_dir"
+
+            # Check if the values directory exists and contains any yaml files
+            if [ -d "$values_dir" ] && [ -n "$(ls $values_dir/*.yaml 2>/dev/null)" ]; then
+              values_args=""  # Initialize the string to hold the --values arguments
+              for values_file in $values_dir/*.yaml; do
+                echo "Including values file $values_file"
+                values_args+=" --values $values_file"
+              done
+              echo "Rendering chart $chart_dir with all values files"
+              helm template "$chart_dir" $values_args
+            else
+              echo "No values directory found or it is empty, rendering chart with default values"
+              helm template "$chart_dir"
+            fi
+          done
+
+      - name: Validate All aggMDS Configurations
+        run: |
+          # loop through each Helm chart directory
+          find . -name 'Chart.yaml' | while read chart_yaml; do
+          
+          chart_dir=$(dirname "$chart_yaml")  # Get the directory path of the chart
+          values_dir="$chart_dir/values"  # Assume a 'values' subdirectory for custom values files
+          echo "Processing chart directory: $chart_dir"
+
+          # Check if the values directory exists and contains any yaml files
+          if [ -d "$values_dir" ] && [ -n "$(ls $values_dir/values.yaml 2>/dev/null)" ]; then
+            values_args=""  # Initialize the string to hold the --values arguments
+            for values_file in $values_dir/*.yaml; do
+              mds_config=$(yq '.metadata.aggMdsConfig' "$values_file")
+              if [[ -n "$mds_config" && "$mds_config" != "null" ]]; then
+                if printf '%s' "$mds_config" | jq empty > /dev/null 2>&1; then
+                  echo "$values_file: JSON is valid"
+                else
+                  echo "$values_file: JSON is invalid"
+                  exit 1
+                fi
+              fi
+            done
+          fi
+          done
+
+      - name: Lint All Charts with Custom Values Files
+        run: |
+          # Find all directories containing a 'Chart.yaml', which indicates a helm chart directory
+          find . -type f -name 'Chart.yaml' | sed 's|/Chart.yaml||' | while read chart_dir; do
+            echo "Linting charts in $chart_dir"
+            # Check if the values directory exists
+            if [[ -d "$chart_dir/values" ]]; then
+              # If values directory exists, loop over each yaml file in the values directory
+              for values_file in $chart_dir/values/*.yaml; do
+                echo "Linting $chart_dir with values file $values_file"
+                helm lint "$chart_dir" --values "$values_file"
+              done
+            else
+              echo "No values directory found in $chart_dir, linting with default values"
+              helm lint "$chart_dir"
+            fi
+          done
+
+      - name: Validate app.yaml References to Values Files
+        run: |
+          # Loop through each Helm chart directory
+          find . -type f -name 'Chart.yaml' | sed 's|/Chart.yaml||' | while read chart_dir; do
+            echo "Checking $chart_dir/templates/app.yaml for references to values files in $chart_dir/values/"
+
+            # Check if the app.yaml file exists
+            if [[ -f "$chart_dir/templates/app.yaml" ]]; then
+              # Loop over each values file in the values directory
+              missing_references=""
+              for values_file in $chart_dir/values/*.yaml; do
+                values_filename=$(basename "$values_file")
+                # Check if values_filename is referenced in app.yaml
+                if ! grep -q "$values_filename" "$chart_dir/templates/app.yaml"; then
+                  missing_references="$missing_references $values_filename"
+                fi
+              done
+
+              # Print results
+              if [[ -n "$missing_references" ]]; then
+                echo "Missing references in $chart_dir/templates/app.yaml for:$missing_references"
+                exit 1
+              else
+                echo "All values files are correctly referenced in $chart_dir/templates/app.yaml"
+              fi
+            else
+              echo "No app.yaml found in $chart_dir/templates/; skipping..."
+            fi
+          done
+
+
