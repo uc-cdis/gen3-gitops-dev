@@ -72,11 +72,11 @@ aws-es-proxy:
     tag: v1.3.1
 
 dashboard:
+  enabled: false
   dashboardConfig:
     gitopsRepo: https://github.com/uc-cdis/gitops-qa
     bucket: dashboard-707767160287-qa-vpodc-gen3
     prefix: qa-vpodc.planx-pla.net
-  enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-statics
     tag: '2025.04'
@@ -636,7 +636,7 @@ peregrine:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/peregrine
     tag: '2025.04'
 portal:
-  enabled: true
+  enabled: false
   gitops:
     gen3Bundle: ecosystem
     json: |
