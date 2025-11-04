@@ -238,10 +238,15 @@ etl:
                   - name: therapeutic_agents
                   - name: diagnoses
 
-  # image:
-  # tube:
-  #repository: tube
-  # tag: master
+  image:
+    tube:
+      repository: quay.io/cdis/tube
+      pullPolicy: Always
+      tag: "test_debug"
+    spark:
+      repository: quay.io/cdis/gen3-spark
+      pullPolicy: IfNotPresent
+      tag: "master"
   esEndpoint: "gen3-elasticsearch-master"
 
 guppy:
