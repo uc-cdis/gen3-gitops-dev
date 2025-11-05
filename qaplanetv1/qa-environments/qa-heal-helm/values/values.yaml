@@ -36,7 +36,7 @@ cedar-wrapper:
     tag: 0.6.0
 dashboard:
   autoscaling:
-    enabled: true
+    enabled: false
     maxReplicas: 1
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
