@@ -88,8 +88,8 @@ gen3-workflow:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-workflow
     tag: chore_create_iam_role_for_worker_pods
   externalSecrets:
-    gen3workflowG3auto: "qa-midrc-test-gen3workflow-g3auto"
-    funnelOidcClient: "qa-midrc-test-funnel-oidc-client"
+    gen3workflowG3auto: "qa-midrc-helm-gen3workflow-g3auto"
+    funnelOidcClient: "qa-midrc-helm-funnel-oidc-client"
   workflowConfig:
     taskImageWhitelist: ['*']
   funnel:
