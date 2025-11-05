@@ -2324,7 +2324,7 @@ portal:
         "showFenceAuthzOnProfile": false,
         "showExternalLoginsOnProfile": true,
         "componentToResourceMapping": {},
-        "stridesPortalURL": "https://brh-test.planx-pla.net",
+        "stridesPortalURL": "https://heal-test.planx-pla.net",
         "registrationConfigs": {
           "features": {
             "studyRegistrationConfig": {
