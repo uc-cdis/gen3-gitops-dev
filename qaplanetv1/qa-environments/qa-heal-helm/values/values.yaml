@@ -354,7 +354,6 @@ manifestservice:
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/qaplanetv1--qa-heal-helm--manifest-service-sa
-metadata:
 peregrine:
   autoscaling:
     enabled: true
