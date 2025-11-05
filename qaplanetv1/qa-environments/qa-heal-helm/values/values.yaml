@@ -127,16 +127,22 @@ hatchery:
     stataG3auto: "qa-heal-stata-workspace-gen3-license"
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
-    tag: "2.5.0"
+    tag: "2.6.0"
   hatchery:
     json: |-
       {
+        "pricing": {
+          "cpu": 0.04048,
+          "memory": 0.004445
+        },
         "user-namespace": "jupyter-pods-qa-heal",
         "sub-dir": "/lw-workspace",
         "user-volume-size": "10Gi",
         "default-pay-model": {
           "workspace_type": "Trial Workspace",
-          "local": true
+          "local": true,
+          "hard-limit": 5,
+          "soft-limit": 4
         },
         "pay-models": [],
         "license-user-maps-dynamodb-table": "gen3-license-user-maps",
