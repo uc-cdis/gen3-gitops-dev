@@ -473,3 +473,4 @@ requestor:
   enabled: true
   postgres:
     dbCreate: true
+    bootstrap: true
