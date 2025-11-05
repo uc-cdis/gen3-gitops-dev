@@ -127,6 +127,7 @@ global:
   clusterName: devplanetv2
   externalSecrets:
     deploy: true
+    pushFunnelOidcClientToExternalSecrets: true
   hostname: qa-midrc.planx-pla.net
   manifestGlobalExtraValues:
     kube_bucket: kube-qaplanetv2-gen3
