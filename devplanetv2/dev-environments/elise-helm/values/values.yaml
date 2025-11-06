@@ -479,3 +479,6 @@ requestor:
   postgres:
     dbCreate: true
     bootstrap: true
+  externalSecrets:
+    createK8sAuditSecret: true
+    dbcreds: elise-requestor-cred-ps
