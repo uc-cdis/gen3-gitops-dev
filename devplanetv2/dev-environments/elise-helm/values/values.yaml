@@ -44,6 +44,7 @@ aws-es-proxy:
 metadata:
   externalSecrets:
     createK8sMetadataSecret: true
+    dbcreds: elise-metadata-creds
 hatchery:
   externalSecrets:
     createK8sStataSecret: true
@@ -54,6 +55,7 @@ indexd:
   enabled: true
   externalSecrets:
     createK8sServiceCredsSecret: true
+    dbcreds: elise-indexd-creds
 revproxy:
   enabled: true
   ingress:
@@ -65,6 +67,7 @@ wts:
   externalSecrets:
     createWtsOidcClientSecret: true
     createK8sWtsSecret: true
+    dbcreds: elise-wts-creds
 manifestservice:
   enabled: true
   externalSecrets:
@@ -72,12 +75,14 @@ manifestservice:
 audit:
   externalSecrets:
     createK8sAuditSecret: true
+    dbcreds: elise-audit-creds
 fence:
   externalSecrets:
     createK8sFenceConfigSecret: false
     createK8sJwtKeysSecret: true
     createK8sGoogleAppSecrets: true
     fenceConfig: "devplanetv2-generic-fence-config"
+    dbcreds: elise-fence-creds
   usersync:
     usersync: true
     userYamlS3Path: s3://cdis-gen3-users/dev/user.yaml
