@@ -10,7 +10,7 @@ global:
       enabled: true
       wafAclArn: "arn:aws:wafv2:us-east-1:707767160287:regional/webacl/devplanetv2-waf/30660590-f707-4ecf-aeae-ddfbe381f388"
   # Disabling local Elasticasearch and Postgres. 
-  dev: false
+  dev: true
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json
   dispatcherJobNum: "10"
   environment: devplanetv2
