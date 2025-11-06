@@ -2,7 +2,7 @@
 name: elise-helm
 
 # What branch of helm
-helmBranch: feat/GPE-2210
+helmBranch: master
 
 # What branch of gitops
-gitopsBranch: feat/GPE-2210
+gitopsBranch: master
