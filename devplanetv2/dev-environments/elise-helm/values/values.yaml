@@ -480,5 +480,8 @@ requestor:
     dbCreate: true
     bootstrap: true
   externalSecrets:
-    createK8sAuditSecret: true
     dbcreds: elise-requestor-cred-ps
+arborist:
+  enabled: true
+  externalSecrets:
+    dbcreds: elise-arborist-creds
