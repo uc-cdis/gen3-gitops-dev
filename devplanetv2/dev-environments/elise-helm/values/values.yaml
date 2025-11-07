@@ -42,9 +42,12 @@ aws-es-proxy:
   enabled: true
   esEndpoint: vpc-devplanetv2-gen3-metadata-2-xkwr2f3gbxua5mqqi7rhnat4la.us-east-1.es.amazonaws.com
 metadata:
+  postgres:
+    dbCreate: true
+    bootstrap: true
   externalSecrets:
     createK8sMetadataSecret: true
-    dbcreds: elise-metadata-creds
+    dbcreds: elise-metadata-creds-ps
 hatchery:
   externalSecrets:
     createK8sStataSecret: true
@@ -53,6 +56,8 @@ guppy:
   esEndpoint: http://elasticsearch:9200
 indexd:
   enabled: true
+  postgres:
+    dbCreate: true
   externalSecrets:
     createK8sServiceCredsSecret: true
     dbcreds: elise-indexd-creds
@@ -64,25 +69,34 @@ revproxy:
       group: devplanetv2-internal
 wts:
   enabled: true
+  postgres:
+    dbCreate: true
+    bootstrap: true
   externalSecrets:
     createWtsOidcClientSecret: true
     createK8sWtsSecret: true
-    dbcreds: elise-wts-creds
+    dbcreds: elise-wts-creds-ps
 manifestservice:
   enabled: true
   externalSecrets:
     createK8sManifestServiceSecret: true
 audit:
+  postgres:
+    dbCreate: true
+    bootstrap: true
   externalSecrets:
     createK8sAuditSecret: true
-    dbcreds: elise-audit-creds
+    dbcreds: elise-audit-creds-ps
 fence:
+  postgres:
+    dbCreate: true
+    bootstrap: true
   externalSecrets:
     createK8sFenceConfigSecret: false
     createK8sJwtKeysSecret: true
     createK8sGoogleAppSecrets: true
     fenceConfig: "devplanetv2-generic-fence-config"
-    dbcreds: elise-fence-creds
+    dbcreds: elise-fence-creds-ps
   usersync:
     usersync: true
     userYamlS3Path: s3://cdis-gen3-users/dev/user.yaml
@@ -483,9 +497,15 @@ requestor:
     dbcreds: elise-requestor-cred-ps
 arborist:
   enabled: true
+  postgres:
+    dbCreate: true
+    bootstrap: true
   externalSecrets:
-    dbcreds: elise-arborist-creds
+    dbcreds: elise-arborist-creds-ps
 sheepdog:
   enabled: true
+  postgres:
+    dbCreate: true
+    bootstrap: true
   externalSecrets:
-    dbcreds: elise-sheepdog-creds
+    dbcreds: elise-sheepdog-creds-ps
