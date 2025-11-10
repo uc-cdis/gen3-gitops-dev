@@ -503,6 +503,13 @@ arborist:
   externalSecrets:
     dbcreds: elise-arborist-creds-ps
     pushSecret: true
+peregrine:
+  enabled: true
+  postgres:
+    dbCreate: true
+  externalSecrets:
+    dbcreds: elise-peregrine-creds-ps
+    pushSecret: true
 sheepdog:
   enabled: true
   postgres:
