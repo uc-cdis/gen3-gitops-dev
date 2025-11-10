@@ -1,4 +1,5 @@
 ambassador:
+  jupyterNamespace: jupyter-pods-qa-brh
   enabled: true
   image:
     repository: quay.io/datawire/ambassador
