@@ -23,7 +23,7 @@ global:
     dbCreate: true
     externalSecret: "elise-devplanetv2-aurora-master-dbcreds"
     master:
-      host: "devplanetv2-aurora-cluster.cluster-cwvizkxhzjt8.us-east-1.rds.amazonaws.com"
+      host: "devplanetv2-aurora-cluster-new.cluster-cwvizkxhzjt8.us-east-1.rds.amazonaws.com"
   # This is the cert for *.dev.planx-pla.net
   revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/798e629d-05ee-4bc5-b51f-a86861f29b68
   crossplane:
