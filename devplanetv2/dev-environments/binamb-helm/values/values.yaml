@@ -68,7 +68,7 @@ datareplicate:
     enabled: true
     schedule: "*/30 * * * *"
     REGION: us-east-1
-    THREAD_COUNT: 3
+    THREAD_COUNT: 50
     MAX_RETRIES: 10
     MANIFEST_PATH: s3://test-data-replication-manifest/test_manifest_20251025_short.tsv
     JOB_QUEUE: binamb-planx-pla-net-bucket-replicate-jqhu_queue_job
@@ -311,8 +311,8 @@ hatchery:
   #   fenceJwtKeys: binamb-fence-jwt
 
 indexd:
-  useSingleTable: 'true'
   enabled: true
+  useSingleTable: 'true'
   externalSecrets:
     serviceCreds: binamb-indexd-service-creds
   image:
