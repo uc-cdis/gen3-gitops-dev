@@ -188,7 +188,7 @@ hatchery:
             },
             "args": [
               "--JupyterNotebookApp.base_url=/lw-workspace/proxy/",
-              "--JupyterNotebookApp.default_url=/lab",
+              "--JupyterNotebookApp.default_url=/lab/tree/heal-welcome.md",
               "--JupyterNotebookApp.password=''",
               "--JupyterNotebookApp.token=''",
               "--JupyterNotebookApp.ip='*'",
@@ -227,7 +227,7 @@ hatchery:
             },
             "args": [
               "--JupyterNotebookApp.base_url=/lw-workspace/proxy/",
-              "--JupyterNotebookApp.default_url=/lab/tree/heal-welcome.md",
+              "--JupyterNotebookApp.default_url=/lab/tree/welcome.html",
               "--JupyterNotebookApp.password=''",
               "--JupyterNotebookApp.token=''",
               "--JupyterNotebookApp.ip='*'",
