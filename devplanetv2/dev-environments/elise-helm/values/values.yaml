@@ -48,6 +48,7 @@ metadata:
   externalSecrets:
     createK8sMetadataSecret: true
     dbcreds: elise-metadata-creds-ps
+    pushSecret: true
 hatchery:
   externalSecrets:
     createK8sStataSecret: true
