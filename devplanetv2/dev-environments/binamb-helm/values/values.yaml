@@ -83,8 +83,8 @@ datareplicate:
     RELEASE: 42
     MANIFEST_FILE: s3://test-data-replication-manifest/delete_manifest.tsv
     IGNORED_FILE: s3://test-data-replication-manifest/ignored_files_manifest.csv
-    LOG_BUCKET: s3://test-data-replication-manifest/
-    ONLY_REDACT: all
+    LOG_BUCKET: test-data-replication-manifest
+    ONLY_REDACT: gs
 etl:
   esEndpoint: elasticsearch
   mappings:
