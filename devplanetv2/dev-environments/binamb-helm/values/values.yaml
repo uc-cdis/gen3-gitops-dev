@@ -79,7 +79,7 @@ datareplicate:
     suspendCronjob: true
     schedule: "*/30 * * * *"
     # Value Must be capitalized string value i.e. True, False
-    DRY_RUN: false
+    DRY_RUN: False
     RELEASE: 42
     MANIFEST_FILE: s3://test-data-replication-manifest/delete_manifest.tsv
     IGNORED_FILE: s3://test-data-replication-manifest/ignored_files_manifest.csv
