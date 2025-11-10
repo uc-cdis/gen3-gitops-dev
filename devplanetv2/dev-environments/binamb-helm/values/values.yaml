@@ -38,7 +38,7 @@ datareplicate:
   # -- (string) Docker repository.
     repository: quay.io/cdis/dcf-dataservice
     # -- (string) Overrides the image tag whose default is the chart appVersion.
-    tag: "master"
+    tag: "feat_add_param_for_redaction"
   # googleBucketReplicateJob:
   #   # -- (bool) Whether to enable the Google bucket replicate job
   #   enabled: true
@@ -74,6 +74,17 @@ datareplicate:
     JOB_QUEUE: binamb-planx-pla-net-bucket-replicate-jqhu_queue_job
     JOB_DEFINITION: binamb-planx-pla-net-bucket-replicate-jqhu-batch_job_definition
     OUTPUT_MANIFEST_BUCKET: test-data-replication-manifest
+  removeObjectsFromCloudsJob:
+    enabled: true
+    suspendCronjob: true
+    schedule: "*/30 * * * *"
+    # Value Must be capitalized string value i.e. True, False
+    DRY_RUN: false
+    RELEASE: 42
+    MANIFEST_FILE: s3://test-data-replication-manifest/delete_manifest.tsv
+    IGNORED_FILE: s3://test-data-replication-manifest/ignored_files_manifest.csv
+    LOG_BUCKET: s3://test-data-replication-manifest/
+    ONLY_REDACT: all
 etl:
   esEndpoint: elasticsearch
   mappings:
