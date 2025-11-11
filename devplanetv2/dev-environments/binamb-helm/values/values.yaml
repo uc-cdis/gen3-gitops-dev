@@ -39,43 +39,43 @@ datareplicate:
     repository: quay.io/cdis/dcf-dataservice
     # -- (string) Overrides the image tag whose default is the chart appVersion.
     tag: "master"
-  # googleBucketReplicateJob:
-  #   # -- (bool) Whether to enable the Google bucket replicate job
-  #   enabled: true
-  #   PROJECT: cdis-test-188416
-  #   MAX_WORKERS: 80
-  #   RELEASE: DR43
-  #   MANIFEST_FILE: gs://test-data-replication-manifest/GDC_only_3plusgig_open_active_manifest.tsv
-  #   IGNORED_FILE: gs://test-data-replication-manifest/ignored_files_manifest.csv
-  #   LOG_BUCKET: test-data-replication-manifest
-  # awsBucketReplicateJob:
-  #   enabled: true
-  #   schedule: "*/30 * * * *"
-  #   THREAD_NUM: 20
-  #   CHUNK_SIZE: 1
-  #   GDC_BUCKET_NAME: test-gdc-bucket
-  #   LOG_BUCKET: test-data-replication-manifest
-  #   RELEASE: DR43
-  #   QUICK_TEST: true
-  #   MANIFEST_FILE: s3://test-data-replication-manifest/test_manifest_20251025.tsv
-  #   resources:
-  #     requests:
-  #       cpu: "2"
-  #       memory: 128Mi
-  #     limits:
-  #       memory: 2Gi
+  googleBucketReplicateJob:
+    # -- (bool) Whether to enable the Google bucket replicate job
+    enabled: false
+    PROJECT: cdis-test-188416
+    MAX_WORKERS: 80
+    RELEASE: DR43
+    MANIFEST_FILE: gs://test-data-replication-manifest/GDC_only_3plusgig_open_active_manifest.tsv
+    IGNORED_FILE: gs://test-data-replication-manifest/ignored_files_manifest.csv
+    LOG_BUCKET: test-data-replication-manifest
+  awsBucketReplicateJob:
+    enabled: false
+    schedule: "*/30 * * * *"
+    THREAD_NUM: 20
+    CHUNK_SIZE: 1
+    GDC_BUCKET_NAME: test-gdc-bucket
+    LOG_BUCKET: test-data-replication-manifest
+    RELEASE: DR43
+    QUICK_TEST: true
+    MANIFEST_FILE: s3://test-data-replication-manifest/test_manifest_20251025.tsv
+    resources:
+      requests:
+        cpu: "2"
+        memory: 128Mi
+      limits:
+        memory: 2Gi
   awsBatchReplicateJob:
     enabled: true
     schedule: "*/30 * * * *"
     REGION: us-east-1
     THREAD_COUNT: 100
     MAX_RETRIES: 10
-    MANIFEST_PATH: s3://test-data-replication-manifest/test_manifest_20251025_short.tsv
+    MANIFEST_PATH: s3://test-data-replication-manifest/test_manifest_20251025.tsv
     JOB_QUEUE: binamb-planx-pla-net-bucket-replicate-jqhu_queue_job
     JOB_DEFINITION: binamb-planx-pla-net-bucket-replicate-jqhu-batch_job_definition
     OUTPUT_MANIFEST_BUCKET: test-data-replication-manifest
   removeObjectsFromCloudsJob:
-    enabled: true
+    enabled: false
     suspendCronjob: true
     schedule: "*/30 * * * *"
     # Value Must be capitalized string value i.e. True, False
