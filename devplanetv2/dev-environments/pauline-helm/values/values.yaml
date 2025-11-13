@@ -22,7 +22,7 @@ gen3-workflow:
     externalSecrets:
         gen3workflowG3auto: "gen3workflow-g3auto"
         funnelOidcClient: "funnel-oidc-client"
-    workflowConfig:
+    gen3WorkflowConfig:
         taskImageWhitelist: ['*']
     funnel:
         Kubernetes:
