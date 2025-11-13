@@ -22,12 +22,17 @@ gen3-workflow:
     externalSecrets:
         gen3workflowG3auto: "gen3workflow-g3auto"
         funnelOidcClient: "funnel-oidc-client"
+    workflowConfig:
+        taskImageWhitelist: ['*']
     funnel:
         Kubernetes:
             Namespace: pauline
             JobsNamespace: workflow-pods-pauline
         Plugins:
+            Path: plugin-binaries/auth-plugin
             Params:
+                OidcClientId: <redacted>
+                OidcClientSecret: <redacted>
                 S3Url: gen3-workflow-service.pauline-helm.svc.cluster.local
                 OidcTokenUrl: https://pauline.planx-pla.net/user
         Logger:
