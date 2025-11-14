@@ -225,6 +225,7 @@ etl:
         props:
           - name: type
           - name: submitter_id
+          - name: project_id
         nested_props:
           - name: case_diagnosis
             path: diagnoses
