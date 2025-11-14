@@ -236,7 +236,6 @@ etl:
                 path: treatments
                 props:
                   - name: therapeutic_agents
-                  - name: diagnoses
 
   image:
     tube:
