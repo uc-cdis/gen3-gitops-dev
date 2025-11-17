@@ -1,11 +1,6 @@
 ambassador:
   jupyterNamespace: jupyter-pods-qa-jcoin-helm
 arborist:
-  autoscaling:
-    enabled: true
-    maxReplicas: 1
-    minReplicas: 1
-    targetCPUUtilizationPercentage: 40
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/arborist
@@ -29,11 +24,6 @@ aws-es-proxy:
     tag: v1.3.1
   esEndpoint: vpc-devplanetv2-gen3-metadata-2-xkwr2f3gbxua5mqqi7rhnat4la.us-east-1.es.amazonaws.com
 dashboard:
-  autoscaling:
-    enabled: true
-    maxReplicas: 1
-    minReplicas: 1
-    targetCPUUtilizationPercentage: 40
   dashboardConfig:
     bucket: dashboard-707767160287-qa-jcoin-gen3
     prefix: qa-jcoin.planx-pla.net
@@ -147,11 +137,6 @@ fence:
   usersync:
     usersync: true
     userYamlS3Path: s3://cdis-gen3-users/qa-jcoin/user.yaml
-  autoscaling:
-    enabled: true
-    maxReplicas: 1
-    minReplicas: 1
-    targetCPUUtilizationPercentage: 40
   enabled: true
   externalSecrets:
     createK8sGoogleAppSecrets: true
@@ -198,11 +183,6 @@ global:
   revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/520ede2f-fc82-4bb9-af96-4b4af7deabbd
 guppy:
   authFilterField: auth_resource_path
-  autoscaling:
-    enabled: true
-    maxReplicas: 1
-    minReplicas: 1
-    targetCPUUtilizationPercentage: 40
   configIndex: jcoin_array-config
   enabled: true
   esEndpoint: http://elasticsearch:9200
@@ -403,11 +383,6 @@ hatchery:
         ]
       }
 indexd:
-  autoscaling:
-    enabled: true
-    maxReplicas: 1
-    minReplicas: 1
-    targetCPUUtilizationPercentage: 40
   enabled: true
   externalSecrets:
     serviceCreds: qa-jcoin-indexd-service-creds
@@ -426,11 +401,6 @@ manifestservice:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--qa-jcoin-helm--manifest-service-sa
 metadata:
-  autoscaling:
-    enabled: true
-    maxReplicas: 1
-    minReplicas: 1
-    targetCPUUtilizationPercentage: 40
   enabled: true
   esEndpoint: http://elasticsearch:9200
   externalSecrets:
@@ -440,21 +410,11 @@ metadata:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
     tag: "2025.10"
 peregrine:
-  autoscaling:
-    enabled: true
-    maxReplicas: 1
-    minReplicas: 1
-    targetCPUUtilizationPercentage: 40
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/peregrine
     tag: "2025.10"
 portal:
-  autoscaling:
-    enabled: true
-    maxReplicas: 1
-    minReplicas: 1
-    targetCPUUtilizationPercentage: 40
   enabled: true
   gitops:
     css: |
@@ -1117,11 +1077,6 @@ portal:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/data-portal
     tag: "2025.10"
 revproxy:
-  autoscaling:
-    enabled: true
-    maxReplicas: 1
-    minReplicas: 1
-    targetCPUUtilizationPercentage: 40
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/nginx
@@ -1131,11 +1086,6 @@ revproxy:
       group: devplanetv2
       sslPolicy: ELBSecurityPolicy-TLS13-1-2-FIPS-2023-04
 sheepdog:
-  autoscaling:
-    enabled: true
-    maxReplicas: 1
-    minReplicas: 1
-    targetCPUUtilizationPercentage: 40
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sheepdog
