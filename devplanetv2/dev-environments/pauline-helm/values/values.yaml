@@ -61,7 +61,7 @@ requestor:
     enabled: false
 
 sheepdog:
-    enabled: false
+    enabled: true
 
 tube:
     enabled: false
