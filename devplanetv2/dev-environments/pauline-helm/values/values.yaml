@@ -24,6 +24,7 @@ gen3-workflow:
         funnelOidcClient: "funnel-oidc-client"
     gen3WorkflowConfig:
         taskImageWhitelist: ['*']
+        kmsEncryptionEnabled: false
     funnel:
         Kubernetes:
             Namespace: pauline
