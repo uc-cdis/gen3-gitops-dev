@@ -204,15 +204,26 @@ hatchery:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
-    tag: "chore_remove-stata-license-from-mount-file"
+    tag: "2.6.0"
   hatchery:
     json: |-
       {
+        "pricing": {
+          "cpu": 0.04048,
+          "memory": 0.004445
+        },
         "user-namespace": "jupyter-pods-qa-jcoin-helm",
         "sub-dir": "/lw-workspace",
         "user-volume-size": "10Gi",
+        "default-pay-model": {
+          "workspace_type": "Trial Workspace",
+          "local": true,
+          "hard-limit": 5,
+          "soft-limit": 4
+        },
         "license-user-maps-dynamodb-table": "gen3-license-user-maps-qa-jcoin",
         "license-user-maps-global-secondary-index": "activeUsersIndex",
+        "pay-models-dynamodb-table": "bmh-admin-portal-backend-bmhworkspacetableD4D73E43-YW38KIIL5PE4",
         "sidecar": {
           "cpu-limit": "1.0",
           "memory-limit": "256Mi",
