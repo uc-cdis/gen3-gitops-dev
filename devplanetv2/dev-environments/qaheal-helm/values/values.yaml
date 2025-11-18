@@ -22,10 +22,10 @@ audit:
     tag: "2025.10"
   serviceAccount:
     annotations:
-      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/qaplanetv1--qaheal-helm--audit-sqs-receiver
+      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--qaheal-helm--audit-sqs-receiver
 aws-es-proxy:
   enabled: true
-  esEndpoint: vpc-qaplanetv1-gen3-metadata-2-cc5qzn3vbdblqmfesaizimczpi.us-east-1.es.amazonaws.com
+  esEndpoint: vpc-devplanetv2-gen3-metadata-2-xkwr2f3gbxua5mqqi7rhnat4la.us-east-1.es.amazonaws.com
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/aws-es-proxy
     tag: v1.3.1
@@ -50,7 +50,7 @@ dashboard:
     tag: "2025.10"
   serviceAccount:
     annotations:
-      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/qaplanetv1--qaheal-helm--dashboard-access
+      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--qaheal-helm--dashboard-access
 etl:
   esEndpoint: elasticsearch
 fence:
@@ -95,19 +95,19 @@ global:
     accountId: "707767160287"
   aws:
     account: "707767160287"
-    awsEsProxyRole: qaplanetv1--qaheal-helm--es-access
+    awsEsProxyRole: devplanetv2--qaheal-helm--es-access
     enabled: true
-    hatchery_role: qaplanetv1--qaheal-helm--hatchery-sa
+    hatchery_role: devplanetv2--qaheal-helm--hatchery-sa
     secretStoreServiceAccount:
       enabled: true
       roleArn: arn:aws:iam::707767160287:role/qaheal-external-secrets-sa
     wafv2:
       enabled: true
-      wafAclArn: "arn:aws:wafv2:us-east-1:707767160287:regional/webacl/qaplanetv1-waf/c05150c9-4200-4a0e-8a46-3856379b12bc"
+      wafAclArn: "arn:aws:wafv2:us-east-1:707767160287:regional/webacl/devplanetv2-waf/30660590-f707-4ecf-aeae-ddfbe381f388"
   dev: false
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/heal_dictionary/1.1.0/schema.json
   dispatcherJobNum: "10"
-  environment: qaplanetv1
+  environment: devplanetv2
   externalSecrets:
     deploy: true
   frontendRoot: gen3ff
@@ -146,7 +146,7 @@ hatchery:
         },
         "pay-models": [],
         "pay-models-dynamodb-table": "bmh-admin-portal-backend-bmhworkspacetableD4D73E43-BAFEMVG0IMKE",
-        "pay-models-dynamodb-arn": "arn:aws:iam::840048274993:role/qaplanetv1-sa-permissions",
+        "pay-models-dynamodb-arn": "arn:aws:iam::840048274993:role/devplanetv2-sa-permissions",
         "license-user-maps-dynamodb-table": "gen3-license-user-maps",
         "license-user-maps-global-secondary-index": "activeUsersIndex",
         "s3-config": {
@@ -1446,7 +1446,7 @@ manifestservice:
     tag: "2025.10"
   serviceAccount:
     annotations:
-      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/qaplanetv1--qaheal-helm--manifest-service-sa
+      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--qaheal-helm--manifest-service-sa
 peregrine:
   autoscaling:
     enabled: true
