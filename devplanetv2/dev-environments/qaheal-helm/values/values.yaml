@@ -1,8 +1,8 @@
 ambassador:
-  jupyterNamespace: jupyter-pods-qa-heal
+  jupyterNamespace: jupyter-pods-qaheal
 arborist:
   externalSecrets:
-    dbcreds: qa-heal-arborist-creds
+    dbcreds: qaheal-arborist-creds
   autoscaling:
     enabled: true
     maxReplicas: 1
@@ -15,14 +15,14 @@ arborist:
 audit:
   enabled: true
   externalSecrets:
-    auditG3auto: qa-heal-audit-g3auto
-    dbcreds: qa-heal-audit-creds
+    auditG3auto: qaheal-audit-g3auto
+    dbcreds: qaheal-audit-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/audit-service
     tag: "2025.10"
   serviceAccount:
     annotations:
-      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/qaplanetv1--qa-heal-helm--audit-sqs-receiver
+      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/qaplanetv1--qaheal-helm--audit-sqs-receiver
 aws-es-proxy:
   enabled: true
   esEndpoint: vpc-qaplanetv1-gen3-metadata-2-cc5qzn3vbdblqmfesaizimczpi.us-east-1.es.amazonaws.com
@@ -50,7 +50,7 @@ dashboard:
     tag: "2025.10"
   serviceAccount:
     annotations:
-      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/qaplanetv1--qa-heal-helm--dashboard-access
+      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/qaplanetv1--qaheal-helm--dashboard-access
 etl:
   esEndpoint: elasticsearch
 fence:
@@ -65,11 +65,11 @@ fence:
   enabled: true
   externalSecrets:
     createK8sGoogleAppSecrets: false
-    fenceConfig: qa-heal-fence-config
-    fenceGoogleAppCredsSecret: qa-heal-fence-google-app-creds
-    fenceGoogleStorageCredsSecret: qa-heal-fence-google-storage-creds
-    fenceJwtKeys: qa-heal-fence-jwt
-    dbcreds: qa-heal-fence-creds
+    fenceConfig: qaheal-fence-config
+    fenceGoogleAppCredsSecret: qaheal-fence-google-app-creds
+    fenceGoogleStorageCredsSecret: qaheal-fence-google-storage-creds
+    fenceJwtKeys: qaheal-fence-jwt
+    dbcreds: qaheal-fence-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
     tag: "chore_add-hide-idps"
@@ -95,12 +95,12 @@ global:
     accountId: "707767160287"
   aws:
     account: "707767160287"
-    awsEsProxyRole: qaplanetv1--qa-heal-helm--es-access
+    awsEsProxyRole: qaplanetv1--qaheal-helm--es-access
     enabled: true
-    hatchery_role: qaplanetv1--qa-heal-helm--hatchery-sa
+    hatchery_role: qaplanetv1--qaheal-helm--hatchery-sa
     secretStoreServiceAccount:
       enabled: true
-      roleArn: arn:aws:iam::707767160287:role/qa-heal-external-secrets-sa
+      roleArn: arn:aws:iam::707767160287:role/qaheal-external-secrets-sa
     wafv2:
       enabled: true
       wafAclArn: "arn:aws:wafv2:us-east-1:707767160287:regional/webacl/qaplanetv1-waf/c05150c9-4200-4a0e-8a46-3856379b12bc"
@@ -124,7 +124,7 @@ global:
 hatchery:
   enabled: true
   externalSecrets:
-    stataG3auto: "qa-heal-stata-workspace-gen3-license"
+    stataG3auto: "qaheal-stata-workspace-gen3-license"
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
     tag: "2.6.0"
@@ -135,7 +135,7 @@ hatchery:
           "cpu": 0.04048,
           "memory": 0.004445
         },
-        "user-namespace": "jupyter-pods-qa-heal",
+        "user-namespace": "jupyter-pods-qaheal",
         "sub-dir": "/lw-workspace",
         "user-volume-size": "10Gi",
         "default-pay-model": {
@@ -159,7 +159,7 @@ hatchery:
           "memory-limit": "256Mi",
           "image": "quay.io/cdis/ecs-ws-sidecar:0.3.0",
           "env": {
-            "NAMESPACE": "qa-heal-helm",
+            "NAMESPACE": "qaheal-helm",
             "USER_UID": "1010"
           },
           "args": [],
@@ -347,8 +347,8 @@ indexd:
     targetCPUUtilizationPercentage: 40
   enabled: true
   externalSecrets:
-    serviceCreds: qa-heal-indexd-service-creds
-    dbcreds: qa-heal-indexd-creds
+    serviceCreds: qaheal-indexd-service-creds
+    dbcreds: qaheal-indexd-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexd
     tag: "2025.10"
@@ -1420,7 +1420,7 @@ metadata:
         }
     }
   aggMdsDefaultDataDictField: variable_level_metadata
-  aggMdsNamespace: qa-heal
+  aggMdsNamespace: qaheal-helm
   autoscaling:
     enabled: true
     maxReplicas: 1
@@ -1429,8 +1429,8 @@ metadata:
   enabled: true
   esEndpoint: http://elasticsearch:9200
   externalSecrets:
-    metadataG3auto: qa-heal-metadata-g3auto
-    dbcreds: qa-heal-metadata-creds
+    metadataG3auto: qaheal-metadata-g3auto
+    dbcreds: qaheal-metadata-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
     tag: "2025.10"
@@ -1440,13 +1440,13 @@ metadata:
 manifestservice:
   enabled: true
   externalSecrets:
-    manifestserviceG3auto: qa-heal-manifestservice-g3auto
+    manifestserviceG3auto: qaheal-manifestservice-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/manifestservice
     tag: "2025.10"
   serviceAccount:
     annotations:
-      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/qaplanetv1--qa-heal-helm--manifest-service-sa
+      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/qaplanetv1--qaheal-helm--manifest-service-sa
 peregrine:
   autoscaling:
     enabled: true
@@ -1458,7 +1458,7 @@ peregrine:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/peregrine
     tag: "2025.10"
   externalSecrets:
-    dbcreds: qa-heal-peregrine-creds
+    dbcreds: qaheal-peregrine-creds
 portal:
   autoscaling:
     enabled: true
@@ -2412,7 +2412,7 @@ requestor:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/requestor
     tag: "2025.10"
   externalSecrets:
-    dbcreds: qa-heal-requestor-creds
+    dbcreds: qaheal-requestor-creds
 revproxy:
   autoscaling:
     enabled: true
@@ -2425,7 +2425,7 @@ revproxy:
     tag: "2025.10"
   ingress:
     aws:
-      group: qa-heal-helm
+      group: qaheal-helm
 sheepdog:
   autoscaling:
     enabled: true
@@ -2437,15 +2437,15 @@ sheepdog:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sheepdog
     tag: "2025.10"
   externalSecrets:
-    dbcreds: qa-heal-sheepdog-creds
+    dbcreds: qaheal-sheepdog-creds
 sower:
   enabled: true
   serviceAccount:
     # -- (bool) Specifies whether a service account should be created.
     create: true
   externalSecrets:
-    pelicanserviceG3auto: qa-heal-pelicanservice-g3auto
-    sowerjobsG3auto: qa-heal-sower-jobs-g3auto
+    pelicanserviceG3auto: qaheal-pelicanservice-g3auto
+    sowerjobsG3auto: qaheal-sower-jobs-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sower
     tag: "2025.10"
@@ -2474,7 +2474,7 @@ sower:
 ssjdispatcher:
   enabled: true
   externalSecrets:
-    credsFile: qa-heal-ssjdispatcher-creds
+    credsFile: qaheal-ssjdispatcher-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ssjdispatcher
     tag: "2025.10"
@@ -2482,10 +2482,10 @@ ssjdispatcher:
 wts:
   enabled: true
   externalSecrets:
-    wtsG3auto: qa-heal-wts-g3auto
-    wtsOidcClient: qa-heal-wts-client-secret
+    wtsG3auto: qaheal-wts-g3auto
+    wtsOidcClient: qaheal-wts-client-secret
     createWtsOidcClientSecret: false
-    dbcreds: qa-heal-wts-creds
+    dbcreds: qaheal-wts-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/workspace-token-service
     tag: "2025.10"
