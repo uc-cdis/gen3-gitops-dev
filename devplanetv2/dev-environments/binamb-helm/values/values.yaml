@@ -75,7 +75,7 @@ datareplicate:
     REGION: us-east-1
     THREAD_COUNT: 100
     MAX_RETRIES: 10
-    MANIFEST_PATH: s3://test-data-replication-manifest/test_manifest_20251025_short.tsv
+    MANIFEST_PATH: s3://test-data-replication-manifest/test_manifest_20251025.tsv
     JOB_QUEUE: binamb-planx-pla-net-bucket-replicate-jqhu_queue_job
     JOB_DEFINITION: binamb-planx-pla-net-bucket-replicate-jqhu-batch_job_definition
     OUTPUT_MANIFEST_BUCKET: test-data-replication-manifest
