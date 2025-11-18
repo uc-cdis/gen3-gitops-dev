@@ -16,14 +16,15 @@ global:
   environment: devplanetv2
   externalSecrets:
     deploy: true
-    dbCreate: true
+    dbCreate: false
+    pushSecret: false
   hostname: elise.dev.planx-pla.net
   portalApp: gitops
   postgres:
     dbCreate: true
-    externalSecret: "devplanetv2-aurora-master-dbcreds"
+    externalSecret: "elise-devplanetv2-aurora-master-dbcreds"
     master:
-      host: "devplanetv2-aurora-cluster.cluster-cwvizkxhzjt8.us-east-1.rds.amazonaws.com"
+      host: "devplanetv2-aurora-cluster-new.cluster-cwvizkxhzjt8.us-east-1.rds.amazonaws.com"
   # This is the cert for *.dev.planx-pla.net
   revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/798e629d-05ee-4bc5-b51f-a86861f29b68
   crossplane:
@@ -42,8 +43,12 @@ aws-es-proxy:
   enabled: true
   esEndpoint: vpc-devplanetv2-gen3-metadata-2-xkwr2f3gbxua5mqqi7rhnat4la.us-east-1.es.amazonaws.com
 metadata:
+  postgres:
+    dbCreate: true
   externalSecrets:
     createK8sMetadataSecret: true
+    dbcreds: elise-metadata-creds-ps
+    pushSecret: true
 hatchery:
   externalSecrets:
     createK8sStataSecret: true
@@ -52,8 +57,11 @@ guppy:
   esEndpoint: http://elasticsearch:9200
 indexd:
   enabled: true
+  postgres:
+    dbCreate: true
   externalSecrets:
     createK8sServiceCredsSecret: true
+    dbcreds: elise-indexd-creds
 revproxy:
   enabled: true
   ingress:
@@ -62,22 +70,34 @@ revproxy:
       group: devplanetv2-internal
 wts:
   enabled: true
+  postgres:
+    dbCreate: true
   externalSecrets:
     createWtsOidcClientSecret: true
     createK8sWtsSecret: true
+    pushSecret: true
+    dbcreds: elise-wts-creds-ps
 manifestservice:
   enabled: true
   externalSecrets:
     createK8sManifestServiceSecret: true
 audit:
+  postgres:
+    dbCreate: true
   externalSecrets:
     createK8sAuditSecret: true
+    dbcreds: elise-audit-creds-ps
+    pushSecret: true
 fence:
+  postgres:
+    dbCreate: true
   externalSecrets:
     createK8sFenceConfigSecret: false
     createK8sJwtKeysSecret: true
     createK8sGoogleAppSecrets: true
     fenceConfig: "devplanetv2-generic-fence-config"
+    dbcreds: elise-fence-creds-ps
+    pushSecret: true
   usersync:
     usersync: true
     userYamlS3Path: s3://cdis-gen3-users/dev/user.yaml
@@ -468,3 +488,32 @@ fence:
       visa_types:
         ras: ["https://ras.nih.gov/visas/v1", "https://ras.nih.gov/visas/v1.1"]
     RAS_USERINFO_ENDPOINT: "/openid/connect/v1.1/userinfo"
+
+requestor:
+  enabled: true
+  postgres:
+    dbCreate: true
+  externalSecrets:
+    dbcreds: elise-requestor-cred-ps
+    pushSecret: true
+arborist:
+  enabled: true
+  postgres:
+    dbCreate: true
+  externalSecrets:
+    dbcreds: elise-arborist-creds-ps
+    pushSecret: true
+peregrine:
+  enabled: true
+  postgres:
+    dbCreate: true
+  externalSecrets:
+    dbcreds: elise-peregrine-creds-ps
+    pushSecret: true
+sheepdog:
+  enabled: true
+  postgres:
+    dbCreate: true
+  externalSecrets:
+    dbcreds: elise-sheepdog-creds-ps
+    pushSecret: true
