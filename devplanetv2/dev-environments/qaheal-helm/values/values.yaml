@@ -100,7 +100,7 @@ global:
     hatchery_role: devplanetv2--qaheal-helm--hatchery-sa
     secretStoreServiceAccount:
       enabled: true
-      roleArn: arn:aws:iam::707767160287:role/qaheal-external-secrets-sa
+      roleArn: arn:aws:iam::707767160287:role/devplanetv2-external-secrets-sa
     wafv2:
       enabled: true
       wafAclArn: "arn:aws:wafv2:us-east-1:707767160287:regional/webacl/devplanetv2-waf/30660590-f707-4ecf-aeae-ddfbe381f388"
