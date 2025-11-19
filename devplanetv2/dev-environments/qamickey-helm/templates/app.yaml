@@ -14,7 +14,7 @@ spec:
       helm:
         releaseName: {{ .Values.Name }}
         valueFiles:
-          - $values/qaplanetv1/qa-environments/{{ .Values.name }}/values/values.yaml
+          - $values/devplanetv2/dev-environments/{{ .Values.name }}/values/values.yaml
     - repoURL: 'https://github.com/uc-cdis/gen3-gitops-dev.git'
       targetRevision: {{ .Values.gitopsBranch }}
       ref: values
