@@ -237,7 +237,20 @@ etl:
                 path: treatments
                 props:
                   - name: therapeutic_agents
-
+          - name: case_sample
+            path: samples
+            props:
+              - name: biospecimen_anatomic_site
+            nested_props:
+              - name: sample_slide
+                path: slides
+                props:
+                  - name: apoptotic_concentration
+                nested_props:
+                  - name: slide_slide_image
+                    path: slide_images
+                    props:
+                      - name: consent_codes
   image:
     tube:
       repository: quay.io/cdis/tube
