@@ -3,7 +3,7 @@ ambassador:
   image:
     repository: quay.io/datawire/ambassador
     tag: 1.14.4
-  jupyterNamespace: "jupyter-pods-qa-mickey"
+  jupyterNamespace: "jupyter-pods-qamickey"
 arborist:
   autoscaling:
     enabled: false
@@ -25,11 +25,11 @@ argo-wrapper:
       aprokh@uchicago.edu: "{{workflow.name}}"
   s3Bucket: second-argo-bucket
   internalS3Bucket: gen3-argo-707767160287-devplanetv1
-  environment: qa-mickey-helm
+  environment: qamickey-helm
 audit:
   enabled: true
   externalSecrets:
-    auditG3auto: qa-mickey-audit-g3auto
+    auditG3auto: qamickey-audit-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/audit-service
     tag: "2025.04"
@@ -41,7 +41,7 @@ awshelper:
 cohort-middleware:
   enabled: true
   externalSecrets:
-    cohortMiddlewareG3Auto: qa-mickey-cohort-middleware-g3auto
+    cohortMiddlewareG3Auto: qamickey-cohort-middleware-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/cohort-middleware
     tag: master
@@ -59,7 +59,7 @@ dashboard:
     tag: "2025.04"
   serviceAccount:
     annotations:
-      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/gen3_service/qaplanetv1--qa-mickey--dashboard
+      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/gen3_service/devplanetv2--qamickey--dashboard
 fence:
   usersync:
     usersync: true
@@ -71,10 +71,10 @@ fence:
   enabled: true
   externalSecrets:
     createK8sGoogleAppSecrets: false
-    fenceConfig: qa-mickey-fence-config
-    fenceGoogleAppCredsSecret: qa-mickey-fence-google-app-creds
-    fenceGoogleStorageCredsSecret: qa-mickey-fence-google-storage-creds
-    fenceJwtKeys: qa-mickey-fence-jwt
+    fenceConfig: qamickey-fence-config
+    fenceGoogleAppCredsSecret: qamickey-fence-google-app-creds
+    fenceGoogleStorageCredsSecret: qamickey-fence-google-storage-creds
+    fenceJwtKeys: qamickey-fence-jwt
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
     tag: master
@@ -96,10 +96,10 @@ global:
     enabled: true
     secretStoreServiceAccount:
       enabled: true
-      roleArn: arn:aws:iam::707767160287:role/qaplanetv1-external-secrets-sa
+      roleArn: arn:aws:iam::707767160287:role/devplanetv2-external-secrets-sa
     wafv2:
       enabled: true
-      wafAclArn: "arn:aws:wafv2:us-east-1:707767160287:regional/webacl/qaplanetv1-waf/c05150c9-4200-4a0e-8a46-3856379b12bc"
+      wafAclArn: "arn:aws:wafv2:us-east-1:707767160287:regional/webacl/devplanetv2-waf/30660590-f707-4ecf-aeae-ddfbe381f388"
   dev: false
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/vadictionary/0.4.2/schema.json
   dispatcherJobNum: "10"
@@ -135,7 +135,7 @@ hatchery:
   hatchery:
     json: |-
       {
-          "user-namespace": "jupyter-pods-qa-mickey",
+          "user-namespace": "jupyter-pods-qamickey",
           "sub-dir": "/lw-workspace",
           "user-volume-size": "10Gi",
           "sidecar": {
@@ -143,7 +143,7 @@ hatchery:
               "memory-limit": "1Gi",
               "image": "quay.io/cdis/gen3fuse-sidecar:0.2.3",
               "env": {
-                  "NAMESPACE": "qa-mickey",
+                  "NAMESPACE": "qamickey-helm",
                   "HOSTNAME": "qa-mickey.planx-pla.net"
               },
               "args": [],
@@ -183,7 +183,7 @@ hatchery:
                   "name": "Jupyter Notebook Bio Python",
                   "image": "quay.io/cdis/jupyter-superslim-r:2.0.1",
                   "env": {
-                      "NAMESPACE": "qa-mickey"
+                      "NAMESPACE": "qamickey-helm"
                   },
                   "args": [
                       "--NotebookApp.base_url=/lw-workspace/proxy/",
@@ -213,7 +213,7 @@ hatchery:
                   "name": "Jupyter Notebook Bio Python (Lab Edition)",
                   "image": "quay.io/cdis/jupyter-superslim-r:2.0.1",
                   "env": {
-                      "NAMESPACE": "qa-mickey",
+                      "NAMESPACE": "qamickey-helm",
                       "FRAME_ANCESTORS": "https://qa-mickey.planx-pla.net"
                   },
                   "args": [
@@ -254,14 +254,14 @@ indexd:
   replicaCount: 2
   enabled: true
   externalSecrets:
-    serviceCreds: qa-mickey-indexd-service-creds
+    serviceCreds: qamickey-indexd-service-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexd
     tag: "2025.04"
 manifestservice:
   enabled: true
   externalSecrets:
-    manifestserviceG3auto: qa-mickey-manifestservice-g3auto
+    manifestserviceG3auto: qamickey-manifestservice-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/manifestservice
     tag: "2025.04"
@@ -272,7 +272,7 @@ metadata:
   replicaCount: 2
   enabled: true
   externalSecrets:
-    metadataG3auto: qa-mickey-metadata-g3auto
+    metadataG3auto: qamickey-metadata-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
     tag: "2025.04"
@@ -432,7 +432,7 @@ revproxy:
     tag: "2025.04"
   ingress:
     aws:
-      group: qaplanetv1
+      group: devplanetv2
       sslPolicy: ELBSecurityPolicy-TLS13-1-2-FIPS-2023-04
 sheepdog:
   autoscaling:
@@ -446,7 +446,7 @@ sheepdog:
 ssjdispatcher:
   enabled: true
   externalSecrets:
-    credsFile: qa-mickey-ssjdispatcher-creds
+    credsFile: qamickey-ssjdispatcher-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ssjdispatcher
     tag: "2025.04"
@@ -454,9 +454,9 @@ ssjdispatcher:
 wts:
   enabled: true
   externalSecrets:
-    wtsG3auto: qa-mickey-wts-g3auto
+    wtsG3auto: qamickey-wts-g3auto
     createWtsOidcClientSecret: false
-    wtsOidcClient: qa-mickey-wts-client-secret
+    wtsOidcClient: qamickey-wts-client-secret
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/workspace-token-service
     tag: "2025.04"
