@@ -62,13 +62,14 @@ gen3-workflow:
                 claimRef:
                   namespace: {{.Namespace}}
                   name: funnel-worker-pvc-{{.TaskId}}
-                Plugins:
-                    Path: plugin-binaries/auth-plugin
-                    Params:
-                        OidcClientId: <redacted>
-                        OidcClientSecret: <redacted>
-                        S3Url: gen3-workflow-service.pauline-helm.svc.cluster.local
-                        OidcTokenUrl: https://pauline.planx-pla.net/user
+        Plugins:
+            Path: plugin-binaries/auth-plugin
+            Params:
+                OidcClientId: <redacted>
+                OidcClientSecret: <redacted>
+                S3Url: gen3-workflow-service.pauline-helm.svc.cluster.local
+                OidcTokenUrl: https://pauline.planx-pla.net/user
+                        
         Logger:
             Level: info
 
