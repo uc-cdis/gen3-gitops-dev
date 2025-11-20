@@ -23,6 +23,7 @@ gen3-workflow:
         gen3workflowG3auto: "gen3workflow-g3auto"
         funnelOidcClient: "funnel-oidc-client"
     gen3WorkflowConfig:
+        debug: true
         taskImageWhitelist: ['*']
         kmsEncryptionEnabled: false
     funnel:
