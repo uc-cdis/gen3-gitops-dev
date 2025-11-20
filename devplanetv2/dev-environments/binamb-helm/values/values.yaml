@@ -71,6 +71,7 @@ datareplicate:
     MANIFEST_FILE: s3://test-data-replication-manifest/test_manifest_20251025.tsv
   awsBatchReplicateJob:
     enabled: true
+    namespace: binamb-helm
     schedule: "*/30 * * * *"
     REGION: us-east-1
     THREAD_COUNT: 100
