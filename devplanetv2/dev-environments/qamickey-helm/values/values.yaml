@@ -25,7 +25,7 @@ argo-wrapper:
       aprokh@uchicago.edu: "{{workflow.name}}"
   s3Bucket: second-argo-bucket
   internalS3Bucket: gen3-argo-707767160287-devplanetv1
-  environment: qamickey-helm
+  environment: devplanetv2
 audit:
   enabled: true
   externalSecrets:
