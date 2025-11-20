@@ -43,7 +43,7 @@ datareplicate:
     # -- (map) The amount of resources that the container requests
     requests:
       # -- (string) The amount of CPU requested
-      cpu: "2"
+      cpu: "8"
       # -- (string) The amount of memory requested
       memory: 512Mi
     # -- (map) The maximum amount of resources that the container is allowed to use
@@ -73,7 +73,7 @@ datareplicate:
     enabled: true
     schedule: "*/30 * * * *"
     REGION: us-east-1
-    THREAD_COUNT: 3
+    THREAD_COUNT: 100
     MAX_RETRIES: 10
     MANIFEST_PATH: s3://test-data-replication-manifest/test_manifest_20251025.tsv
     JOB_QUEUE: binamb-planx-pla-net-bucket-replicate-jqhu_queue_job
