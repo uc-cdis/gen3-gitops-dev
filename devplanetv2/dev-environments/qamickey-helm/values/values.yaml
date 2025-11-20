@@ -103,7 +103,7 @@ global:
   dev: false
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/vadictionary/0.4.2/schema.json
   dispatcherJobNum: "10"
-  environment: qa-mickey
+  environment: qamickey
   pdb: true
   externalSecrets:
     deploy: true
