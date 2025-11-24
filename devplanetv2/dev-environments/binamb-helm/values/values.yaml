@@ -60,7 +60,7 @@ datareplicate:
     IGNORED_FILE: gs://test-data-replication-manifest/ignored_files_manifest.csv
     LOG_BUCKET: test-data-replication-manifest
   awsBucketReplicateJob:
-    enabled: false
+    enabled: true
     schedule: "*/30 * * * *"
     THREAD_NUM: 20
     CHUNK_SIZE: 1
