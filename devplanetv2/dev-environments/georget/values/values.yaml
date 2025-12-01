@@ -26,11 +26,11 @@ aws-es-proxy:
     image:
         repository: quay.io/cdis/aws-es-proxy
         tag: v1.3.1
-cedar-wrapper:
+cedar:
     enabled: true
     image:
         repository: quay.io/cdis/cedar-wrapper-service
-        tag: 0.6.0
+        tag: feat_python3.13
 dashboard:
     dashboardConfig:
         bucket: dashboard-707767160287-devplanetv1-gen3
