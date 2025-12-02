@@ -178,6 +178,41 @@ hatchery:
           {
             "target-port": 8888,
             "cpu-limit": "2.0",
+            "memory-limit": "8Gi",
+            "name": "NEW (Generic) Jupyter Lab Notebook with R Kernel",
+            "image": "quay.io/cdis/jupyterlab-generic:chore_add-build-for-jupyterlab-generic",
+            "env": {
+              "FRAME_ANCESTORS": "https://qa-brh.planx-pla.net"
+            },
+            "args": [
+              "--JupyterNotebookApp.base_url=/lw-workspace/proxy/",
+              "--JupyterNotebookApp.default_url=/lab",
+              "--JupyterNotebookApp.password=''",
+              "--JupyterNotebookApp.token=''",
+              "--JupyterNotebookApp.ip='*'",
+              "--JupyterNotebookApp.notebook_dir='/home/jovyan'",
+              "--JupyterNotebookApp.shutdown_no_activity_timeout=3600",
+              "--JupyterNotebookApp.quit_button=False"
+            ],
+            "command": [
+              "start-notebook.sh"
+            ],
+            "path-rewrite": "/lw-workspace/proxy/",
+            "use-tls": "false",
+            "ready-probe": "/lw-workspace/proxy/",
+            "lifecycle-post-start": [
+              "/bin/sh",
+              "-c",
+              "export IAM=`whoami`; rm -rf /home/$IAM/pd/dockerHome; rm -rf /home/$IAM/pd/lost+found; ln -s /data /home/$IAM/pd/; true"
+            ],
+            "user-uid": 1010,
+            "fs-gid": 100,
+            "user-volume-location": "/home/jovyan/pd",
+            "gen3-volume-location": "/home/jovyan/.gen3"
+          },
+          {
+            "target-port": 8888,
+            "cpu-limit": "2.0",
             "memory-limit": "16Gi",
             "name": "(Tutorials) Example Analysis Jupyter Lab Notebooks",
             "image": "quay.io/cdis/brh-notebooks:combined_demos__b0a59aa051cbd993bbda25a7bb42f99bd4d91322",
