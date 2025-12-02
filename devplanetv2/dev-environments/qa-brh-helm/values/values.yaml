@@ -160,7 +160,7 @@ hatchery:
               "--JupyterNotebookApp.quit_button=False"
             ],
             "command": [
-              "jupyterlab-start.sh"
+              "/jupyterlab-start.sh"
             ],
             "path-rewrite": "/lw-workspace/proxy/",
             "use-tls": "false",
