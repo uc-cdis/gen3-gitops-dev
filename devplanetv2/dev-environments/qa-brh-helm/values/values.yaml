@@ -155,8 +155,7 @@ hatchery:
               "--ServerApp.password=''",
               "--ServerApp.token=''",
               "--ServerApp.notebook_dir='/home/jovyan'",
-              "--ServerApp.shutdown_no_activity_timeout=3600",
-              "--ServerApp.quit_button=False"
+              "--ServerApp.shutdown_no_activity_timeout=3600"
             ],
             "command": [
               "/jupyterlab-start.sh"
