@@ -28,6 +28,9 @@ dashboard:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--binamb-helm--dashboard-access
 datareplicate:
+  batchServiceAccount:
+    annotations:
+      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2-binamb-planx-pla-net-bucket-replicate-jqhu-sa-role 
   enabled: true
   suspendCronjob: true
   externalSecrets:
