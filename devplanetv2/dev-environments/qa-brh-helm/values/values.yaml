@@ -150,14 +150,13 @@ hatchery:
               "FRAME_ANCESTORS": "https://qa-brh.planx-pla.net"
             },
             "args": [
-              "--JupyterNotebookApp.base_url=/lw-workspace/proxy/",
-              "--JupyterNotebookApp.default_url=/lab",
-              "--JupyterNotebookApp.password=''",
-              "--JupyterNotebookApp.token=''",
-              "--JupyterNotebookApp.ip='*'",
-              "--JupyterNotebookApp.notebook_dir='/home/jovyan'",
-              "--JupyterNotebookApp.shutdown_no_activity_timeout=3600",
-              "--JupyterNotebookApp.quit_button=False"
+              "--ServerApp.base_url=/lw-workspace/proxy/",
+              "--ServerApp.default_url=/lab",
+              "--ServerApp.password=''",
+              "--ServerApp.token=''",
+              "--ServerApp.notebook_dir='/home/jovyan'",
+              "--ServerApp.shutdown_no_activity_timeout=3600",
+              "--ServerApp.quit_button=False"
             ],
             "command": [
               "/jupyterlab-start.sh"
