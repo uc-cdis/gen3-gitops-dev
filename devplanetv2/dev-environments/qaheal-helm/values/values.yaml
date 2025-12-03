@@ -34,6 +34,11 @@ cedar:
   image:
     repository: quay.io/cdis/cedar-wrapper-service
     tag: feat_python3.13
+  externalSecrets:
+    createCedarClientSecret: false
+    cedarG3auto: cedar-g3auto
+    cedarAPIKey: qa-heal-cedar-api-key
+    cedarDirectoryId: qa-heal-cedar-directory-id
 dashboard:
   autoscaling:
     enabled: false
