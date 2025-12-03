@@ -1,7 +1,7 @@
 name: qa-mc2dp-helm
 
 # What branch of helm -- http://github.com/uc-cdis/gen3-helm
-helmBranch: master
+helmBranch: feat_addDDtoFF
 
 # What branch of gitops -- http://github.com/uc-cdis/gen3-gitops-dev
 gitopsBranch: master
