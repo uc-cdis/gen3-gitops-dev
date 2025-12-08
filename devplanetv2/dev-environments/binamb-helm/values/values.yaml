@@ -48,11 +48,11 @@ datareplicate:
       # -- (string) The amount of CPU requested
       cpu: "8"
       # -- (string) The amount of memory requested
-      memory: 512Mi
+      memory: 2Gi
     # -- (map) The maximum amount of resources that the container is allowed to use
     limits:
       # -- (string) The maximum amount of memory the container can use
-      memory: 2Gi
+      memory: 8Gi
   googleBucketReplicateJob:
     # -- (bool) Whether to enable the Google bucket replicate job
     enabled: false
