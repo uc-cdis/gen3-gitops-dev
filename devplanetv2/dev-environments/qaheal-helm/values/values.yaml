@@ -33,7 +33,7 @@ cedar:
   enabled: true
   image:
     repository: quay.io/cdis/cedar-wrapper-service
-    tag: 0.6.0
+    tag: feat_python3.13
   externalSecrets:
     createCedarClientSecret: false
     cedarG3auto: cedar-g3auto
