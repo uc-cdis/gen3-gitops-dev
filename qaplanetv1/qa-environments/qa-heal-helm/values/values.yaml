@@ -1433,7 +1433,7 @@ metadata:
     dbcreds: qa-heal-metadata-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
-    tag: "mfshao-patch-1"
+    tag: "4.1.0"
   useAggMds: true
   schedule: "0 14,20 * * *"
   suspendCronjob: false
