@@ -123,6 +123,8 @@ global:
   environment: devplanetv2
   externalSecrets:
     deploy: true
+    createSlackWebhookSecret: true
+    slackWebhookSecretName: qa-heal-slack-webhook
   frontendRoot: gen3ff
   hostname: qa-heal.planx-pla.net
   manifestGlobalExtraValues:
