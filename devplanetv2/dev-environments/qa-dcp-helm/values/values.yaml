@@ -732,7 +732,7 @@ portal:
       \ contact \",\n\t\t\t\"contact_link\": {\n\t\t\t\t\"href\": \"https://biodatacatalyst.nhlbi.nih.gov/contact\"\
       \n\t\t\t},\n\t\t\t\"image\": \"stage-icons/stage-gene\"\n\t\t},\n\t\t\"footerLogos\"\
       : [\n\t\t\t{\n\t\t\t\t\"src\": \"/src/img/gen3.png\",\n\t\t\t\t\"href\": \"\
-      https://ctds.uchicago.edu/gen3\",\n\t\t\t\t\"alt\": \"Gen3 Data Commons\"\n\t\
+      https://gen3.org\",\n\t\t\t\t\"alt\": \"Gen3 Data Commons\"\n\t\
       \t\t},\n\t\t\t{\n\t\t\t\t\"src\": \"/src/img/createdby.png\",\n\t\t\t\t\"href\"\
       : \"https://ctds.uchicago.edu/\",\n\t\t\t\t\"alt\": \"Center for Translational\
       \ Data Science at the University of Chicago\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"\
