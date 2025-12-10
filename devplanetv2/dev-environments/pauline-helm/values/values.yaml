@@ -27,6 +27,9 @@ gen3-workflow:
         taskImageWhitelist: ['*']
         kmsEncryptionEnabled: false
     funnel:
+        image:
+            repository: quay.io/cdis/funnel
+            tag: paulineribeyre-patch-1
         Kubernetes:
             Namespace: pauline
             JobsNamespace: workflow-pods-pauline
