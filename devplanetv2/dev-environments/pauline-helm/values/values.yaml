@@ -77,7 +77,7 @@ gen3-workflow:
             Level: info
 
 guppy:
-    enabled: true
+    enabled: false
 
 indexd:
     enabled: true
@@ -105,6 +105,9 @@ tube:
     enabled: false
 
 wts:
+    enabled: false
+
+manifestservice:
     enabled: false
 
 audit:
@@ -419,7 +422,7 @@ metadata:
 
 
 portal:
-    enabled: true
+    enabled: false
     gitops:
         css:
             ":root {\n    --primary-color: #e19722;\n    --secondary-color: #e19722;\n\
