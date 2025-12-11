@@ -1,5 +1,8 @@
 arborist:
     enabled: true
+    image:
+        repository: quay.io/cdis/arborist
+        tag: debug-always-allow
 
 fence:
     enabled: true
