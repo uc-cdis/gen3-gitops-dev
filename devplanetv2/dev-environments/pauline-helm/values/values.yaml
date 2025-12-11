@@ -149,6 +149,10 @@ global:
         wafv2:
             enabled: true
             wafAclArn: "arn:aws:wafv2:us-east-1:707767160287:regional/webacl/devplanetv2-waf/30660590-f707-4ecf-aeae-ddfbe381f388"
+    crossplane:
+        enabled: true
+        oidcProviderUrl: "oidc.eks.us-east-1.amazonaws.com/id/F057519C0E32B7DE2580904C4007BB21"
+        accountId: "707767160287"
     dev: false
     dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json
     environment: pauline
