@@ -29,7 +29,7 @@ gen3-workflow:
     funnel:
         image:
             repository: quay.io/cdis/funnel
-            tag: paulineribeyre-patch-1
+            tag: debug-logs
         Kubernetes:
             Namespace: pauline
             JobsNamespace: workflow-pods-pauline
