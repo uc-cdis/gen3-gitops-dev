@@ -44,7 +44,7 @@ fence:
     targetCPUUtilizationPercentage: 40
   usersync:
     usersync: true
-    userYamlS3Path: s3://cdis-gen3-users/pdp/user.yaml 
+    userYamlS3Path: s3://cdis-gen3-users/mc2dp/user.yaml 
   enabled: true
   externalSecrets:
     createK8sGoogleAppSecrets: true
