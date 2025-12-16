@@ -71,7 +71,7 @@ datareplicate:
     LOG_BUCKET: test-data-replication-manifest
     RELEASE: DR43
     QUICK_TEST: true
-    MANIFEST_FILE: s3://test-data-replication-manifest/test_manifest_20251025_short.tsv
+    MANIFEST_FILE: s3://test-data-replication-manifest/test_manifest_20251025.tsv
   awsBatchReplicateJob:
     enabled: true
     namespace: binamb-helm
