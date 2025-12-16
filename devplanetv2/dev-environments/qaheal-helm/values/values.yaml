@@ -11,7 +11,7 @@ arborist:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/arborist
-    tag: "2025.10"
+    tag: "2025.12"
 audit:
   enabled: true
   externalSecrets:
@@ -19,7 +19,7 @@ audit:
     dbcreds: qaheal-audit-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/audit-service
-    tag: "2025.10"
+    tag: "2025.12"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--qaheal-helm--audit-sqs-receiver
@@ -52,7 +52,7 @@ dashboard:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-statics
-    tag: "2025.10"
+    tag: "2025.12"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--qaheal-helm--dashboard-access
@@ -150,7 +150,7 @@ hatchery:
           "cpu": 0.04048,
           "memory": 0.004445
         },
-        "user-namespace": "jupyter-pods-qaheal",
+        "user-namespace": "jupyter-pods-qa-heal",
         "sub-dir": "/lw-workspace",
         "user-volume-size": "10Gi",
         "default-pay-model": {
@@ -172,7 +172,7 @@ hatchery:
         "sidecar": {
           "cpu-limit": "1.0",
           "memory-limit": "256Mi",
-          "image": "quay.io/cdis/ecs-ws-sidecar:0.3.0",
+          "image": "quay.io/cdis/ecs-ws-sidecar:0.3.1",
           "env": {
             "NAMESPACE": "qaheal-helm",
             "USER_UID": "1010"
@@ -197,7 +197,7 @@ hatchery:
             "cpu-limit": "1.0",
             "memory-limit": "2Gi",
             "name": "(Generic) Jupyter Lab Notebook with R Kernel",
-            "image": "quay.io/cdis/heal-notebooks:generic_rkernel__bb4d2742a47421509769356c893834b3787ecb05",
+            "image": "quay.io/cdis/heal-notebooks:generic_rkernel__22b87f36c49ad9273ca12ad268c31cf3ddd24fb6",
             "env": {
               "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
             },
@@ -316,7 +316,7 @@ hatchery:
             "cpu-limit": "1.0",
             "memory-limit": "2Gi",
             "name": "(Tutorials) Example Analysis Jupyter Lab Notebooks",
-            "image": "quay.io/cdis/heal-notebooks:combined_tutorials__671078c1e6fee0cd5621772027015529367e98a9",
+            "image": "quay.io/cdis/heal-notebooks:combined_tutorials__1e5cd5b378fbb2937cfa4aaef7becf63c4ac68f5",
             "env": {
               "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
             },
@@ -366,7 +366,7 @@ indexd:
     dbcreds: qaheal-indexd-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexd
-    tag: "2025.10"
+    tag: "2025.12"
 metadata:
   aggMdsConfig: |-
     {
@@ -1448,7 +1448,7 @@ metadata:
     dbcreds: qaheal-metadata-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
-    tag: "2025.10"
+    tag: "2025.12"
   useAggMds: true
   schedule: "0 14,20 * * *"
   suspendCronjob: false
@@ -1458,7 +1458,7 @@ manifestservice:
     manifestserviceG3auto: qaheal-manifestservice-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/manifestservice
-    tag: "2025.10"
+    tag: "2025.12"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--qaheal-helm--manifest-service-sa
@@ -1471,7 +1471,7 @@ peregrine:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/peregrine
-    tag: "2025.10"
+    tag: "2025.12"
   externalSecrets:
     dbcreds: qaheal-peregrine-creds
 portal:
@@ -2425,7 +2425,7 @@ requestor:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/requestor
-    tag: "2025.10"
+    tag: "2025.12"
   externalSecrets:
     dbcreds: qaheal-requestor-creds
 revproxy:
@@ -2437,7 +2437,7 @@ revproxy:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/nginx
-    tag: "2025.10"
+    tag: "2025.12"
   ingress:
     aws:
       group: qaheal-helm
@@ -2450,7 +2450,7 @@ sheepdog:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sheepdog
-    tag: "2025.10"
+    tag: "2025.12"
   externalSecrets:
     dbcreds: qaheal-sheepdog-creds
 sower:
@@ -2463,7 +2463,7 @@ sower:
     sowerjobsG3auto: qaheal-sower-jobs-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sower
-    tag: "2025.10"
+    tag: "2025.12"
   sowerConfig:
     - action: batch-export
       activeDeadlineSeconds: 600
@@ -2492,8 +2492,8 @@ ssjdispatcher:
     credsFile: qaheal-ssjdispatcher-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ssjdispatcher
-    tag: "2025.10"
-  indexing: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexs3client:2025.10
+    tag: "2025.12"
+  indexing: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexs3client:2025.12
 wts:
   enabled: true
   externalSecrets:
@@ -2503,4 +2503,4 @@ wts:
     dbcreds: qaheal-wts-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/workspace-token-service
-    tag: "2025.10"
+    tag: "2025.12"
