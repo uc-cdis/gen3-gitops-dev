@@ -150,7 +150,7 @@ hatchery:
           "cpu": 0.04048,
           "memory": 0.004445
         },
-        "user-namespace": "jupyter-pods-qa-heal",
+        "user-namespace": "jupyter-pods-qaheal-helm",
         "sub-dir": "/lw-workspace",
         "user-volume-size": "10Gi",
         "default-pay-model": {
