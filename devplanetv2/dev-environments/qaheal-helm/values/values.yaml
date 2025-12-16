@@ -2503,4 +2503,4 @@ wts:
     dbcreds: qaheal-wts-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/workspace-token-service
-    tag: "chore_clean-up-dependencies"
+    tag: "2025.10"
