@@ -172,7 +172,7 @@ hatchery:
         "sidecar": {
           "cpu-limit": "1.0",
           "memory-limit": "256Mi",
-          "image": "quay.io/cdis/ecs-ws-sidecar:0.3.1",
+          "image": "quay.io/cdis/ecs-ws-sidecar:0.3.0",
           "env": {
             "NAMESPACE": "qaheal-helm",
             "USER_UID": "1010"
