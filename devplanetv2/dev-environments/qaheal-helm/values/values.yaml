@@ -1,5 +1,5 @@
 ambassador:
-  jupyterNamespace: jupyter-pods-qaheal
+  jupyterNamespace: jupyter-pods-qaheal-helm
 arborist:
   externalSecrets:
     dbcreds: qaheal-arborist-creds
