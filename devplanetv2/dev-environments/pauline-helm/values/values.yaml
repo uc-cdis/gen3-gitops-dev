@@ -33,6 +33,17 @@ gen3-workflow:
         image:
             repository: quay.io/cdis/funnel
             tag: debug-from-2025-10-01
+        Logger:
+            Level: info
+        Database: postgres
+        Postgres: POSTGRES_CONFIG_PLACEHOLDER
+        Plugins:
+            Path: plugin-binaries/auth-plugin
+            Params:
+                OidcClientId: <redacted>
+                OidcClientSecret: <redacted>
+                S3Url: gen3-workflow-service.pauline-helm.svc.cluster.local
+                OidcTokenUrl: https://pauline.planx-pla.net/user
         Kubernetes:
             Namespace: pauline
             JobsNamespace: workflow-pods-pauline
@@ -68,16 +79,6 @@ gen3-workflow:
                 claimRef:
                   namespace: {{.Namespace}}
                   name: funnel-worker-pvc-{{.TaskId}}
-        Plugins:
-            Path: plugin-binaries/auth-plugin
-            Params:
-                OidcClientId: <redacted>
-                OidcClientSecret: <redacted>
-                S3Url: gen3-workflow-service.pauline-helm.svc.cluster.local
-                OidcTokenUrl: https://pauline.planx-pla.net/user
-                        
-        Logger:
-            Level: info
 
 guppy:
     enabled: false
