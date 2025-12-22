@@ -21,7 +21,7 @@ gen3-workflow:
     enabled: true
     image:
         repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-workflow
-        tag: fix_chunk
+        tag: master
     externalSecrets:
         gen3workflowG3auto: "gen3workflow-g3auto"
         funnelOidcClient: "funnel-oidc-client"
@@ -30,13 +30,17 @@ gen3-workflow:
         taskImageWhitelist: ['*']
         kmsEncryptionEnabled: false
     funnel:
-        image:
-           repository: quay.io/ohsu-comp-bio/funnel
-           tag: 2025-12-20
+        # image:
+        #    repository: quay.io/ohsu-comp-bio/funnel
+        #    tag: 2025-12-20
         Logger:
             Level: info
         Database: postgres
-        Postgres: {POSTGRES_CONFIG_PLACEHOLDER: POSTGRES_CONFIG_PLACEHOLDER}
+        Postgres:
+            Host: FUNNEL_POSTGRES_HOST_PLACEHOLDER
+            Database: FUNNEL_POSTGRES_DATABASE_PLACEHOLDER
+            User: FUNNEL_POSTGRES_USER_PLACEHOLDER
+            Password: FUNNEL_POSTGRES_PASSWORD_PLACEHOLDER
         Plugins:
             Path: plugin-binaries/auth-plugin
             Params:
