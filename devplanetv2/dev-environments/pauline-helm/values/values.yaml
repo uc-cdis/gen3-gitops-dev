@@ -30,9 +30,9 @@ gen3-workflow:
         taskImageWhitelist: ['*']
         kmsEncryptionEnabled: false
     funnel:
-        #image:
-        #    repository: quay.io/cdis/funnel
-        #    tag: debug-from-2025-10-01
+        image:
+           repository: quay.io/ohsu-comp-bio/funnel
+           tag: 2025-12-20
         Logger:
             Level: info
         Database: postgres
