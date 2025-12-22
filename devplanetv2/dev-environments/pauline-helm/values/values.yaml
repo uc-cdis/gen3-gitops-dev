@@ -103,7 +103,7 @@ requestor:
     enabled: true
     image:
         repository: quay.io/cdis/requestor
-        tag: feat/3.13
+        tag: feat_3.13
 
 sheepdog:
     enabled: true
