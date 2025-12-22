@@ -100,10 +100,10 @@ peregrine:
     enabled: false
 
 requestor:
-    enabled: true
+    enabled: false
     image:
         repository: quay.io/cdis/requestor
-        tag: feat_3.13
+        tag: master
 
 sheepdog:
     enabled: true
