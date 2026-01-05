@@ -2476,7 +2476,7 @@ sower:
                 key: hostname
                 name: manifest-global
           - name: BUCKET
-            value: qaplanetv1-qa-heal-helm-sower-service-bucket
+            value: devplanetv2-qaheal-helm-sower-service-bucket
         image: quay.io/cdis/batch-export:2025.12
         labels:
           internet: "yes"
