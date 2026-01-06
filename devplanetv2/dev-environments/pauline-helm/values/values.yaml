@@ -24,9 +24,6 @@ gen3-workflow:
         tag: master
     postgres:
         dbCreate: true
-        # override default DB name `$.Chart.Name`_`$.Release.Name`
-        # https://github.com/uc-cdis/gen3-helm/blob/c5c6d51/helm/common/templates/_db_setup_job.tpl#L190
-        database: funnel_pauline_devplanetv1
     externalSecrets:
         gen3workflowG3auto: "gen3workflow-g3auto"
         funnelOidcClient: "funnel-oidc-client"
