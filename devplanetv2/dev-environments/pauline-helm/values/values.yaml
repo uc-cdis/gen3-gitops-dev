@@ -34,7 +34,7 @@ gen3-workflow:
     funnel:
         image:
            repository: quay.io/ohsu-comp-bio/funnel
-           tag: 2026-01-07.5
+           tag: 2026-01-07.6
         Logger:
             Level: info
         Database: postgres
