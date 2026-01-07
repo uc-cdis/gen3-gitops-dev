@@ -174,7 +174,6 @@ global:
     environment: pauline
     externalSecrets:
         deploy: true
-        createLocalK8sSecret: true
     hostname: pauline.planx-pla.net
     manifestGlobalExtraValues:
         es7: true
