@@ -1,7 +1,7 @@
 name: qa-midrc-helm
 
 # What branch of helm -- http://github.com/uc-cdis/gen3-helm
-helmBranch: chore/add_gen3workflow
+helmBranch: chore/improve-gen3-workflow
 
 # What branch of gitops -- http://github.com/uc-cdis/gen3-gitops-dev
-gitopsBranch: chore/add_gen3workflow_qa_midrc
+gitopsBranch: chore/improve_gen3workflow
