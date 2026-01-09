@@ -199,7 +199,7 @@ guppy:
   authFilterField: auth_resource_path
   enabled: true
   esEndpoint: http://elasticsearch:9200
-  configIndex: etl_mickey_array-config
+  configIndex: etl_mickey-array-config_0
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/guppy
     tag: "2025.10"
