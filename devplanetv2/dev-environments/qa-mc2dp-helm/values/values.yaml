@@ -72,6 +72,9 @@ gen3-user-data-library:
   externalSecrets:
     dbcreds: qa-prometheus-gen3userdatalibrary-creds 
     gen3UserDataLibraryG3auto: qa-prometheus-gen3userdatalibrary-g3auto
+    env:
+      - name: MAX_LIST_ITEMS
+        value: "50000"
 global:
   crossplane:
     enabled: true
@@ -116,7 +119,7 @@ guppy:
   esEndpoint: http://elasticsearch:9200
   image:
     repository: quay.io/cdis/guppy
-    tag: '2025.04'
+    tag: '2026.01'
   indices:
   - index: pdp-commons-commons-index
     type: metadata
