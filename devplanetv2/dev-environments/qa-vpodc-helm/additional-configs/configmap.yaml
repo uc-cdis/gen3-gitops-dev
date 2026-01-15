@@ -19,7 +19,7 @@ data:
         ebs:
           deleteOnTermination: true
           encrypted: true
-          volumeSize: 100Gi
+          volumeSize: 500Gi
           volumeType: gp2
       metadataOptions:
         httpEndpoint: enabled

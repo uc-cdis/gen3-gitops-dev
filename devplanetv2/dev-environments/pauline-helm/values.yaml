@@ -1,3 +1,3 @@
 name: pauline-helm
-helmBranch: feat/funnel-db
+helmBranch: master
 gitopsBranch: master

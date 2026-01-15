@@ -21,7 +21,7 @@ gen3-workflow:
     enabled: true
     image:
         repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-workflow
-        tag: feat_3.13
+        tag: master
     postgres:
         dbCreate: false
     externalSecrets:
@@ -34,7 +34,7 @@ gen3-workflow:
     funnel:
         image:
            repository: quay.io/ohsu-comp-bio/funnel
-           tag: 2026-01-12
+           tag: 2025-10-01
         Logger:
             Level: info
 
