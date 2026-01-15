@@ -163,10 +163,7 @@ data:
             - i7ie.12xlarge
             - i7ie.18xlarge
             - i7ie.24xlarge
-            - i7ie.48xlarge
-
-
-            
+            - i7ie.48xlarge 
           - key: kubernetes.io/os
             operator: In
             values:
