@@ -40,6 +40,11 @@ spec:
                 dependencyName: workflow-created-event
                 dataKey: body.metadata.labels.gen3teamproject
               dest: spec.template.spec.containers.0.env.2.value
+            - src:
+                dependencyName: workflow-created-event
+                dataKey: body.metadata.labels.storagerequest
+                value: "100"
+              dest: spec.template.spec.containers.0.env.3.value
           source:
             resource:
               apiVersion: batch/v1
@@ -93,6 +98,8 @@ spec:
                           - name: GEN3_USERNAME
                             value: ""
                           - name: GEN3_TEAMNAME
+                            value: ""
+                          - name: STORAGE_REQUEST
                             value: ""
                           - name: ENVIRONMENT
                             valueFrom:
