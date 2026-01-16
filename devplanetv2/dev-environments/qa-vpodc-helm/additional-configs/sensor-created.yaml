@@ -43,7 +43,7 @@ spec:
             - src:
                 dependencyName: workflow-created-event
                 dataKey: body.metadata.labels.storagerequest
-                value: "500Gi"
+                value: "100Gi"
               dest: spec.template.spec.containers.0.env.3.value
           source:
             resource:
