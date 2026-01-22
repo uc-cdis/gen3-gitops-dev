@@ -46,7 +46,7 @@ gen3-workflow:
         #   - log
 
         postgresql:  # default bitnami postgres pod
-          enabled: true
+          enabled: false
         Database: postgres
         EventWriters:
           - postgres
