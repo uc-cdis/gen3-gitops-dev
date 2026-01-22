@@ -57,13 +57,6 @@ gen3-workflow:
         #     User: FUNNEL_POSTGRES_USER_PLACEHOLDER
         #     Password: FUNNEL_POSTGRES_PASSWORD_PLACEHOLDER
 
-        Plugins:
-            Path: plugin-binaries/auth-plugin
-            Params:
-                OidcClientId: <redacted>
-                OidcClientSecret: <redacted>
-                S3Url: gen3-workflow-service.pauline-helm.svc.cluster.local
-                OidcTokenUrl: https://pauline.planx-pla.net/user
         Kubernetes:
             Namespace: pauline
             JobsNamespace: workflow-pods-pauline
