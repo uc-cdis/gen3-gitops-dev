@@ -38,61 +38,6 @@ gen3-workflow:
         Logger:
             Level: info
 
-        mongodb:  # mongodb pod
-          enabled: false
-        # Database: mongodb
-        # EventWriters:
-        #   - mongodb
-        #   - log
-
-        postgresql:  # default bitnami postgres pod
-          enabled: false
-        Database: postgres
-        EventWriters:
-          - postgres
-          - log
-        Postgres:
-            Host: FUNNEL_POSTGRES_HOST_PLACEHOLDER
-            Database: FUNNEL_POSTGRES_DATABASE_PLACEHOLDER
-            User: FUNNEL_POSTGRES_USER_PLACEHOLDER
-            Password: FUNNEL_POSTGRES_PASSWORD_PLACEHOLDER
-
-        Kubernetes:
-            Namespace: pauline
-            JobsNamespace: workflow-pods-pauline
-            PVTemplate: |
-              apiVersion: v1
-              kind: PersistentVolume
-              metadata:
-                name: funnel-worker-pv-{{.TaskId}}
-                labels:
-                  app: funnel
-                  taskId: {{.TaskId}}
-              spec:
-                storageClassName: "" # Required for static provisioning
-                capacity:
-                  storage: "10Mi"
-                accessModes:
-                  - ReadWriteMany
-                persistentVolumeReclaimPolicy: Retain
-                mountOptions:
-                  - allow-delete
-                  - allow-overwrite
-                  - region={{.Region}}
-                  - file-mode=0755
-                  {{- if .KmsKeyID }}
-                  - sse aws:kms
-                  - sse-kms-key-id={{.KmsKeyID}}
-                  {{- end }}
-                csi:
-                  driver: s3.csi.aws.com
-                  volumeHandle: s3-csi-{{.TaskId}}
-                  volumeAttributes:
-                    bucketName: {{.Bucket}}
-                claimRef:
-                  namespace: {{.Namespace}}
-                  name: funnel-worker-pvc-{{.TaskId}}
-
 guppy:
     enabled: false
 
