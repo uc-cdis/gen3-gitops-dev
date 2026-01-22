@@ -37,6 +37,8 @@ gen3-workflow:
            tag: 2026-01-21.2
         Logger:
             Level: info
+        Kubernetes:
+            JobsNamespace: workflow-pods-pauline
 
 guppy:
     enabled: false
