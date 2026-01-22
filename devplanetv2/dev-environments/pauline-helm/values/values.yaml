@@ -38,24 +38,24 @@ gen3-workflow:
         Logger:
             Level: info
 
-        Database: mongodb
         mongodb:  # mongodb pod
-          enabled: true
-        EventWriters:
-          - mongodb
-          - log
+          enabled: false
+        # Database: mongodb
+        # EventWriters:
+        #   - mongodb
+        #   - log
 
         postgresql:  # default bitnami postgres pod
-          enabled: false
-        # Database: postgres
-        # EventWriters:
-        #   - postgres
-        #   - log
-        # Postgres:
-        #     Host: FUNNEL_POSTGRES_HOST_PLACEHOLDER
-        #     Database: FUNNEL_POSTGRES_DATABASE_PLACEHOLDER
-        #     User: FUNNEL_POSTGRES_USER_PLACEHOLDER
-        #     Password: FUNNEL_POSTGRES_PASSWORD_PLACEHOLDER
+          enabled: true
+        Database: postgres
+        EventWriters:
+          - postgres
+          - log
+        Postgres:
+            Host: FUNNEL_POSTGRES_HOST_PLACEHOLDER
+            Database: FUNNEL_POSTGRES_DATABASE_PLACEHOLDER
+            User: FUNNEL_POSTGRES_USER_PLACEHOLDER
+            Password: FUNNEL_POSTGRES_PASSWORD_PLACEHOLDER
 
         Kubernetes:
             Namespace: pauline
