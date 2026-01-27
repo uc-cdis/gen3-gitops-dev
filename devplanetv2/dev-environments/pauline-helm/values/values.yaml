@@ -22,15 +22,13 @@ gen3-workflow:
     image:
         repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-workflow
         tag: master
-    postgres:
-        dbCreate: false
     externalSecrets:
         gen3workflowG3auto: "gen3workflow-g3auto"
         funnelOidcClient: "funnel-oidc-client"
     gen3WorkflowConfig:
         debug: true
         taskImageWhitelist: ['*']
-        kmsEncryptionEnabled: false
+        kmsEncryptionEnabled: true
     funnel:
         image:
            repository: quay.io/ohsu-comp-bio/funnel
