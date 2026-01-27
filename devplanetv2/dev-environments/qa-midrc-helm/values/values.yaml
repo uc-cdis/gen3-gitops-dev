@@ -93,6 +93,7 @@ gen3-workflow:
   gen3WorkflowConfig:
     debug: true
     taskImageWhitelist: ['*']
+  funnelJobsNamespace: workflow-pods-qa-midrc-helm
 funnel:
   postgres:
     dbCreate: true
