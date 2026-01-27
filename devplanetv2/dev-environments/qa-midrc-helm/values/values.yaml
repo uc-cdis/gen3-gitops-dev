@@ -91,7 +91,20 @@ gen3-workflow:
     gen3workflowG3auto: "qa-midrc-helm-gen3workflow-g3auto"
     funnelOidcClient: "qa-midrc-helm-funnel-oidc-client"
   gen3WorkflowConfig:
+    debug: true
     taskImageWhitelist: ['*']
+funnel:
+  postgres:
+    dbCreate: true
+  externalSecrets:
+    dbcreds: "qa-midrc-helm-funnel-creds"
+  image:
+   repository: quay.io/ohsu-comp-bio/funnel
+   tag: 2026-01-23.5
+  Logger:
+    Level: info
+  Kubernetes:
+    JobsNamespace: workflow-pods-qa-midrc-helm
 global:
   crossplane:
     enabled: true
@@ -125,6 +138,7 @@ global:
   portalApp: gitops
   postgres:
     dbCreate: false
+    externalSecret: "devplanetv2-aurora-master-password"
   revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/520ede2f-fc82-4bb9-af96-4b4af7deabbd
 guppy:
   esEndpoint: http://elasticsearch:9200
