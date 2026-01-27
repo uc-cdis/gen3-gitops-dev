@@ -1,3 +1,43 @@
+global:
+    aws:
+        account: "707767160287"
+        awsEsProxyRole: devplanetv2-esproxy-sa
+        enabled: true
+        hatchery_role: devplanetv2--pauline-helm--hatchery-sa
+        secretStoreServiceAccount:
+            enabled: true
+            roleArn: arn:aws:iam::707767160287:role/devplanetv2-external-secrets-sa
+        wafv2:
+            enabled: true
+            wafAclArn: "arn:aws:wafv2:us-east-1:707767160287:regional/webacl/devplanetv2-waf/30660590-f707-4ecf-aeae-ddfbe381f388"
+    crossplane:
+        enabled: true
+        oidcProviderUrl: "oidc.eks.us-east-1.amazonaws.com/id/F057519C0E32B7DE2580904C4007BB21"
+        accountId: "707767160287"
+    dev: false
+    dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json
+    environment: pauline
+    externalSecrets:
+        deploy: true
+    hostname: pauline.planx-pla.net
+    manifestGlobalExtraValues:
+        es7: true
+        kube_bucket: kube_bucket.devplanetv1.gen3
+        logs_bucket: logs-devplanetv1-gen3
+        sync_from_dbgap: "False"
+        useryaml_s3path: s3://cdis-gen3-users/dev/user.yaml
+    netPolicy:
+        enabled: false
+        dbSubnet: ""
+    portalApp: gitops
+    postgres:
+        dbCreate: false
+        externalSecret: "devplanetv2-aurora-master-password"
+        master:
+          host: "devplanetv2-aurora-cluster.cluster-cwvizkxhzjt8.us-east-1.rds.amazonaws.com"
+    revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/520ede2f-fc82-4bb9-af96-4b4af7deabbd
+    clusterName: devplanetv2 # used by https://github.com/uc-cdis/gen3-helm/blob/c5982db/helm/gen3-workflow/templates/secrets.yaml#L49
+
 arborist:
     enabled: true
     image:
@@ -104,46 +144,6 @@ fluentd:
     image:
         repository: fluent/fluentd-kubernetes-daemonset
         tag: v1.2-debian-cloudwatch
-
-global:
-    aws:
-        account: "707767160287"
-        awsEsProxyRole: devplanetv2-esproxy-sa
-        enabled: true
-        hatchery_role: devplanetv2--pauline-helm--hatchery-sa
-        secretStoreServiceAccount:
-            enabled: true
-            roleArn: arn:aws:iam::707767160287:role/devplanetv2-external-secrets-sa
-        wafv2:
-            enabled: true
-            wafAclArn: "arn:aws:wafv2:us-east-1:707767160287:regional/webacl/devplanetv2-waf/30660590-f707-4ecf-aeae-ddfbe381f388"
-    crossplane:
-        enabled: true
-        oidcProviderUrl: "oidc.eks.us-east-1.amazonaws.com/id/F057519C0E32B7DE2580904C4007BB21"
-        accountId: "707767160287"
-    dev: false
-    dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json
-    environment: pauline
-    externalSecrets:
-        deploy: true
-    hostname: pauline.planx-pla.net
-    manifestGlobalExtraValues:
-        es7: true
-        kube_bucket: kube_bucket.devplanetv1.gen3
-        logs_bucket: logs-devplanetv1-gen3
-        sync_from_dbgap: "False"
-        useryaml_s3path: s3://cdis-gen3-users/dev/user.yaml
-    netPolicy:
-        enabled: false
-        dbSubnet: ""
-    portalApp: gitops
-    postgres:
-        dbCreate: false
-        externalSecret: "devplanetv2-aurora-master-password"
-        master:
-          host: "devplanetv2-aurora-cluster.cluster-cwvizkxhzjt8.us-east-1.rds.amazonaws.com"
-    revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/520ede2f-fc82-4bb9-af96-4b4af7deabbd
-    clusterName: devplanetv2 # used by https://github.com/uc-cdis/gen3-helm/blob/c5982db/helm/gen3-workflow/templates/secrets.yaml#L49
 
 hatchery:
     enabled: false
