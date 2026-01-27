@@ -280,12 +280,12 @@ ohdsi-atlas:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ohdsi-atlas
-    tag: feat_pull_upstream_into_2.15_DEV
+    tag: 2.15.0-DEV
 ohdsi-webapi:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ohdsi-webapi
-    tag: feat_pull_upstream_into_2.15_DEV
+    tag: 2.15.0-DEV
   global:
     hostname: qa-mickey.planx-pla.net
     atlasUrl: https://atlas.qa-mickey.planx-pla.net
