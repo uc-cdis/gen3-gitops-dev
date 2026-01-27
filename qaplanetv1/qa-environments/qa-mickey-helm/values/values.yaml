@@ -287,7 +287,7 @@ ohdsi-webapi:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ohdsi-webapi
     tag: feat_pull_upstream_into_2.15_DEV
   global:
-    hostname: atlas.qa-mickey.planx-pla.net
+    hostname: qa-mickey.planx-pla.net
     atlasUrl: https://atlas.qa-mickey.planx-pla.net
 peregrine:
   autoscaling:
