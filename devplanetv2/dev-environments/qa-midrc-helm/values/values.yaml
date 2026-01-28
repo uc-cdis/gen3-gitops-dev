@@ -82,6 +82,7 @@ fluentd:
   image:
     repository: fluent/fluentd-kubernetes-daemonset
     tag: v1.15.3-debian-cloudwatch-1.0
+
 gen3-workflow:
   enabled: true
   image:
@@ -94,18 +95,21 @@ gen3-workflow:
     debug: true
     taskImageWhitelist: ['*']
   funnelJobsNamespace: workflow-pods-qa-midrc-helm
+
 funnel:
   postgres:
     dbCreate: true
   externalSecrets:
     dbcreds: "qa-midrc-helm-funnel-creds"
-  image:
-   repository: quay.io/ohsu-comp-bio/funnel
-   tag: 2026-01-23.5
-  Logger:
-    Level: info
-  Kubernetes:
-    JobsNamespace: workflow-pods-qa-midrc-helm
+  funnel:
+    image:
+     repository: quay.io/ohsu-comp-bio/funnel
+     tag: 2026-01-23.5
+    Logger:
+      Level: info
+    Kubernetes:
+      JobsNamespace: workflow-pods-qa-midrc-helm
+
 global:
   crossplane:
     enabled: true
