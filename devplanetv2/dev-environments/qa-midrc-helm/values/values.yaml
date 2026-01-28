@@ -105,8 +105,6 @@ funnel:
     image:
      repository: quay.io/ohsu-comp-bio/funnel
      tag: 2026-01-23.5
-    Logger:
-      Level: info
     Kubernetes:
       JobsNamespace: workflow-pods-qa-midrc-helm
 
