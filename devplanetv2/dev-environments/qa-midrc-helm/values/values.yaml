@@ -90,7 +90,6 @@ gen3-workflow:
     tag: master
   externalSecrets:
     gen3workflowG3auto: "qa-midrc-helm-gen3workflow-g3auto"
-    funnelOidcClient: "qa-midrc-helm-funnel-oidc-client"
   gen3WorkflowConfig:
     debug: true
     taskImageWhitelist: ['*']
@@ -101,6 +100,7 @@ funnel:
     dbCreate: true
   externalSecrets:
     dbcreds: "qa-midrc-helm-funnel-creds"
+    funnelOidcClient: "qa-midrc-helm-funnel-oidc-client"
   funnel:
     image:
      repository: quay.io/ohsu-comp-bio/funnel
