@@ -101,9 +101,9 @@ funnel:
     dbcreds: "qa-midrc-helm-funnel-creds"
     funnelOidcClient: "qa-midrc-helm-funnel-oidc-client"
   funnel:
-    image:
-     repository: quay.io/ohsu-comp-bio/funnel
-     tag: 2026-01-23.5
+    # image:
+    #  repository: quay.io/ohsu-comp-bio/funnel
+    #  tag: 2026-01-23.5
     Kubernetes:
       JobsNamespace: workflow-pods-qa-midrc-helm
 
