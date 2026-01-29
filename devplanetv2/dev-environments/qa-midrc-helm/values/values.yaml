@@ -93,7 +93,6 @@ gen3-workflow:
   gen3WorkflowConfig:
     debug: true
     taskImageWhitelist: ['*']
-  funnelJobsNamespace: workflow-pods-qa-midrc-helm
 
 funnel:
   postgres:
@@ -144,8 +143,6 @@ global:
   postgres:
     dbCreate: false
     externalSecret: "devplanetv2-aurora-master-password"
-    master:
-      host: "devplanetv2-aurora-cluster.cluster-cwvizkxhzjt8.us-east-1.rds.amazonaws.com"
   revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/520ede2f-fc82-4bb9-af96-4b4af7deabbd
   topologySpread:
     # -- (bool) Whether to enable topology spread constraints for all subcharts that support it.
