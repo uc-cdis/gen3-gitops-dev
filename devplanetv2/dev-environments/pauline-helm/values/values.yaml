@@ -34,7 +34,7 @@ global:
         dbCreate: false
         externalSecret: "devplanetv2-aurora-master-password"
         master:
-            host: "devplanetv2-aurora-cluster.cluster-cwvizkxhzjt8.us-east-1.rds.amazonaws.com"
+            host: "devplanetv2-aurora-cluster-new.cluster-cwvizkxhzjt8.us-east-1.rds.amazonaws.com"
     revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/520ede2f-fc82-4bb9-af96-4b4af7deabbd
     clusterName: devplanetv2 # used by https://github.com/uc-cdis/gen3-helm/blob/c5982db/helm/gen3-workflow/templates/secrets.yaml#L49
     topologySpread:
