@@ -27,7 +27,7 @@ argo-wrapper:
   internalS3Bucket: gen3-argo-707767160287-devplanetv1
   environment: qa-mickey-helm
 audit:
-  enabled: true
+  enabled: false
   externalSecrets:
     auditG3auto: qa-mickey-audit-g3auto
   image:
@@ -282,7 +282,7 @@ metadata:
     metadataG3auto: qa-mickey-metadata-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
-    tag: "2025.04"
+    tag: "2025.05"
 ohdsi-atlas:
   enabled: true
   image:
