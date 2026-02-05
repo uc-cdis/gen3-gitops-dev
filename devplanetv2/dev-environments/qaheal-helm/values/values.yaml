@@ -142,7 +142,8 @@ hatchery:
     stataG3auto: "qaheal-stata-workspace-gen3-license"
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
-    tag: "2.6.0"
+    # tag: "2.6.0"
+    tag: "feat_s3-mount"
   hatchery:
     json: |-
       {
@@ -159,16 +160,22 @@ hatchery:
           "hard-limit": 5,
           "soft-limit": 4
         },
+
         "pay-models": [],
         "pay-models-dynamodb-table": "bmh-admin-portal-backend-bmhworkspacetableD4D73E43-BAFEMVG0IMKE",
         "pay-models-dynamodb-arn": "arn:aws:iam::840048274993:role/devplanetv2-sa-permissions",
         "license-user-maps-dynamodb-table": "gen3-license-user-maps",
         "license-user-maps-global-secondary-index": "activeUsersIndex",
         "s3-config": {
-          "bucketName": "workspace-software-s3-qa-heal",
-          "prefixBase": "qa-heal",
+          "bucketName": "workspace-software-s3-qa-brh",
+          "prefixBase": "qa-brh",
           "region": "us-east-1"
         },
+        # "s3-config": {
+        #   "bucketName": "workspace-software-s3-qa-heal",
+        #   "prefixBase": "qa-heal",
+        #   "region": "us-east-1"
+        # },
         "sidecar": {
           "cpu-limit": "1.0",
           "memory-limit": "256Mi",
@@ -192,6 +199,39 @@ hatchery:
           ]
         },
         "containers": [
+                  {
+            "target-port": 8888,
+            "cpu-limit": "2.0",
+            "memory-limit": "8Gi",
+            "name": "(Generic) Software Repository Testing",
+            "image": "quay.io/cdis/jupyterlab-generic:chore_add-build-for-jupyterlab-generic",
+            "env": {
+              "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
+            },
+            "args": [
+              "--ServerApp.base_url=/lw-workspace/proxy/",
+              "--ServerApp.default_url=/lab",
+              "--ServerApp.password=''",
+              "--ServerApp.token=''",
+              "--ServerApp.notebook_dir='/home/jovyan'",
+              "--ServerApp.shutdown_no_activity_timeout=3600"
+            ],
+            "command": [
+              "/jupyterlab-start.sh"
+            ],
+            "path-rewrite": "/lw-workspace/proxy/",
+            "use-tls": "false",
+            "ready-probe": "/lw-workspace/proxy/",
+            "lifecycle-post-start": [
+              "/bin/sh",
+              "-c",
+              "export IAM=`whoami`; rm -rf /home/$IAM/pd/dockerHome; rm -rf /home/$IAM/pd/lost+found; ln -s /data /home/$IAM/; rm /home/$IAM/pd/data; true"
+            ],
+            "user-uid": 1010,
+            "fs-gid": 100,
+            "user-volume-location": "/home/jovyan/pd",
+            "gen3-volume-location": "/home/jovyan/.gen3"
+          },
           {
             "target-port": 8888,
             "cpu-limit": "1.0",
