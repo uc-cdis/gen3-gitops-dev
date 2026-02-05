@@ -168,14 +168,9 @@ hatchery:
         "license-user-maps-global-secondary-index": "activeUsersIndex",
         "s3-config": {
           "bucketName": "workspace-software-s3-qa-brh",
-          "prefixBase": "qa-brh",
+          "prefixBase": "qa-heal",
           "region": "us-east-1"
         },
-        # "s3-config": {
-        #   "bucketName": "workspace-software-s3-qa-heal",
-        #   "prefixBase": "qa-heal",
-        #   "region": "us-east-1"
-        # },
         "sidecar": {
           "cpu-limit": "1.0",
           "memory-limit": "256Mi",
