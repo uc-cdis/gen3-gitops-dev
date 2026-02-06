@@ -76,14 +76,19 @@ gen3-workflow:
         debug: true
         taskImageWhitelist: ['*']
         kmsEncryptionEnabled: true
+
+funnel:
+    postgres:
+        dbCreate: true
+    externalSecrets:
+        dbcreds: "pauline-helm-funnel-creds"
+        funnelOidcClient: "funnel-oidc-client"
     funnel:
-        image:
-           repository: quay.io/ohsu-comp-bio/funnel
-           tag: 2026-01-23.5
-        Logger:
-            Level: info
+        # image:
+        #     repository: quay.io/ohsu-comp-bio/funnel
+        #     tag: 2026-01-23.5
         Kubernetes:
-            JobsNamespace: workflow-pods-pauline
+            JobsNamespace: workflow-pods-pauline-helm
 
 guppy:
     enabled: false
