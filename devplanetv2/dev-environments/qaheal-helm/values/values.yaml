@@ -198,7 +198,7 @@ hatchery:
             "target-port": 8888,
             "cpu-limit": "2.0",
             "memory-limit": "8Gi",
-            "name": "(Generic) Software Repository Testing",
+            "name": "(Generic) Software Library Testing",
             "image": "quay.io/cdis/jupyterlab-generic:chore_add-build-for-jupyterlab-generic",
             "env": {
               "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
