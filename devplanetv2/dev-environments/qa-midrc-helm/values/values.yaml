@@ -103,7 +103,7 @@ funnel:
   funnel:
     image:
     #  repository: quay.io/ohsu-comp-bio/funnel
-      tag: fix/reconciler
+      tag: fix-reconciler
     Kubernetes:
       JobsNamespace: workflow-pods-qa-midrc-helm
 
