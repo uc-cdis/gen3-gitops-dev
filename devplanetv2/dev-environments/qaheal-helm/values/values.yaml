@@ -142,8 +142,8 @@ hatchery:
     stataG3auto: "qaheal-stata-workspace-gen3-license"
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
-    # tag: "2.6.0"
-    tag: "feat_s3-mount"
+    tag: "2.6.0"
+    # tag: "feat_s3-mount"
   hatchery:
     json: |-
       {
@@ -160,7 +160,6 @@ hatchery:
           "hard-limit": 5,
           "soft-limit": 4
         },
-
         "pay-models": [],
         "pay-models-dynamodb-table": "bmh-admin-portal-backend-bmhworkspacetableD4D73E43-BAFEMVG0IMKE",
         "pay-models-dynamodb-arn": "arn:aws:iam::840048274993:role/devplanetv2-sa-permissions",
@@ -174,7 +173,7 @@ hatchery:
         "sidecar": {
           "cpu-limit": "1.0",
           "memory-limit": "256Mi",
-          "image": "quay.io/cdis/ecs-ws-sidecar:0.3.1",
+          "image": "quay.io/cdis/ecs-ws-sidecar:fix_newline",
           "env": {
             "NAMESPACE": "qaheal-helm",
             "USER_UID": "1010"
@@ -194,7 +193,7 @@ hatchery:
           ]
         },
         "containers": [
-                  {
+          {
             "target-port": 8888,
             "cpu-limit": "2.0",
             "memory-limit": "8Gi",
