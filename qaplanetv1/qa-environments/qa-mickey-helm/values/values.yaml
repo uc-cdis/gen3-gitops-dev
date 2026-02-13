@@ -288,6 +288,8 @@ ohdsi-atlas:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ohdsi-atlas
     tag: fix_atlas_poll_service
+  global:
+    hostname: qa-mickey.planx-pla.net
 ohdsi-webapi:
   enabled: true
   image:
