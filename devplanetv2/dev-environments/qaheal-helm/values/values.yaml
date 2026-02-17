@@ -1487,6 +1487,7 @@ metadata:
   schedule: "0 14,20 * * *"
   suspendCronjob: false
 manifestservice:
+  bucketNameOverride: qaplanetv1-qa-heal-helm-manifestservice-bucket
   enabled: true
   externalSecrets:
     manifestserviceG3auto: qaheal-manifestservice-g3auto
