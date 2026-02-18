@@ -138,11 +138,12 @@ global:
   revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/520ede2f-fc82-4bb9-af96-4b4af7deabbd
 hatchery:
   enabled: true
+  replicaCount: 4
   externalSecrets:
     stataG3auto: "qaheal-stata-workspace-gen3-license"
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
-    tag: "2.6.0"
+    tag: "fix_idempotent-cost-track"
     # tag: "feat_s3-mount"
   hatchery:
     json: |-
