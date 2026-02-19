@@ -164,7 +164,7 @@ hatchery:
         "pay-models": [],
         "pay-models-dynamodb-table": "bmh-admin-portal-backend-bmhworkspacetableD4D73E43-qaheal",
         "pay-models-dynamodb-arn": "arn:aws:iam::840048274993:role/devplanetv2-sa-permissions",
-        "license-user-maps-dynamodb-table": "gen3-license-user-maps",
+        "license-user-maps-dynamodb-table": "gen3-license-user-maps-qa-heal",
         "license-user-maps-global-secondary-index": "activeUsersIndex",
         "s3-config": {
           "bucketName": "workspace-software-s3-qa-brh",
