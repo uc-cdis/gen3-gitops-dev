@@ -138,7 +138,7 @@ global:
   revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/520ede2f-fc82-4bb9-af96-4b4af7deabbd
 hatchery:
   enabled: true
-  replicaCount: 4
+  replicaCount: 1
   externalSecrets:
     stataG3auto: "qaheal-stata-workspace-gen3-license"
   image:
