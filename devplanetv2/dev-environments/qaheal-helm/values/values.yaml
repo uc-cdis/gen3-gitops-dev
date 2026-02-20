@@ -1925,6 +1925,7 @@ portal:
         },
         "requiredCerts": [],
         "featureFlags": {
+          "noIndex": true,
           "explorer": false,
           "analysis": false,
           "discovery": true,
