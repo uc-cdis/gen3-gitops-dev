@@ -224,7 +224,7 @@ hatchery:
   hatchery:
     json: |
       {
-          "user-namespace": "jupyter-pods",
+          "user-namespace": "jupyter-pods-qa-vpodc",
           "sub-dir": "/lw-workspace",
           "user-volume-size": "10Gi",
           "default-pay-model": {
