@@ -765,12 +765,17 @@ ohdsi-atlas:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ohdsi-atlas
-    tag: feat_enable_patient_prediction_menu
+    tag: 2.15.0-DEV
+  global:
+    hostname: qa-vpodc.planx-pla.net
 ohdsi-webapi:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ohdsi-webapi
     tag: 2.15.0-DEV
+  global:
+    hostname: qa-vpodc.planx-pla.net
+    atlasUrl: https://atlas.qa-vpodc.planx-pla.net
 peregrine:
   enabled: true
   image:
