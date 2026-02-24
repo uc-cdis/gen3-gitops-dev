@@ -121,6 +121,7 @@ global:
     deploy: true
   frontendRoot: gen3ff
   hostname: qa-mickey.planx-pla.net
+  atlasUrl: https://atlas.qa-mickey.planx-pla.net
   manifestGlobalExtraValues:
     arborist_url: http://arborist-service
     es7: true
@@ -293,16 +294,11 @@ ohdsi-atlas:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ohdsi-atlas
     tag: 2.15.0-DEV
-  global:
-    hostname: qa-mickey.planx-pla.net
 ohdsi-webapi:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ohdsi-webapi
     tag: 2.15.0-DEV
-  global:
-    hostname: qa-mickey.planx-pla.net
-    atlasUrl: https://atlas.qa-mickey.planx-pla.net
 peregrine:
   autoscaling:
     enabled: false
