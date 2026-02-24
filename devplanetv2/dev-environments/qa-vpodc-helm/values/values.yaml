@@ -18,6 +18,7 @@ global:
     deploy: true
   frontendRoot: gen3ff
   hostname: qa-vpodc.planx-pla.net
+  atlasUrl: https://atlas.qa-vpodc.planx-pla.net
   manifestGlobalExtraValues:
     ecr-access-job-role-arn: arn:aws:iam::654654631253:role/EcrRepoPolicyUpdateRole
     kube_bucket: kube_bucket.devplanetv1.gen3
@@ -766,16 +767,11 @@ ohdsi-atlas:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ohdsi-atlas
     tag: 2.15.0-DEV
-  global:
-    hostname: qa-vpodc.planx-pla.net
 ohdsi-webapi:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ohdsi-webapi
     tag: 2.15.0-DEV
-  global:
-    hostname: qa-vpodc.planx-pla.net
-    atlasUrl: https://atlas.qa-vpodc.planx-pla.net
 peregrine:
   enabled: true
   image:
