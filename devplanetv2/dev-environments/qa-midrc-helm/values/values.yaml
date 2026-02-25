@@ -133,6 +133,8 @@ global:
     createLocalK8sSecret: false
     pushSecret: true
   hostname: qa-midrc.planx-pla.net
+  netPolicy:
+    enabled: true
   manifestGlobalExtraValues:
     kube_bucket: kube-qaplanetv2-gen3
     logs_bucket: logs-qaplanetv2-gen3
