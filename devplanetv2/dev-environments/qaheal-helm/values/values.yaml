@@ -11,7 +11,7 @@ arborist:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/arborist
-    tag: "2025.12"
+    tag: "2026.02"
 audit:
   enabled: true
   externalSecrets:
@@ -19,7 +19,7 @@ audit:
     dbcreds: qaheal-audit-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/audit-service
-    tag: "2025.12"
+    tag: "2026.02"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--qaheal-helm--audit-sqs-receiver
@@ -52,7 +52,7 @@ dashboard:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-statics
-    tag: "2025.12"
+    tag: "2026.02"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--qaheal-helm--dashboard-access
@@ -77,7 +77,7 @@ fence:
     dbcreds: qaheal-fence-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
-    tag: "chore_add-hide-idps"
+    tag: "2026.02"
   FENCE_CONFIG_PUBLIC:
     # Setting the HIDE_IDPS list will hide items from the InCommons drop down list
     # eg, HIDE_IDPS = ["https://idp.uca.fr/idp/shibboleth", "urn:mace:incommon:osu.edu"]
@@ -92,7 +92,7 @@ frontend-framework:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/heal-data-commons
-    tag: main
+    tag: "mfshao-patch-1"
 global:
   crossplane:
     # -- (bool) Set to true if deploying to AWS and want to use crossplane for AWS resources.
@@ -144,8 +144,7 @@ hatchery:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
     # tag: "2026.02"
-    tag: "fix_idempotent-cost-track"
-    # tag: "feat_s3-mount"
+    tag: "feat_s3-mount"
   hatchery:
     json: |-
       {
@@ -175,7 +174,7 @@ hatchery:
         "sidecar": {
           "cpu-limit": "1.0",
           "memory-limit": "256Mi",
-          "image": "quay.io/cdis/ecs-ws-sidecar:fix_newline",
+          "image": "quay.io/cdis/ecs-ws-sidecar:0.3.2",
           "env": {
             "NAMESPACE": "qaheal-helm",
             "USER_UID": "1010"
@@ -402,7 +401,7 @@ indexd:
     dbcreds: qaheal-indexd-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexd
-    tag: "2025.12"
+    tag: "2026.02"
 metadata:
   aggMdsConfig: |-
     {
@@ -1495,7 +1494,7 @@ manifestservice:
     manifestserviceG3auto: qaheal-manifestservice-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/manifestservice
-    tag: "2025.12"
+    tag: "2026.02"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--qaheal-helm--manifest-service-sa
@@ -1508,7 +1507,7 @@ peregrine:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/peregrine
-    tag: "2025.12"
+    tag: "2026.02"
   externalSecrets:
     dbcreds: qaheal-peregrine-creds
 portal:
@@ -2463,7 +2462,7 @@ requestor:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/requestor
-    tag: "2025.12"
+    tag: "2026.02"
   externalSecrets:
     dbcreds: qaheal-requestor-creds
 revproxy:
@@ -2475,7 +2474,7 @@ revproxy:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/nginx
-    tag: "2025.12"
+    tag: "2026.02"
   ingress:
     aws:
       group: qaheal-helm
@@ -2488,7 +2487,7 @@ sheepdog:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sheepdog
-    tag: "2025.12"
+    tag: "2026.02"
   externalSecrets:
     dbcreds: qaheal-sheepdog-creds
 sower:
@@ -2501,7 +2500,7 @@ sower:
     sowerjobsG3auto: qaheal-sower-jobs-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sower
-    tag: "2025.12"
+    tag: "2026.02"
   sowerConfig:
     - action: batch-export
       activeDeadlineSeconds: 600
@@ -2515,7 +2514,7 @@ sower:
                 name: manifest-global
           - name: BUCKET
             value: devplanetv2-qaheal-helm-sower-service-bucket
-        image: quay.io/cdis/batch-export:2025.12
+        image: quay.io/cdis/batch-export:2026.02
         labels:
           internet: "yes"
         memory-limit: 1Gi
@@ -2530,8 +2529,8 @@ ssjdispatcher:
     credsFile: qaheal-ssjdispatcher-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ssjdispatcher
-    tag: "2025.12"
-  indexing: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexs3client:2025.12
+    tag: "2026.02"
+  indexing: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexs3client:2026.02
 wts:
   enabled: true
   externalSecrets:
@@ -2541,4 +2540,4 @@ wts:
     dbcreds: qaheal-wts-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/workspace-token-service
-    tag: "2025.12"
+    tag: "2026.02"
