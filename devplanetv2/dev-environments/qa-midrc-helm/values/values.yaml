@@ -101,9 +101,9 @@ funnel:
     dbcreds: "qa-midrc-helm-funnel-creds"
     funnelOidcClient: "qa-midrc-helm-funnel-oidc-client"
   funnel:
-    image:
+    # image:
     #  repository: quay.io/ohsu-comp-bio/funnel
-      tag: fix-reconciler
+      # tag: fix-reconciler
     Kubernetes:
       JobsNamespace: workflow-pods-qa-midrc-helm
 
@@ -134,7 +134,7 @@ global:
     pushSecret: true
   hostname: qa-midrc.planx-pla.net
   netPolicy:
-    enabled: true
+    enabled: false
   manifestGlobalExtraValues:
     kube_bucket: kube-qaplanetv2-gen3
     logs_bucket: logs-qaplanetv2-gen3
