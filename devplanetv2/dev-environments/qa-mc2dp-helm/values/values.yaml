@@ -9,7 +9,7 @@ arborist:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/arborist
-    tag: "2025.04"
+    tag: "2026.02"
   externalSecrets:
     dbcreds: qa-prometheus-arborist-creds
 audit:
@@ -32,7 +32,7 @@ dashboard:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-statics
-    tag: "2025.04"
+    tag: "2026.02"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--qa-prometheus-helm--dashboard-access
@@ -53,7 +53,7 @@ fence:
     dbcreds: qa-prometheus-fence-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
-    tag: "2025.04"
+    tag: "2026.02"
 fluentd:
   enabled: true
   image:
@@ -135,7 +135,7 @@ hatchery:
   replicaCount: 2
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
-    tag: "2025.04"
+    tag: "2026.02"
   hatchery:
     json: |
       {
@@ -149,7 +149,7 @@ hatchery:
           "sidecar": {
               "cpu-limit": "1.0",
               "memory-limit": "256Mi",
-              "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ecs-ws-sidecar:2025.03",
+              "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ecs-ws-sidecar:2026.02",
               "env": {
                   "NAMESPACE": "qa-prometheus",
                   "HOSTNAME": "qa-prometheus.planx-pla.net"
@@ -218,14 +218,14 @@ indexd:
     dbcreds: qa-prometheus-indexd-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexd
-    tag: "2025.04"
+    tag: "2026.02"
 manifestservice:
   enabled: true
   externalSecrets:
     manifestserviceG3auto: qa-prometheus-manifestservice-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/manifestservice
-    tag: "2025.04"
+    tag: "2026.02"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--qa-prometheus-helm--manifest-service-sa
@@ -534,14 +534,14 @@ peregrine:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/peregrine
-    tag: "2025.04"
+    tag: "2026.02"
 portal:
   enabled: false
 requestor:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/requestor
-    tag: "2025.04"
+    tag: "2026.02"
   externalSecrets:
     dbcreds: qa-prometheus-requestor-creds
 revproxy:
@@ -553,7 +553,7 @@ revproxy:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/nginx
-    tag: "2025.04"
+    tag: "2026.02"
   ingress:
     aws:
       group: qa-prometheus-helm
@@ -561,7 +561,7 @@ sheepdog:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sheepdog
-    tag: "2025.04"
+    tag: "2026.02"
   externalSecrets:
     dbcreds: qa-prometheus-sheepdog-creds
 ssjdispatcher:
@@ -571,8 +571,8 @@ ssjdispatcher:
     dbcreds: qa-prometheus-ssjdispatcher-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ssjdispatcher
-    tag: "2025.04"
-  indexing: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexs3client:2025.04
+    tag: "2026.02"
+  indexing: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexs3client:2026.02
 wts:
   enabled: true
   externalSecrets:
