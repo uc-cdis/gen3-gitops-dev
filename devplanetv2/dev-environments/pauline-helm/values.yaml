@@ -1,3 +1,3 @@
 name: pauline-helm
-helmBranch: remove-funnel-mongodb
+helmBranch: chore/funnel_0.1.98-rc10
 gitopsBranch: master
