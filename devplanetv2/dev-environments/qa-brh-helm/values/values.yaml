@@ -152,7 +152,7 @@ hatchery:
             "cpu-limit": "2.0",
             "memory-limit": "8Gi",
             "name": "(Generic) Software Repository Testing",
-            "image": "quay.io/cdis/jupyterlab-generic:chore_add-build-for-jupyterlab-generic",
+            "image": "quay.io/cdis/jupyterlab-generic:test_mshao1",
             "env": {
               "FRAME_ANCESTORS": "https://qa-brh.planx-pla.net"
             },
