@@ -41,18 +41,18 @@ datareplicate:
   # -- (string) Docker repository.
     repository: quay.io/cdis/dcf-dataservice
     # -- (string) Overrides the image tag whose default is the chart appVersion.
-    tag: "master"
+    tag: "feat_DCF-2379"
   resources:
     # -- (map) The amount of resources that the container requests
     requests:
       # -- (string) The amount of CPU requested
-      cpu: "8"
+      cpu: "2"
       # -- (string) The amount of memory requested
-      memory: 8Gi
+      memory: 4Gi
     # -- (map) The maximum amount of resources that the container is allowed to use
     limits:
       # -- (string) The maximum amount of memory the container can use
-      memory: 64Gi
+      memory: 4Gi
   googleBucketReplicateJob:
     # -- (bool) Whether to enable the Google bucket replicate job
     enabled: false
@@ -94,6 +94,17 @@ datareplicate:
     IGNORED_FILE: s3://test-data-replication-manifest/ignored_files_manifest.csv
     LOG_BUCKET: test-data-replication-manifest
     ONLY_REDACT: gs
+  replicateValidationJob:
+    enabled: true
+    suspendCronjob: true
+    schedule: '*/30 * * * *'
+    LOG_BUCKET: test-data-replication-manifest
+    RELEASE: DR45
+    MANIFEST_FILE: s3://test-data-replication-manifest/test_manifest_20251025.tsv
+    IGNORED_FILE: s3://test-data-replication-manifest/ignored_files_manifest.csv
+    OUT_FILES: test_manifest_20251025_out_DCF.tsv
+    FORCE_CREATE_MANIFEST: true
+    VALIDATE_PLATFORM: "AWS"
 etl:
   esEndpoint: elasticsearch
   mappings:
