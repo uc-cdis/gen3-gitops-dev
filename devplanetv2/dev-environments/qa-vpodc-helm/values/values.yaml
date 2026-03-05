@@ -221,7 +221,8 @@ hatchery:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
-    tag: "2025.10"
+    # tag: "2025.10"
+    tag: "feat_s3-mount"
   hatchery:
     json: |
       {
@@ -231,6 +232,11 @@ hatchery:
           "default-pay-model": {
               "workspace_type": "Trial Workspace",
               "local": true
+          },
+          "s3-config": {
+            "bucketName": "workspace-software-s3-qa-brh",
+            "prefixBase": "qa-vpodc",
+            "region": "us-east-1"
           },
           "sidecar": {
               "cpu-limit": "1.0",
@@ -326,7 +332,40 @@ hatchery:
                 "use-tls": "false",
                 "user-uid": 1010,
                 "user-volume-location": "/home/jovyan/pd"
-              }
+              },
+              {
+                "target-port": 8888,
+                "cpu-limit": "2.0",
+                "memory-limit": "8Gi",
+                "name": "(Generic) Software Library Testing",
+                "image": "quay.io/cdis/jupyterlab-generic:master",
+                "env": {
+                  "FRAME_ANCESTORS": "https://qa-vpodc.planx-pla.net"
+                },
+                "args": [
+                    "--ServerApp.base_url=/lw-workspace/proxy/",
+                    "--ServerApp.default_url=/lab",
+                    "--ServerApp.password=''",
+                    "--ServerApp.token=''",
+                    "--ServerApp.notebook_dir='/home/jovyan'",
+                    "--ServerApp.shutdown_no_activity_timeout=3600"
+                ],
+                "command": [
+                    "/jupyterlab-start.sh"
+                ],
+                "path-rewrite": "/lw-workspace/proxy/",
+                "use-tls": "false",
+                "ready-probe": "/lw-workspace/proxy/",
+                "lifecycle-post-start": [
+                    "/bin/sh",
+                    "-c",
+                    "export IAM=`whoami`; rm -rf /home/$IAM/pd/dockerHome; rm -rf /home/$IAM/pd/lost+found; ln -s /data /home/$IAM/; rm /home/$IAM/pd/data; true"
+                ],
+                "user-uid": 1010,
+                "fs-gid": 100,
+                "user-volume-location": "/home/jovyan/pd",
+                "gen3-volume-location": "/home/jovyan/.gen3"
+            }
           ]
       }
 indexd:
