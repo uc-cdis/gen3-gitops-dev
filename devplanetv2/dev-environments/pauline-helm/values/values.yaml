@@ -85,9 +85,9 @@ funnel:
         dbcreds: "pauline-helm-funnel-creds"
         funnelOidcClient: "funnel-oidc-client"
     funnel:
-        # image:
+        image:
         #     repository: quay.io/ohsu-comp-bio/funnel
-        #     tag: 2026-01-23.5
+            tag: 2026-03-05.2
         Kubernetes:
             JobsNamespace: workflow-pods-pauline-helm
 
