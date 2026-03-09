@@ -90,6 +90,10 @@ funnel:
             tag: 2026-03-05.2
         Kubernetes:
             JobsNamespace: workflow-pods-pauline-helm
+          ReplicaCount: 2
+          Executor:
+            Annotations:
+              karpenter.sh/do-not-disrupt: "true"
 
 guppy:
     enabled: false
