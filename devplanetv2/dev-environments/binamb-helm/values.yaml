@@ -8,4 +8,4 @@ name: binamb-helm
 helmBranch: master
 
 # What branch of gitops -- http://github.com/uc-cdis/gen3-gitops-dev
-gitopsBranch: chore/revert_to_master_binam
+gitopsBranch: master
