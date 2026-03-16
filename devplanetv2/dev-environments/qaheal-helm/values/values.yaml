@@ -232,7 +232,7 @@ hatchery:
             "cpu-limit": "1.0",
             "memory-limit": "2Gi",
             "name": "JupyterLab with Python and R Kernels",
-            "image": "quay.io/cdis/heal-notebooks:generic_rkernel__518649830a512a48eb4727ffa56d3a87b08d427c",
+            "image": "quay.io/cdis/heal-notebooks:generic_rkernel__latest",
             "env": {
               "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
             },
@@ -351,7 +351,7 @@ hatchery:
             "cpu-limit": "1.0",
             "memory-limit": "2Gi",
             "name": "Use JupyterLab with Example Analysis Notebooks",
-            "image": "quay.io/cdis/heal-notebooks:combined_tutorials__efec6b81db6f08d1c94f610463951610410a96ce",
+            "image": "quay.io/cdis/heal-notebooks:combined_tutorials__latest",
             "env": {
               "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
             },
