@@ -80,9 +80,10 @@ audit:
   #   pullPolicy: Never
 
 frontend-framework:
-  # image:
-  #   tag: main
-  #   repository:
+  enabled: true
+  image:
+    repository: quay.io/cdis/gen3-vectis
+    tag: main
   customConfig:
     enabled: true
   enabled: true
