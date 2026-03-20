@@ -17,7 +17,7 @@ global:
     deploy: true
     dbCreate: true
   hostname: qa-vectis.dev.planx-pla.net
-  dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json
+  dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/vectis_dictionary/v0.0.1/schema.json
   # We disable portal by default to save $$$
   frontendRoot: gen3ff
   postgres:
