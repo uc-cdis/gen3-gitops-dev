@@ -94,7 +94,7 @@ funnel:
         backoffLimit: 2
         Kubernetes:
             JobsNamespace: workflow-pods-pauline-helm
-            ReplicaCount: 2
+            ReconcileRate: 120s
             Executor:
                 Annotations:
                     karpenter.sh/do-not-disrupt: "true"
