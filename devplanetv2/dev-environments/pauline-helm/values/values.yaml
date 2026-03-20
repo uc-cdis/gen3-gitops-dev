@@ -47,6 +47,9 @@ global:
         # -- (int) The maxSkew to use for topology spread constraints. Defaults to 1.
         maxSkew: 1
 
+ambassador:
+    enabled: false
+
 arborist:
     enabled: true
     image:
