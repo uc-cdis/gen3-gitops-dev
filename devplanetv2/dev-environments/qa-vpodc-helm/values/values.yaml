@@ -200,7 +200,7 @@ frontend-framework:
   enabled: true
   image:
     repository: quay.io/cdis/vpodc-data-commons
-    tag: feat_show_attrition_numbers_in_submit
+    tag: feat_show_attrition_numbers_in_results
 
 guppy:
   authFilterField: auth_resource_path
