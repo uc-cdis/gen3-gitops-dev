@@ -90,7 +90,7 @@ funnel:
     funnel:
         image:
             repository: quay.io/cdis/funnel
-            tag: allow-retry
+            tag: allow-retry-2026-03-19
         backoffLimit: 2
         Kubernetes:
             JobsNamespace: workflow-pods-pauline-helm
