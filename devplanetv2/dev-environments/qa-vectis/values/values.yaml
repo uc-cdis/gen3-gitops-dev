@@ -239,11 +239,11 @@ metadata:
         "study_description": "path:data_description",
         "full_name": "path:full_name",
         "short_name": "path:short_name",
-        "commons": "Medical Imaging and Data Resource Center (MIDRC)",
+        "commons": "Vectis SOC",
         "study_url": "path:data_url",
         "_subjects_count" : {"path":"cases_count", "default" : 0 },
         "__manifest": "path:__manifest",
-        "commons_url" : "data.midrc.org"
+        "commons_url" : ""
       }
       }
       },
