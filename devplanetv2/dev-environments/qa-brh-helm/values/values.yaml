@@ -50,7 +50,7 @@ fence:
     dbcreds: qa-brh-fence-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
-    tag: "2026.02"
+    tag: "fix_idp_logout"
 fluentd:
   enabled: true
   image:
