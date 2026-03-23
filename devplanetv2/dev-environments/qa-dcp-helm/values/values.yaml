@@ -3,7 +3,7 @@ ambassador:
 arborist:
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
@@ -227,7 +227,7 @@ etl:
 fence:
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
@@ -291,7 +291,7 @@ guppy:
   authFilterField: auth_resource_path
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   configIndex: qa-dcp_array-config
@@ -593,7 +593,7 @@ hatchery:
 indexd:
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
@@ -615,7 +615,7 @@ manifestservice:
 metadata:
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
@@ -630,7 +630,7 @@ mutatingWebhook:
 peregrine:
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
@@ -640,7 +640,7 @@ peregrine:
 portal:
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
@@ -1184,7 +1184,7 @@ portal:
 revproxy:
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
@@ -1197,7 +1197,7 @@ revproxy:
 sheepdog:
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true

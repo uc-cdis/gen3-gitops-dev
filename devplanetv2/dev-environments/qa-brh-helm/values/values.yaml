@@ -7,7 +7,7 @@ ambassador:
 arborist:
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
@@ -37,7 +37,7 @@ fence:
     userYamlS3Path: s3://cdis-gen3-users/qa-brh/user.yaml
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
@@ -364,7 +364,7 @@ hatchery:
 indexd:
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
@@ -668,7 +668,7 @@ metadata:
     }
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
@@ -1205,7 +1205,7 @@ requestor:
 revproxy:
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true

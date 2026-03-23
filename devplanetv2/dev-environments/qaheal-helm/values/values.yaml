@@ -5,7 +5,7 @@ arborist:
     dbcreds: qaheal-arborist-creds
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
@@ -42,7 +42,7 @@ cedar:
 dashboard:
   autoscaling:
     enabled: false
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   dashboardConfig:
@@ -64,7 +64,7 @@ fence:
     userYamlS3Path: s3://cdis-gen3-users/qa-heal/user.yaml
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
@@ -393,7 +393,7 @@ hatchery:
 indexd:
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
@@ -1474,7 +1474,7 @@ metadata:
   aggMdsNamespace: qaheal-helm
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
@@ -1502,7 +1502,7 @@ manifestservice:
 peregrine:
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
@@ -1514,7 +1514,7 @@ peregrine:
 portal:
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
@@ -2469,7 +2469,7 @@ requestor:
 revproxy:
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
@@ -2482,7 +2482,7 @@ revproxy:
 sheepdog:
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true

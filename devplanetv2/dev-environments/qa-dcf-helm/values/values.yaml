@@ -1,7 +1,7 @@
 arborist:
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
@@ -27,7 +27,7 @@ aws-es-proxy:
 dashboard:
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   dashboardConfig:
@@ -48,7 +48,7 @@ datareplicate:
 fence:
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
@@ -127,7 +127,7 @@ guppy:
 indexd:
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
@@ -139,7 +139,7 @@ indexd:
 metadata:
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
@@ -154,7 +154,7 @@ mutatingWebhook:
 peregrine:
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
@@ -164,7 +164,7 @@ peregrine:
 portal:
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
@@ -423,7 +423,7 @@ portal:
 revproxy:
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
@@ -436,7 +436,7 @@ revproxy:
 sheepdog:
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true

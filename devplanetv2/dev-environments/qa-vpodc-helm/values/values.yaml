@@ -80,7 +80,7 @@ cohort-middleware:
 arborist:
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
@@ -184,7 +184,7 @@ fence:
     userYamlS3Path: s3://cdis-gen3-users/pdp/user.yaml
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
@@ -371,7 +371,7 @@ hatchery:
 indexd:
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
@@ -788,7 +788,7 @@ metadata:
   aggMdsNamespace: vpodc-commons
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
@@ -1492,7 +1492,7 @@ requestor:
 revproxy:
   autoscaling:
     enabled: true
-    maxReplicas: 1
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
