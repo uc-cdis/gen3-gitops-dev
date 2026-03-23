@@ -8,7 +8,7 @@ arborist:
   autoscaling:
     enabled: true
     maxReplicas: 3
-    minReplicas: 1
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   image:
@@ -38,7 +38,7 @@ fence:
   autoscaling:
     enabled: true
     maxReplicas: 3
-    minReplicas: 1
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   externalSecrets:
@@ -365,7 +365,7 @@ indexd:
   autoscaling:
     enabled: true
     maxReplicas: 3
-    minReplicas: 1
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   externalSecrets:
@@ -669,7 +669,7 @@ metadata:
   autoscaling:
     enabled: true
     maxReplicas: 3
-    minReplicas: 1
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   externalSecrets:
@@ -1206,7 +1206,7 @@ revproxy:
   autoscaling:
     enabled: true
     maxReplicas: 3
-    minReplicas: 1
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   image:

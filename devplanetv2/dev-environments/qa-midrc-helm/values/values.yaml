@@ -7,7 +7,7 @@ arborist:
   autoscaling:
     enabled: true
     maxReplicas: 4
-    minReplicas: 1
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   image:
@@ -64,7 +64,7 @@ fence:
   autoscaling:
     enabled: true
     maxReplicas: 4
-    minReplicas: 1
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   externalSecrets:
@@ -165,7 +165,7 @@ guppy:
   autoscaling:
     enabled: true
     maxReplicas: 4
-    minReplicas: 1
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   authFilterField: auth_resource_path
@@ -188,7 +188,7 @@ indexd:
   autoscaling:
     enabled: true
     maxReplicas: 4
-    minReplicas: 1
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   externalSecrets:
@@ -208,7 +208,7 @@ metadata:
   autoscaling:
     enabled: true
     maxReplicas: 4
-    minReplicas: 1
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   externalSecrets:
@@ -221,7 +221,7 @@ peregrine:
   autoscaling:
     enabled: true
     maxReplicas: 4
-    minReplicas: 1
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   image:
@@ -231,7 +231,7 @@ portal:
   autoscaling:
     enabled: true
     maxReplicas: 4
-    minReplicas: 1
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   gitops:
@@ -2263,7 +2263,7 @@ revproxy:
   autoscaling:
     enabled: true
     maxReplicas: 4
-    minReplicas: 1
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   image:
@@ -2277,7 +2277,7 @@ sheepdog:
   autoscaling:
     enabled: true
     maxReplicas: 4
-    minReplicas: 1
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   image:

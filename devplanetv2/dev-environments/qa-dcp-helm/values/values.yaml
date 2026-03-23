@@ -4,7 +4,7 @@ arborist:
   autoscaling:
     enabled: true
     maxReplicas: 3
-    minReplicas: 1
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   image:
@@ -228,7 +228,7 @@ fence:
   autoscaling:
     enabled: true
     maxReplicas: 3
-    minReplicas: 1
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   externalSecrets:
@@ -292,7 +292,7 @@ guppy:
   autoscaling:
     enabled: true
     maxReplicas: 3
-    minReplicas: 1
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   configIndex: qa-dcp_array-config
   enabled: true
@@ -594,7 +594,7 @@ indexd:
   autoscaling:
     enabled: true
     maxReplicas: 3
-    minReplicas: 1
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   externalSecrets:
@@ -616,7 +616,7 @@ metadata:
   autoscaling:
     enabled: true
     maxReplicas: 3
-    minReplicas: 1
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   esEndpoint: http://elasticsearch:9200
@@ -631,7 +631,7 @@ peregrine:
   autoscaling:
     enabled: true
     maxReplicas: 3
-    minReplicas: 1
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   image:
@@ -641,7 +641,7 @@ portal:
   autoscaling:
     enabled: true
     maxReplicas: 3
-    minReplicas: 1
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   gitops:
@@ -1185,7 +1185,7 @@ revproxy:
   autoscaling:
     enabled: true
     maxReplicas: 3
-    minReplicas: 1
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   image:
@@ -1198,7 +1198,7 @@ sheepdog:
   autoscaling:
     enabled: true
     maxReplicas: 3
-    minReplicas: 1
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   image:
