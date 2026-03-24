@@ -93,8 +93,8 @@ funnel:
             tag: allow-retry-2026-03-19
         backoffLimit: 2
         restartPolicy:
-            executor: Never
-            worker: Never
+            executor: OnFailure
+            worker: OnFailure
         Kubernetes:
             JobsNamespace: workflow-pods-pauline-helm
             ReconcileRate: 120s
