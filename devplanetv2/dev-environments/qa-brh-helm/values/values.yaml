@@ -119,7 +119,7 @@ hatchery:
           "soft-limit": 4
         },
         "s3-config": {
-          "bucketName": "workspace-software-s3-qa-brh",
+          "bucketName": "software-library--use1-az6--x-s3",
           "prefixBase": "qa-brh",
           "region": "us-east-1"
         },
