@@ -198,6 +198,7 @@ fence:
 
 frontend-framework:
   enabled: true
+  replicaCount: 2
   image:
     repository: quay.io/cdis/vpodc-data-commons
     tag: feat_show_attrition_numbers_in_results
