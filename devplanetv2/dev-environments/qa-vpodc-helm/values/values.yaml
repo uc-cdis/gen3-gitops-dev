@@ -810,7 +810,8 @@ ohdsi-atlas:
 ohdsi-webapi:
   enabled: true
   externalSecrets:
-    createK8sOhdsiWebApiConfigSecret: true
+    createK8sOhdsiWebApiConfigSecret: false
+    webapiG3auto: qa-vpodc-ohdsi-webapi-config
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ohdsi-webapi
     tag: 2.15.0-DEV
