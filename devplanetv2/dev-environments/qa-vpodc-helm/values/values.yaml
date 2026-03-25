@@ -15,6 +15,7 @@ global:
   dispatcherJobNum: "10"
   environment: qa-vpodc
   externalSecrets:
+    webapiG3auto: qa-vpodc-ohdsi-webapi-config
     deploy: true
   frontendRoot: gen3ff
   hostname: qa-vpodc.planx-pla.net
@@ -811,7 +812,6 @@ ohdsi-webapi:
   enabled: true
   externalSecrets:
     createK8sOhdsiWebApiConfigSecret: false
-    webapiG3auto: qa-vpodc-ohdsi-webapi-config
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ohdsi-webapi
     tag: 2.15.0-DEV
