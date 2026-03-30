@@ -12,7 +12,7 @@ global:
     # TODO: Figure out netpols with local dbs
     enabled: false
     dbSubnet: ""
-  environment: qaplanetv1
+  environment: devplanetv2
   externalSecrets:
     deploy: true
     dbCreate: true
