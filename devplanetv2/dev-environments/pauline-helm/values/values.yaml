@@ -91,16 +91,17 @@ funnel:
         image:
             repository: quay.io/cdis/funnel
             tag: allow-retry-2026-03-19
-        backoffLimit: 2
-        restartPolicy:
-            executor: OnFailure
-            worker: OnFailure
         Kubernetes:
             JobsNamespace: workflow-pods-pauline-helm
             ReconcileRate: 120s
             Executor:
+                restartPolicy: OnFailure
+                backoffLimit: 0
                 Annotations:
                     karpenter.sh/do-not-disrupt: "true"
+            Worker:
+                restartPolicy: OnFailure
+                backoffLimit: 2
 
 guppy:
     enabled: false
