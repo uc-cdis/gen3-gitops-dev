@@ -17,7 +17,7 @@ global:
     deploy: true
     dbCreate: true
     pushSecret: true
-  hostname: qa-vectis.dev.planx-pla.net
+  hostname: qa-vectis.planx-pla.net
   dictionaryUrl: https://dictionary-artifacts.s3.us-east-1.amazonaws.com/vectis_dictionary/main/schema.json
   # We disable portal by default to save $$$
   frontendRoot: gen3ff
@@ -255,7 +255,7 @@ revproxy:
   ingress:
     aws:
       # Do not change- this will break DNS for your env.
-      group: devplanetv2-internal
+      group: devplanetv2
 
 sheepdog:
   resources:
