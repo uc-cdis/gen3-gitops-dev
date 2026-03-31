@@ -86,7 +86,7 @@ frontend-framework:
     repository: quay.io/cdis/gen3-vectis
     tag: main
   customConfig:
-    enabled: true
+    enabled: false
   enabled: true
   resources:
     requests:
