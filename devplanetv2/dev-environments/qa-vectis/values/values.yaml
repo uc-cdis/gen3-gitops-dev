@@ -296,6 +296,7 @@ postgresql:
 fence:
   externalSecrets:
     createK8sFenceConfigSecret: false
+    createK8sJwtKeysSecret: true
     fenceGoogleAppCredsSecret: ci-fence-google-app-creds-secret
     fenceGoogleStorageCredsSecret: ci-fence-google-storage-creds-secret
     fenceConfig: "devplanetv2-generic-fence-config"
