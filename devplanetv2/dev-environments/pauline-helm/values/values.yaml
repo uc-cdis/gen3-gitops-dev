@@ -101,7 +101,7 @@ funnel:
                     karpenter.sh/do-not-disrupt: "true"
             Worker:
                 restartPolicy: OnFailure
-                backoffLimit: 2
+                backoffLimit: 1
 
 guppy:
     enabled: false
