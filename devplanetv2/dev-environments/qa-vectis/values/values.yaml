@@ -81,7 +81,7 @@ frontend-framework:
   enabled: true
   image:
     repository: quay.io/cdis/gen3-vectis
-    tag: qa-vectis
+    tag: qa-vectis2
     pullPolicy: Always
   customConfig:
     enabled: false
