@@ -233,7 +233,7 @@ hatchery:
             "cpu-limit": "1.0",
             "memory-limit": "2Gi",
             "name": "JupyterLab with Python and R Kernels",
-            "image": "quay.io/cdis/heal-notebooks:generic_rkernel__latest",
+            "image": "quay.io/cdis/heal-notebooks:generic_rkernel__f69ec1e74fdabb00d03ce1014abbb7f2c7b9a715",
             "env": {
               "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
             },
@@ -272,7 +272,7 @@ hatchery:
             "cpu-limit": "1.0",
             "memory-limit": "2Gi",
             "name": "JupyterLab with User-Licensed Stata",
-            "image": "quay.io/cdis/jupyter-pystata-user-licensed:3.1.1",
+            "image": "quay.io/cdis/jupyter-pystata-user-licensed:3.2.0",
             "env": {
               "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
             },
@@ -307,7 +307,7 @@ hatchery:
             "cpu-limit": "1.0",
             "memory-limit": "2Gi",
             "name": "JupyterLab with Shared Stata License",
-            "image": "quay.io/cdis/jupyter-pystata-gen3-licensed:3.1.1",
+            "image": "quay.io/cdis/jupyter-pystata-gen3-licensed:3.2.0",
             "env": {
               "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
             },
@@ -352,7 +352,7 @@ hatchery:
             "cpu-limit": "1.0",
             "memory-limit": "2Gi",
             "name": "Use JupyterLab with Example Analysis Notebooks",
-            "image": "quay.io/cdis/heal-notebooks:combined_tutorials__latest",
+            "image": "quay.io/cdis/heal-notebooks:combined_tutorials__3583c34df167b15eaec338125882f5bdbd5e735d",
             "env": {
               "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
             },
