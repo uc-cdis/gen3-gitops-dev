@@ -424,11 +424,11 @@ fence:
     BASE_URL: https://qa-vectis.planx-pla.net/user
     # Prefix to namespace Google Groups on a single Cloud Identity
     # This will be dynamically replaced by env_setup.sh script.
-    GOOGLE_GROUP_PREFIX:
+    # GOOGLE_GROUP_PREFIX:
 
-    # Prefix to namespace Google Service Accounts in a single Google Cloud Platform Project.
-    # This will be dynamically replaced by env_setup.sh script.
-    GOOGLE_SERVICE_ACCOUNT_PREFIX:
+    # # Prefix to namespace Google Service Accounts in a single Google Cloud Platform Project.
+    # # This will be dynamically replaced by env_setup.sh script.
+    # GOOGLE_SERVICE_ACCOUNT_PREFIX:
 
     # -- (string) Name of the Fence app
     APP_NAME: "fence"
