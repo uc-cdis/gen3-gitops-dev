@@ -87,6 +87,7 @@ frontend-framework:
     enabled: false
   env:
     NODE_ENV: production
+    HOSTNAME: "0.0.0.0"
     PORT: "3000"
     NEXT_PUBLIC_GEN3_COMMONS_NAME: qa-vectis
     NEXT_PUBLIC_DATACOMMONS: commons_frontend_app
@@ -157,7 +158,7 @@ hatchery:
               "--ServerApp.quit_button=False"
             ],
             "path-rewrite": "/lw-workspace/proxy/",
-            "use-tls": false,
+            "use-tls": "false",
             "ready-probe": "/lw-workspace/proxy/",
             "user-uid": 1000,
             "fs-gid": 100,
