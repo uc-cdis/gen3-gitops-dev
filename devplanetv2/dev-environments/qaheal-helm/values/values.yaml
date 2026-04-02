@@ -200,7 +200,7 @@ hatchery:
             "cpu-limit": "2.0",
             "memory-limit": "8Gi",
             "name": "(Generic) Software Library Testing",
-            "image": "quay.io/cdis/jupyterlab-generic:master",
+            "image": "quay.io/cdis/jupyterlab-generic:feat_add-stata-jupyterlab-generic",
             "env": {
               "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
             },
