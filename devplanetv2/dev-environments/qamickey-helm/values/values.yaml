@@ -86,8 +86,8 @@ fluentd:
 frontend-framework:
   enabled: true
   image:
-    repository: quay.io/cdis/vadc-data-commons
-    tag: main
+    repository: quay.io/cdis/vpodc-data-commons
+    tag: cadc
 global:
   aws:
     account: "707767160287"
