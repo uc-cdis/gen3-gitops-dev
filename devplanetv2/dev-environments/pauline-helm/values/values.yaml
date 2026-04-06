@@ -47,6 +47,9 @@ global:
         # -- (int) The maxSkew to use for topology spread constraints. Defaults to 1.
         maxSkew: 1
 
+ambassador:
+    enabled: false
+
 arborist:
     enabled: true
     image:
@@ -85,11 +88,20 @@ funnel:
         dbcreds: "pauline-helm-funnel-creds"
         funnelOidcClient: "funnel-oidc-client"
     funnel:
-        # image:
-        #     repository: quay.io/ohsu-comp-bio/funnel
-        #     tag: 2026-01-23.5
+        image:
+            repository: quay.io/cdis/funnel
+            tag: allow-retry-2026-03-19
         Kubernetes:
             JobsNamespace: workflow-pods-pauline-helm
+            ReconcileRate: 120s
+            Executor:
+                restartPolicy: OnFailure
+                backoffLimit: 0
+                Annotations:
+                    karpenter.sh/do-not-disrupt: "true"
+            Worker:
+                restartPolicy: OnFailure
+                backoffLimit: 1
 
 guppy:
     enabled: false
@@ -1678,7 +1690,7 @@ revproxy:
     enabled: true
     image:
         repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/nginx
-        tag: "2025.01"
+        tag: "2026.02"
     ingress:
         aws:
             group: devplanetv2

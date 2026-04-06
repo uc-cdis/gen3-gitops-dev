@@ -30,7 +30,7 @@ dashboard:
 datareplicate:
   batchServiceAccount:
     annotations:
-      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2-binamb-planx-pla-net-bucket-replicate-jqhu-sa-role 
+      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2-binamb-planx-pla-net-bucket-replicate-jqhu-sa-role
   enabled: true
   suspendCronjob: true
   externalSecrets:
@@ -38,21 +38,21 @@ datareplicate:
     googleCredsSecret: binamb-gcloud-creds-secret
     dcfDataserviceSettingsSecret: binamb-dcf-dataservice-settings-secrets
   image:
-  # -- (string) Docker repository.
+    # -- (string) Docker repository.
     repository: quay.io/cdis/dcf-dataservice
     # -- (string) Overrides the image tag whose default is the chart appVersion.
-    tag: "master"
+    tag: "feat_DCF-2379"
   resources:
     # -- (map) The amount of resources that the container requests
     requests:
       # -- (string) The amount of CPU requested
-      cpu: "8"
+      cpu: "2"
       # -- (string) The amount of memory requested
-      memory: 8Gi
+      memory: 4Gi
     # -- (map) The maximum amount of resources that the container is allowed to use
     limits:
       # -- (string) The maximum amount of memory the container can use
-      memory: 64Gi
+      memory: 4Gi
   googleBucketReplicateJob:
     # -- (bool) Whether to enable the Google bucket replicate job
     enabled: false
@@ -94,6 +94,17 @@ datareplicate:
     IGNORED_FILE: s3://test-data-replication-manifest/ignored_files_manifest.csv
     LOG_BUCKET: test-data-replication-manifest
     ONLY_REDACT: gs
+  replicateValidationJob:
+    enabled: true
+    suspendCronjob: true
+    schedule: "*/30 * * * *"
+    LOG_BUCKET: test-data-replication-manifest
+    RELEASE: DR45
+    MANIFEST_FILE: s3://test-data-replication-manifest/test_manifest_20251025.tsv
+    IGNORED_FILE: s3://test-data-replication-manifest/ignored_files_manifest.csv
+    OUT_FILES: test_manifest_20251025_out_DCF.tsv
+    FORCE_CREATE_MANIFEST: true
+    VALIDATE_PLATFORM: "AWS"
 etl:
   esEndpoint: elasticsearch
   mappings:
@@ -177,7 +188,7 @@ fence:
     usersync: true
     syncFromDbgap: false
     userYamlS3Path: s3://cdis-gen3-users/dev/user.yaml
-  FENCE_CONFIG_PUBLIC: 
+  FENCE_CONFIG_PUBLIC:
     BASE_URL: https://binamb.dev.planx-pla.net
 fluentd:
   enabled: true
@@ -242,10 +253,10 @@ guppy:
   image:
     tag: feat_es7
   indices:
-  - index: binamb_etl
-    type: case
-  - index: binamb_file
-    type: file
+    - index: binamb_etl
+      type: case
+    - index: binamb_file
+      type: file
 hatchery:
   enabled: true
   image:
@@ -339,7 +350,7 @@ hatchery:
 
 indexd:
   enabled: true
-  useSingleTable: 'true'
+  useSingleTable: "true"
   externalSecrets:
     serviceCreds: binamb-indexd-service-creds
   image:
@@ -357,8 +368,6 @@ metadata:
   esEndpoint: http://elasticsearch:9200
   externalSecrets:
     metadataG3auto: binamb-metadata-g3auto
-mutatingWebhook:
-  enabled: true
 peregrine:
   enabled: true
   image:
@@ -518,7 +527,7 @@ portal:
 revproxy:
   enabled: true
   image:
-    tag: "2025.01"
+    tag: "2026.02"
   ingress:
     aws:
       group: devplanetv2-internal

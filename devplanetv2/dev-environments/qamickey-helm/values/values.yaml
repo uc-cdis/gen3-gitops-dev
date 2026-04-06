@@ -12,7 +12,7 @@ arborist:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/arborist
-    tag: "2025.04"
+    tag: "2026.02"
 argo-wrapper:
   enabled: true
   image:
@@ -32,12 +32,12 @@ audit:
     auditG3auto: qamickey-audit-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/audit-service
-    tag: "2025.04"
+    tag: "2026.02"
 awshelper:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/awshelper
-    tag: "2025.04"
+    tag: "2026.02"
 cohort-middleware:
   enabled: true
   externalSecrets:
@@ -56,7 +56,7 @@ dashboard:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-statics
-    tag: "2025.04"
+    tag: "2026.02"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/gen3_service/devplanetv2--qamickey--dashboard
@@ -86,8 +86,8 @@ fluentd:
 frontend-framework:
   enabled: true
   image:
-    repository: quay.io/cdis/vadc-data-commons
-    tag: main
+    repository: quay.io/cdis/vpodc-data-commons
+    tag: cadc
 global:
   aws:
     account: "707767160287"
@@ -121,6 +121,7 @@ global:
     deploy: true
   frontendRoot: gen3ff
   hostname: qa-mickey.planx-pla.net
+  atlasUrl: https://atlas.qa-mickey.planx-pla.net
   manifestGlobalExtraValues:
     arborist_url: http://arborist-service
     es7: true
@@ -258,7 +259,7 @@ hatchery:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
-    tag: "2025.04"
+    tag: "2026.02"
 indexd:
   autoscaling:
     enabled: false
@@ -269,14 +270,14 @@ indexd:
     serviceCreds: qamickey-indexd-service-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexd
-    tag: "2025.04"
+    tag: "2026.02"
 manifestservice:
   enabled: true
   externalSecrets:
     manifestserviceG3auto: qamickey-manifestservice-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/manifestservice
-    tag: "2025.04"
+    tag: "2026.02"
 metadata:
   autoscaling:
     enabled: false
@@ -287,17 +288,17 @@ metadata:
     metadataG3auto: qamickey-metadata-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
-    tag: "2025.04"
+    tag: "2026.02"
 ohdsi-atlas:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ohdsi-atlas
-    tag: feat_pull_upstream_into_2.15_DEV
+    tag: 2.15.0-DEV
 ohdsi-webapi:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ohdsi-webapi
-    tag: feat_pull_upstream_into_2.15_DEV
+    tag: 2.15.0-DEV
 peregrine:
   autoscaling:
     enabled: false
@@ -306,7 +307,7 @@ peregrine:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/peregrine
-    tag: "2025.04"
+    tag: "2026.02"
 portal:
   autoscaling:
     enabled: false
@@ -432,7 +433,7 @@ requestor:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/requestor
-    tag: "2025.04"
+    tag: "2026.02"
 revproxy:
   autoscaling:
     enabled: false
@@ -441,7 +442,7 @@ revproxy:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/nginx
-    tag: "2025.04"
+    tag: "2026.02"
   ingress:
     aws:
       group: qamickey-helm
@@ -454,15 +455,15 @@ sheepdog:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sheepdog
-    tag: "2025.04"
+    tag: "2026.02"
 ssjdispatcher:
   enabled: true
   externalSecrets:
     credsFile: qamickey-ssjdispatcher-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ssjdispatcher
-    tag: "2025.04"
-  indexing: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexs3client:2025.04
+    tag: "2026.02"
+  indexing: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexs3client:2026.02
 wts:
   enabled: true
   externalSecrets:
@@ -471,6 +472,6 @@ wts:
     wtsOidcClient: qamickey-wts-client-secret
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/workspace-token-service
-    tag: "2025.04"
+    tag: "2026.02"
 
 

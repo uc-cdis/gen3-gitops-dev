@@ -4,7 +4,7 @@
 name: qamickey-helm
 
 # What branch of helm
-helmBranch: feat/healm_for_ohdsi_services
+helmBranch: master
 
 # What branch of gitops
 gitopsBranch: master

@@ -4,7 +4,7 @@ global:
   aws:
     enabled: true
     account: "707767160287"
-    scheme: "internal"
+    scheme: "internet-facing"
     secretStoreServiceAccount:
       enabled: true
       name: secret-store-sa
@@ -12,10 +12,11 @@ global:
     # TODO: Figure out netpols with local dbs
     enabled: false
     dbSubnet: ""
-  environment: qaplanetv1
+  environment: qa-vectis
   externalSecrets:
     deploy: true
     dbCreate: true
+    pushSecret: true
   hostname: qa-vectis.dev.planx-pla.net
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/vectisdictionary/v0.0.5/schema.json
   # We disable portal by default to save $$$
@@ -51,10 +52,7 @@ aws-es-proxy:
   enabled: true
   esEndpoint: vpc-devplanetv2-gen3-metadata-2-xkwr2f3gbxua5mqqi7rhnat4la.us-east-1.es.amazonaws.com
 ambassador:
-  resources:
-    requests:
-      memory: "105Mi"
-      cpu: "15m"
+  enabled: false
 
 arborist:
   image:
@@ -83,14 +81,31 @@ frontend-framework:
   enabled: true
   image:
     repository: quay.io/cdis/gen3-vectis
-    tag: main
+    tag: qa-vectis2
+    pullPolicy: Always
   customConfig:
-    enabled: true
-  enabled: true
+    enabled: false
+  env:
+    NODE_ENV: production
+    HOSTNAME: "0.0.0.0"
+    PORT: "3000"
+    NEXT_PUBLIC_GEN3_COMMONS_NAME: qa-vectis
+    NEXT_PUBLIC_DATACOMMONS: commons_frontend_app
+    HATCHERY_URL: "http://hatchery-service.qa-vectis.svc.cluster.local"
+    GEN3_FENCE_SERVICE: "http://fence-service.qa-vectis.svc.cluster.local"
+    GEN3_ARBORIST_SERVICE: "http://arborist-service.qa-vectis.svc.cluster.local"
+    GEN3_INDEXD_SERVICE: "http://indexd-service.qa-vectis.svc.cluster.local"
+    JUPYTER_GATEWAY_URL: "http://jupyter-enterprise-gateway.jupyter-pods-qa-vectis.svc.cluster.local:8888"
+    KERNEL_SPEC_POLICY: "{}"
+    ENABLE_JEG: "true"
+  replicaCount: 2
   resources:
     requests:
       memory: "256Mi"
       cpu: "15m"
+    limits:
+      cpu: "1000m"
+      memory: "1Gi"
 
 hatchery:
   externalSecrets:
@@ -102,14 +117,56 @@ hatchery:
   image:
     tag: master
   hatchery:
-    sidecarContainer:
-      image: quay.io/cdis/gen3fuse-sidecar:master
-      command:
-        - /bin/bash
-        - /sidecarDockerrun.sh
-    WorkspaceContainer:
-      repository: quay.io/cdis/gen3-vectis
-    tag: gen3-vectis-workspace-sidecar
+    json: |-
+      {
+        "user-namespace": "jupyter-pods-qa-vectis",
+        "sub-dir": "/lw-workspace",
+        "user-volume-size": "10Gi",
+        "jeg-gateway-proxy-url": "http://workspace-proxy-service.qa-vectis.svc.cluster.local:8080/jeg-proxy",
+        "sidecar": {
+          "cpu-limit": "1.0",
+          "memory-limit": "256Mi",
+          "image": "quay.io/cdis/gen3fuse-sidecar:2024.07",
+          "env": {
+            "NAMESPACE": "qa-vectis",
+            "HOSTNAME": "qa-vectis.planx-pla.net"
+          },
+          "args": [],
+          "command": ["/bin/bash", "/sidecar.sh"],
+          "lifecycle-pre-stop": ["/bin/bash", "-c", "fusermount -u /data || true"]
+        },
+        "containers": [
+          {
+            "target-port": 8888,
+            "cpu-limit": "2.0",
+            "memory-limit": "4Gi",
+            "name": "Jupyter Notebook (Python 3) - Vectis QA",
+            "image": "quay.io/cdis/jupyter-superslim:2024.07",
+            "env": {
+              "FRAME_ANCESTORS": "qa-vectis.planx-pla.net"
+            },
+            "args": [
+              "--ServerApp.base_url=/lw-workspace/proxy/",
+              "--ServerApp.default_url=/lab",
+              "--ServerApp.password=''",
+              "--ServerApp.token=''",
+              "--ServerApp.ip='*'",
+              "--ServerApp.disable_check_xsrf=True",
+              "--ServerApp.allow_origin='https://qa-vectis.planx-pla.net'",
+              "--ServerApp.root_dir='/home/jovyan'",
+              "--ServerApp.shutdown_no_activity_timeout=5400",
+              "--ServerApp.quit_button=False"
+            ],
+            "path-rewrite": "/lw-workspace/proxy/",
+            "use-tls": "false",
+            "ready-probe": "/lw-workspace/proxy/",
+            "user-uid": 1000,
+            "fs-gid": 100,
+            "user-volume-location": "/home/jovyan",
+            "gen3-volume-location": "/home/jovyan/.gen3"
+          }
+        ]
+      }
 
 portal:
   # Disable portal by default
@@ -254,7 +311,62 @@ revproxy:
   ingress:
     aws:
       # Do not change- this will break DNS for your env.
-      group: devplanetv2-internal
+      group: devplanetv2
+  additionalConfigs:
+    ambassador-service.conf: |-
+      location = /lw-workspace/proxy {
+        return 308 $scheme://$http_host/lw-workspace/proxy/;
+      }
+
+      location /lw-workspace/proxy/ {
+          set $authz_resource "/workspace";
+          set $authz_method "access";
+          set $authz_service "jupyterhub";
+          auth_request_set $remoteUser $upstream_http_REMOTE_USER;
+          auth_request_set $saved_set_cookie $upstream_http_set_cookie;
+          auth_request /gen3-authz;
+
+          if ($saved_set_cookie != "") {
+              add_header Set-Cookie $saved_set_cookie always;
+          }
+          add_header Cache-Control "no-store";
+
+          proxy_set_header REMOTE_USER $remoteUser;
+          error_page 403 = @errorworkspace;
+
+          set $proxy_service  "workspace-proxy";
+          set $upstream http://workspace-proxy-service.qa-vectis.svc.cluster.local;
+          rewrite ^/lw-workspace/proxy/(.*) /$1 break;
+          proxy_pass $upstream;
+          proxy_redirect http://$http_host/ https://$http_host/lw-workspace/proxy/;
+          proxy_http_version 1.1;
+          proxy_set_header Host $http_host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection "upgrade";
+          proxy_set_header X-URL-SCHEME https;
+          client_max_body_size 0;
+          proxy_read_timeout 36000s;
+      }
+    workspace-api.conf: |-
+      location ^~ /workspace-api/ {
+          set $authz_resource "/workspace";
+          set $authz_method "access";
+          set $authz_service "jupyterhub";
+          auth_request /gen3-authz;
+          error_page 403 = @errorworkspace;
+          set $upstream http://gen3ff-service.qa-vectis.svc.cluster.local;
+          rewrite ^/workspace-api/(.*) /$1 break;
+          proxy_pass $upstream;
+          proxy_http_version 1.1;
+          proxy_set_header Host $http_host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-URL-SCHEME https;
+          client_max_body_size 0;
+          proxy_read_timeout 600s;
+      }
 
 sheepdog:
   resources:
@@ -277,6 +389,11 @@ wts:
   externalSecrets:
     createWtsOidcClientSecret: true
     createK8sWtsSecret: true
+  networkPolicy:
+    enabled: true
+    ingressNamespaces:
+      - qa-vectis
+      - jupyter-pods-qa-vectis
 
 
 # Database configuration
@@ -295,6 +412,7 @@ postgresql:
 fence:
   externalSecrets:
     createK8sFenceConfigSecret: false
+    createK8sJwtKeysSecret: true
     fenceGoogleAppCredsSecret: ci-fence-google-app-creds-secret
     fenceGoogleStorageCredsSecret: ci-fence-google-storage-creds-secret
     fenceConfig: "devplanetv2-generic-fence-config"
@@ -302,13 +420,15 @@ fence:
     usersync: true
     userYamlS3Path: s3://cdis-gen3-users/dev/user.yaml
   FENCE_CONFIG_PUBLIC:
+
+    BASE_URL: https://qa-vectis.planx-pla.net/user
     # Prefix to namespace Google Groups on a single Cloud Identity
     # This will be dynamically replaced by env_setup.sh script.
-    GOOGLE_GROUP_PREFIX:
+    # GOOGLE_GROUP_PREFIX:
 
-    # Prefix to namespace Google Service Accounts in a single Google Cloud Platform Project.
-    # This will be dynamically replaced by env_setup.sh script.
-    GOOGLE_SERVICE_ACCOUNT_PREFIX:
+    # # Prefix to namespace Google Service Accounts in a single Google Cloud Platform Project.
+    # # This will be dynamically replaced by env_setup.sh script.
+    # GOOGLE_SERVICE_ACCOUNT_PREFIX:
 
     # -- (string) Name of the Fence app
     APP_NAME: "fence"
@@ -322,7 +442,7 @@ fence:
     # -- (bool) if true, will fake a successful login response from Google in /login/google
     # NOTE: this will also modify the behavior of /link/google endpoints
     # will login as the username set in cookie DEV_LOGIN_COOKIE_NAME
-    MOCK_GOOGLE_AUTH: true
+    MOCK_GOOGLE_AUTH: false
 
     # -- (str) the name of the cookie set by mock authentication (used for testing only)
     DEV_LOGIN_COOKIE_NAME: "dev_login"

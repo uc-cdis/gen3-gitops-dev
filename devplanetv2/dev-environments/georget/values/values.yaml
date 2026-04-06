@@ -9,14 +9,14 @@ arborist:
     enabled: true
     image:
         repository: quay.io/cdis/arborist
-        tag: "2025.03"
+        tag: "2026.02"
 audit:
     enabled: true
     externalSecrets:
         auditG3auto: georget-audit-g3auto
     image:
         repository: quay.io/cdis/audit-service
-        tag: "2025.03"
+        tag: "2026.02"
     serviceAccount:
         annotations:
             eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--georget-helm--audit-sqs-receiver
@@ -143,7 +143,7 @@ fence:
         fenceJwtKeys: georget-fence-jwt
     image:
         repository: quay.io/cdis/fence
-        tag: "2025.07"
+        tag: "2026.02"
 fluentd:
     enabled: true
     image:
@@ -195,7 +195,7 @@ guppy:
     esEndpoint: http://elasticsearch:9200
     image:
         repository: quay.io/cdis/guppy
-        tag: "2025.03"
+        tag: "2026.02"
     indices:
         - index: dev_case
           type: case
@@ -494,7 +494,7 @@ indexd:
         serviceCreds: georget-indexd-service-creds
     image:
         repository: quay.io/cdis/indexd
-        tag: "2025.03"
+        tag: "2026.02"
 jupyterhub:
     enabled: true
     image:
@@ -1760,7 +1760,7 @@ metadata:
         metadataG3auto: georget-metadata-g3auto
     image:
         repository: quay.io/cdis/metadata-service
-        tag: "2025.03"
+        tag: "2026.02"
     useAggMds: true
     schedule: "4 3 2 1 *"
     suspendCronjob: false
@@ -1774,7 +1774,7 @@ peregrine:
     enabled: true
     image:
         repository: quay.io/cdis/peregrine
-        tag: "2025.03"
+        tag: "2026.02"
 portal:
     autoscaling:
         enabled: true
@@ -3416,7 +3416,7 @@ requestor:
     enabled: true
     image:
         repository: quay.io/cdis/requestor
-        tag: "2025.03"
+        tag: "2026.02"
 revproxy:
     autoscaling:
         enabled: true
@@ -3426,7 +3426,7 @@ revproxy:
     enabled: true
     image:
         repository: quay.io/cdis/nginx
-        tag: "2025.03"
+        tag: "2026.02"
     ingress:
         aws:
             group: devplanetv2-internal
@@ -3439,7 +3439,7 @@ sheepdog:
     enabled: true
     image:
         repository: quay.io/cdis/sheepdog
-        tag: "2025.03"
+        tag: "2026.02"
 sower:
     enabled: true
     externalSecrets:
@@ -3447,7 +3447,7 @@ sower:
         sowerjobsG3auto: georget-sower-jobs-g3auto
     image:
         repository: quay.io/cdis/sower
-        tag: "2025.03"
+        tag: "2026.02"
     sowerConfig:
         - action: export
           container:
@@ -3672,7 +3672,7 @@ ssjdispatcher:
         credsFile: georget-ssjdispatcher-creds
     image:
         repository: quay.io/cdis/ssjdispatcher
-        tag: "2025.03"
+        tag: "2026.02"
     indexing: quay.io/cdis/indexs3client:chore_add-log-message-for-update
 wts:
     enabled: true

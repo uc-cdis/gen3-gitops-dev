@@ -15,9 +15,11 @@ global:
   dispatcherJobNum: "10"
   environment: qa-vpodc
   externalSecrets:
+    webapiG3auto: qa-vpodc-ohdsi-webapi-config
     deploy: true
   frontendRoot: gen3ff
   hostname: qa-vpodc.planx-pla.net
+  atlasUrl: https://atlas.qa-vpodc.planx-pla.net
   manifestGlobalExtraValues:
     ecr-access-job-role-arn: arn:aws:iam::654654631253:role/EcrRepoPolicyUpdateRole
     kube_bucket: kube_bucket.devplanetv1.gen3
@@ -74,13 +76,13 @@ cohort-middleware:
     cohortMiddlewareG3Auto: qa-vpodc-cohort-middleware-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/cohort-middleware
-    tag: master
+    tag: feat_exclude_prior_outcome
 
 arborist:
   autoscaling:
     enabled: true
-    maxReplicas: 1
-    minReplicas: 1
+    maxReplicas: 3
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   image:
@@ -183,8 +185,8 @@ fence:
     userYamlS3Path: s3://cdis-gen3-users/pdp/user.yaml
   autoscaling:
     enabled: true
-    maxReplicas: 1
-    minReplicas: 1
+    maxReplicas: 3
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   externalSecrets:
@@ -197,6 +199,7 @@ fence:
 
 frontend-framework:
   enabled: true
+  replicaCount: 2
   image:
     repository: quay.io/cdis/vpodc-data-commons
     tag: vpodcqa
@@ -220,16 +223,22 @@ hatchery:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
-    tag: "2025.10"
+    # tag: "2025.10"
+    tag: "feat_s3-mount"
   hatchery:
     json: |
       {
-          "user-namespace": "jupyter-pods",
+          "user-namespace": "jupyter-pods-qa-vpodc",
           "sub-dir": "/lw-workspace",
           "user-volume-size": "10Gi",
           "default-pay-model": {
               "workspace_type": "Trial Workspace",
               "local": true
+          },
+          "s3-config": {
+            "bucketName": "workspace-software-s3-qa-brh",
+            "prefixBase": "qa-vpodc",
+            "region": "us-east-1"
           },
           "sidecar": {
               "cpu-limit": "1.0",
@@ -325,14 +334,47 @@ hatchery:
                 "use-tls": "false",
                 "user-uid": 1010,
                 "user-volume-location": "/home/jovyan/pd"
-              }
+              },
+              {
+                "target-port": 8888,
+                "cpu-limit": "2.0",
+                "memory-limit": "8Gi",
+                "name": "(Generic) Software Library Testing",
+                "image": "quay.io/cdis/jupyterlab-generic:test_add-python-kernel-jupyterlab-generic",
+                "env": {
+                  "FRAME_ANCESTORS": "https://qa-vpodc.planx-pla.net"
+                },
+                "args": [
+                    "--ServerApp.base_url=/lw-workspace/proxy/",
+                    "--ServerApp.default_url=/lab",
+                    "--ServerApp.password=''",
+                    "--ServerApp.token=''",
+                    "--ServerApp.notebook_dir='/home/jovyan'",
+                    "--ServerApp.shutdown_no_activity_timeout=3600"
+                ],
+                "command": [
+                    "/jupyterlab-start.sh"
+                ],
+                "path-rewrite": "/lw-workspace/proxy/",
+                "use-tls": "false",
+                "ready-probe": "/lw-workspace/proxy/",
+                "lifecycle-post-start": [
+                    "/bin/sh",
+                    "-c",
+                    "export IAM=`whoami`; rm -rf /home/$IAM/pd/dockerHome; rm -rf /home/$IAM/pd/lost+found; ln -s /data /home/$IAM/; rm /home/$IAM/pd/data; true"
+                ],
+                "user-uid": 1010,
+                "fs-gid": 100,
+                "user-volume-location": "/home/jovyan/pd",
+                "gen3-volume-location": "/home/jovyan/.gen3"
+            }
           ]
       }
 indexd:
   autoscaling:
     enabled: true
-    maxReplicas: 1
-    minReplicas: 1
+    maxReplicas: 3
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   externalSecrets:
@@ -748,8 +790,8 @@ metadata:
   aggMdsNamespace: vpodc-commons
   autoscaling:
     enabled: true
-    maxReplicas: 1
-    minReplicas: 1
+    maxReplicas: 3
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   esEndpoint: http://elasticsearch:9200
@@ -765,9 +807,11 @@ ohdsi-atlas:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ohdsi-atlas
-    tag: feat_enable_patient_prediction_menu
+    tag: 2.15.0-DEV
 ohdsi-webapi:
   enabled: true
+  externalSecrets:
+    createK8sOhdsiWebApiConfigSecret: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ohdsi-webapi
     tag: 2.15.0-DEV
@@ -1450,8 +1494,8 @@ requestor:
 revproxy:
   autoscaling:
     enabled: true
-    maxReplicas: 1
-    minReplicas: 1
+    maxReplicas: 3
+    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   enabled: true
   image:
