@@ -47,10 +47,6 @@
           "enabled": true
         },
         "search": {
-          "tagSearchDropdown": {
-            "enabled": true,
-            "collapsibleButtonText": "Data Repository"
-          },
           "searchBar": {
             "enabled": true,
             "inputSubtitle": "Examples: pain, buprenorphine, intervention",
@@ -81,6 +77,10 @@
               "CDE Field Source": "cde.fields.standardMappings.source",
               "Study Description Summary": "study_metadata.minimal_info.study_description"
             }
+          },
+          "tagSearchDropdown": {
+            "enabled": true,
+            "collapsibleButtonText": "Data Repository"
           }
         }
       },
@@ -90,6 +90,16 @@
           {
             "type": "addToDataLibrary",
             "requiresLogin": "true"
+          },
+          {
+            "type": "manifest",
+            "label": "Manifest"
+          },
+          {
+            "type": "zip"
+          },
+          {
+            "type": "metadata"
           }
         ],
         "exportDataFields": {
@@ -186,12 +196,8 @@
         "valueIfNotAvailable": "No summary has been provided for this study."
       },
       "detailView": {
-        "header": {
-          "field": "study_metadata.minimal_info.study_name"
-        },
-        "subHeader": {
-          "field": "_hdp_uid"
-        },
+        "headerField": "study_metadata.minimal_info.study_name",
+        "subHeaderField": "_hdp_uid",
         "tabs": [
           {
             "tabName": "Summary",
@@ -210,71 +216,69 @@
                 "fields": [
                   {
                     "contentType": "text",
-                    "name": "Project Number",
-                    "includeLabel": true,
+                    "label": "Project Number",
+
                     "field": "project_number",
                     "default": ""
                   },
                   {
                     "contentType": "text",
-                    "name": "HEAL Research Program",
+                    "label": "HEAL Research Program",
                     "includeLabel": true,
-                    "sourceField": "research_program",
+                    "field": "research_program",
                     "default": "Not specified"
                   },
                   {
                     "contentType": "text",
-                    "name": "Institution(s)",
+                    "label": "Institution(s)",
                     "includeLabel": true,
                     "field": "institutions"
                   },
                   {
                     "contentType": "text",
-                    "name": "Investigator(s)",
-                    "includeIfNotAvailable": true,
-                    "valueIfNotAvailable": "NA",
-                    "includeLabel": true,
+                    "label": "Investigator(s)",
+                    "includeLabel": false,
                     "field": "investigators_name"
                   },
                   {
                     "contentType": "text",
-                    "name": "Administering IC(s)",
+                    "label": "Administering IC(s)",
                     "includeLabel": true,
                     "field": "administering_ic"
                   },
                   {
                     "contentType": "text",
-                    "name": "Year Grant Awarded",
+                    "label": "Year Grant Awarded",
                     "includeLabel": true,
                     "field": "year_awarded"
                   },
                   {
                     "contentType": "link",
-                    "name": "NIH RePORTER Link",
+                    "label": "NIH RePORTER Link",
                     "includeLabel": true,
                     "field": "study_metadata.metadata_location.nih_reporter_link"
                   },
                   {
                     "contentType": "text",
-                    "name": "Clinical Trial ID",
+                    "label": "Clinical Trial ID",
                     "includeLabel": false,
-                    "sourceField": "study_metadata.metadata_location.clinical_trials_study_ID"
+                    "field": "study_metadata.metadata_location.clinical_trials_study_ID"
                   },
                   {
                     "contentType": "link",
-                    "name": "Clinical Trial Link",
+                    "label": "Clinical Trial Link",
                     "includeLabel": false,
                     "field": "study_metadata.metadata_location.clinical_trials_study_link"
                   },
                   {
                     "contentType": "text",
-                    "name": "DOI",
+                    "label": "DOI",
                     "includeLabel": false,
                     "field": "doi_identifier"
                   },
                   {
                     "contentType": "link",
-                    "name": "DOI Link",
+                    "label": "DOI Link",
                     "includeLabel": false,
                     "field": "doi_resolvable_link"
                   }
@@ -296,27 +300,11 @@
             "tabName": "Data",
             "groups": [
               {
-                "header": "Study Description Summary",
-                "fields": [
-                  {
-                    "contentType": "block",
-                    "field": "study_metadata.minimal_info.study_description"
-                  },
-                  {
-                    "contentType": "accessDescriptor",
-                    "name": "access",
-                    "field": "access?"
-                  }
-                ]
-              },
-              {
                 "header": "Data Files",
                 "fields": [
                   {
-                    "contentType": "accessDescriptor",
-                    "name": "access",
-
-                    "field": "access?"
+                    "field": "study_metadata",
+                    "contentType": "accessDescriptor"
                   },
                   {
                     "contentType": "dataDownloadList",
@@ -384,7 +372,7 @@
           {
             "name": "Study Type",
             "color": "#532565",
-            "display": true
+            "display": false
           },
           {
             "name": "Data Type",
