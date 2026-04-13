@@ -91,12 +91,6 @@ funnel:
         Kubernetes:
             JobsNamespace: workflow-pods-pauline-helm
             ReconcileRate: 120s
-            NodeSelector: {"role": "gpu"}
-            Tolerations:
-                - Key: "nvidia.com/gpu"
-                  Operator: "Equal"
-                  Value: "present"
-                  Effect: "NoSchedule"
             Executor:
                 restartPolicy: OnFailure
                 backoffLimit: 0
