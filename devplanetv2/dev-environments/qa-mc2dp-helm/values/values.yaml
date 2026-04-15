@@ -623,7 +623,7 @@ wts:
     dbcreds: qa-prometheus-wts-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/workspace-token-service
-    tag: 0.4.4
+    tag: 2026.02
 
 # AuroraRDSCopy Job configuration
 auroraRdsCopyJob:
