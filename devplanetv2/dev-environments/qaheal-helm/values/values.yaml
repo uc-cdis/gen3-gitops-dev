@@ -1527,7 +1527,7 @@ portal:
     gen3Bundle: heal
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/data-portal
-    tag: "feat_filename"
+    tag: "feat_manifest-filename"
 requestor:
   enabled: true
   image:
