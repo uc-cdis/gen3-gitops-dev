@@ -202,7 +202,7 @@ frontend-framework:
   replicaCount: 2
   image:
     repository: quay.io/cdis/vpodc-data-commons
-    tag: feat_show_attrition_numbers_in_results
+    tag: vpodcqa
 
 guppy:
   authFilterField: auth_resource_path

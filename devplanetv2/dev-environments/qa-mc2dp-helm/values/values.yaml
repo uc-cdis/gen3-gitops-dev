@@ -114,7 +114,7 @@ global:
     public_datasets: true
     sync_from_dbgap: "False"
     useryaml_s3path: s3://cdis-gen3-users/pdp/user.yaml
-  tierAccessLevel: private
+  tierAccessLevel: libre
   tierAccessLimit: 50
   portalApp: gitops
   postgres:
@@ -623,7 +623,7 @@ wts:
     dbcreds: qa-prometheus-wts-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/workspace-token-service
-    tag: 0.4.4
+    tag: 2026.02
 
 # AuroraRDSCopy Job configuration
 auroraRdsCopyJob:
