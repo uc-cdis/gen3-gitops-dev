@@ -202,7 +202,7 @@ indexd:
   enabled: true
   defaultPrefix: dev/
   externalSecrets:
-    createK8sServiceCredsSecret
+    createK8sServiceCredsSecret: true
 
 metadata:
   # Replaced by Lambda query/indexd services
