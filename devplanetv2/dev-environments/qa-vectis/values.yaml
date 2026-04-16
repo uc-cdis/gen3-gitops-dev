@@ -8,3 +8,8 @@ helmBranch: master
 
 # What branch of gitops -- http://github.com/uc-cdis/gen3-gitops-dev
 gitopsBranch: master
+
+# Deployed via its own Argo Application (templates/vectis-overlays-app.yaml).
+# Disabled here so Helm does not render it inline as a sub-chart.
+vectis-overlays:
+  enabled: false

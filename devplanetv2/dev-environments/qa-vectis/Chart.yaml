@@ -27,3 +27,6 @@ dependencies:
     version: "0.1.0"
   - name: workspace-proxy
     version: "0.1.0"
+  - name: vectis-overlays
+    version: "0.1.0"
+    condition: vectis-overlays.enabled
