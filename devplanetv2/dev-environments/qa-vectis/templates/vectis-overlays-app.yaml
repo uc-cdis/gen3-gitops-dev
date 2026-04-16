@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: qa-vectis-overlays
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  project: default
+  sources:
+    - path: devplanetv2/dev-environments/qa-vectis/charts/vectis-overlays
+      repoURL: https://github.com/uc-cdis/gen3-gitops-dev.git
+      targetRevision: {{ .Values.gitopsBranch }}
+      helm:
+        releaseName: vectis-overlays
+        valueFiles:
+          - $values/devplanetv2/dev-environments/qa-vectis/values/vectis-overlays-values.yaml
+    - repoURL: https://github.com/uc-cdis/gen3-gitops-dev.git
+      targetRevision: {{ .Values.gitopsBranch }}
+      ref: values
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: qa-vectis
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      selfHeal: true
