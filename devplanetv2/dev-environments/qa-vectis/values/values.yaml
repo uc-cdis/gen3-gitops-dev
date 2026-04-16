@@ -18,7 +18,7 @@ global:
     dbCreate: true
     pushSecret: true
   hostname: qa-vectis.planx-pla.net
-  dictionaryUrl: https://dictionary-artifacts.s3.us-east-1.amazonaws.com/vectis_dictionary/main/schema.json
+  dictionaryUrl: https://gen3-qa-vectis-config.s3.us-east-1.amazonaws.com/dictionary/schema.json
   # We disable portal by default to save $$$
   frontendRoot: gen3ff
   postgres:
@@ -49,8 +49,8 @@ global:
     maxSkew: 1
 
 aws-es-proxy:
-  enabled: true
-  esEndpoint: vpc-devplanetv2-gen3-metadata-2-xkwr2f3gbxua5mqqi7rhnat4la.us-east-1.es.amazonaws.com
+  # Replaced by Lambda search/query services
+  enabled: false
 ambassador:
   enabled: false
 
@@ -81,7 +81,7 @@ frontend-framework:
   enabled: true
   image:
     repository: quay.io/cdis/gen3-vectis
-    tag: qa-vectis2
+    tag: gen3-vectisv3
     pullPolicy: Always
   customConfig:
     enabled: false
@@ -94,7 +94,9 @@ frontend-framework:
     HATCHERY_URL: "http://hatchery-service.qa-vectis.svc.cluster.local"
     GEN3_FENCE_SERVICE: "http://fence-service.qa-vectis.svc.cluster.local"
     GEN3_ARBORIST_SERVICE: "http://arborist-service.qa-vectis.svc.cluster.local"
-    GEN3_INDEXD_SERVICE: "http://indexd-service.qa-vectis.svc.cluster.local"
+    GEN3_INDEXD_SERVICE: "https://qa-vectis.planx-pla.net"
+    GEN3_LAMBDA_API_URL: "https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com"
+    SIEM_SERVICE_DNS: "siem-service.qa-vectis.svc.cluster.local"
     JUPYTER_GATEWAY_URL: "http://jupyter-enterprise-gateway.jupyter-pods-qa-vectis.svc.cluster.local:8888"
     KERNEL_SPEC_POLICY: "{}"
     ENABLE_JEG: "true"
@@ -181,38 +183,8 @@ portal:
     tag: master
 
 etl:
-  enabled: true
-  etlMapping:
-    mappings:
-      - name: data_source
-        doc_type: case
-        type: aggregator
-        root: case
-        props:
-          - name: project_id
-          - name: index_date
-      - name: log_data_file
-        doc_type: data_file
-        type: collector
-        root: None
-        category: data_file
-        props:
-          - name: source_node
-          - name: project_id
-          - name: object_id
-          - name: file_name
-          - name: file_size
-          - name: data_format
-          - name: data_type
-          - name: data_category
-          - name: experimental_strategy
-          - name: platform
-
-  # image:
-  # tube:
-  #repository: tube
-  # tag: master
-  esEndpoint: "gen3-elasticsearch-master"
+  # Replaced by Lambda ingestion pipeline
+  enabled: false
 
 guppy:
   enabled: false
@@ -226,31 +198,13 @@ guppy:
   esEndpoint: http://elasticsearch:9200
 
 indexd:
-  image:
-    tag: master
-  resources:
-    requests:
-      memory: "105Mi"
-      cpu: "15m"
+  # Replaced by Lambda indexd service
+  enabled: false
   defaultPrefix: dev/
-  externalSecrets:
-    createK8sServiceCredsSecret: true
 
 metadata:
-  esEndpoint: http://elasticsearch:9200
-  externalSecrets:
-    createK8sMetadataSecret: true
-  resources:
-    requests:
-      memory: "105Mi"
-      cpu: "15m"
-  # image:
-  # repository:
-  # tag:
-  enabled: true
-  useAggMds: "True"
-  # -- (string) Namespace to use if AggMds is enabled.
-  aggMdsNamespace: default
+  # Replaced by Lambda query/indexd services
+  enabled: false
   aggMdsConfig: |
     {
       "gen3_commons": {
@@ -297,10 +251,8 @@ sower:
   enabled: false
 
 peregrine:
-  resources:
-    requests:
-      memory: "105Mi"
-      cpu: "15m"
+  # Replaced by Lambda query service
+  enabled: false
   image:
 
 revproxy:
@@ -313,6 +265,26 @@ revproxy:
       # Do not change- this will break DNS for your env.
       group: devplanetv2
   additionalConfigs:
+    guppy-service.conf: |-
+      location /guppy/ {
+          if ($csrf_check !~ ^ok-\S.+$) {
+            return 403 "failed csrf check";
+          }
+          set $proxy_service  "guppy";
+          set $upstream http://guppy-compat-service.qa-vectis.svc.cluster.local:8000;
+          proxy_pass $upstream;
+          client_max_body_size 0;
+      }
+    siem-service.conf: |-
+      location /siem/ {
+          if ($csrf_check !~ ^ok-\S.+$) {
+            return 403 "failed csrf check";
+          }
+          set $proxy_service  "siem";
+          set $upstream http://siem-service.qa-vectis.svc.cluster.local:8000;
+          proxy_pass $upstream;
+          client_max_body_size 0;
+      }
     ambassador-service.conf: |-
       location = /lw-workspace/proxy {
         return 308 $scheme://$http_host/lw-workspace/proxy/;
@@ -349,6 +321,32 @@ revproxy:
           client_max_body_size 0;
           proxy_read_timeout 36000s;
       }
+    lambda-indexd.conf: |-
+      location /api/v0/indexd/ {
+          proxy_ssl_server_name on;
+          set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
+          proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
+          rewrite ^/api/v0/indexd/(.*) /indexd/$1 break;
+          proxy_pass $upstream;
+          client_max_body_size 0;
+      }
+    lambda-query.conf: |-
+      location /api/v0/submission/ {
+          proxy_ssl_server_name on;
+          set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
+          proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
+          rewrite ^/api/v0/submission/(.*) /query/$1 break;
+          proxy_pass $upstream;
+          client_max_body_size 0;
+      }
+      location /v0/submission/ {
+          proxy_ssl_server_name on;
+          set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
+          proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
+          rewrite ^/v0/submission/(.*) /query/$1 break;
+          proxy_pass $upstream;
+          client_max_body_size 0;
+      }
     workspace-api.conf: |-
       location ^~ /workspace-api/ {
           set $authz_resource "/workspace";
@@ -369,12 +367,8 @@ revproxy:
       }
 
 sheepdog:
-  resources:
-    requests:
-      memory: "105Mi"
-      cpu: "15m"
-  image:
-    tag: master
+  # Replaced by Lambda ingestion pipeline
+  enabled: false
 
 requestor:
   enabled: true
@@ -399,8 +393,8 @@ wts:
 # Database configuration
 
 elasticsearch:
-  persistence:
-    enabled: true
+  # Replaced by Aurora PostgreSQL (CDK)
+  enabled: false
 
 # -- (map) To configure postgresql subchart
 postgresql:
@@ -410,6 +404,11 @@ postgresql:
       enabled: true
 
 fence:
+  # IRSA role created by CDK FenceIrsa component.
+  # Run `cdk deploy gen3-qa-vectis` then replace the placeholder with the
+  # CfnOutput value for FenceUsersyncRoleArn.
+  serviceAccountAnnotations:
+    eks.amazonaws.com/role-arn: FILL_IN_FenceUsersyncRoleArn
   externalSecrets:
     createK8sFenceConfigSecret: false
     createK8sJwtKeysSecret: true
@@ -418,7 +417,7 @@ fence:
     fenceConfig: "devplanetv2-generic-fence-config"
   usersync:
     usersync: true
-    userYamlS3Path: s3://cdis-gen3-users/dev/user.yaml
+    userYamlS3Path: s3://gen3-qa-vectis-config/user.yaml
   FENCE_CONFIG_PUBLIC:
 
     BASE_URL: https://qa-vectis.planx-pla.net/user

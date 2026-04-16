@@ -1,0 +1,56 @@
+namespace: qa-vectis
+
+# CDK handoff contract for qa-vectis overlays.
+# Update these values from CDK outputs (or your image publishing pipeline) during promotion.
+cdkOutputs:
+  imageRepository: &imageRepository quay.io/cdis/gen3-vectis
+  guppyCompatImageTag: &guppyCompatImageTag guppy-compat-v1
+  siemServiceImageTag: &siemServiceImageTag siem-service-v1
+  searchAuthProxyImageTag: &searchAuthProxyImageTag search-auth-proxy-v1
+  searchAuthProxyServiceName: &searchAuthProxyServiceName search-auth-proxy
+  # CDK Aurora endpoint for search-auth-proxy (reads vectis_search schema)
+  searchProxyBaseUrl: &searchProxyBaseUrl http://search-auth-proxy.qa-vectis.svc.cluster.local:8000/search
+  searchAuthProxySecretName: &searchAuthProxySecretName vectis-search-auth-proxy
+  searchAuthProxySecretKey: &searchAuthProxySecretKey postgres_dsn
+  # CDK API Gateway URL (Lambda backend)
+  lambdaApiUrl: &lambdaApiUrl https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com
+  # CDK RDS secret name in Secrets Manager
+  rdsSecretName: &rdsSecretName RdsSecretB4544A18-GrJ4o16zGYiT-kHI7Yl
+  rdsEndpoint: &rdsEndpoint gen3-qa-vectis-rdscluster7e964c7d-lqk85dtnbh5j.cluster-cwvizkxhzjt8.us-east-1.rds.amazonaws.com
+
+guppyCompat:
+  enabled: true
+  image:
+    repository: *imageRepository
+    tag: *guppyCompatImageTag
+    pullPolicy: Always
+  env:
+    SEARCH_BASE: *searchProxyBaseUrl
+    GUPPY_COMPAT_MAX_LIMIT: "5000"
+    ARBORIST_URL: "http://arborist-service.qa-vectis.svc.cluster.local"
+
+siemService:
+  enabled: true
+  image:
+    repository: *imageRepository
+    tag: *siemServiceImageTag
+    pullPolicy: Always
+  env:
+    SEARCH_BASE: *searchProxyBaseUrl
+    ARBORIST_URL: "http://arborist-service.qa-vectis.svc.cluster.local"
+    SIEM_DEFAULT_LIMIT: "250"
+    SIEM_MAX_LIMIT: "2000"
+
+searchAuthProxy:
+  enabled: true
+  serviceName: *searchAuthProxyServiceName
+  image:
+    repository: *imageRepository
+    tag: *searchAuthProxyImageTag
+    pullPolicy: Always
+  postgresDsnSecretRef:
+    name: *searchAuthProxySecretName
+    key: *searchAuthProxySecretKey
+  env:
+    SEARCH_PROXY_DEFAULT_LIMIT: "50"
+    SEARCH_PROXY_MAX_LIMIT: "1000"
