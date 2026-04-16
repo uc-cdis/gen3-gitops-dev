@@ -199,7 +199,7 @@ guppy:
 
 indexd:
   # Replaced by Lambda indexd service
-  enabled: false
+  enabled: true
   defaultPrefix: dev/
 
 metadata:
