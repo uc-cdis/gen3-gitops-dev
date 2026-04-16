@@ -330,6 +330,14 @@ revproxy:
           proxy_pass $upstream;
           client_max_body_size 0;
       }
+    lambda-dictionary.conf: |-
+      location ~* ^/api/v0/submission/_dictionary/_all/?$ {
+          proxy_ssl_server_name on;
+          set $upstream https://gen3-qa-vectis-config.s3.us-east-1.amazonaws.com;
+          proxy_set_header Host gen3-qa-vectis-config.s3.us-east-1.amazonaws.com;
+          rewrite ^ /dictionary/schema.json break;
+          proxy_pass $upstream;
+      }
     lambda-query.conf: |-
       location /api/v0/submission/ {
           proxy_ssl_server_name on;
@@ -408,7 +416,7 @@ fence:
   # Run `cdk deploy gen3-qa-vectis` then replace the placeholder with the
   # CfnOutput value for FenceUsersyncRoleArn.
   serviceAccountAnnotations:
-    eks.amazonaws.com/role-arn: FILL_IN_FenceUsersyncRoleArn
+    eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2-qa-vectis-fence-sa
   externalSecrets:
     createK8sFenceConfigSecret: false
     createK8sJwtKeysSecret: true
