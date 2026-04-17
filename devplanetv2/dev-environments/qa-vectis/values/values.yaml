@@ -94,6 +94,7 @@ frontend-framework:
     HATCHERY_URL: "http://hatchery-service.qa-vectis.svc.cluster.local"
     GEN3_FENCE_SERVICE: "http://fence-service.qa-vectis.svc.cluster.local"
     GEN3_ARBORIST_SERVICE: "http://arborist-service.qa-vectis.svc.cluster.local"
+    GEN3_SEARCH_SERVICE: "http://search-auth-proxy.qa-vectis.svc.cluster.local:8000"
     GEN3_INDEXD_SERVICE: "https://qa-vectis.planx-pla.net"
     GEN3_LAMBDA_API_URL: "https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com"
     SIEM_SERVICE_DNS: "siem-service.qa-vectis.svc.cluster.local"
