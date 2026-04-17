@@ -231,6 +231,10 @@ hatchery:
           "user-namespace": "jupyter-pods-qa-vpodc",
           "sub-dir": "/lw-workspace",
           "user-volume-size": "10Gi",
+          "shared-workspace": {
+            "enabled": true,
+            "oidc-provider-arn": "arn:aws:iam::707767160287:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/F057519C0E32B7DE2580904C4007BB21"
+          },
           "default-pay-model": {
               "workspace_type": "Trial Workspace",
               "local": true
