@@ -126,7 +126,7 @@ guppy:
   esEndpoint: http://elasticsearch:9200
   image:
     repository: quay.io/cdis/guppy
-    tag: "2026.01"
+    tag: "feat_nested_auth_field"
   indices:
     - index: pdp-commons-commons-index
       type: metadata
