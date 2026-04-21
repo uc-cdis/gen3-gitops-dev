@@ -1,4 +1,4 @@
-ambassador:
+xfambassador:
   jupyterNamespace: jupyter-pods-qaheal-helm
 arborist:
   externalSecrets:
@@ -140,9 +140,8 @@ hatchery:
     stataG3auto: "qaheal-stata-workspace-gen3-license"
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
-    # tag: "2026.04"
+    tag: "2026.04"
     # tag: "feat_s3-mount"
-    tag: "test_unique-volume-handle"
   hatchery:
     json: |-
       {
