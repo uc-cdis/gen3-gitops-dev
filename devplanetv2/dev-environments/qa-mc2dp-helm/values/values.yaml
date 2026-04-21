@@ -314,7 +314,10 @@ metadata:
                  "data_source": {},
                  "disease_type": {},
                  "primary_site": {},
-                 "authz": {},
+                 "authz": { 
+                    "type": "string", 
+                    "default" : "/open"
+                 },
                  "subject_id": {},
                  "subject_id_list": {},
                  "subject_apollo_id": {},
