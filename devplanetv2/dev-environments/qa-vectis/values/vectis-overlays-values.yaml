@@ -15,7 +15,7 @@ cdkOutputs:
   # CDK API Gateway URL (Lambda backend)
   lambdaApiUrl: &lambdaApiUrl https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com
   # CDK RDS secret name in Secrets Manager
-  rdsSecretName: &rdsSecretName RdsSecretB4544A18-GrJ4o16zGYiT-kHI7Yl
+  rdsSecretName: &rdsSecretName RdsSecretB4544A18-GrJ4o16zGYiT
   rdsEndpoint: &rdsEndpoint gen3-qa-vectis-rdscluster7e964c7d-lqk85dtnbh5j.cluster-cwvizkxhzjt8.us-east-1.rds.amazonaws.com
 
 guppyCompat:
