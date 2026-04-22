@@ -1,4 +1,4 @@
-namespace: qa-vectis
+# namespace is now inferred from .Release.Namespace — do not set here.
 
 # CDK handoff contract for qa-vectis overlays.
 # Update these values from CDK outputs (or your image publishing pipeline) during promotion.
@@ -9,7 +9,7 @@ cdkOutputs:
   searchAuthProxyImageTag: &searchAuthProxyImageTag search-auth-proxy-v1
   searchAuthProxyServiceName: &searchAuthProxyServiceName search-auth-proxy
   # CDK Aurora endpoint for search-auth-proxy (reads vectis_search schema)
-  searchProxyBaseUrl: &searchProxyBaseUrl http://search-auth-proxy.qa-vectis.svc.cluster.local:8000/search
+  # Note: SEARCH_BASE and ARBORIST_URL are injected by chart templates using .Release.Namespace.
   searchAuthProxySecretName: &searchAuthProxySecretName vectis-search-auth-proxy
   searchAuthProxySecretKey: &searchAuthProxySecretKey postgres_dsn
   # CDK API Gateway URL (Lambda backend)
@@ -25,9 +25,7 @@ guppyCompat:
     tag: *guppyCompatImageTag
     pullPolicy: Always
   env:
-    SEARCH_BASE: *searchProxyBaseUrl
     GUPPY_COMPAT_MAX_LIMIT: "5000"
-    ARBORIST_URL: "http://arborist-service.qa-vectis.svc.cluster.local"
 
 siemService:
   enabled: true
@@ -36,8 +34,6 @@ siemService:
     tag: *siemServiceImageTag
     pullPolicy: Always
   env:
-    SEARCH_BASE: *searchProxyBaseUrl
-    ARBORIST_URL: "http://arborist-service.qa-vectis.svc.cluster.local"
     SIEM_DEFAULT_LIMIT: "250"
     SIEM_MAX_LIMIT: "2000"
 

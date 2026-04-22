@@ -268,26 +268,29 @@ revproxy:
       # Do not change- this will break DNS for your env.
       group: devplanetv2
   additionalConfigs:
+    # Vectis overlay: route /guppy/ to guppy-compat-service instead of the disabled guppy container.
     guppy-service.conf: |-
       location /guppy/ {
           if ($csrf_check !~ ^ok-\S.+$) {
             return 403 "failed csrf check";
           }
           set $proxy_service  "guppy";
-          set $upstream http://guppy-compat-service.qa-vectis.svc.cluster.local:8000;
+          set $upstream http://guppy-compat-service.$namespace.svc.cluster.local:8000;
           proxy_pass $upstream;
           client_max_body_size 0;
       }
+    # Vectis overlay: SIEM security dashboard API.
     siem-service.conf: |-
       location /siem/ {
           if ($csrf_check !~ ^ok-\S.+$) {
             return 403 "failed csrf check";
           }
           set $proxy_service  "siem";
-          set $upstream http://siem-service.qa-vectis.svc.cluster.local:8000;
+          set $upstream http://siem-service.$namespace.svc.cluster.local:8000;
           proxy_pass $upstream;
           client_max_body_size 0;
       }
+    # Vectis overlay: workspace-proxy replaces Ambassador/Emissary for /lw-workspace/proxy/.
     ambassador-service.conf: |-
       location = /lw-workspace/proxy {
         return 308 $scheme://$http_host/lw-workspace/proxy/;
@@ -310,7 +313,7 @@ revproxy:
           error_page 403 = @errorworkspace;
 
           set $proxy_service  "workspace-proxy";
-          set $upstream http://workspace-proxy-service.qa-vectis.svc.cluster.local;
+          set $upstream http://workspace-proxy-service.$namespace.svc.cluster.local;
           rewrite ^/lw-workspace/proxy/(.*) /$1 break;
           proxy_pass $upstream;
           proxy_redirect http://$http_host/ https://$http_host/lw-workspace/proxy/;
@@ -324,6 +327,7 @@ revproxy:
           client_max_body_size 0;
           proxy_read_timeout 36000s;
       }
+    # Lambda backend: /api/v0/indexd/ → API Gateway /indexd/
     lambda-indexd.conf: |-
       location /api/v0/indexd/ {
           proxy_ssl_server_name on;
@@ -333,6 +337,7 @@ revproxy:
           proxy_pass $upstream;
           client_max_body_size 0;
       }
+    # Lambda backend: dictionary schema from S3.
     lambda-dictionary.conf: |-
       location ~* ^/api/v0/submission/_dictionary/_all/?$ {
           proxy_ssl_server_name on;
@@ -341,6 +346,10 @@ revproxy:
           rewrite ^ /dictionary/schema.json break;
           proxy_pass $upstream;
       }
+    # Lambda backend: /api/v0/submission/ and /v0/submission/ → API Gateway /query/
+    # NOTE: This overrides peregrine-service.conf which contains more-specific location blocks
+    # (/api/v0/submission/graphql, /api/v0/submission/getschema) that would otherwise shadow
+    # these Lambda routes. Suppress peregrine-service.conf below to prevent that.
     lambda-query.conf: |-
       location /api/v0/submission/ {
           proxy_ssl_server_name on;
@@ -358,6 +367,7 @@ revproxy:
           proxy_pass $upstream;
           client_max_body_size 0;
       }
+    # Workspace API passthrough to frontend-framework service.
     workspace-api.conf: |-
       location ^~ /workspace-api/ {
           set $authz_resource "/workspace";
@@ -365,7 +375,7 @@ revproxy:
           set $authz_service "jupyterhub";
           auth_request /gen3-authz;
           error_page 403 = @errorworkspace;
-          set $upstream http://gen3ff-service.qa-vectis.svc.cluster.local;
+          set $upstream http://gen3ff-service.$namespace.svc.cluster.local;
           rewrite ^/workspace-api/(.*) /$1 break;
           proxy_pass $upstream;
           proxy_http_version 1.1;
@@ -376,10 +386,59 @@ revproxy:
           client_max_body_size 0;
           proxy_read_timeout 600s;
       }
+    # --- Disabled service suppressions ---
+    # Peregrine is replaced by Lambda. Its static conf contains location blocks for
+    # /api/v0/submission/graphql and /api/v0/submission/getschema which are more specific
+    # than lambda-query.conf's /api/v0/submission/ prefix and would silently shadow the
+    # Lambda endpoint. Replace with empty content to remove those routes entirely.
+    peregrine-service.conf: "# disabled: replaced by Lambda query service"
+    # Sheepdog is replaced by Lambda. Its /api/ catch-all would route remaining submission
+    # traffic to a dead container.
+    sheepdog-service.conf: "# disabled: replaced by Lambda ingestion pipeline"
+    # Metadata service is disabled. Suppress /mds/ and /mds-admin/ routes.
+    metadata-service.conf: "# disabled"
+    # Sower is disabled. Suppress /job/ route.
+    sower-service.conf: "# disabled"
 
 sheepdog:
   # Replaced by Lambda ingestion pipeline
   enabled: false
+
+# Vectis-specific subcharts (moved from gitops-dev charts/ to gen3-helm feat_vectis branch)
+jeg:
+  enabled: true
+  workspaceNamespace: jupyter-pods-qa-vectis
+  image:
+    repository: quay.io/cdis/gen3-vectis
+    tag: "qa-jeg"
+    pullPolicy: Always
+  env:
+    EG_NAMESPACE: jupyter-pods-qa-vectis
+    EG_KERNEL_LAUNCH_TIMEOUT: "120"
+    EG_MAX_KERNELS_PER_USER: "2"
+    EG_CULL_IDLE_TIMEOUT: "14400"
+    EG_CULL_CONNECTED: "True"
+    EG_AUTH_TOKEN: ""
+    EG_DEFAULT_KERNEL_NAME: python3
+    EG_LIST_KERNELS: "True"
+    EG_KERNEL_IMAGE_PULL_POLICY: IfNotPresent
+    EG_SHARED_NAMESPACE: "False"
+    EG_MIRROR_WORKING_DIRS: "False"
+
+workspace-proxy:
+  enabled: true
+  deploymentNamespace: qa-vectis
+  workspaceNamespace: jupyter-pods-qa-vectis
+  replicaCount: 2
+  image:
+    repository: quay.io/cdis/gen3-vectis
+    tag: qa-goproxy
+    pullPolicy: Always
+  networkPolicy:
+    enabled: true
+
+vectis-overlays:
+  enabled: true
 
 requestor:
   enabled: true

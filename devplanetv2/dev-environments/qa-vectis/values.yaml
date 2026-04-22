@@ -4,12 +4,7 @@
 name: qa-vectis
 
 # What branch of helm -- http://github.com/uc-cdis/gen3-helm
-helmBranch: master
+helmBranch: feat_vectis
 
 # What branch of gitops -- http://github.com/uc-cdis/gen3-gitops-dev
-gitopsBranch: master
-
-# Deployed via its own Argo Application (templates/vectis-overlays-app.yaml).
-# Disabled here so Helm does not render it inline as a sub-chart.
-vectis-overlays:
-  enabled: false
+gitopsBranch: feat/qa-vectis-helm-subcharts
