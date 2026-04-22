@@ -817,12 +817,12 @@ fence:
     RAS_USERINFO_ENDPOINT: "/openid/connect/v1.1/userinfo"
 
 
-vectis-overlays:
-  enabled: true
+# vectis-overlays:
+#   enabled: true
   
 
-workspace-proxy:
-  enabled: true
+# workspace-proxy:
+#   enabled: true
 
-jeg:
-  enabled: true
+# jeg:
+#   enabled: true
