@@ -367,7 +367,7 @@ revproxy:
           set $authz_service "jupyterhub";
           auth_request /gen3-authz;
           error_page 403 = @errorworkspace;
-          set $upstream http://gen3ff-service.qa-vectis.svc.cluster.local;
+          set $upstream http://frontend-framework-service.$namespace.svc.cluster.local;
           rewrite ^/workspace-api/(.*) /$1 break;
           proxy_pass $upstream;
           proxy_http_version 1.1;
