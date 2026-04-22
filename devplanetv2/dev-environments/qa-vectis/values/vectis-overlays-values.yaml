@@ -37,6 +37,12 @@ siemService:
     SIEM_DEFAULT_LIMIT: "250"
     SIEM_MAX_LIMIT: "2000"
 
+rds:
+  secretName: *rdsSecretName
+  endpoint: *rdsEndpoint
+  port: "5432"
+  database: postgres
+
 searchAuthProxy:
   enabled: true
   serviceName: *searchAuthProxyServiceName
