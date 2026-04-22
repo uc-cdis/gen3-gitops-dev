@@ -817,8 +817,7 @@ fence:
     RAS_USERINFO_ENDPOINT: "/openid/connect/v1.1/userinfo"
 
 
-vectis-overlays:
-  enabled: true
+
   
 
 # workspace-proxy:
