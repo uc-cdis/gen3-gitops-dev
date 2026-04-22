@@ -17,9 +17,9 @@ spec:
         releaseName: {{ .Values.Name }}
         valueFiles:
           - $values/devplanetv2/dev-environments/{{ .Values.name }}/values/values.yaml
-          - $values/devplanetv2/dev-environments/{{ .Values.name }}/values/jeg-values.yaml
-          - $values/devplanetv2/dev-environments/{{ .Values.name }}/values/workspace-proxy-values.yaml
-          - $values/devplanetv2/dev-environments/{{ .Values.name }}/values/vectis-overlays-values.yaml
+          # - $values/devplanetv2/dev-environments/{{ .Values.name }}/values/jeg-values.yaml
+          # - $values/devplanetv2/dev-environments/{{ .Values.name }}/values/workspace-proxy-values.yaml
+          # - $values/devplanetv2/dev-environments/{{ .Values.name }}/values/vectis-overlays-values.yaml
     - repoURL: 'https://github.com/uc-cdis/gen3-gitops-dev.git'
       targetRevision: {{ .Values.gitopsBranch }}
       ref: values
