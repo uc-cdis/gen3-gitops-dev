@@ -99,7 +99,7 @@ frontend-framework:
     GEN3_LAMBDA_API_URL: "https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com"
     SIEM_SERVICE_DNS: "siem-service.qa-vectis.svc.cluster.local"
     JUPYTER_GATEWAY_URL: "http://jupyter-enterprise-gateway.jupyter-pods-qa-vectis.svc.cluster.local:8888"
-    GEN3_ENDPOINT: "http://jupyter-enterprise-gateway.jupyter-pods-qa-vectis.svc.cluster.local:8888"
+    GEN3_ENDPOINT: "https://qa-vectis.planx-pla.net"
     FENCE_URL: "http://fence-service.qa-vectis.svc.cluster.local"
     KERNEL_SPEC_POLICY: "{}"
     ENABLE_JEG: "true"
@@ -145,7 +145,7 @@ hatchery:
             "target-port": 8888,
             "cpu-limit": "2.0",
             "memory-limit": "4Gi",
-            "name": "Jupyter Notebook (Python 3) - Vectis QA",
+            "name": "Jupyter Notebook (Python 3) - micro-notebook-dev",
             "image": "quay.io/cdis/jupyter-superslim:2024.07",
             "env": {
               "FRAME_ANCESTORS": "qa-vectis.planx-pla.net"
@@ -368,10 +368,10 @@ revproxy:
           auth_request /gen3-authz;
           error_page 403 = @errorworkspace;
           set $upstream http://frontend-framework-service.$namespace.svc.cluster.local;
-          rewrite ^/workspace-api/(.*) /$1 break;
+          rewrite ^/workspace-api/(.*) /api/$1 break;
           proxy_pass $upstream;
           proxy_http_version 1.1;
-          proxy_set_header Host $http_host;
+          proxy_set_header Host $host;
           proxy_set_header X-Real-IP $remote_addr;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
           proxy_set_header X-URL-SCHEME https;
