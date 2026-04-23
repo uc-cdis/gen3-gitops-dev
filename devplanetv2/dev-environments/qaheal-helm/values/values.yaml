@@ -1,4 +1,4 @@
-ambassador:
+xfambassador:
   jupyterNamespace: jupyter-pods-qaheal-helm
 arborist:
   externalSecrets:
@@ -140,9 +140,8 @@ hatchery:
     stataG3auto: "qaheal-stata-workspace-gen3-license"
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
-    # tag: "2026.04"
+    tag: "2026.04"
     # tag: "feat_s3-mount"
-    tag: "test_unique-volume-handle"
   hatchery:
     json: |-
       {
@@ -230,7 +229,7 @@ hatchery:
             "cpu-limit": "1.0",
             "memory-limit": "2Gi",
             "name": "JupyterLab with Python and R Kernels",
-            "image": "quay.io/cdis/heal-notebooks:generic_rkernel__f69ec1e74fdabb00d03ce1014abbb7f2c7b9a715",
+            "image": "quay.io/cdis/jupyter-superslim-heal:feat_heal-superslim",
             "env": {
               "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
             },

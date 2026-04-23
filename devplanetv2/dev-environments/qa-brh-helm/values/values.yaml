@@ -691,6 +691,7 @@ portal:
     gen3Bundle: ecosystem
     json: |
       {
+        "connectSrcCSPWhitelist": ["https://us-east-1yjoomfie4.auth.us-east-1.amazoncognito.com"],
         "gaTrackingId": "",
         "ddEnv": "qa-brh",
         "graphql": {

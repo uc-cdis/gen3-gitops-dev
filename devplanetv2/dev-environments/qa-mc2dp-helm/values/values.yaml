@@ -114,7 +114,7 @@ global:
     public_datasets: true
     sync_from_dbgap: "False"
     useryaml_s3path: s3://cdis-gen3-users/pdp/user.yaml
-  tierAccessLevel: libre
+  tierAccessLevel: private
   tierAccessLimit: 50
   portalApp: gitops
   postgres:
@@ -124,9 +124,10 @@ guppy:
   configIndex: pdp-commons-commons-config-index
   enabled: true
   esEndpoint: http://elasticsearch:9200
+  auth_filter_field: "gen3_discovery.authz"
   image:
     repository: quay.io/cdis/guppy
-    tag: "2026.01"
+    tag: "feat_nested_auth_field"
   indices:
     - index: pdp-commons-commons-index
       type: metadata
@@ -314,7 +315,10 @@ metadata:
                  "data_source": {},
                  "disease_type": {},
                  "primary_site": {},
-                 "authz": {},
+                 "authz": { 
+                    "type": "string", 
+                    "default" : "/open"
+                 },
                  "subject_id": {},
                  "subject_id_list": {},
                  "subject_apollo_id": {},
@@ -432,7 +436,10 @@ metadata:
                  },
                  "keep_original_fields": false,
                  "field_mappings": {
-                     "authz": "",
+                     "authz": { 
+                        "type": "string", 
+                        "default" : "/open"
+                     },
                      "tags": "path:tags",
                      "_unique_id": "path:mc2dp_global_id",
                      "commons": "path:data_source",
@@ -568,7 +575,7 @@ metadata:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
     tag: mfshao-patch-1
   # non empty value for useAggMds to keep the cronjob, but disable the endpoints
-  useAggMds: "false"
+  useAggMds: "true"
 mutatingWebhook:
   enabled: true
 peregrine:
