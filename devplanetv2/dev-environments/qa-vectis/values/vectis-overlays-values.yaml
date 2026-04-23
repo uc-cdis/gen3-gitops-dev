@@ -1,58 +1,60 @@
+# Overrides for the vectis-overlays sub-chart (nested under 'vectis-overlays:' so gen3 parent passes them through).
 # namespace is now inferred from .Release.Namespace — do not set here.
 
 # CDK handoff contract for qa-vectis overlays.
 # Update these values from CDK outputs (or your image publishing pipeline) during promotion.
-cdkOutputs:
+# YAML anchors are defined here and referenced below — they resolve within this file.
+_cdkOutputs:
   imageRepository: &imageRepository quay.io/cdis/gen3-vectis
   guppyCompatImageTag: &guppyCompatImageTag guppy-compat-v1
   siemServiceImageTag: &siemServiceImageTag siem-service-v1
   searchAuthProxyImageTag: &searchAuthProxyImageTag search-auth-proxy-v1
   searchAuthProxyServiceName: &searchAuthProxyServiceName search-auth-proxy
-  # CDK Aurora endpoint for search-auth-proxy (reads vectis_search schema)
-  # Note: SEARCH_BASE and ARBORIST_URL are injected by chart templates using .Release.Namespace.
   searchAuthProxySecretName: &searchAuthProxySecretName vectis-search-auth-proxy
   searchAuthProxySecretKey: &searchAuthProxySecretKey postgres_dsn
-  # CDK API Gateway URL (Lambda backend)
   lambdaApiUrl: &lambdaApiUrl https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com
-  # CDK RDS secret name in Secrets Manager
   rdsSecretName: &rdsSecretName RdsSecretB4544A18-GrJ4o16zGYiT
   rdsEndpoint: &rdsEndpoint gen3-qa-vectis-rdscluster7e964c7d-lqk85dtnbh5j.cluster-cwvizkxhzjt8.us-east-1.rds.amazonaws.com
 
-guppyCompat:
-  enabled: true
-  image:
-    repository: *imageRepository
-    tag: *guppyCompatImageTag
-    pullPolicy: Always
-  env:
-    GUPPY_COMPAT_MAX_LIMIT: "5000"
+vectis-overlays:
+  guppyCompat:
+    enabled: true
+    image:
+      repository: *imageRepository
+      tag: *guppyCompatImageTag
+      pullPolicy: Always
+    env:
+      GUPPY_COMPAT_MAX_LIMIT: "5000"
 
-siemService:
-  enabled: true
-  image:
-    repository: *imageRepository
-    tag: *siemServiceImageTag
-    pullPolicy: Always
-  env:
-    SIEM_DEFAULT_LIMIT: "250"
-    SIEM_MAX_LIMIT: "2000"
+  siemService:
+    enabled: true
+    image:
+      repository: *imageRepository
+      tag: *siemServiceImageTag
+      pullPolicy: Always
+    env:
+      SIEM_DEFAULT_LIMIT: "250"
+      SIEM_MAX_LIMIT: "2000"
 
-rds:
-  secretName: *rdsSecretName
-  endpoint: *rdsEndpoint
-  port: "5432"
-  database: postgres
+  rds:
+    secretName: *rdsSecretName
+    endpoint: *rdsEndpoint
+    port: "5432"
+    database: postgres
 
-searchAuthProxy:
-  enabled: true
-  serviceName: *searchAuthProxyServiceName
-  image:
-    repository: *imageRepository
-    tag: *searchAuthProxyImageTag
-    pullPolicy: Always
-  postgresDsnSecretRef:
-    name: *searchAuthProxySecretName
-    key: *searchAuthProxySecretKey
-  env:
-    SEARCH_PROXY_DEFAULT_LIMIT: "50"
-    SEARCH_PROXY_MAX_LIMIT: "1000"
+  searchAuthProxy:
+    enabled: true
+    serviceName: *searchAuthProxyServiceName
+    image:
+      repository: *imageRepository
+      tag: *searchAuthProxyImageTag
+      pullPolicy: Always
+    postgresDsnSecretRef:
+      name: *searchAuthProxySecretName
+      key: *searchAuthProxySecretKey
+    env:
+      SEARCH_PROXY_DEFAULT_LIMIT: "50"
+      SEARCH_PROXY_MAX_LIMIT: "1000"
+
+  migrations:
+    enabled: false

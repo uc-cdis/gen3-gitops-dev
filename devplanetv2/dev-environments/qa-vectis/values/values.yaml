@@ -312,7 +312,7 @@ revproxy:
           error_page 403 = @errorworkspace;
 
           set $proxy_service  "workspace-proxy";
-          set $upstream http://workspace-proxy-service.$namespace.svc.cluster.local;
+          set $upstream http://workspace-proxy-service.$namespace.svc.cluster.local:8080;
           rewrite ^/lw-workspace/proxy/(.*) /$1 break;
           proxy_pass $upstream;
           proxy_redirect http://$host/ https://$host/lw-workspace/proxy/;

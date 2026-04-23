@@ -1,25 +1,25 @@
-# Overrides for the workspace-proxy Helm chart.
-# These values are merged on top of charts/workspace-proxy/values.yaml.
+# Overrides for the workspace-proxy sub-chart (nested under 'workspace-proxy:' so gen3 parent passes them through).
 
-replicaCount: 2
+workspace-proxy:
+  deploymentNamespace: qa-vectis
+  workspaceNamespace: jupyter-pods-qa-vectis
 
-image:
-  repository: quay.io/cdis/gen3-vectis
-  tag: qa-goproxy
-  pullPolicy: Always
+  replicaCount: 2
 
-deploymentNamespace: qa-vectis
-workspaceNamespace: jupyter-pods-qa-vectis
+  image:
+    repository: quay.io/cdis/gen3-vectis
+    tag: qa-goproxy
+    pullPolicy: Always
 
-listenAddr: ":8080"
+  listenAddr: ":8080"
 
-resources:
-  requests:
-    cpu: "50m"
-    memory: "64Mi"
-  limits:
-    cpu: "500m"
-    memory: "256Mi"
+  resources:
+    requests:
+      cpu: "50m"
+      memory: "64Mi"
+    limits:
+      cpu: "500m"
+      memory: "256Mi"
 
-networkPolicy:
-  enabled: true
+  networkPolicy:
+    enabled: true
