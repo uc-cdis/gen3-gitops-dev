@@ -1,33 +1,34 @@
-# Overrides for the JEG Helm chart.
-# These values are merged on top of charts/jeg/values.yaml.
+# Overrides for the JEG sub-chart (nested under 'jeg:' so gen3 parent passes them through).
 
-workspaceNamespace: jupyter-pods-qa-vectis
+jeg:
+  enabled: true
+  workspaceNamespace: jupyter-pods-qa-vectis
 
-replicaCount: 1
+  replicaCount: 1
 
-image:
-  repository: quay.io/cdis/gen3-vectis
-  tag: "qa-jeg"
-  pullPolicy: Always
+  image:
+    repository: quay.io/cdis/gen3-vectis
+    tag: "qa-jeg"
+    pullPolicy: Always
 
-env:
-  # CRITICAL: must match hatchery user-namespace and workspace-proxy WORKSPACE_NAMESPACE.
-  EG_NAMESPACE: jupyter-pods-qa-vectis
-  EG_KERNEL_LAUNCH_TIMEOUT: "120"
-  EG_MAX_KERNELS_PER_USER: "2"
-  EG_CULL_IDLE_TIMEOUT: "14400"
-  EG_CULL_CONNECTED: "True"
-  EG_AUTH_TOKEN: ""
-  EG_DEFAULT_KERNEL_NAME: python3
-  EG_LIST_KERNELS: "True"
-  EG_KERNEL_IMAGE_PULL_POLICY: IfNotPresent
-  EG_SHARED_NAMESPACE: "False"
-  EG_MIRROR_WORKING_DIRS: "False"
+  env:
+    # CRITICAL: must match hatchery user-namespace and workspace-proxy WORKSPACE_NAMESPACE.
+    EG_NAMESPACE: jupyter-pods-qa-vectis
+    EG_KERNEL_LAUNCH_TIMEOUT: "120"
+    EG_MAX_KERNELS_PER_USER: "2"
+    EG_CULL_IDLE_TIMEOUT: "14400"
+    EG_CULL_CONNECTED: "True"
+    EG_AUTH_TOKEN: ""
+    EG_DEFAULT_KERNEL_NAME: python3
+    EG_LIST_KERNELS: "True"
+    EG_KERNEL_IMAGE_PULL_POLICY: IfNotPresent
+    EG_SHARED_NAMESPACE: "False"
+    EG_MIRROR_WORKING_DIRS: "False"
 
-resources:
-  requests:
-    cpu: "100m"
-    memory: "256Mi"
-  limits:
-    cpu: "500m"
-    memory: "512Mi"
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "256Mi"
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
