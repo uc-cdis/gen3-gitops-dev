@@ -124,6 +124,7 @@ guppy:
   configIndex: pdp-commons-commons-config-index
   enabled: true
   esEndpoint: http://elasticsearch:9200
+  auth_filter_field: "gen3_discovery.authz"
   image:
     repository: quay.io/cdis/guppy
     tag: "feat_nested_auth_field"
