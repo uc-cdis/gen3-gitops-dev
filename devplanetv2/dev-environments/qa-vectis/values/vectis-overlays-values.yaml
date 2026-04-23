@@ -17,6 +17,7 @@ _cdkOutputs:
   rdsEndpoint: &rdsEndpoint gen3-qa-vectis-rdscluster7e964c7d-lqk85dtnbh5j.cluster-cwvizkxhzjt8.us-east-1.rds.amazonaws.com
 
 vectis-overlays:
+  enabled: true
   guppyCompat:
     enabled: true
     image:

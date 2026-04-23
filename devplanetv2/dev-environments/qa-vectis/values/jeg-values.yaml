@@ -1,6 +1,7 @@
 # Overrides for the JEG sub-chart (nested under 'jeg:' so gen3 parent passes them through).
 
 jeg:
+  enabled: true
   workspaceNamespace: jupyter-pods-qa-vectis
 
   replicaCount: 1

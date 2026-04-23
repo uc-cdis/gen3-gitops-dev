@@ -1,6 +1,7 @@
 # Overrides for the workspace-proxy sub-chart (nested under 'workspace-proxy:' so gen3 parent passes them through).
 
 workspace-proxy:
+  enabled: true
   deploymentNamespace: qa-vectis
   workspaceNamespace: jupyter-pods-qa-vectis
 
@@ -12,6 +13,7 @@ workspace-proxy:
     pullPolicy: Always
 
   listenAddr: ":8080"
+  jegKernelSpecPolicy: ""
 
   resources:
     requests:

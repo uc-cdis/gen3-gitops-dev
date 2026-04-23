@@ -202,7 +202,7 @@ guppy:
 
 indexd:
   # Replaced by Lambda indexd service
-  enabled: true
+  enabled: false
   defaultPrefix: dev/
   externalSecrets:
     createK8sServiceCredsSecret: true
