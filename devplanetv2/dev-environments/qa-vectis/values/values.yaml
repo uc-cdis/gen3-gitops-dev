@@ -361,6 +361,23 @@ revproxy:
           client_max_body_size 0;
       }
     workspace-api.conf: |-
+      # Free tier is static JupyterLite assets rendered in-browser (WASM only).
+      # Do not gate these files on workspace launch authz checks.
+      location ^~ /workspace-api/workspace-assets/free/ {
+          set $upstream http://frontend-framework-service.$namespace.svc.cluster.local;
+          rewrite ^/workspace-api/(.*) /api/$1 break;
+          proxy_pass $upstream;
+          proxy_http_version 1.1;
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_set_header X-Forwarded-Host $host;
+          proxy_set_header X-URL-SCHEME https;
+          client_max_body_size 0;
+          proxy_read_timeout 600s;
+      }
+
       location ^~ /workspace-api/ {
           set $authz_resource "/workspace";
           set $authz_method "access";
@@ -374,6 +391,8 @@ revproxy:
           proxy_set_header Host $host;
           proxy_set_header X-Real-IP $remote_addr;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_set_header X-Forwarded-Host $host;
           proxy_set_header X-URL-SCHEME https;
           client_max_body_size 0;
           proxy_read_timeout 600s;
