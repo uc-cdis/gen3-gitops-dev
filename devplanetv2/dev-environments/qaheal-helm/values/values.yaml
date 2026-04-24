@@ -1,5 +1,8 @@
-xfambassador:
+ambassador:
   jupyterNamespace: jupyter-pods-qaheal-helm
+  image:
+    tag: "1.14.4"
+  replicaCount: 2
 arborist:
   externalSecrets:
     dbcreds: qaheal-arborist-creds
