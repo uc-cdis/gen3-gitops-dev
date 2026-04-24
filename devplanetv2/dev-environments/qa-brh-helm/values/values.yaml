@@ -56,7 +56,18 @@ fluentd:
   image:
     repository: fluent/fluentd-kubernetes-daemonset
     tag: v1.15.3-debian-cloudwatch-1.0
+
+frontend-framework:
+  # -- (bool) Whether to deploy the frontend-framework subchart.
+  enabled: true
+  # -- (map) Docker image information.
+  image:
+    # -- (string) The Docker image repository for the frontend-framework.
+    repository: "quay.io/cdis/commons-frontend-app"
+    # -- (string) Overrides the image tag whose default is the chart appVersion.
+    tag: "main"
 global:
+  frontendRoot: "gen3ff"
   crossplane:
     enabled: true
     oidcProviderUrl: "oidc.eks.us-east-1.amazonaws.com/id/F057519C0E32B7DE2580904C4007BB21"
