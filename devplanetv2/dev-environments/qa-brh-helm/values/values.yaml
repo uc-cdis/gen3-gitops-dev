@@ -64,7 +64,7 @@ frontend-framework:
     # -- (string) Overrides the image tag whose default is the chart appVersion.
     tag: "main"
 global:
-  frontendRoot: "gen3ff"
+  frontendRoot: "portal"
   crossplane:
     enabled: true
     oidcProviderUrl: "oidc.eks.us-east-1.amazonaws.com/id/F057519C0E32B7DE2580904C4007BB21"
