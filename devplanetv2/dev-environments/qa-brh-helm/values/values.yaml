@@ -109,7 +109,7 @@ hatchery:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
     # tag: "2026.04"
-    tag: "feat_s3-mount"
+    tag: "feat_s3-mount-fsx"
   hatchery:
     json: |
       {
@@ -126,12 +126,15 @@ hatchery:
           "hard-limit": 5,
           "soft-limit": 4
         },
-        "s3-config": {
-          "bucketName": "software-library--use1-az6--x-s3",
-          "prefixBase": "qa-brh",
-          "region": "us-east-1"
-        },
+        
         "pay-models-dynamodb-table": "bmh-admin-portal-backend-bmhworkspacetableD4D73E43-4U08KIUG3YW3",
+        "fsxConfig": {
+          "fsxId": "fs-0db570e0cb6e6f5af",
+          "dnsName": "fs-0db570e0cb6e6f5af.fsx.us-east-1.amazonaws.com",
+          "mountName": "nyj6tamv",
+          "storage": "1200Gi",
+          "mountPath": "/apps"
+        },
         "sidecar": {
           "cpu-limit": "1.0",
           "memory-limit": "256Mi",
