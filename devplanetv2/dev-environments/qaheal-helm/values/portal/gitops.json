@@ -73,7 +73,7 @@
         },
         {
           "name": "Example Analyses",
-          "link": "/resource-browser",
+          "link": "https://uc-cdis.github.io/heal-notebooks-pages/",
           "icon": "bar-chart",
           "tooltip": "Learn how to use Jupyter Notebooks to explore and visualize data available on the HEAL platform by running a static tutorial notebook, or use one of these examples as a launching point for your own custom analysis."
         },
