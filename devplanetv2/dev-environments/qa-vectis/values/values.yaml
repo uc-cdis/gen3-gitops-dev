@@ -202,7 +202,8 @@ guppy:
 
 indexd:
   # Replaced by Lambda indexd service
-  enabled: false
+  # Need to still run this as fence currently doesn't start without indexd-service-creds
+  enabled: true
   defaultPrefix: dev/
   externalSecrets:
     createK8sServiceCredsSecret: true
