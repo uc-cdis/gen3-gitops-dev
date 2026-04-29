@@ -146,7 +146,7 @@ hatchery:
             "cpu-limit": "2.0",
             "memory-limit": "4Gi",
             "name": "Jupyter Notebook (Python 3) - micro-notebook-dev",
-            "image": "quay.io/cdis/jupyter-superslim:2024.07",
+            "image": "quay.io/cdis/jupyter-superslim:2.2.0",
             "env": {
               "FRAME_ANCESTORS": "qa-vectis.planx-pla.net"
             },
