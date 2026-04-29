@@ -156,6 +156,13 @@ hatchery:
         "user-namespace": "jupyter-pods-qaheal-helm",
         "sub-dir": "/lw-workspace",
         "user-volume-size": "10Gi",
+        "fsxConfig": {
+          "fsxId": "fs-0db570e0cb6e6f5af",
+          "dnsName": "fs-0db570e0cb6e6f5af.fsx.us-east-1.amazonaws.com",
+          "mountName": "nyj6tamv",
+          "storage": "1200Gi",
+          "mountPath": "/apps"
+        },
         "default-pay-model": {
           "workspace_type": "Trial Workspace",
           "local": true,
