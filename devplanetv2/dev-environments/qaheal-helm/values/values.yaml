@@ -143,8 +143,9 @@ hatchery:
     stataG3auto: "qaheal-stata-workspace-gen3-license"
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
-    tag: "2026.04"
+    # tag: "2026.04"
     # tag: "feat_s3-mount"
+    tag: "feat_fsx-lustre"
   hatchery:
     json: |-
       {
@@ -199,7 +200,7 @@ hatchery:
             "cpu-limit": "2.0",
             "memory-limit": "8Gi",
             "name": "(Generic) Software Library Testing",
-            "image": "quay.io/cdis/jupyterlab-generic:feat_add-stata-deps",
+            "image": "quay.io/cdis/jupyterlab-generic:chore_add-frictionless-to-jupyterlab-generic",
             "env": {
               "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
             },
