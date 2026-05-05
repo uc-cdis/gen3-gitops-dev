@@ -101,11 +101,17 @@ funnel:
     dbcreds: "qa-midrc-helm-funnel-creds"
     funnelOidcClient: "qa-midrc-helm-funnel-oidc-client"
   funnel:
-    # image:
-    #  repository: quay.io/ohsu-comp-bio/funnel
-      # tag: fix-reconciler
     Kubernetes:
       JobsNamespace: workflow-pods-qa-midrc-helm
+      ReconcileRate: 120s
+      Executor:
+          restartPolicy: Never
+          backoffLimit: 0
+          Annotations:
+              karpenter.sh/do-not-disrupt: "true"
+      Worker:
+          restartPolicy: Never
+          backoffLimit: 1
 
 global:
   crossplane:
@@ -134,6 +140,14 @@ global:
     createLocalK8sSecret: false
     pushSecret: true
   hostname: qa-midrc.planx-pla.net
+  kubeapi_endpoints:
+    # Enable for Argo CD based deployments.
+    # This lets funnel worker pods access the kube api to create executor jobs.
+    # If disabled, an automatic lookup will be performed to get the IPs.
+    enabled: true
+    ip:
+      - "172.27.135.127:443"
+      - "172.27.137.189:443"
   netPolicy:
     enabled: true
     dbSubnets: 
