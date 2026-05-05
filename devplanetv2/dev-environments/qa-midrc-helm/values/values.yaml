@@ -146,8 +146,8 @@ global:
     # If disabled, an automatic lookup will be performed to get the IPs.
     enabled: true
     ip:
-      - "172.27.135.127:443"
-      - "172.27.137.189:443"
+      - 172.27.135.127
+      - 172.27.137.189
   netPolicy:
     enabled: true
     dbSubnets: 
