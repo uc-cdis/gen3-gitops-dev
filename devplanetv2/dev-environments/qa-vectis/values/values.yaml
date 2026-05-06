@@ -127,6 +127,13 @@ hatchery:
         "user-namespace": "jupyter-pods-qa-vectis",
         "sub-dir": "/lw-workspace",
         "user-volume-size": "10Gi",
+        "default-pay-model": {
+          "workspace_type": "Trial Workspace",
+          "local": true,
+          "hard-limit": 5,
+          "soft-limit": 4
+        },
+        "pay-models": [],
         "jeg-gateway-proxy-url": "http://workspace-proxy-service.qa-vectis.svc.cluster.local:8080/jeg-proxy",
         "sidecar": {
           "cpu-limit": "1.0",
