@@ -142,13 +142,13 @@ hatchery:
         "sidecar": {
           "cpu-limit": "1.0",
           "memory-limit": "256Mi",
-          "image": "quay.io/cdis/gen3fuse-sidecar:2024.07",
+          "image": "quay.io/cdis/ecs-ws-sidecar:master",
           "env": {
             "NAMESPACE": "qa-vectis",
             "HOSTNAME": "qa-vectis.planx-pla.net"
           },
           "args": [],
-          "command": ["/bin/bash", "/sidecar.sh"],
+          "command": ["/bin/bash", "./sidecar.sh"],
           "lifecycle-pre-stop": ["/bin/bash", "-c", "fusermount -u /data || true"]
         },
         "containers": [
@@ -157,7 +157,7 @@ hatchery:
             "cpu-limit": "2.0",
             "memory-limit": "4Gi",
             "name": "Jupyter Notebook (Python 3) - micro-notebook-dev",
-            "image": "quay.io/cdis/jupyter-superslim:2.2.0",
+            "image": "quay.io/cdis/jupyter-superslim:2.1.0",
             "env": {
               "FRAME_ANCESTORS": "qa-vectis.planx-pla.net"
             },
