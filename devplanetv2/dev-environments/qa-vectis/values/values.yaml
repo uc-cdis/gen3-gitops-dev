@@ -159,7 +159,7 @@ hatchery:
             "name": "Jupyter Notebook (Python 3) - micro-notebook-dev",
             "image": "quay.io/cdis/jupyter-superslim:2.1.0",
             "env": {
-              "FRAME_ANCESTORS": "qa-vectis.planx-pla.net"
+              "FRAME_ANCESTORS": "https://qa-vectis.planx-pla.net"
             },
             "command": ["start-notebook.sh"],
             "args": [
@@ -333,6 +333,7 @@ revproxy:
           proxy_set_header Host $host;
           proxy_set_header X-Real-IP $remote_addr;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto https;
           proxy_set_header Upgrade $http_upgrade;
           proxy_set_header Connection $connection_upgrade;
           proxy_set_header X-URL-SCHEME https;
@@ -384,7 +385,7 @@ revproxy:
           proxy_set_header Host $host;
           proxy_set_header X-Real-IP $remote_addr;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_set_header X-Forwarded-Proto https;
           proxy_set_header X-Forwarded-Host $host;
           proxy_set_header X-URL-SCHEME https;
           client_max_body_size 0;
@@ -400,7 +401,7 @@ revproxy:
           proxy_set_header Host $host;
           proxy_set_header X-Real-IP $remote_addr;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_set_header X-Forwarded-Proto https;
           proxy_set_header X-Forwarded-Host $host;
           proxy_set_header X-URL-SCHEME https;
           client_max_body_size 0;
@@ -422,7 +423,7 @@ revproxy:
           proxy_set_header Host $host;
           proxy_set_header X-Real-IP $remote_addr;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_set_header X-Forwarded-Proto https;
           proxy_set_header X-Forwarded-Host $host;
           proxy_set_header X-URL-SCHEME https;
           client_max_body_size 0;
@@ -443,7 +444,7 @@ revproxy:
           proxy_set_header Host $host;
           proxy_set_header X-Real-IP $remote_addr;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_set_header X-Forwarded-Proto https;
           proxy_set_header X-Forwarded-Host $host;
           proxy_set_header X-URL-SCHEME https;
           client_max_body_size 0;
