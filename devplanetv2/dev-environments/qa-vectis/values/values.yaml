@@ -161,6 +161,7 @@ hatchery:
             "env": {
               "FRAME_ANCESTORS": "qa-vectis.planx-pla.net"
             },
+            "command": ["start-notebook.sh"],
             "args": [
               "--ServerApp.base_url=/lw-workspace/proxy/",
               "--ServerApp.default_url=/lab",
