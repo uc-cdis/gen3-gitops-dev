@@ -435,7 +435,7 @@ metadata:
                  "config": {
                      "guid_type": "aggmds_metadata_entry",
                      "study_field": "gen3_discovery",
-                     "batch_size": "100",
+                     "batch_size": "100"
                  },
                  "keep_original_fields": false,
                  "field_mappings": {
