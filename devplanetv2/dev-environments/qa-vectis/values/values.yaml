@@ -81,7 +81,7 @@ frontend-framework:
   enabled: true
   image:
     repository: quay.io/cdis/gen3-vectis
-    tag: gen3-vectisv3
+      tag: gen3-vectisv4
     pullPolicy: Always
   customConfig:
     enabled: false
@@ -469,7 +469,10 @@ wts:
     createWtsOidcClientSecret: true
     createK8sWtsSecret: true
   networkPolicy:
-    enabled: true
+    # Temporary workaround: current chart netpol omits kube-apiserver (kubernetes.default.svc:443)
+    # egress, which causes /api/status failures (k8s API timeout) in workspace-proxy.
+    # Disable until chart supports explicit API egress allowlist.
+    enabled: false
     ingressNamespaces:
       - qa-vectis
       - jupyter-pods-qa-vectis
