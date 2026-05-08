@@ -81,7 +81,7 @@ frontend-framework:
   enabled: true
   image:
     repository: quay.io/cdis/gen3-vectis
-    tag: gen3-vectisv3
+    tag: gen3-vectisv4
     pullPolicy: Always
   customConfig:
     enabled: false
@@ -124,12 +124,16 @@ hatchery:
   hatchery:
     json: |-
       {
+        "pricing": {
+          "cpu": 0.04048,
+          "memory": 0.004445
+        },
         "user-namespace": "jupyter-pods-qa-vectis",
         "sub-dir": "/lw-workspace",
         "user-volume-size": "10Gi",
         "default-pay-model": {
-          "workspace_type": "Trial Workspace",
           "local": true,
+          "workspace_type": "Trial Workspace",
           "hard-limit": 5,
           "soft-limit": 4
         },
@@ -138,13 +142,13 @@ hatchery:
         "sidecar": {
           "cpu-limit": "1.0",
           "memory-limit": "256Mi",
-          "image": "quay.io/cdis/gen3fuse-sidecar:2024.07",
+          "image": "quay.io/cdis/ecs-ws-sidecar:master",
           "env": {
             "NAMESPACE": "qa-vectis",
             "HOSTNAME": "qa-vectis.planx-pla.net"
           },
           "args": [],
-          "command": ["/bin/bash", "/sidecar.sh"],
+          "command": ["/bin/bash", "./sidecar.sh"],
           "lifecycle-pre-stop": ["/bin/bash", "-c", "fusermount -u /data || true"]
         },
         "containers": [
@@ -153,10 +157,11 @@ hatchery:
             "cpu-limit": "2.0",
             "memory-limit": "4Gi",
             "name": "Jupyter Notebook (Python 3) - micro-notebook-dev",
-            "image": "quay.io/cdis/jupyter-superslim:2.2.0",
+            "image": "quay.io/cdis/jupyter-superslim:2.1.0",
             "env": {
-              "FRAME_ANCESTORS": "qa-vectis.planx-pla.net"
+              "FRAME_ANCESTORS": "https://qa-vectis.planx-pla.net"
             },
+            "command": ["start-notebook.sh"],
             "args": [
               "--ServerApp.base_url=/lw-workspace/proxy/",
               "--ServerApp.default_url=/lab",
@@ -328,6 +333,7 @@ revproxy:
           proxy_set_header Host $host;
           proxy_set_header X-Real-IP $remote_addr;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto https;
           proxy_set_header Upgrade $http_upgrade;
           proxy_set_header Connection $connection_upgrade;
           proxy_set_header X-URL-SCHEME https;
@@ -379,13 +385,52 @@ revproxy:
           proxy_set_header Host $host;
           proxy_set_header X-Real-IP $remote_addr;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_set_header X-Forwarded-Proto https;
           proxy_set_header X-Forwarded-Host $host;
           proxy_set_header X-URL-SCHEME https;
           client_max_body_size 0;
           proxy_read_timeout 600s;
       }
 
+      # Remote JupyterLite assets served by workspace-proxy (no auth gate — static files).
+      location ^~ /workspace-api/workspace-assets/remote/ {
+          set $upstream http://workspace-proxy-service.$namespace.svc.cluster.local:8080;
+          rewrite ^/workspace-api/(.*) /api/$1 break;
+          proxy_pass $upstream;
+          proxy_http_version 1.1;
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto https;
+          proxy_set_header X-Forwarded-Host $host;
+          proxy_set_header X-URL-SCHEME https;
+          client_max_body_size 0;
+          proxy_read_timeout 600s;
+      }
+
+      # Workspace API routes (hatchery options/status/launch, gateway, kernel) are
+      # handled by the vectis Next.js app API routes — NOT workspace-proxy.
+      # Next.js rewrites /workspace-api/:path* → /api/:path* internally.
+      location ^~ /workspace-api/workspace/ {
+          set $authz_resource "/workspace";
+          set $authz_method "access";
+          set $authz_service "jupyterhub";
+          auth_request /gen3-authz;
+          error_page 403 = @errorworkspace;
+          set $upstream http://frontend-framework-service.$namespace.svc.cluster.local;
+          proxy_pass $upstream;
+          proxy_http_version 1.1;
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto https;
+          proxy_set_header X-Forwarded-Host $host;
+          proxy_set_header X-URL-SCHEME https;
+          client_max_body_size 0;
+          proxy_read_timeout 600s;
+      }
+
+      # JupyterLab kernel tunnel (workspace-proxy handles per-user routing).
       location ^~ /workspace-api/ {
           set $authz_resource "/workspace";
           set $authz_method "access";
@@ -399,7 +444,7 @@ revproxy:
           proxy_set_header Host $host;
           proxy_set_header X-Real-IP $remote_addr;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_set_header X-Forwarded-Proto https;
           proxy_set_header X-Forwarded-Host $host;
           proxy_set_header X-URL-SCHEME https;
           client_max_body_size 0;
@@ -424,7 +469,10 @@ wts:
     createWtsOidcClientSecret: true
     createK8sWtsSecret: true
   networkPolicy:
-    enabled: true
+    # Temporary workaround: current chart netpol omits kube-apiserver (kubernetes.default.svc:443)
+    # egress, which causes /api/status failures (k8s API timeout) in workspace-proxy.
+    # Disable until chart supports explicit API egress allowlist.
+    enabled: false
     ingressNamespaces:
       - qa-vectis
       - jupyter-pods-qa-vectis
