@@ -900,7 +900,9 @@ workspace-proxy:
   deploymentNamespace: qa-vectis
   workspaceNamespace: jupyter-pods-qa-vectis
   kubernetesApiServerCIDRs:
-    - "10.100.0.1/32"
+    - "10.100.0.1/32"       # kubernetes ClusterIP (pre-DNAT)
+    - "172.27.135.127/32"  # EKS control plane endpoint (post-DNAT)
+    - "172.27.137.189/32"  # EKS control plane endpoint (post-DNAT)
 
   replicaCount: 1
 
