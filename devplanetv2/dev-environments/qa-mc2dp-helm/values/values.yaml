@@ -576,7 +576,7 @@ metadata:
     dbcreds: qa-prometheus-metadata-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
-    tag: mfshao-patch-1
+    tag: feat_batch_size
   # non empty value for useAggMds to keep the cronjob, but disable the endpoints
   useAggMds: "true"
 mutatingWebhook:
