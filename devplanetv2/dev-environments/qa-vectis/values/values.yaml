@@ -388,6 +388,10 @@ revproxy:
           proxy_set_header X-Forwarded-Proto https;
           proxy_set_header X-Forwarded-Host $host;
           proxy_set_header X-URL-SCHEME https;
+          add_header Access-Control-Allow-Origin $host always;
+          add_header Access-Control-Allow-Credentials true always;
+          add_header Access-Control-Allow-Methods "GET, POST, DELETE, OPTIONS" always;
+          add_header Access-Control-Allow-Headers "Authorization, Content-Type" always;
           client_max_body_size 0;
           proxy_read_timeout 600s;
       }
@@ -404,6 +408,10 @@ revproxy:
           proxy_set_header X-Forwarded-Proto https;
           proxy_set_header X-Forwarded-Host $host;
           proxy_set_header X-URL-SCHEME https;
+          add_header Access-Control-Allow-Origin $host always;
+          add_header Access-Control-Allow-Credentials true always;
+          add_header Access-Control-Allow-Methods "GET, POST, DELETE, OPTIONS" always;
+          add_header Access-Control-Allow-Headers "Authorization, Content-Type" always;
           client_max_body_size 0;
           proxy_read_timeout 600s;
       }
