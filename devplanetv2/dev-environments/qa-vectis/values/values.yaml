@@ -899,8 +899,10 @@ workspace-proxy:
   enabled: true
   deploymentNamespace: qa-vectis
   workspaceNamespace: jupyter-pods-qa-vectis
+  kubernetesApiServerCIDRs:
+    - "10.100.0.1/32"
 
-  replicaCount: 2
+  replicaCount: 1
 
   image:
     repository: quay.io/cdis/gen3-vectis
