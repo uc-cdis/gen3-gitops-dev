@@ -20,11 +20,8 @@ audit:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/audit-service
     tag: "2024.12"
-aws-es-proxy:
+aws-sigv4-proxy:
   enabled: true
-  image:
-    repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/aws-es-proxy
-    tag: v1.3.1
 fence:
   autoscaling:
     enabled: true
