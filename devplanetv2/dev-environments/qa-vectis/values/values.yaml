@@ -377,7 +377,43 @@ revproxy:
     workspace-api.conf: |-
       # Free tier is static JupyterLite assets rendered in-browser (WASM only).
       # Do not gate these files on workspace launch authz checks.
+      location ^~ /api/workspace-assets/free/ {
+        if ($request_method = 'OPTIONS') {
+          add_header Access-Control-Allow-Origin $http_origin always;
+          add_header Access-Control-Allow-Credentials true always;
+          add_header Access-Control-Allow-Methods "GET, POST, DELETE, OPTIONS" always;
+          add_header Access-Control-Allow-Headers "Authorization, Content-Type" always;
+          add_header Content-Length 0;
+          add_header Content-Type text/plain;
+          return 204;
+        }
+        set $upstream http://workspace-proxy-service.$namespace.svc.cluster.local:8080;
+        proxy_pass $upstream;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-URL-SCHEME https;
+        add_header Access-Control-Allow-Origin $http_origin always;
+        add_header Access-Control-Allow-Credentials true always;
+        add_header Access-Control-Allow-Methods "GET, POST, DELETE, OPTIONS" always;
+        add_header Access-Control-Allow-Headers "Authorization, Content-Type" always;
+        client_max_body_size 0;
+        proxy_read_timeout 600s;
+      }
+
       location ^~ /workspace-api/workspace-assets/free/ {
+        if ($request_method = 'OPTIONS') {
+          add_header Access-Control-Allow-Origin $http_origin always;
+          add_header Access-Control-Allow-Credentials true always;
+          add_header Access-Control-Allow-Methods "GET, POST, DELETE, OPTIONS" always;
+          add_header Access-Control-Allow-Headers "Authorization, Content-Type" always;
+          add_header Content-Length 0;
+          add_header Content-Type text/plain;
+          return 204;
+        }
           set $upstream http://workspace-proxy-service.$namespace.svc.cluster.local:8080;
           rewrite ^/workspace-api/(.*) /api/$1 break;
           proxy_pass $upstream;
@@ -388,7 +424,7 @@ revproxy:
           proxy_set_header X-Forwarded-Proto https;
           proxy_set_header X-Forwarded-Host $host;
           proxy_set_header X-URL-SCHEME https;
-          add_header Access-Control-Allow-Origin $host always;
+          add_header Access-Control-Allow-Origin $http_origin always;
           add_header Access-Control-Allow-Credentials true always;
           add_header Access-Control-Allow-Methods "GET, POST, DELETE, OPTIONS" always;
           add_header Access-Control-Allow-Headers "Authorization, Content-Type" always;
@@ -397,7 +433,43 @@ revproxy:
       }
 
       # Remote JupyterLite assets served by workspace-proxy (no auth gate — static files).
+      location ^~ /api/workspace-assets/remote/ {
+        if ($request_method = 'OPTIONS') {
+          add_header Access-Control-Allow-Origin $http_origin always;
+          add_header Access-Control-Allow-Credentials true always;
+          add_header Access-Control-Allow-Methods "GET, POST, DELETE, OPTIONS" always;
+          add_header Access-Control-Allow-Headers "Authorization, Content-Type" always;
+          add_header Content-Length 0;
+          add_header Content-Type text/plain;
+          return 204;
+        }
+        set $upstream http://workspace-proxy-service.$namespace.svc.cluster.local:8080;
+        proxy_pass $upstream;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-URL-SCHEME https;
+        add_header Access-Control-Allow-Origin $http_origin always;
+        add_header Access-Control-Allow-Credentials true always;
+        add_header Access-Control-Allow-Methods "GET, POST, DELETE, OPTIONS" always;
+        add_header Access-Control-Allow-Headers "Authorization, Content-Type" always;
+        client_max_body_size 0;
+        proxy_read_timeout 600s;
+      }
+
       location ^~ /workspace-api/workspace-assets/remote/ {
+        if ($request_method = 'OPTIONS') {
+          add_header Access-Control-Allow-Origin $http_origin always;
+          add_header Access-Control-Allow-Credentials true always;
+          add_header Access-Control-Allow-Methods "GET, POST, DELETE, OPTIONS" always;
+          add_header Access-Control-Allow-Headers "Authorization, Content-Type" always;
+          add_header Content-Length 0;
+          add_header Content-Type text/plain;
+          return 204;
+        }
           set $upstream http://workspace-proxy-service.$namespace.svc.cluster.local:8080;
           rewrite ^/workspace-api/(.*) /api/$1 break;
           proxy_pass $upstream;
@@ -408,7 +480,7 @@ revproxy:
           proxy_set_header X-Forwarded-Proto https;
           proxy_set_header X-Forwarded-Host $host;
           proxy_set_header X-URL-SCHEME https;
-          add_header Access-Control-Allow-Origin $host always;
+          add_header Access-Control-Allow-Origin $http_origin always;
           add_header Access-Control-Allow-Credentials true always;
           add_header Access-Control-Allow-Methods "GET, POST, DELETE, OPTIONS" always;
           add_header Access-Control-Allow-Headers "Authorization, Content-Type" always;
