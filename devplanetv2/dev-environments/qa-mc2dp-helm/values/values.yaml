@@ -435,7 +435,7 @@ metadata:
                  "config": {
                      "guid_type": "aggmds_metadata_entry",
                      "study_field": "gen3_discovery",
-                     "batch_size": "100"
+                     "batchSize": "100"
                  },
                  "keep_original_fields": false,
                  "field_mappings": {
@@ -576,7 +576,7 @@ metadata:
     dbcreds: qa-prometheus-metadata-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
-    tag: feat_batch_size
+    tag: master
   # non empty value for useAggMds to keep the cronjob, but disable the endpoints
   useAggMds: "true"
 mutatingWebhook:
