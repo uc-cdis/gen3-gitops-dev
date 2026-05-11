@@ -1027,15 +1027,19 @@ jeg:
     EG_CULL_IDLE_TIMEOUT: "14400"
     EG_CULL_CONNECTED: "True"
     EG_AUTH_TOKEN: ""
-    EG_DEFAULT_KERNEL_NAME: python_kubernetes
+    EG_DEFAULT_KERNEL_NAME: python3
     EG_LIST_KERNELS: "True"
     EG_KERNEL_IMAGE_PULL_POLICY: IfNotPresent
     EG_SHARED_NAMESPACE: "True"
     EG_MIRROR_WORKING_DIRS: "False"
     EG_KERNEL_SPEC_POLICY: |
       {
-        "default_kernel_name": "python_kubernetes",
+        "default_kernel_name": "python3",
         "kernel_specs": {
+          "python3": {
+            "display_name": "Python (Micro — Local)",
+            "language": "python"
+          },
           "python_kubernetes": {
             "display_name": "Python on Kubernetes",
             "language": "python",
