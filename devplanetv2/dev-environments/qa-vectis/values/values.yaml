@@ -1032,6 +1032,27 @@ jeg:
     EG_KERNEL_IMAGE_PULL_POLICY: IfNotPresent
     EG_SHARED_NAMESPACE: "True"
     EG_MIRROR_WORKING_DIRS: "False"
+    EG_KERNEL_SPEC_POLICY: |
+      {
+        "default_kernel_name": "python_kubernetes",
+        "kernel_specs": {
+          "python_kubernetes": {
+            "display_name": "Python on Kubernetes",
+            "language": "python",
+            "image_name": "elyra/kernel-py:latest"
+          },
+          "python_tensorflow_kubernetes": {
+            "display_name": "Python on Kubernetes with TensorFlow",
+            "language": "python",
+            "image_name": "elyra/kernel-py-tensorflow:latest"
+          },
+          "r_kubernetes": {
+            "display_name": "R on Kubernetes",
+            "language": "r",
+            "image_name": "elyra/kernel-r:latest"
+          }
+        }
+      }
 
   resources:
     requests:
