@@ -18,7 +18,14 @@ workspace-proxy:
     pullPolicy: Always
 
   listenAddr: ":8080"
-  jegKernelSpecPolicy: ""
+  jegKernelSpecPolicy: |
+    {
+      "allowedSpecs": [
+        "python_kubernetes",
+        "python_tf_kubernetes",
+        "python_tf_gpu_kubernetes"
+      ]
+    }
 
   resources:
     requests:
