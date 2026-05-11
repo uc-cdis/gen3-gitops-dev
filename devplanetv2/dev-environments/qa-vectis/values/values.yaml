@@ -1052,8 +1052,8 @@ jeg:
             "language": "python",
             "image_name": "elyra/kernel-py:latest",
             "resources": {
-              "cpu": "2",
-              "memory": "8Gi",
+              "cpu": "500m",
+              "memory": "2Gi",
               "gpu_type": "none"
             }
           },
@@ -1062,8 +1062,8 @@ jeg:
             "language": "python",
             "image_name": "elyra/kernel-py-tensorflow:latest",
             "resources": {
-              "cpu": "4",
-              "memory": "16Gi",
+              "cpu": "1",
+              "memory": "4Gi",
               "gpu_type": "none"
             }
           },
@@ -1072,8 +1072,8 @@ jeg:
             "language": "python",
             "image_name": "elyra/kernel-py-tensorflow:latest",
             "resources": {
-              "cpu": "8",
-              "memory": "32Gi",
+              "cpu": "2",
+              "memory": "8Gi",
               "gpu_type": "NVIDIA"
             }
           },
