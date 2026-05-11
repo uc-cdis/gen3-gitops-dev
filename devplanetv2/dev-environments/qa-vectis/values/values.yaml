@@ -154,8 +154,8 @@ hatchery:
         "containers": [
           {
             "target-port": 8888,
-            "cpu-limit": "2.0",
-            "memory-limit": "4Gi",
+            "cpu-limit": "500m",
+            "memory-limit": "2Gi",
             "name": "Jupyter Notebook (Python 3) - micro-notebook-dev",
             "image": "quay.io/cdis/jupyter-superslim:2.1.0",
             "env": {
@@ -993,7 +993,14 @@ workspace-proxy:
     pullPolicy: Always
 
   listenAddr: ":8080"
-  jegKernelSpecPolicy: ""
+  jegKernelSpecPolicy: |
+    {
+      "allowedSpecs": [
+        "python_kubernetes",
+        "python_tensorflow_kubernetes",
+        "python_tensorflow_gpu_kubernetes"
+      ]
+    }
 
   resources:
     requests:
@@ -1034,17 +1041,41 @@ jeg:
     EG_MIRROR_WORKING_DIRS: "False"
     EG_KERNEL_SPEC_POLICY: |
       {
-        "default_kernel_name": "python_kubernetes",
+        "default_kernel_name": "python3",
         "kernel_specs": {
+          "python3": {
+            "display_name": "Python (Micro — Local)",
+            "language": "python"
+          },
           "python_kubernetes": {
             "display_name": "Python on Kubernetes",
             "language": "python",
-            "image_name": "elyra/kernel-py:latest"
+            "image_name": "elyra/kernel-py:latest",
+            "resources": {
+              "cpu": "2",
+              "memory": "4Gi",
+              "gpu_type": "none"
+            }
           },
           "python_tensorflow_kubernetes": {
             "display_name": "Python on Kubernetes with TensorFlow",
             "language": "python",
-            "image_name": "elyra/kernel-py-tensorflow:latest"
+            "image_name": "elyra/kernel-py-tensorflow:latest",
+            "resources": {
+              "cpu": "1",
+              "memory": "4Gi",
+              "gpu_type": "none"
+            }
+          },
+          "python_tensorflow_gpu_kubernetes": {
+            "display_name": "Python on Kubernetes with TensorFlow with GPUs",
+            "language": "python",
+            "image_name": "elyra/kernel-py-tensorflow:latest",
+            "resources": {
+              "cpu": "2",
+              "memory": "8Gi",
+              "gpu_type": "NVIDIA"
+            }
           },
           "r_kubernetes": {
             "display_name": "R on Kubernetes",
