@@ -154,8 +154,8 @@ hatchery:
         "containers": [
           {
             "target-port": 8888,
-            "cpu-limit": "2.0",
-            "memory-limit": "4Gi",
+            "cpu-limit": "500m",
+            "memory-limit": "2Gi",
             "name": "Jupyter Notebook (Python 3) - micro-notebook-dev",
             "image": "quay.io/cdis/jupyter-superslim:2.1.0",
             "env": {
@@ -1052,8 +1052,8 @@ jeg:
             "language": "python",
             "image_name": "elyra/kernel-py:latest",
             "resources": {
-              "cpu": "500m",
-              "memory": "2Gi",
+              "cpu": "2",
+              "memory": "4Gi",
               "gpu_type": "none"
             }
           },
