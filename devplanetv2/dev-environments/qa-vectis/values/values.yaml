@@ -1030,7 +1030,7 @@ jeg:
     EG_DEFAULT_KERNEL_NAME: python3
     EG_LIST_KERNELS: "True"
     EG_KERNEL_IMAGE_PULL_POLICY: IfNotPresent
-    EG_SHARED_NAMESPACE: "False"
+    EG_SHARED_NAMESPACE: "True"
     EG_MIRROR_WORKING_DIRS: "False"
 
   resources:
