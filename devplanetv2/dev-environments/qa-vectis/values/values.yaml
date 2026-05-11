@@ -1050,12 +1050,32 @@ jeg:
           "python_kubernetes": {
             "display_name": "Python on Kubernetes",
             "language": "python",
-            "image_name": "elyra/kernel-py:latest"
+            "image_name": "elyra/kernel-py:latest",
+            "resources": {
+              "cpu": "2",
+              "memory": "8Gi",
+              "gpu_type": "none"
+            }
           },
           "python_tensorflow_kubernetes": {
             "display_name": "Python on Kubernetes with TensorFlow",
             "language": "python",
-            "image_name": "elyra/kernel-py-tensorflow:latest"
+            "image_name": "elyra/kernel-py-tensorflow:latest",
+            "resources": {
+              "cpu": "4",
+              "memory": "16Gi",
+              "gpu_type": "none"
+            }
+          },
+          "python_tensorflow_gpu_kubernetes": {
+            "display_name": "Python on Kubernetes with TensorFlow with GPUs",
+            "language": "python",
+            "image_name": "elyra/kernel-py-tensorflow:latest",
+            "resources": {
+              "cpu": "8",
+              "memory": "32Gi",
+              "gpu_type": "NVIDIA"
+            }
           },
           "r_kubernetes": {
             "display_name": "R on Kubernetes",
