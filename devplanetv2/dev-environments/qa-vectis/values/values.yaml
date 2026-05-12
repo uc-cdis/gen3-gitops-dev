@@ -159,7 +159,8 @@ hatchery:
             "name": "Jupyter Notebook (Python 3) - micro-notebook-dev",
             "image": "quay.io/cdis/jupyter-superslim:2.2.0",
             "env": {
-              "FRAME_ANCESTORS": "https://qa-vectis.planx-pla.net"
+              "FRAME_ANCESTORS": "https://qa-vectis.planx-pla.net",
+              "PATH": "/home/jovyan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
             },
             "command": ["start-notebook.sh"],
             "args": [
