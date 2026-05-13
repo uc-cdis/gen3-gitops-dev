@@ -53,6 +53,8 @@ fluentd:
   image:
     repository: fluent/fluentd-kubernetes-daemonset
     tag: v1.15.3-debian-cloudwatch-1.0
+FENCE_CONFIG_PUBLIC:
+  ENABLE_VISA_UPDATE_CRON: true
 
 frontend-framework:
   # -- (bool) Whether to deploy the frontend-framework subchart.
