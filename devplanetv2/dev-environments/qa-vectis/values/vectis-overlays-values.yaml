@@ -50,6 +50,7 @@ vectis-overlays:
       repository: *imageRepository
       tag: *searchAuthProxyImageTag
       pullPolicy: Always
+    appDsnSecretName: gen3-qa-vectis-search-user
     postgresDsnSecretRef:
       name: *searchAuthProxySecretName
       key: *searchAuthProxySecretKey
