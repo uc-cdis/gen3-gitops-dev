@@ -1491,7 +1491,7 @@ metadata:
     dbcreds: qaheal-metadata-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
-    tag: "chore_field-size"
+    tag: "4.3.0"
   useAggMds: true
   schedule: "0 14,20 * * *"
   suspendCronjob: false
