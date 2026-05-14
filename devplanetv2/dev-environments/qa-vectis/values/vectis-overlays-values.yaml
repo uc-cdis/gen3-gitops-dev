@@ -6,13 +6,14 @@
 # YAML anchors are defined here and referenced below — they resolve within this file.
 _cdkOutputs:
   imageRepository: &imageRepository quay.io/cdis/gen3-vectis
-  guppyCompatImageTag: &guppyCompatImageTag guppy-compat-v1
-  siemServiceImageTag: &siemServiceImageTag siem-service-v1
-  searchAuthProxyImageTag: &searchAuthProxyImageTag search-auth-proxy-v1
+  guppyCompatImageTag: &guppyCompatImageTag guppy-compat-v2
+  siemServiceImageTag: &siemServiceImageTag siem-service-v2
+  searchAuthProxyImageTag: &searchAuthProxyImageTag search-auth-proxy-v2
   searchAuthProxyServiceName: &searchAuthProxyServiceName search-auth-proxy
   searchAuthProxySecretName: &searchAuthProxySecretName vectis-search-auth-proxy
   searchAuthProxySecretKey: &searchAuthProxySecretKey postgres_dsn
   lambdaApiUrl: &lambdaApiUrl https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com
+  searchApiGatewayId: &searchApiGatewayId 0zpj2qa0l5
   rdsSecretName: &rdsSecretName RdsSecretB4544A18-GrJ4o16zGYiT
   rdsEndpoint: &rdsEndpoint gen3-qa-vectis-rdscluster7e964c7d-lqk85dtnbh5j.cluster-cwvizkxhzjt8.us-east-1.rds.amazonaws.com
 
@@ -20,6 +21,9 @@ vectis-overlays:
   enabled: true
   guppyCompat:
     enabled: true
+    serviceAccount:
+      create: true
+      name: guppy-compat-service
     image:
       repository: *imageRepository
       tag: *guppyCompatImageTag
@@ -29,6 +33,9 @@ vectis-overlays:
 
   siemService:
     enabled: true
+    serviceAccount:
+      create: true
+      name: siem-service
     image:
       repository: *imageRepository
       tag: *siemServiceImageTag
@@ -46,10 +53,16 @@ vectis-overlays:
   searchAuthProxy:
     enabled: true
     serviceName: *searchAuthProxyServiceName
+    serviceAccount:
+      create: true
+      name: *searchAuthProxyServiceName
     image:
       repository: *imageRepository
       tag: *searchAuthProxyImageTag
       pullPolicy: Always
+    apiGateway:
+      apiId: *searchApiGatewayId
+      region: us-east-1
     appDsnSecretName: *rdsSecretName
     postgresDsnSecretRef:
       name: *searchAuthProxySecretName

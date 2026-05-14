@@ -1,0 +1,14 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "InvokeSearchRoutes",
+      "Effect": "Allow",
+      "Action": "execute-api:Invoke",
+      "Resource": [
+        "arn:aws:execute-api:us-east-1:707767160287:0zpj2qa0l5/*/*/search",
+        "arn:aws:execute-api:us-east-1:707767160287:0zpj2qa0l5/*/*/search/*"
+      ]
+    }
+  ]
+}
