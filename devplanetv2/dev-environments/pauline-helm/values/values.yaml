@@ -66,14 +66,14 @@ fence:
         fenceJwtKeys: pauline-fence-jwt
     image:
         repository: quay.io/cdis/fence
-        tag: master
+        tag: feat_scoped-token
     replicas: 1
 
 gen3-workflow:
     enabled: true
     image:
         repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-workflow
-        tag: misc-improvements
+        tag: validate-aud
     externalSecrets:
         gen3workflowG3auto: "gen3workflow-g3auto"
     gen3WorkflowConfig:
