@@ -1,0 +1,58 @@
+---
+# SIEM Service IRSA Role
+# Minimal permissions: read/write only siem/views.json in gen3-qa-vectis-config bucket
+apiVersion: iam.aws.crossplane.io/v1beta1
+kind: Role
+metadata:
+  name: qa-vectis-siem-service
+  namespace: {{ .Release.Namespace }}
+spec:
+  forProvider:
+    roleName: devplanetv2-{{ .Release.Namespace }}-siem-service
+    assumeRolePolicyDocument: |
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Principal": {
+              "Federated": "arn:aws:iam::{{ .Values.global.crossplane.accountId }}:oidc-provider/{{ .Values.global.crossplane.oidcProviderUrl }}"
+            },
+            "Action": "sts:AssumeRoleWithWebIdentity",
+            "Condition": {
+              "StringEquals": {
+                "{{ .Values.global.crossplane.oidcProviderUrl }}:sub": "system:serviceaccount:{{ .Release.Namespace }}:siem-service",
+                "{{ .Values.global.crossplane.oidcProviderUrl }}:aud": "sts.amazonaws.com"
+              }
+            }
+          }
+        ]
+      }
+  providerConfigRef:
+    name: {{ .Values.global.crossplane.providerConfigName }}
+---
+# Policy: S3 access to siem/views.json only
+apiVersion: iam.aws.crossplane.io/v1beta1
+kind: RolePolicy
+metadata:
+  name: qa-vectis-siem-service-s3-views
+  namespace: {{ .Release.Namespace }}
+spec:
+  forProvider:
+    roleName: devplanetv2-{{ .Release.Namespace }}-siem-service
+    policyDocument: |
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": [
+              "s3:GetObject",
+              "s3:PutObject"
+            ],
+            "Resource": "arn:aws:s3:::gen3-qa-vectis-config/siem/views.json"
+          }
+        ]
+      }
+  providerConfigRef:
+    name: {{ .Values.global.crossplane.providerConfigName }}

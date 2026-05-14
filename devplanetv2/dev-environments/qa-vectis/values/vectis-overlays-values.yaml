@@ -7,7 +7,7 @@
 _cdkOutputs:
   imageRepository: &imageRepository quay.io/cdis/gen3-vectis
   guppyCompatImageTag: &guppyCompatImageTag guppy-compat-v2
-  siemServiceImageTag: &siemServiceImageTag siem-service-v2
+  siemServiceImageTag: &siemServiceImageTag siem-service-v3
   searchAuthProxyImageTag: &searchAuthProxyImageTag search-auth-proxy-v2
   searchAuthProxyServiceName: &searchAuthProxyServiceName search-auth-proxy
   searchAuthProxySecretName: &searchAuthProxySecretName vectis-search-auth-proxy
@@ -36,6 +36,8 @@ vectis-overlays:
     serviceAccount:
       create: true
       name: siem-service
+      annotations:
+        eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2-qa-vectis-siem-service
     image:
       repository: *imageRepository
       tag: *siemServiceImageTag
@@ -43,6 +45,10 @@ vectis-overlays:
     env:
       SIEM_DEFAULT_LIMIT: "250"
       SIEM_MAX_LIMIT: "2000"
+      SIEM_VIEWS_S3_BUCKET: "gen3-qa-vectis-config"
+      SIEM_VIEWS_S3_KEY: "siem/views.json"
+      SIEM_VIEWS_S3_ENABLED: "true"
+      SIEM_DEFAULT_VIEWS_CONFIG_PATH: "/app/config/default-views.json"
 
   rds:
     secretName: *rdsSecretName
