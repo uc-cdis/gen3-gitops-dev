@@ -7,8 +7,8 @@
 _cdkOutputs:
   imageRepository: &imageRepository quay.io/cdis/gen3-vectis
   guppyCompatImageTag: &guppyCompatImageTag guppy-compat-v2
-  siemServiceImageTag: &siemServiceImageTag siem-service-v3
-  searchAuthProxyImageTag: &searchAuthProxyImageTag search-auth-proxy-v2
+  siemServiceImageTag: &siemServiceImageTag siem-service-v4
+  searchAuthProxyImageTag: &searchAuthProxyImageTag search-auth-proxy-v3
   searchAuthProxyServiceName: &searchAuthProxyServiceName search-auth-proxy
   searchAuthProxySecretName: &searchAuthProxySecretName vectis-search-auth-proxy
   searchAuthProxySecretKey: &searchAuthProxySecretKey postgres_dsn
@@ -45,6 +45,7 @@ vectis-overlays:
     env:
       SIEM_DEFAULT_LIMIT: "250"
       SIEM_MAX_LIMIT: "2000"
+      DB_SCHEMA: "vectis_search"
       SIEM_VIEWS_S3_BUCKET: "gen3-qa-vectis-config"
       SIEM_VIEWS_S3_KEY: "siem/views.json"
       SIEM_VIEWS_S3_ENABLED: "true"
