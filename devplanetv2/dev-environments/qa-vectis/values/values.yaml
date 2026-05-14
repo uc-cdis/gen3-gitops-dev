@@ -81,7 +81,7 @@ frontend-framework:
   enabled: true
   image:
     repository: quay.io/cdis/gen3-vectis
-    tag: gen3-vectisv4
+    tag: gen3-vectisv6
     pullPolicy: Always
   customConfig:
     enabled: false
@@ -160,9 +160,9 @@ hatchery:
             "image": "quay.io/jupyter/minimal-notebook:python-3.13",
             "env": {
               "FRAME_ANCESTORS": "https://qa-vectis.planx-pla.net",
-              "PATH": "/home/jovyan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+              "PATH": "/opt/conda/bin:/home/jovyan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
             },
-            "command": ["start-notebook.sh"],
+            "command": ["start-notebook.py"],
             "args": [
               "--ServerApp.base_url=/lw-workspace/proxy/",
               "--ServerApp.default_url=/lab",
@@ -372,6 +372,17 @@ revproxy:
           set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
           proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
           rewrite ^/v0/submission/(.*) /query/$1 break;
+          proxy_pass $upstream;
+          client_max_body_size 0;
+      }
+    lambda-search.conf: |-
+      location /search/ {
+          if ($csrf_check !~ ^ok-\S.+$) {
+            return 403 "failed csrf check";
+          }
+          proxy_ssl_server_name on;
+          set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
+          proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
           proxy_pass $upstream;
           client_max_body_size 0;
       }
