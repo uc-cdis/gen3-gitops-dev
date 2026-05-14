@@ -160,9 +160,9 @@ hatchery:
             "image": "quay.io/jupyter/minimal-notebook:python-3.13",
             "env": {
               "FRAME_ANCESTORS": "https://qa-vectis.planx-pla.net",
-              "PATH": "/home/jovyan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+              "PATH": "/opt/conda/bin:/home/jovyan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
             },
-            "command": ["start-notebook.sh"],
+            "command": ["start-notebook.py"],
             "args": [
               "--ServerApp.base_url=/lw-workspace/proxy/",
               "--ServerApp.default_url=/lab",
