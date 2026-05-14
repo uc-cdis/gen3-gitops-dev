@@ -176,15 +176,23 @@
         {
           "name": "Investigator(s)",
           "field": "investigators_name",
+          "contentType": "array",
           "errorIfNotAvailable": false,
           "valueIfNotAvailable": "n/a"
         },
         {
-          "name": "DATA ACCESS METHOD",
-          "field": "data_access_method",
+          "name": "Registration Status",
+          "field": "is_registered",
+          "contentType": "registrationStatus",
+          "errorIfNotAvailable": false,
+          "valueIfNotAvailable": "API"
+        },
+        {
+          "name": "Data Availability",
+          "field": "__accessible",
           "errorIfNotAvailable": false,
           "valueIfNotAvailable": "API",
-          "contentType": "string"
+          "contentType": "dataAccess"
         }
       ],
       "studyPreviewField": {
