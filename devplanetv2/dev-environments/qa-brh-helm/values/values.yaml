@@ -121,6 +121,7 @@ hatchery:
           "memory": 0.004445
         },
         "user-namespace": "jupyter-pods-qa-brh",
+        "hashed-usernames": true,
         "sub-dir": "/lw-workspace",
         "user-volume-size": "10Gi",
         "default-pay-model": {
