@@ -204,6 +204,7 @@
         "valueIfNotAvailable": "No summary has been provided for this study."
       },
       "detailView": {
+        "showSubmitButton": true,
         "headerField": "study_metadata.minimal_info.study_name",
         "subHeaderField": "_hdp_uid",
         "tabs": [
