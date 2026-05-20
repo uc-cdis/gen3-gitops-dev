@@ -117,64 +117,69 @@ dashboard:
 etl:
   esEndpoint: elasticsearch
   mappings:
-    - doc_type: patients
-      name: etl_mickey
-      nested_props:
-        - name: oncology_primaries
-          path: oncology_primaries
-          props:
-            - name: Multiplicitycounter
-            - name: ICDOSite
-            - name: Radiation
-            - name: Chemotherapy
-            - name: DaysFromAnchorDateToDiagnosisDate
-            - name: Gradedifferentiation
-            - name: Laterality
-            - name: Stagegroupbest
-            - name: RadiationsurgerySequence
-            - name: Histologyicdo3X
-            - name: Lymphvascularinvasionl
-            - name: SeerSummaryStage2000
-            - name: PhysiciansStage
-            - name: DaysFromAnchorDateToMostdefinitivesurgDate
-            - name: ChemotherapyFac
-            - name: TumorSize
-            - name: SequenceNumber
-        - name: actionable_mutations
-          path: actionable_mutations
-          props:
-            - name: Lab
-            - name: Gene
-            - name: DaysFromAnchorDateToBxDate
-      props:
-        - name: project_id
-        - name: Days_To_Birth
-          src: days_to_lost_to_followup
-        - name: Days_To_Death
-          src: days_to_lost_to_followup
-        - name: Gender
-          src: lost_to_followup
-        - name: Ethnicity
-          src: lost_to_followup
-        - name: Race
-          src: lost_to_followup
-        - name: DeceasedFlag
-          src: lost_to_followup
-      root: case
-      type: aggregator
-    - category: data_file
-      doc_type: file
-      name: file_etl_mickey
-      props:
-        - name: project_id
-        - name: submitter_id
-        - name: file_name
-        - name: file_size
-        - name: data_format
-        - name: data_type
-        - name: object_id
-      root: None
-      type: collector
+  etlMapping:
+    mappings:
+      - name: qa_vpodc_case
+        doc_type: case
+        type: aggregator
+        root: case
+        props:
+          - name: project_id
+          - name: submitter_id
+        nested_props:
+          - name: clinical_demographics
+            path: clinical_demographics
+            props:
+              - name: Days_To_Birth
+              - name: Days_To_Death
+              - name: Ethnicity
+              - name: Gender
+              - name: Race
+              - name: Vital_Status
+              - name: Year_Of_Birth
+              - name: Year_Of_Death
+              - name: DeceasedFlag
+              - name: MaritalStatus
+              - name: PatientOver90Flag
+          - name: oncology_primaries
+            path: oncology_primaries
+            props:
+              - name: ICDOSite
+              - name: Stagegroupclinical
+              - name: PrimarysiteX
+              - name: Chemotherapy
+              - name: ChemotherapyFac
+              - name: Gradedifferentiation
+              - name: Histologyicdo3X
+              - name: Laterality
+              - name: Lymphvascularinvasionl
+              - name: Multiplicitycounter
+              - name: PhysiciansStage
+              - name: Radiation
+              - name: RadiationsurgerySequence
+              - name: SeerSummaryStage2000
+              - name: SequenceNumber
+              - name: Stagegroupbest
+              - name: TumorSize
+      - name: qa_vpodc_data_file
+        doc_type: data_file
+        type: collector
+        root: None
+        category: data_file
+        props:
+          - name: object_id
+          - name: md5sum
+          - name: file_name
+          - name: file_size
+          - name: data_format
+          - name: data_type
+          - name: data_category
+          - name: state
+        injecting_props:
+          case:
+            props:
+              - name: submitter_id
+              - name: project_id
 
 fence:
   usersync:
@@ -212,7 +217,9 @@ guppy:
   indices:
     - index: etl_mickey
       type: patients
-    - index: file_etl_mickey
+    - index: qa_vpodc_case
+      type: case
+    - index: qa_vpodc_data_file
       type: file
     - index: omop_etl_index_cohortb_20251119
       type: cohort_b_patients
