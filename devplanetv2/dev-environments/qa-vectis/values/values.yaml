@@ -103,6 +103,11 @@ frontend-framework:
     FENCE_URL: "http://fence-service.qa-vectis.svc.cluster.local"
     KERNEL_SPEC_POLICY: "{}"
     ENABLE_JEG: "true"
+    # Snapshot-first read for the Audit Event loader. "/" = same-origin, so
+    # the browser hits /snapshots/* on revproxy, which forwards to
+    # search-auth-proxy. Set to empty/unset to disable and always go live.
+    NEXT_PUBLIC_GUPPY_SNAPSHOT_BASE_URL: "/"
+    NEXT_PUBLIC_GUPPY_SNAPSHOT_TENANT: "vectis"
   replicaCount: 2
   resources:
     requests:
@@ -290,7 +295,7 @@ revproxy:
             return 403 "failed csrf check";
           }
           set $proxy_service  "guppy";
-          set $upstream http://guppy-compat-service.qa-vectis.svc.cluster.local:8000;
+          set $upstream http://search-auth-proxy.qa-vectis.svc.cluster.local:8000;
           proxy_pass $upstream;
           client_max_body_size 0;
       }
@@ -301,6 +306,35 @@ revproxy:
           }
           set $proxy_service  "siem";
           set $upstream http://siem-service.qa-vectis.svc.cluster.local:8000;
+          proxy_pass $upstream;
+          client_max_body_size 0;
+      }
+    mds-service.conf: |-
+      location /mds/ {
+          if ($csrf_check !~ ^ok-\S.+$) {
+            return 403 "failed csrf check";
+          }
+          set $proxy_service  "mds";
+          # MDS-shape routes are served by the search Lambda
+          # (vectis_search_overlay.mds_routes); the auth proxy enforces
+          # bearer + Arborist + SigV4 before forwarding. /mds/_status is the
+          # only unauthenticated path (matches stock Gen3 MDS).
+          set $upstream http://search-auth-proxy.qa-vectis.svc.cluster.local:8000;
+          proxy_pass $upstream;
+          client_max_body_size 0;
+      }
+    snapshots-service.conf: |-
+      location /snapshots/ {
+          if ($csrf_check !~ ^ok-\S.+$) {
+            return 403 "failed csrf check";
+          }
+          set $proxy_service  "snapshots";
+          # Pre-baked /search/graphql responses streamed from S3 via
+          # search-auth-proxy (bearer + Arborist gated, SigV4-signed
+          # GetObject from the proxy's IRSA role). Returns 503 when the
+          # bucket env var is unset, which makes the frontend fall back to
+          # live Guppy without an error in the UI.
+          set $upstream http://search-auth-proxy.qa-vectis.svc.cluster.local:8000;
           proxy_pass $upstream;
           client_max_body_size 0;
       }
@@ -375,17 +409,9 @@ revproxy:
           proxy_pass $upstream;
           client_max_body_size 0;
       }
-    lambda-search.conf: |-
-      location /search/ {
-          if ($csrf_check !~ ^ok-\S.+$) {
-            return 403 "failed csrf check";
-          }
-          proxy_ssl_server_name on;
-          set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
-          proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
-          proxy_pass $upstream;
-          client_max_body_size 0;
-      }
+    # NOTE: there is no direct /search/* nginx route. The search Lambda routes
+    # are AWS_IAM-protected; unsigned proxy_pass from nginx will 403. All
+    # client search traffic must go via /guppy/* → search-auth-proxy (SigV4).
     workspace-api.conf: |-
       # Free tier is static JupyterLite assets rendered in-browser (WASM only).
       # Do not gate these files on workspace launch authz checks.
