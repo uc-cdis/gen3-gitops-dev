@@ -7,8 +7,8 @@
 _cdkOutputs:
   imageRepository: &imageRepository quay.io/cdis/gen3-vectis
   guppyCompatImageTag: &guppyCompatImageTag guppy-compat-v2
-  siemServiceImageTag: &siemServiceImageTag siem-service-v4
-  searchAuthProxyImageTag: &searchAuthProxyImageTag search-auth-proxy-v3
+  siemServiceImageTag: &siemServiceImageTag siem-service-v6
+  searchAuthProxyImageTag: &searchAuthProxyImageTag search-auth-proxy-v4
   searchAuthProxyServiceName: &searchAuthProxyServiceName search-auth-proxy
   searchAuthProxySecretName: &searchAuthProxySecretName vectis-search-auth-proxy
   searchAuthProxySecretKey: &searchAuthProxySecretKey postgres_dsn
@@ -19,8 +19,12 @@ _cdkOutputs:
 
 vectis-overlays:
   enabled: true
+  # Phase 6 (2026-05): guppy-compat-service retired. GraphQL is now served
+  # by the search Lambda; the search-auth-proxy rewrites /guppy/* → /search/*.
+  # Keep the image/tag anchors defined above for rollback during the cutover
+  # cycle; flip enabled: true to redeploy the standalone pod if needed.
   guppyCompat:
-    enabled: true
+    enabled: false
     serviceAccount:
       create: true
       name: guppy-compat-service
@@ -45,7 +49,10 @@ vectis-overlays:
     env:
       SIEM_DEFAULT_LIMIT: "250"
       SIEM_MAX_LIMIT: "2000"
-      DB_SCHEMA: "vectis_search"
+      # Phase 8g: siem-service now queries the raw `vectis` schema with
+      # app-layer PII masking. Leave DB_SCHEMA unset to use the service
+      # default (`vectis`); do NOT pin to `vectis_search` (masked views
+      # lack columns the new code reads).
       SIEM_VIEWS_S3_BUCKET: "gen3-qa-vectis-config"
       SIEM_VIEWS_S3_KEY: "siem/views.json"
       SIEM_VIEWS_S3_ENABLED: "true"
