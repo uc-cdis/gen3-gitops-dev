@@ -7,7 +7,7 @@
 _cdkOutputs:
   imageRepository: &imageRepository quay.io/cdis/gen3-vectis
   guppyCompatImageTag: &guppyCompatImageTag guppy-compat-v2
-  siemServiceImageTag: &siemServiceImageTag siem-service-v8
+  siemServiceImageTag: &siemServiceImageTag siem-service-v6
   searchAuthProxyImageTag: &searchAuthProxyImageTag search-auth-proxy-v4
   searchAuthProxyServiceName: &searchAuthProxyServiceName search-auth-proxy
   searchAuthProxySecretName: &searchAuthProxySecretName vectis-search-auth-proxy
