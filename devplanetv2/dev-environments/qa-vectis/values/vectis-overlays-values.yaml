@@ -7,7 +7,7 @@
 _cdkOutputs:
   imageRepository: &imageRepository quay.io/cdis/gen3-vectis
   guppyCompatImageTag: &guppyCompatImageTag guppy-compat-v2
-  siemServiceImageTag: &siemServiceImageTag siem-service-v6
+  siemServiceImageTag: &siemServiceImageTag siem-service-v8
   searchAuthProxyImageTag: &searchAuthProxyImageTag search-auth-proxy-v4
   searchAuthProxyServiceName: &searchAuthProxyServiceName search-auth-proxy
   searchAuthProxySecretName: &searchAuthProxySecretName vectis-search-auth-proxy
@@ -47,12 +47,9 @@ vectis-overlays:
       tag: *siemServiceImageTag
       pullPolicy: Always
     env:
+      DB_SCHEMA: "vectis"
       SIEM_DEFAULT_LIMIT: "250"
       SIEM_MAX_LIMIT: "2000"
-      # Phase 8g: siem-service now queries the raw `vectis` schema with
-      # app-layer PII masking. Leave DB_SCHEMA unset to use the service
-      # default (`vectis`); do NOT pin to `vectis_search` (masked views
-      # lack columns the new code reads).
       SIEM_VIEWS_S3_BUCKET: "gen3-qa-vectis-config"
       SIEM_VIEWS_S3_KEY: "siem/views.json"
       SIEM_VIEWS_S3_ENABLED: "true"
