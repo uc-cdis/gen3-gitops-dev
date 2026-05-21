@@ -48,7 +48,7 @@ vectis-overlays:
       pullPolicy: Always
     env:
       DB_SCHEMA: "vectis"
-      SIEM_DEFAULT_LIMIT: "250"
+      SIEM_DEFAULT_LIMIT: "251"
       SIEM_MAX_LIMIT: "2000"
       SIEM_VIEWS_S3_BUCKET: "gen3-qa-vectis-config"
       SIEM_VIEWS_S3_KEY: "siem/views.json"
