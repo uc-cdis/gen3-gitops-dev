@@ -294,6 +294,7 @@ revproxy:
           if ($csrf_check !~ ^ok-\S.+$) {
             return 403 "failed csrf check";
           }
+          proxy_set_header   Authorization "$access_token";
           set $proxy_service  "guppy";
           set $upstream http://search-auth-proxy.qa-vectis.svc.cluster.local:8000;
           proxy_pass $upstream;
@@ -314,6 +315,7 @@ revproxy:
           if ($csrf_check !~ ^ok-\S.+$) {
             return 403 "failed csrf check";
           }
+          proxy_set_header   Authorization "$access_token";
           set $proxy_service  "mds";
           # MDS-shape routes are served by the search Lambda
           # (vectis_search_overlay.mds_routes); the auth proxy enforces
@@ -355,6 +357,7 @@ revproxy:
           if ($csrf_check !~ ^ok-\S.+$) {
             return 403 "failed csrf check";
           }
+          proxy_set_header   Authorization "$access_token";
           set $proxy_service  "snapshots";
           # Pre-baked /search/graphql responses streamed from S3 via
           # search-auth-proxy (bearer + Arborist gated, SigV4-signed
