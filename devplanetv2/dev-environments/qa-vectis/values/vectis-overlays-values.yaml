@@ -40,8 +40,6 @@ vectis-overlays:
     serviceAccount:
       create: true
       name: siem-service
-      annotations:
-        eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2-qa-vectis-siem-service
     image:
       repository: *imageRepository
       tag: *siemServiceImageTag
