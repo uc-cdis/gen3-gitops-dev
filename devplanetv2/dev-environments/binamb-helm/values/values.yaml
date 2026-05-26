@@ -183,7 +183,7 @@ fence:
     fenceGoogleStorageCredsSecret: binamb-fence-google-storage-creds
     fenceJwtKeys: binamb-fence-jwt
   image:
-    tag: master
+    tag: chore_add-passport-to-userinfo
   usersync:
     usersync: true
     syncFromDbgap: false
