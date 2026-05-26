@@ -120,10 +120,10 @@ peregrine:
     enabled: false
 
 requestor:
-    enabled: false
+    enabled: true
     image:
         repository: quay.io/cdis/requestor
-        tag: master
+        tag: 1.10.0
 
 sheepdog:
     enabled: true

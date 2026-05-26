@@ -72,6 +72,16 @@ vectis-overlays:
     apiGateway:
       apiId: *searchApiGatewayId
       region: us-east-1
+    # Bypass the execute-api VPC endpoint (HTTP APIs are not routable through it).
+    # Traffic goes to the public API Gateway IPs via the VPC's internet egress.
+    # TODO: Replace with a Private REST API in CDK to eliminate NAT egress costs.
+    hostAliases:
+      - ip: "54.235.92.30"
+        hostnames:
+          - "0zpj2qa0l5.execute-api.us-east-1.amazonaws.com"
+      - ip: "3.230.50.124"
+        hostnames:
+          - "0zpj2qa0l5.execute-api.us-east-1.amazonaws.com"
     appDsnSecretName: *rdsSecretName
     postgresDsnSecretRef:
       name: *searchAuthProxySecretName
