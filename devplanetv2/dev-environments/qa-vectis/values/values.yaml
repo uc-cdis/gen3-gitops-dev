@@ -398,6 +398,7 @@ revproxy:
       }
     lambda-indexd.conf: |-
       location /api/v0/indexd/ {
+          proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
           set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
           proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
@@ -415,6 +416,7 @@ revproxy:
       }
     lambda-query.conf: |-
       location /api/v0/submission/ {
+        proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
           set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
           proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
@@ -423,6 +425,7 @@ revproxy:
           client_max_body_size 0;
       }
       location /v0/submission/ {
+        proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
           set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
           proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
