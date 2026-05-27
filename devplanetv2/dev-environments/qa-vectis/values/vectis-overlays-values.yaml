@@ -60,7 +60,7 @@ vectis-overlays:
     database: postgres
 
   searchAuthProxy:
-    enabled: true
+    enabled: false
     serviceName: *searchAuthProxyServiceName
     serviceAccount:
       create: true
@@ -72,9 +72,7 @@ vectis-overlays:
     apiGateway:
       apiId: *searchApiGatewayId
       region: us-east-1
-    # Bypass the execute-api VPC endpoint (HTTP APIs are not routable through it).
-    # Traffic goes to the public API Gateway IPs via the VPC's internet egress.
-    # TODO: Replace with a Private REST API in CDK to eliminate NAT egress costs.
+    # Rollback-only settings retained while disabled.
     hostAliases:
       - ip: "54.235.92.30"
         hostnames:
