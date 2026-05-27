@@ -54,7 +54,7 @@ arborist:
     enabled: true
     image:
         repository: quay.io/cdis/arborist
-        tag: debug-always-allow
+        # tag: debug-always-allow
 
 fence:
     enabled: true
@@ -123,7 +123,7 @@ requestor:
     enabled: true
     image:
         repository: quay.io/cdis/requestor
-        tag: 1.10.0
+        tag: master
 
 sheepdog:
     enabled: true
