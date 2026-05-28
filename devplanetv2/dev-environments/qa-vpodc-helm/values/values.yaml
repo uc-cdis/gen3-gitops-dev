@@ -208,11 +208,11 @@ guppy:
   configIndex: etl_mickey-array-config
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/guppy
-    tag: "2026.02"
+    tag: "2026.06"
   indices:
     - index: etl_mickey
       type: patients
-    - index: file_etl_mickey
+    - index: etl_mickey_file
       type: file
     - index: omop_etl_index_cohortb_20251119
       type: cohort_b_patients
@@ -1510,17 +1510,17 @@ sheepdog:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sheepdog
-    tag: "2025.10"
+    tag: "2026.06"
 spark:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-spark
-    tag: "2025.10"
+    tag: "2026.06"
 tube:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/tube
-    tag: "2025.10"
+    tag: "2026.06"
 wts:
   enabled: true
   externalSecrets:
