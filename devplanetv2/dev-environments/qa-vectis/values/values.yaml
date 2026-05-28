@@ -221,6 +221,14 @@ indexd:
   # Replaced by Lambda indexd service
   # Need to still run this as fence currently doesn't start without indexd-service-creds
   enabled: true
+  replicaCount: 1
+  resources:
+    requests:
+      cpu: "5m"
+      memory: "32Mi"
+    limits:
+      cpu: "100m"
+      memory: "128Mi"
   defaultPrefix: dev/
   externalSecrets:
     createK8sServiceCredsSecret: true
@@ -260,6 +268,8 @@ metadata:
     }
 
 manifestservice:
+  # Served by Lambda-backed APIs in qa-vectis; disable in-cluster service
+  enabled: false
   resources:
     requests:
       memory: "105Mi"
@@ -406,6 +416,31 @@ revproxy:
           proxy_pass $upstream;
           client_max_body_size 0;
       }
+    lambda-drs.conf: |-
+      location ^~ /user/ga4gh/drs/v1/ {
+          if ($csrf_check !~ ^ok-\S.+$) {
+            return 403 "failed csrf check";
+          }
+          proxy_set_header   Authorization "$access_token";
+          proxy_ssl_server_name on;
+          set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
+          proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
+          rewrite ^/user/ga4gh/drs/v1/(.*) /drs/v1/$1 break;
+          proxy_pass $upstream;
+          client_max_body_size 0;
+      }
+      location ^~ /ga4gh/drs/v1/ {
+          if ($csrf_check !~ ^ok-\S.+$) {
+            return 403 "failed csrf check";
+          }
+          proxy_set_header   Authorization "$access_token";
+          proxy_ssl_server_name on;
+          set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
+          proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
+          rewrite ^/ga4gh/drs/v1/(.*) /drs/v1/$1 break;
+          proxy_pass $upstream;
+          client_max_body_size 0;
+      }
     lambda-dictionary.conf: |-
       location ~* ^/api/v0/submission/_dictionary/_all/?$ {
           proxy_ssl_server_name on;
@@ -415,6 +450,24 @@ revproxy:
           proxy_pass $upstream;
       }
     lambda-query.conf: |-
+      location = /api/v0/submission/graphql {
+        proxy_set_header   Authorization "$access_token";
+          proxy_ssl_server_name on;
+          set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
+          proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
+          rewrite ^/api/v0/submission/graphql$ /query/graphql break;
+          proxy_pass $upstream;
+          client_max_body_size 0;
+      }
+      location = /api/v0/submission/getschema {
+        proxy_set_header   Authorization "$access_token";
+          proxy_ssl_server_name on;
+          set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
+          proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
+          rewrite ^/api/v0/submission/getschema$ /query/getschema break;
+          proxy_pass $upstream;
+          client_max_body_size 0;
+      }
       location /api/v0/submission/ {
         proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
@@ -702,12 +755,6 @@ fence:
       - "user"
       - "data"
       - "google_credentials"
-      - "google_service_account"
-      - "google_link"
-      - "ga4gh_passport_v1"
-
-    # -- (list) these are the scopes that CAN be included in a user's own access_token
-    USER_ALLOWED_SCOPES:
       - "fence"
       - "openid"
       - "user"
