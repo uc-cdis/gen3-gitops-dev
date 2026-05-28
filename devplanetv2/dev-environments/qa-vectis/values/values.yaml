@@ -303,7 +303,7 @@ revproxy:
           if ($csrf_check !~ ^ok-\S.+$) {
             return 403 "failed csrf check";
           }
-          proxy_set_header   Authorization "Bearer $access_token";
+          proxy_set_header   Authorization "$access_token";
           set $proxy_service  "guppy";
           proxy_ssl_server_name on;
           set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
@@ -327,7 +327,7 @@ revproxy:
           if ($csrf_check !~ ^ok-\S.+$) {
             return 403 "failed csrf check";
           }
-          proxy_set_header   Authorization "Bearer $access_token";
+          proxy_set_header   Authorization "$access_token";
           set $proxy_service  "mds";
           proxy_ssl_server_name on;
           # /mds routes are served by the search Lambda via API Gateway.
@@ -408,7 +408,7 @@ revproxy:
       }
     lambda-indexd.conf: |-
       location /api/v0/indexd/ {
-          proxy_set_header   Authorization "Bearer $access_token";
+          proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
           set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
           proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
@@ -421,7 +421,7 @@ revproxy:
           if ($csrf_check !~ ^ok-\S.+$) {
             return 403 "failed csrf check";
           }
-          proxy_set_header   Authorization "Bearer $access_token";
+          proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
           set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
           proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
@@ -433,7 +433,7 @@ revproxy:
           if ($csrf_check !~ ^ok-\S.+$) {
             return 403 "failed csrf check";
           }
-          proxy_set_header   Authorization "Bearer $access_token";
+          proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
           set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
           proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
@@ -451,7 +451,7 @@ revproxy:
       }
     lambda-query.conf: |-
       location = /api/v0/submission/graphql {
-        proxy_set_header   Authorization "Bearer $access_token";
+        proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
           set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
           proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
@@ -460,7 +460,7 @@ revproxy:
           client_max_body_size 0;
       }
       location = /api/v0/submission/getschema {
-        proxy_set_header   Authorization "Bearer $access_token";
+        proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
           set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
           proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
@@ -469,7 +469,7 @@ revproxy:
           client_max_body_size 0;
       }
       location /api/v0/submission/ {
-        proxy_set_header   Authorization "Bearer $access_token";
+        proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
           set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
           proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
@@ -478,7 +478,7 @@ revproxy:
           client_max_body_size 0;
       }
       location /v0/submission/ {
-        proxy_set_header   Authorization "Bearer $access_token";
+        proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
           set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
           proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
