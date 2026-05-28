@@ -300,9 +300,7 @@ revproxy:
   additionalConfigs:
     guppy-service.conf: |-
       location /guppy/ {
-          if ($csrf_check !~ ^ok-\S.+$) {
-            return 403 "failed csrf check";
-          }
+          # No nginx CSRF check here: API Gateway enforces its own auth via Lambda authorizer.
           proxy_set_header   Authorization "$access_token";
           set $proxy_service  "guppy";
           proxy_ssl_server_name on;
@@ -324,9 +322,7 @@ revproxy:
       }
     metadata-service.conf: |-
       location /mds/ {
-          if ($csrf_check !~ ^ok-\S.+$) {
-            return 403 "failed csrf check";
-          }
+          # No nginx CSRF check here: API Gateway enforces its own auth via Lambda authorizer.
           proxy_set_header   Authorization "$access_token";
           set $proxy_service  "mds";
           proxy_ssl_server_name on;
