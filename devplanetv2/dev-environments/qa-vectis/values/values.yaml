@@ -450,6 +450,24 @@ revproxy:
           proxy_pass $upstream;
       }
     lambda-query.conf: |-
+      location ~* ^/api/v0/submission/vectis/graphql/?$ {
+        proxy_set_header   Authorization "$access_token";
+          proxy_ssl_server_name on;
+          set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
+          proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
+          rewrite ^/api/v0/submission/vectis/graphql/?$ /query/graphql break;
+          proxy_pass $upstream;
+          client_max_body_size 0;
+      }
+      location /api/v0/submission/vectis/ {
+        proxy_set_header   Authorization "$access_token";
+          proxy_ssl_server_name on;
+          set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
+          proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
+          rewrite ^/api/v0/submission/vectis/(.*) /query/$1 break;
+          proxy_pass $upstream;
+          client_max_body_size 0;
+      }
       location = /api/v0/submission/graphql {
         proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
