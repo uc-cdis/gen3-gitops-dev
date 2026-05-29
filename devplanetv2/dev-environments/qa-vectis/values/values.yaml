@@ -94,9 +94,9 @@ frontend-framework:
     HATCHERY_URL: "http://hatchery-service.qa-vectis.svc.cluster.local"
     GEN3_FENCE_SERVICE: "http://fence-service.qa-vectis.svc.cluster.local"
     GEN3_ARBORIST_SERVICE: "http://arborist-service.qa-vectis.svc.cluster.local"
-    GEN3_SEARCH_SERVICE: "https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com"
+    GEN3_SEARCH_SERVICE: "https://qa-vectis-api.planx-pla.net"
     GEN3_INDEXD_SERVICE: "https://qa-vectis.planx-pla.net"
-    GEN3_LAMBDA_API_URL: "https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com"
+    GEN3_LAMBDA_API_URL: "https://qa-vectis-api.planx-pla.net"
     SIEM_SERVICE_DNS: "siem-service.qa-vectis.svc.cluster.local"
     JUPYTER_GATEWAY_URL: "http://jupyter-enterprise-gateway.jupyter-pods-qa-vectis.svc.cluster.local:8888"
     GEN3_ENDPOINT: "https://qa-vectis.planx-pla.net"
@@ -302,14 +302,11 @@ revproxy:
       location /guppy/ {
           # No nginx CSRF check here: API Gateway enforces its own auth via Lambda authorizer.
           # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
-          resolver 1.1.1.1 8.8.8.8 valid=300s ipv6=off;
-          resolver_timeout 5s;
           proxy_set_header   Authorization "$access_token";
           set $proxy_service  "guppy";
           proxy_ssl_server_name on;
-          proxy_ssl_name 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
-          set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
-          proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
+          set $upstream https://qa-vectis-api.planx-pla.net;
+          proxy_set_header Host qa-vectis-api.planx-pla.net;
           rewrite ^/guppy/(.*) /search/$1 break;
           proxy_pass $upstream;
           client_max_body_size 0;
@@ -327,17 +324,14 @@ revproxy:
     metadata-service.conf: |-
       location /mds/ {
           # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
-          resolver 1.1.1.1 8.8.8.8 valid=300s ipv6=off;
-          resolver_timeout 5s;
-          proxy_ssl_name 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
           # No nginx CSRF check here: API Gateway enforces its own auth via Lambda authorizer.
           proxy_set_header   Authorization "$access_token";
           set $proxy_service  "mds";
           proxy_ssl_server_name on;
           # /mds routes are served by the search Lambda via API Gateway.
           # /mds/_status is explicitly unauthenticated in route config.
-          set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
-          proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
+          set $upstream https://qa-vectis-api.planx-pla.net;
+          proxy_set_header Host qa-vectis-api.planx-pla.net;
           proxy_pass $upstream;
           client_max_body_size 0;
       }
@@ -413,13 +407,10 @@ revproxy:
     lambda-indexd.conf: |-
       location /api/v0/indexd/ {
           # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
-          resolver 1.1.1.1 8.8.8.8 valid=300s ipv6=off;
-          resolver_timeout 5s;
-          proxy_ssl_name 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
           proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
-          set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
-          proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
+          set $upstream https://qa-vectis-api.planx-pla.net;
+          proxy_set_header Host qa-vectis-api.planx-pla.net;
           rewrite ^/api/v0/indexd/(.*) /indexd/$1 break;
           proxy_pass $upstream;
           client_max_body_size 0;
@@ -427,32 +418,26 @@ revproxy:
     lambda-drs.conf: |-
       location ^~ /user/ga4gh/drs/v1/ {
           # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
-          resolver 1.1.1.1 8.8.8.8 valid=300s ipv6=off;
-          resolver_timeout 5s;
-          proxy_ssl_name 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
           if ($csrf_check !~ ^ok-\S.+$) {
             return 403 "failed csrf check";
           }
           proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
-          set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
-          proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
+          set $upstream https://qa-vectis-api.planx-pla.net;
+          proxy_set_header Host qa-vectis-api.planx-pla.net;
           rewrite ^/user/ga4gh/drs/v1/(.*) /drs/v1/$1 break;
           proxy_pass $upstream;
           client_max_body_size 0;
       }
       location ^~ /ga4gh/drs/v1/ {
           # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
-          resolver 1.1.1.1 8.8.8.8 valid=300s ipv6=off;
-          resolver_timeout 5s;
-          proxy_ssl_name 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
           if ($csrf_check !~ ^ok-\S.+$) {
             return 403 "failed csrf check";
           }
           proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
-          set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
-          proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
+          set $upstream https://qa-vectis-api.planx-pla.net;
+          proxy_set_header Host qa-vectis-api.planx-pla.net;
           rewrite ^/ga4gh/drs/v1/(.*) /drs/v1/$1 break;
           proxy_pass $upstream;
           client_max_body_size 0;
@@ -468,78 +453,60 @@ revproxy:
     lambda-query.conf: |-
       location ~* ^/api/v0/submission/vectis/graphql/?$ {
         # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
-        resolver 1.1.1.1 8.8.8.8 valid=300s ipv6=off;
-        resolver_timeout 5s;
-        proxy_ssl_name 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
         proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
-          set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
-          proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
+          set $upstream https://qa-vectis-api.planx-pla.net;
+          proxy_set_header Host qa-vectis-api.planx-pla.net;
           rewrite ^/api/v0/submission/vectis/graphql/?$ /query/graphql break;
           proxy_pass $upstream;
           client_max_body_size 0;
       }
       location /api/v0/submission/vectis/ {
         # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
-        resolver 1.1.1.1 8.8.8.8 valid=300s ipv6=off;
-        resolver_timeout 5s;
-        proxy_ssl_name 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
         proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
-          set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
-          proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
+          set $upstream https://qa-vectis-api.planx-pla.net;
+          proxy_set_header Host qa-vectis-api.planx-pla.net;
           rewrite ^/api/v0/submission/vectis/(.*) /query/$1 break;
           proxy_pass $upstream;
           client_max_body_size 0;
       }
       location = /api/v0/submission/graphql {
         # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
-        resolver 1.1.1.1 8.8.8.8 valid=300s ipv6=off;
-        resolver_timeout 5s;
-        proxy_ssl_name 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
         proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
-          set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
-          proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
+          set $upstream https://qa-vectis-api.planx-pla.net;
+          proxy_set_header Host qa-vectis-api.planx-pla.net;
           rewrite ^/api/v0/submission/graphql$ /query/graphql break;
           proxy_pass $upstream;
           client_max_body_size 0;
       }
       location = /api/v0/submission/getschema {
         # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
-        resolver 1.1.1.1 8.8.8.8 valid=300s ipv6=off;
-        resolver_timeout 5s;
-        proxy_ssl_name 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
         proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
-          set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
-          proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
+          set $upstream https://qa-vectis-api.planx-pla.net;
+          proxy_set_header Host qa-vectis-api.planx-pla.net;
           rewrite ^/api/v0/submission/getschema$ /query/getschema break;
           proxy_pass $upstream;
           client_max_body_size 0;
       }
       location /api/v0/submission/ {
         # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
-        resolver 1.1.1.1 8.8.8.8 valid=300s ipv6=off;
-        resolver_timeout 5s;
-        proxy_ssl_name 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
         proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
-          set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
-          proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
+          set $upstream https://qa-vectis-api.planx-pla.net;
+          proxy_set_header Host qa-vectis-api.planx-pla.net;
           rewrite ^/api/v0/submission/(.*) /query/$1 break;
           proxy_pass $upstream;
           client_max_body_size 0;
       }
       location /v0/submission/ {
         # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
-        resolver 1.1.1.1 8.8.8.8 valid=300s ipv6=off;
-        resolver_timeout 5s;
-        proxy_ssl_name 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
         proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
-          set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
-          proxy_set_header Host 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
+          set $upstream https://qa-vectis-api.planx-pla.net;
+          proxy_set_header Host qa-vectis-api.planx-pla.net;
           rewrite ^/v0/submission/(.*) /query/$1 break;
           proxy_pass $upstream;
           client_max_body_size 0;
