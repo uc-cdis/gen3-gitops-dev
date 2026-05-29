@@ -325,12 +325,11 @@ revproxy:
           client_max_body_size 0;
       }
     metadata-service.conf: |-
-      # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
-      resolver 1.1.1.1 8.8.8.8 valid=300s ipv6=off;
-      resolver_timeout 5s;
-      proxy_ssl_name 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
-
       location /mds/ {
+          # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
+          resolver 1.1.1.1 8.8.8.8 valid=300s ipv6=off;
+          resolver_timeout 5s;
+          proxy_ssl_name 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
           # No nginx CSRF check here: API Gateway enforces its own auth via Lambda authorizer.
           proxy_set_header   Authorization "$access_token";
           set $proxy_service  "mds";
@@ -412,12 +411,11 @@ revproxy:
           proxy_read_timeout 36000s;
       }
     lambda-indexd.conf: |-
-      # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
-      resolver 1.1.1.1 8.8.8.8 valid=300s ipv6=off;
-      resolver_timeout 5s;
-      proxy_ssl_name 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
-
       location /api/v0/indexd/ {
+          # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
+          resolver 1.1.1.1 8.8.8.8 valid=300s ipv6=off;
+          resolver_timeout 5s;
+          proxy_ssl_name 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
           proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
           set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
@@ -427,12 +425,11 @@ revproxy:
           client_max_body_size 0;
       }
     lambda-drs.conf: |-
-      # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
-      resolver 1.1.1.1 8.8.8.8 valid=300s ipv6=off;
-      resolver_timeout 5s;
-      proxy_ssl_name 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
-
       location ^~ /user/ga4gh/drs/v1/ {
+          # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
+          resolver 1.1.1.1 8.8.8.8 valid=300s ipv6=off;
+          resolver_timeout 5s;
+          proxy_ssl_name 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
           if ($csrf_check !~ ^ok-\S.+$) {
             return 403 "failed csrf check";
           }
@@ -445,6 +442,10 @@ revproxy:
           client_max_body_size 0;
       }
       location ^~ /ga4gh/drs/v1/ {
+          # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
+          resolver 1.1.1.1 8.8.8.8 valid=300s ipv6=off;
+          resolver_timeout 5s;
+          proxy_ssl_name 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
           if ($csrf_check !~ ^ok-\S.+$) {
             return 403 "failed csrf check";
           }
@@ -465,12 +466,11 @@ revproxy:
           proxy_pass $upstream;
       }
     lambda-query.conf: |-
-      # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
-      resolver 1.1.1.1 8.8.8.8 valid=300s ipv6=off;
-      resolver_timeout 5s;
-      proxy_ssl_name 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
-
       location ~* ^/api/v0/submission/vectis/graphql/?$ {
+        # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
+        resolver 1.1.1.1 8.8.8.8 valid=300s ipv6=off;
+        resolver_timeout 5s;
+        proxy_ssl_name 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
         proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
           set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
@@ -480,6 +480,10 @@ revproxy:
           client_max_body_size 0;
       }
       location /api/v0/submission/vectis/ {
+        # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
+        resolver 1.1.1.1 8.8.8.8 valid=300s ipv6=off;
+        resolver_timeout 5s;
+        proxy_ssl_name 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
         proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
           set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
@@ -489,6 +493,10 @@ revproxy:
           client_max_body_size 0;
       }
       location = /api/v0/submission/graphql {
+        # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
+        resolver 1.1.1.1 8.8.8.8 valid=300s ipv6=off;
+        resolver_timeout 5s;
+        proxy_ssl_name 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
         proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
           set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
@@ -498,6 +506,10 @@ revproxy:
           client_max_body_size 0;
       }
       location = /api/v0/submission/getschema {
+        # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
+        resolver 1.1.1.1 8.8.8.8 valid=300s ipv6=off;
+        resolver_timeout 5s;
+        proxy_ssl_name 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
         proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
           set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
@@ -507,6 +519,10 @@ revproxy:
           client_max_body_size 0;
       }
       location /api/v0/submission/ {
+        # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
+        resolver 1.1.1.1 8.8.8.8 valid=300s ipv6=off;
+        resolver_timeout 5s;
+        proxy_ssl_name 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
         proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
           set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
@@ -516,6 +532,10 @@ revproxy:
           client_max_body_size 0;
       }
       location /v0/submission/ {
+        # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
+        resolver 1.1.1.1 8.8.8.8 valid=300s ipv6=off;
+        resolver_timeout 5s;
+        proxy_ssl_name 0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
         proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
           set $upstream https://0zpj2qa0l5.execute-api.us-east-1.amazonaws.com;
