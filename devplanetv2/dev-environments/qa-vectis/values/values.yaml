@@ -451,6 +451,29 @@ revproxy:
           proxy_pass $upstream;
       }
     lambda-query.conf: |-
+      location ~* ^/graphql/?$ {
+        # Query page issues same-origin /graphql requests with browser preflight.
+        if ($request_method = 'OPTIONS') {
+          add_header Access-Control-Allow-Origin $http_origin always;
+          add_header Access-Control-Allow-Credentials true always;
+          add_header Access-Control-Allow-Methods "GET, POST, OPTIONS" always;
+          add_header Access-Control-Allow-Headers "Authorization, Content-Type, Accept, X-CSRFToken, X-Requested-With" always;
+          add_header Access-Control-Max-Age 86400 always;
+          add_header Content-Length 0;
+          add_header Content-Type text/plain;
+          return 204;
+        }
+        proxy_set_header   Authorization "$access_token";
+          proxy_ssl_server_name on;
+          set $upstream https://qa-vectis-api.planx-pla.net;
+          proxy_set_header Host qa-vectis-api.planx-pla.net;
+          rewrite ^/graphql/?$ /query/vectis/graphql break;
+          proxy_pass $upstream;
+          add_header Access-Control-Allow-Origin $http_origin always;
+          add_header Access-Control-Allow-Credentials true always;
+          client_max_body_size 0;
+      }
+
       location ~* ^/api/v0/submission/vectis/graphql/?$ {
         # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
         proxy_set_header   Authorization "$access_token";
