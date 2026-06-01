@@ -457,7 +457,7 @@ revproxy:
           proxy_ssl_server_name on;
           set $upstream https://qa-vectis-api.planx-pla.net;
           proxy_set_header Host qa-vectis-api.planx-pla.net;
-          rewrite ^/api/v0/submission/vectis/graphql/?$ /query/graphql break;
+          rewrite ^/api/v0/submission/vectis/graphql/?$ /query/vectis/graphql break;
           proxy_pass $upstream;
           client_max_body_size 0;
       }
@@ -467,7 +467,7 @@ revproxy:
           proxy_ssl_server_name on;
           set $upstream https://qa-vectis-api.planx-pla.net;
           proxy_set_header Host qa-vectis-api.planx-pla.net;
-          rewrite ^/api/v0/submission/vectis/(.*) /query/$1 break;
+          rewrite ^/api/v0/submission/vectis/(.*) /query/vectis/$1 break;
           proxy_pass $upstream;
           client_max_body_size 0;
       }
