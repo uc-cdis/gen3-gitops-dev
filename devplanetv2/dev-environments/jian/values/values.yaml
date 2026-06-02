@@ -171,9 +171,7 @@ frontend-framework:
   # image:
   #   tag: main
   #   repository:
-  customConfig:
-    enabled: true
-  enabled: true
+  enabled: false
   resources:
     requests:
       memory: "256Mi"
@@ -312,8 +310,7 @@ peregrine:
     tag: master
 
 portal:
-  # Disable portal by default
-  enabled: false
+  enabled: true
   # 
   # resources:
   #   requests:
