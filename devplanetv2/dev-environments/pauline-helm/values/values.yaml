@@ -66,7 +66,7 @@ fence:
         fenceJwtKeys: pauline-fence-jwt
     image:
         repository: quay.io/cdis/fence
-        tag: master
+        tag: feat_scoped-token
     replicas: 1
 
 gen3-workflow:
