@@ -815,7 +815,8 @@ ohdsi-webapi:
     createK8sOhdsiWebApiConfigSecret: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ohdsi-webapi
-    tag: 2.15.0-DEV
+    # tag: 2.15.0-DEV
+    tag: feat_cohort_generation_permission_limited_to_team_role
 peregrine:
   enabled: true
   image:
