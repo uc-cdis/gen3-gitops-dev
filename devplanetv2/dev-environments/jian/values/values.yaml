@@ -381,8 +381,8 @@ fence:
   image:
     tag: chore_add-passport-to-userinfo
   externalSecrets:
-    createK8sFenceConfigSecret: false
-    createK8sJwtKeysSecret: false
+    createK8sFenceConfigSecret: true
+    createK8sJwtKeysSecret: true
     createK8sGoogleAppSecrets: false
     fenceGoogleAppCredsSecret: ci-fence-google-app-creds-secret
     fenceGoogleStorageCredsSecret: ci-fence-google-storage-creds-secret
