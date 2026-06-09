@@ -15,10 +15,11 @@ global:
     # TODO: Figure out netpols with local dbs
     enabled: false
     dbSubnet: ""
-  environment: devplanetv2
+  environment: jian
   externalSecrets:
     deploy: true
     dbCreate: true
+    pushSecret: true
   hostname: jian.dev.planx-pla.net
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json
   # We disable portal by default to save $$$
