@@ -216,6 +216,8 @@ guppy:
       type: file
     - index: omop_etl_index_cohortb_20251119
       type: cohort_b_patients
+    - index: test_vpodc_patients
+      type: test_vpodc_patients
 hatchery:
   enabled: true
   image:
