@@ -25,7 +25,7 @@ global:
   # We disable portal by default to save $$$
   frontendRoot: gen3ff
   postgres:
-    dbCreate: false
+    dbCreate: true
     externalSecret: "devplanetv2-aurora-master-dbcreds"
     master:
       host: "devplanetv2-aurora-cluster-new.cluster-cwvizkxhzjt8.us-east-1.rds.amazonaws.com"
