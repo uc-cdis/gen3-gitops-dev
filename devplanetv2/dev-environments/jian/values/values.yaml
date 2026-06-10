@@ -334,7 +334,6 @@ revproxy:
     aws:
       # Do not change- this will break DNS for your env.
       group: devplanetv2-internal
-
 sheepdog:
   enabled: true
   resources:
@@ -342,7 +341,8 @@ sheepdog:
       memory: "105Mi"
       cpu: "15m"
   image:
-    tag: master
+    repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sheepdog
+    tag: "2026.06"
 
 sower:
   enabled: false
