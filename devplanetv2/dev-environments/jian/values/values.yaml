@@ -383,7 +383,7 @@ fence:
   externalSecrets:
     createK8sFenceConfigSecret: true
     createK8sJwtKeysSecret: true
-    createK8sGoogleAppSecrets: false
+    createK8sGoogleAppSecrets: true
     fenceGoogleAppCredsSecret: ci-fence-google-app-creds-secret
     fenceGoogleStorageCredsSecret: ci-fence-google-storage-creds-secret
     fenceConfig: "devplanetv2-generic-fence-config"
