@@ -90,7 +90,8 @@
       "items": [
         {
           "link": "https://heal.github.io/platform-documentation/",
-          "name": "Help and Guidance"
+          "name": "Help and Guidance",
+          "newWindow": true
         }
       ]
     },
