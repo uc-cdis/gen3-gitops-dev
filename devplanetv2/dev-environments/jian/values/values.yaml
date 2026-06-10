@@ -301,7 +301,7 @@ metadata:
     }
 
 peregrine:
-  enabled: false
+  enabled: true
   resources:
     requests:
       memory: "105Mi"
