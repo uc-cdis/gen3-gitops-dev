@@ -93,5 +93,33 @@ vectis-overlays:
     snapshotsBucket: "gen3-qa-vectis-snapshotpublisherbucket67cc92a3-pdswggnjqmzw"
     snapshotsKeyPrefix: "snapshots/"
 
+  s3Monitor:
+    enabled: true
+    schedule: "*/5 * * * *"
+    serviceAccount:
+      create: true
+      name: s3-monitor-sa
+    image:
+      repository: python
+      tag: "3.11-slim"
+      pullPolicy: IfNotPresent
+    initImage:
+      repository: busybox
+      tag: "1.36"
+      pullPolicy: IfNotPresent
+    aws:
+      region: "us-east-1"
+    s3:
+      bucket: "gen3-qa-vectis-config"
+      prefix: ""
+    db:
+      schema: "vectis"
+      table: "s3_metadata"
+      secretName: "qa-vectis-s3-monitor-db-creds"
+      secretTargetName: "s3-monitor-db-creds"
+      host: *rdsEndpoint
+      port: "5432"
+      database: "postgres"
+
   migrations:
     enabled: false
