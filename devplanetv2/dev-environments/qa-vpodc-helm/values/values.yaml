@@ -199,7 +199,7 @@ frontend-framework:
   replicaCount: 2
   image:
     repository: quay.io/cdis/vpodc-data-commons
-    tag: vpodcqa
+    tag: main
 
 guppy:
   authFilterField: auth_resource_path
