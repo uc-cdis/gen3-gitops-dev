@@ -123,7 +123,7 @@ requestor:
     enabled: true
     image:
         repository: quay.io/cdis/requestor
-        tag: fix-draft-new-status
+        tag: update-authutils
 
 sheepdog:
     enabled: true
