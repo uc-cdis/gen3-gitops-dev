@@ -432,7 +432,7 @@ metadata:
                  "config": {
                      "guid_type": "aggmds_metadata_entry",
                      "study_field": "gen3_discovery",
-                     "batchSize": 100
+                     "batchSize": 20
                  },
                  "keep_original_fields": false,
                  "field_mappings": {
@@ -554,8 +554,7 @@ metadata:
                      "commons_url": "",
                      "mc2dp_global_id": "path:mc2dp_global_id",
                      "is_synthetic": "path:is_synthetic",
-                     "is_data_files" : "path:is_data_files",
-                     "data_files": "path:data_type"
+                     "is_data_files" : "path:is_data_files"
                  }
              }
          }
