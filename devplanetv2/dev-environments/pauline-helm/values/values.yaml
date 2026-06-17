@@ -66,7 +66,7 @@ fence:
         fenceJwtKeys: pauline-fence-jwt
     image:
         repository: quay.io/cdis/fence
-        tag: feat_scoped-token
+        tag: feat_scoped-token-debug
     replicas: 1
 
 gen3-workflow:
@@ -123,7 +123,7 @@ requestor:
     enabled: true
     image:
         repository: quay.io/cdis/requestor
-        tag: fix-draft-new-status
+        tag: update-authutils
 
 sheepdog:
     enabled: true
