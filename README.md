@@ -63,15 +63,7 @@ scp pauline@10.128.7.28:cloud-automation/pauline.planx-pla.net-values.yaml ~/Dow
 
    ![alt text](images/copy-2.png)
 
-3. **Update the copied values.yaml file** in the root of your new environment folder (not the one in values/values.yaml). Update the following fields:
-   - `name:` - Change this to your environment name
-   - `helmBranch:` - Set to your desired [Helm](http://github.com/uc-cdis/gen3-helm) branch
-   - `gitopsBranch:` - Set to your desired [GitOps](http://github.com/uc-cdis/gen3-gitops-dev) branch
-
-
-![alt text](images/root-values.png)
-
-3. **Copy your migration values.yaml file** from the migration step to:
+3. **Copy your cloud-automation migration values.yaml file** from the migration step (if needed) to:
    ```
    gen3-gitops-dev/dev-environments/<your-env>/values/values.yaml
    ```
@@ -79,9 +71,17 @@ scp pauline@10.128.7.28:cloud-automation/pauline.planx-pla.net-values.yaml ~/Dow
 
    ![alt text](images/generated-values.png)
 
-4. **Create a pull request** with your changes
+4. **Update the copied values.yaml file** in the root of your new environment folder (not the one in values/values.yaml). Update the following fields:
+   - `name:` - Change this to your environment name
+   - `helmBranch:` - Set to your desired [Helm](http://github.com/uc-cdis/gen3-helm) branch
+   - `gitopsBranch:` - Set to your desired [GitOps](http://github.com/uc-cdis/gen3-gitops-dev) branch
 
-5. **Wait for merge** - Once your PR is merged, the application will be automatically created using ArgoCD
+
+![alt text](images/root-values.png)
+
+5. **Create a pull request** with your changes
+
+6. **Wait for merge** - Once your PR is merged, the application will be automatically created using ArgoCD
 
 ## Next Steps
 
