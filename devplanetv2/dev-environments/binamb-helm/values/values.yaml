@@ -354,7 +354,7 @@ indexd:
   externalSecrets:
     serviceCreds: binamb-indexd-service-creds
   image:
-    tag: chore_log_indexd_driver
+    tag: 6.2.0
 manifestservice:
   enabled: true
   externalSecrets:
