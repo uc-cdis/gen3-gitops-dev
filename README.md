@@ -35,7 +35,7 @@ search for `main` and `change me`
 
 5. **Wait for merge** - Once your PR is merged, the application will be automatically created using ArgoCD
 
-6. **Autosync** - If autosync is not enabled you'll need to push the button in argocd's UI or run `argocd app sync gen3-dev-NAMESPCE`.
+6. **Autosync** - If autosync is not enabled you'll need to push the button in argocd's UI or run `argocd app sync gen3-dev-NAMESPACE`.
 
 ## Next Steps
 
