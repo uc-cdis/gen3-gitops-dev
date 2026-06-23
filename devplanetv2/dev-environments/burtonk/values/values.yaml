@@ -16,6 +16,7 @@ global:
   externalSecrets:
     deploy: true
     dbCreate: true
+    pushSecret: true
   hostname: burtonk.dev.planx-pla.net
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json
   # We disable portal by default to save $$$
