@@ -344,13 +344,13 @@ fence:
     createK8sGoogleAppSecrets: true
     fenceGoogleAppCredsSecret: ci-fence-google-app-creds-secret
     fenceGoogleStorageCredsSecret: ci-fence-google-storage-creds-secret
-    fenceConfig: "jian-fence-config"
-    fenceJwtKeys: jian-jwt-fence
+    fenceConfig: "randorf-fence-config"
+    fenceJwtKeys: randorf-jwt-fence
   usersync:
     usersync: true
     userYamlS3Path: s3://cdis-gen3-users/dev/user.yaml
   FENCE_CONFIG_PUBLIC:
-    BASE_URL: https://jian.dev.planx-pla.net/user
+    BASE_URL: https://randorf.dev.planx-pla.net/user
     # Prefix to namespace Google Groups on a single Cloud Identity
     # This will be dynamically replaced by env_setup.sh script.
     GOOGLE_GROUP_PREFIX:
