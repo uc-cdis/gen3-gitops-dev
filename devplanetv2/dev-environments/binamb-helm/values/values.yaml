@@ -82,7 +82,7 @@ datareplicate:
     JOB_DEFINITION: binamb-planx-pla-net-bucket-replicate-jqhu-batch_job_definition
     OUTPUT_MANIFEST_BUCKET: test-data-replication-manifest
     MULTIPART_THRESHOLD: 1
-    CHUNK_SIZE: 512
+    CHUNK_SIZE: 64
   removeObjectsFromCloudsJob:
     enabled: false
     suspendCronjob: true

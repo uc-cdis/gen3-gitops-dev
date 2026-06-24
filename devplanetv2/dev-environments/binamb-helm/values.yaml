@@ -5,7 +5,7 @@ name: binamb-helm
 
 # What branch of helm -- http://github.com/uc-cdis/gen3-helm
 # helmBranch: chore/add_workspace_launch_test
-helmBranch: master
+helmBranch: test/binam-batch-indexing
 
 # What branch of gitops -- http://github.com/uc-cdis/gen3-gitops-dev
 gitopsBranch: master
