@@ -1,52 +1,11 @@
 # Helm Migration Guide
 
 ## Prerequisites
-
-### Access Your Admin VM
-1. Log in to your adminvm
-2. If the adminvm is not running, reach out to the security team to file an exception request
-
-## Important Disclaimer
-
-⚠️ **WARNING - CLOUD-AUTOMATION TO HELM MIGRATION SCRIPT** ⚠️
-
-This script performs a **BEST EFFORT** migration of your current cloud-automation deployment to Helm. Please be aware of the following:
-
-- This migration may not cover all edge cases or custom configurations
-- After migration, you **MUST** thoroughly test ALL Gen3 functionality
-- This script comes **WITHOUT ANY GUARANTEES** or warranties
-- Always backup your current deployment before proceeding
-- Review the generated Helm values carefully before deployment
-
-**We need your help!** Please verify all edge-cases for all your services. If things are not working as expected, please raise PRs so we can collectively make this migration script as comprehensive as possible.
-
-## Migration Process
-
-### Running the Migration Script
-
-The migration script will automatically create:
-- A `values.yaml` file that can be checked into git
-- Secrets in AWS Secrets Manager
-
-To execute the migration in your environment:
-
-```bash
-cd cloud-automation
-git checkout master
-git pull
-pip3 install boto3
-python3 helm-migration-script/migrate-to-helm.py
-```
-
-This will generate a `values.yaml` file in the current folder. The actual filename will contain your hostname found in `Gen3Secrets/00configmap.yaml`, e.g. `aoliu.planx-pla.net`, so the filename is `aoliu.planx-pla.net-values.yaml`. Use `scp` to copy this file to your local machine for the next steps ("Deployment Process" below).
-
-Example:
-
-```bash
-scp pauline@10.128.7.28:cloud-automation/pauline.planx-pla.net-values.yaml ~/Downloads/values.yaml
-```
-
-## Deployment Process
+Ensure the namespace you are attempting to create does not already exist in the devplanetv2 cluster.
+If it does go ensure the developer is no longer using the [environment](https://github.com/uc-cdis/gitops-dev).
+Hint, the namespace is likely NAMESPACE.planx-pla.net. If unused, delete the previous namespace before proceeding,
+note older ingresses may not play nice and will need their finalizers removed.
+(i.e. kubectl edit ingress -n NAMESPACE\_WITH\_CONFLICT) and set finalizers to `[]`, try deleting first though) 
 
 ### Setting Up Your Environment
 
@@ -68,20 +27,15 @@ scp pauline@10.128.7.28:cloud-automation/pauline.planx-pla.net-values.yaml ~/Dow
    - `helmBranch:` - Set to your desired [Helm](http://github.com/uc-cdis/gen3-helm) branch
    - `gitopsBranch:` - Set to your desired [GitOps](http://github.com/uc-cdis/gen3-gitops-dev) branch
 
+search for `main` and `change me`
 
 ![alt text](images/root-values.png)
-
-3. **Copy your migration values.yaml file** from the migration step to:
-   ```
-   gen3-gitops-dev/dev-environments/<your-env>/values/values.yaml
-   ```
-
-
-   ![alt text](images/generated-values.png)
 
 4. **Create a pull request** with your changes
 
 5. **Wait for merge** - Once your PR is merged, the application will be automatically created using ArgoCD
+
+6. **Autosync** - If autosync is not enabled you'll need to push the button in argocd's UI or run `argocd app sync gen3-dev-NAMESPACE`.
 
 ## Next Steps
 
