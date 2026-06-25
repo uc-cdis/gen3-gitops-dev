@@ -1168,8 +1168,8 @@ workspace-proxy:
   replicaCount: 1
 
   image:
-    repository: quay.io/cdis/gen3-vectis
-    tag: qa-goproxy
+    repository: quay.io/cdis/multihead-workspace-proxy
+    tag: feat_init
     pullPolicy: Always
 
   listenAddr: ":8080"
@@ -1202,8 +1202,8 @@ jeg:
   replicaCount: 1
 
   image:
-    repository: quay.io/cdis/gen3-vectis
-    tag: "qa-jeg"
+    repository: quay.io/cdis/multihead-workspace-proxy
+    tag: feat_init
     pullPolicy: Always
 
   env:
