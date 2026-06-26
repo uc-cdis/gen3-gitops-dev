@@ -818,7 +818,7 @@ ohdsi-webapi:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ohdsi-webapi
     # tag: 2.15.0-DEV
-    tag: feat_cohort_generation_permission_limited_to_team_role
+    tag: fix_log_data_access_exception
 peregrine:
   enabled: true
   image:
