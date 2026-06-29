@@ -377,7 +377,7 @@ hatchery:
                 "memory-limit": "16Gi",
                 "name": "RCC-pilot",
                 # TODO: change image to new one with python3.14 and libraries for rcc demo
-                "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-prometheus:prometheus-master",
+                "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-prometheus:prometheus-feat_rcc",
                 "env": {
                   "FRAME_ANCESTORS": "https://vpodc.data-commons.org/"
                 },
