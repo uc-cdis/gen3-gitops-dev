@@ -8,7 +8,7 @@ jeg:
 
   image:
     repository: quay.io/cdis/gen3-vectis
-    tag: "qa-jeg"
+    tag: "qa-jegv2"
     pullPolicy: Always
 
   env:
