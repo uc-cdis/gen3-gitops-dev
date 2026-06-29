@@ -485,6 +485,16 @@ revproxy:
           client_max_body_size 0;
       }
       location /api/v0/submission/vectis/ {
+        if ($request_method = 'OPTIONS') {
+          add_header Access-Control-Allow-Origin $http_origin always;
+          add_header Access-Control-Allow-Credentials true always;
+          add_header Access-Control-Allow-Methods "GET, POST, OPTIONS" always;
+          add_header Access-Control-Allow-Headers "Authorization, Content-Type, Accept, X-CSRFToken, X-Requested-With" always;
+          add_header Access-Control-Max-Age 86400 always;
+          add_header Content-Length 0;
+          add_header Content-Type text/plain;
+          return 204;
+        }
         # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
         proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
@@ -515,6 +525,16 @@ revproxy:
           client_max_body_size 0;
       }
       location /api/v0/submission/ {
+        if ($request_method = 'OPTIONS') {
+          add_header Access-Control-Allow-Origin $http_origin always;
+          add_header Access-Control-Allow-Credentials true always;
+          add_header Access-Control-Allow-Methods "GET, POST, OPTIONS" always;
+          add_header Access-Control-Allow-Headers "Authorization, Content-Type, Accept, X-CSRFToken, X-Requested-With" always;
+          add_header Access-Control-Max-Age 86400 always;
+          add_header Content-Length 0;
+          add_header Content-Type text/plain;
+          return 204;
+        }
         # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
         proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
@@ -1140,6 +1160,16 @@ workspace-proxy:
     - "172.27.140.0/22"     # EKS private subnet (DHCP)
     - "172.27.136.0/22"     # EKS private subnet (DHCP)
     - "172.27.132.0/22"     # EKS private subnet (DHCP)
+
+  # AmazonMQ broker ENI CIDRs in VPC. Prefer /32 broker ENIs when available.
+  amazonMqCIDRs:
+    - "172.27.140.0/22"
+    - "172.27.136.0/22"
+    - "172.27.132.0/22"
+
+  amazonMqPorts:
+    - 5671
+    - 61617
 
   replicaCount: 1
 
