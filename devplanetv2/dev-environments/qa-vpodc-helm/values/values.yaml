@@ -384,7 +384,6 @@ hatchery:
                   "--ip=0.0.0.0",
                   "--port=8888",
                   "--no-browser",
-                  "--allow-root=false",
                   "--ServerApp.base_url=/lw-workspace/proxy/",
                   "--ServerApp.default_url=/lab",
                   "--ServerApp.password=",
