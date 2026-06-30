@@ -11,7 +11,7 @@ global:
       enabled: true
       wafAclArn: "arn:aws:wafv2:us-east-1:707767160287:regional/webacl/devplanetv2-waf/30660590-f707-4ecf-aeae-ddfbe381f388"
   dev: false
-  dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/vadictionary/0.5.4/schema.json
+  dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/vadictionary/0.5.5/schema.json
   dispatcherJobNum: "10"
   environment: qa-vpodc
   externalSecrets:
@@ -370,7 +370,44 @@ hatchery:
                 "fs-gid": 100,
                 "user-volume-location": "/home/jovyan/pd",
                 "gen3-volume-location": "/home/jovyan/.gen3"
-            }
+              },
+              {
+                "target-port": 8888,
+                "cpu-limit": "4.0",
+                "memory-limit": "16Gi",
+                "name": "RCC pilot",
+                "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-notebook:rcc-feat_rcc",
+                "env": {
+                  "FRAME_ANCESTORS": "https://qa-vpodc.planx-pla.net"
+                },
+                "args": [
+                  "--ip=0.0.0.0",
+                  "--port=8888",
+                  "--no-browser",
+                  "--allow-root=False",
+                  "--ServerApp.base_url=/lw-workspace/proxy/",
+                  "--ServerApp.default_url=/lab",
+                  "--ServerApp.password=''",
+                  "--ServerApp.token=''",
+                  "--ServerApp.shutdown_no_activity_timeout=5400",
+                  "--ServerApp.quit_button=False"
+                ],
+                "command": [
+                  "start-notebook.sh"
+                ],
+                "path-rewrite": "/lw-workspace/proxy/",
+                "use-tls": "false",
+                "ready-probe": "/lw-workspace/proxy/",
+                "lifecycle-post-start": [
+                  "/bin/sh",
+                  "-c",
+                  "export IAM=`whoami`; rm -rf /home/$IAM/pd/reference_genomes; ln -sf /home/$IAM/reference_genomes /home/$IAM/pd/reference_genomes; true"
+                  ],
+                "user-uid": 1010,
+                "fs-gid": 101,
+                "user-volume-location": "/home/jovyan/pd",
+                "gen3-volume-location": "/home/jovyan/.gen3"
+              }
           ]
       }
 indexd:
@@ -818,7 +855,7 @@ ohdsi-webapi:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ohdsi-webapi
     # tag: 2.15.0-DEV
-    tag: feat_cohort_generation_permission_limited_to_team_role
+    tag: fix_log_data_access_exception
 peregrine:
   enabled: true
   image:
