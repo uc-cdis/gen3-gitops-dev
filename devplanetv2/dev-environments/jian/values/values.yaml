@@ -395,3 +395,8 @@ fence:
     BASE_URL: https://jian.dev.planx-pla.net/user
     # Prefix to namespace Google Groups on a single Cloud Identity
     # This will be dynamically replaced by env_setup.sh script.
+    LOGIN_OPTIONS:
+      - name: NIH Login
+        idp: ras
+      - name: Google Login
+        idp: google
