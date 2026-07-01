@@ -603,7 +603,7 @@ revproxy:
     tag: "2026.02"
   ingress:
     aws:
-      group: qa-prometheus-helm
+      group: devplanetv2
 sheepdog:
   enabled: true
   image:
