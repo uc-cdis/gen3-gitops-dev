@@ -561,11 +561,11 @@ metadata:
      }
   aggMdsNamespace: pdp-commons
   autoscaling:
-    enabled: true
+    enabled: false
     maxReplicas: 3
     minReplicas: 2
     targetCPUUtilizationPercentage: 40
-  enabled: true
+  enabled: false
   esEndpoint: http://elasticsearch:9200
   externalSecrets:
     metadataG3auto: qa-prometheus-metadata-g3auto
