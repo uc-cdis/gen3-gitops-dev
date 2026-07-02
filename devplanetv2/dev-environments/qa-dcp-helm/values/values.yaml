@@ -18,7 +18,7 @@ audit:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/qaplanetv1--qa-dcp-helm--audit-sqs-receiver
 aws-sigv4-proxy:
   enabled: true
-  esEndpoint: ''
+  esEndpoint: vpc-devplanetv2-gen3-metadata-2-xkwr2f3gbxua5mqqi7rhnat4la.us-east-1.es.amazonaws.com
 dashboard:
   dashboardConfig:
     bucket: dashboard-707767160287-devplanetv1-gen3
@@ -250,7 +250,7 @@ global:
     hatchery_role: qaplanetv1--qa-dcp-helm--hatchery-sa
     secretStoreServiceAccount:
       enabled: true
-      roleArn: arn:aws:iam::707767160287:role/qa-dcp-external-secrets-sa
+      roleArn: arn:aws:iam::707767160287:role/qa-dcp-qa-dcp-helm-external-secrets-sa
     wafv2:
       enabled: true
       wafAclArn: "arn:aws:wafv2:us-east-1:707767160287:regional/webacl/qaplanetv1-waf/c05150c9-4200-4a0e-8a46-3856379b12bc"

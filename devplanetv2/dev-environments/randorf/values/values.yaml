@@ -86,48 +86,6 @@ audit:
   #   repository: audit
   #   tag: local
   #   pullPolicy: Never
-
-datareplicate:
-  enabled: true
-  suspendCronjob: true
-  externalSecrets:
-    deploy: true
-    googleCredsSecret: binamb-gcloud-creds-secret
-    dcfDataserviceSettingsSecret: jian-dcf-dataservice-settings-secrets
-    awsCredsSecret: jian-dcf-aws-creds-secret
-  image:
-  # -- (string) Docker repository.
-    repository: quay.io/cdis/dcf-dataservice
-    # -- (string) Overrides the image tag whose default is the chart appVersion.
-    tag: "master"
-  googleBucketReplicateJob:
-    # -- (bool) Whether to enable the Google bucket replicate job
-    enabled: true
-    PROJECT: dcf-prod-buckets
-    MAX_WORKERS: 80
-    RELEASE: DR43
-    MANIFEST_FILE: gs://test-data-replication-manifest/GDC_only_3plusgig_open_active_manifest.tsv
-    IGNORED_FILE: gs://test-data-replication-manifest/ignored_files_manifest.csv
-    LOG_BUCKET: test-data-replication-manifest
-  removeObjectsFromCloudsJob:
-    suspendCronjob: true
-    schedule: "*/30 * * * *"
-    enabled: true
-    DRY_RUN: "False" #Value Must be capitalized string value
-    RELEASE: DR43
-    MANIFEST_FILE: s3://test-data-replication-manifest/helm_test_redaction_manifest.tsv
-    IGNORED_FILE: s3://test-data-replication-manifest/ignored_files_manifest.csv
-    LOG_BUCKET: test-data-replication-manifest
-  replicateValidationJob:
-    suspendCronjob: true
-    schedule: "*/30 * * * *"
-    enabled: true
-    RELEASE: DR43
-    MANIFEST_FILE: s3://test-data-replication-manifest/helm_test_manifest.tsv
-    IGNORED_FILE: s3://test-data-replication-manifest/ignored_files_manifest.csv
-    LOG_BUCKET: test-data-replication-manifest
-    OUT_FILES: replication_validation_output_manifest.tsv
-    FORCE_CREATE_MANIFEST: true
 etl:
   enabled: true
   etlMapping:
@@ -386,13 +344,13 @@ fence:
     createK8sGoogleAppSecrets: true
     fenceGoogleAppCredsSecret: ci-fence-google-app-creds-secret
     fenceGoogleStorageCredsSecret: ci-fence-google-storage-creds-secret
-    fenceConfig: "jian-fence-config"
-    fenceJwtKeys: jian-jwt-fence
+    fenceConfig: "randorf-fence-config"
+    fenceJwtKeys: randorf-jwt-fence
   usersync:
     usersync: true
     userYamlS3Path: s3://cdis-gen3-users/dev/user.yaml
   FENCE_CONFIG_PUBLIC:
-    BASE_URL: https://jian.dev.planx-pla.net/user
+    BASE_URL: https://randorf.dev.planx-pla.net/user
     # Prefix to namespace Google Groups on a single Cloud Identity
     # This will be dynamically replaced by env_setup.sh script.
     GOOGLE_GROUP_PREFIX:
