@@ -39,7 +39,7 @@ datareplicate:
     # -- (string) Docker repository.
     repository: quay.io/cdis/dcf-dataservice
     # -- (string) Overrides the image tag whose default is the chart appVersion.
-    tag: "feat_DCF-2379"
+    tag: "feat_add-indexing-to-workers"
   resources:
     # -- (map) The amount of resources that the container requests
     requests:
