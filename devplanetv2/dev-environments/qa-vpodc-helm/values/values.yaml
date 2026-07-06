@@ -77,6 +77,10 @@ cohort-middleware:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/cohort-middleware
     tag: feat_add_new_pseudonyms_endpoint
+  config:
+    pseudonyms:
+        pseudonym_field: "person.person_source_value"
+        pseudonym_external_name: "apollo_id"
 
 arborist:
   autoscaling:
