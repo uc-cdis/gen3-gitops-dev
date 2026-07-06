@@ -1628,3 +1628,4 @@ zendesk-wrapper:
   secrets:
     name: "zendesk-wrapper-secret"
     tokenKey: "ZENDESK_API_TOKEN"
+    apiEmail: "ZENDESK_API_EMAIL"
