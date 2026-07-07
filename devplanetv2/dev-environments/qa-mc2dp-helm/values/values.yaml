@@ -60,7 +60,18 @@ frontend-framework:
   enabled: true
   image:
     repository: quay.io/cdis/mc2dp-data-platform
-    tag: main
+    tag: feat_jeg_workspaces
+  customConfig:
+    enabled: false
+  env:
+    HATCHERY_URL: "http://hatchery-service"
+    HATCHERY_API: "/lw-workspace"
+    JUPYTER_GATEWAY_URL: "http://jupyter-enterprise-gateway:8888"
+    JUPYTER_ASSETS_ROOT_PATH: "/gen3/jupyter-workspaces/assets"
+    GEN3_ENDPOINT: "https://qa-prometheus.planx-pla.net"
+    KERNEL_SPEC_POLICY: "{}"
+    ENABLE_JEG: "true"
+
 gen3-user-data-library:
   enabled: true
   image:
