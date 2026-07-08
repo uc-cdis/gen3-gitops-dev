@@ -864,7 +864,7 @@ auroraRdsCopyJob:
 workspace-proxy:
   enabled: true
   deploymentNamespace: qa-mc2dp-helm
-  workspaceNamespace: jupyter-pods-qa-mc2dp-helm
+  workspaceNamespace: jupyter-pods-qa-prometheus
   kubernetesApiServerCIDRs:
     - "10.100.0.1/32"       # kubernetes ClusterIP (pre-DNAT)
     - "172.27.140.0/22"     # EKS private subnet (DHCP)
@@ -901,7 +901,7 @@ workspace-proxy:
 
 jeg:
   enabled: true
-  workspaceNamespace: jupyter-pods-qa-mc2dp-helm
+  workspaceNamespace: jupyter-pods-qa-prometheus
 
   replicaCount: 1
 
@@ -912,7 +912,7 @@ jeg:
 
   env:
     # CRITICAL: must match hatchery user-namespace and workspace-proxy WORKSPACE_NAMESPACE.
-    EG_NAMESPACE: jupyter-pods-qa-mc2dp-helm
+    EG_NAMESPACE: jupyter-pods-qa-prometheus
     EG_KERNEL_LAUNCH_TIMEOUT: "120"
     EG_MAX_KERNELS_PER_USER: "2"
     EG_CULL_IDLE_TIMEOUT: "14400"
