@@ -700,7 +700,7 @@ workspace-proxy:
 
 jeg:
   enabled: true
-  workspaceNamespace: jupyter-pods-qa-mc2dp
+  workspaceNamespace: jupyter-pods-qa-mc2dp-helm
 
   replicaCount: 1
 
