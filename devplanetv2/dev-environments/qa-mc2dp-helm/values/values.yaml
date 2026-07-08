@@ -1,4 +1,5 @@
 ambassador:
+  enabled: false
   jupyterNamespace: jupyter-pods-qa-prometheus
 arborist:
   autoscaling:
