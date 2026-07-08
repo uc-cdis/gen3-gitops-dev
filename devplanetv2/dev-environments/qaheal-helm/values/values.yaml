@@ -1625,7 +1625,7 @@ zendesk-wrapper:
   env:
     - name: GEN3_ZENDESK_URL
       value: "https://heal-support.zendesk.com"
-  secrets:
-    name: "zendesk-wrapper-secret"
+  externalSecrets:
+    name: "qa-heal-zendesk-wrapper-secret"
     tokenKey: "ZENDESK_API_TOKEN"
     apiEmail: "ZENDESK_API_EMAIL"
