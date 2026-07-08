@@ -1627,5 +1627,5 @@ zendesk-wrapper:
       value: "https://heal-support.zendesk.com"
   externalSecrets:
     name: "qa-heal-zendesk-wrapper-secret"
-    tokenKey: "ZENDESK_API_TOKEN"
-    apiEmail: "ZENDESK_API_EMAIL"
+    tokenKey: "tokenKey"
+    apiEmailKey: "apiEmail"
