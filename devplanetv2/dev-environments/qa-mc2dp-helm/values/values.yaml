@@ -711,7 +711,7 @@ jeg:
 
   env:
     # CRITICAL: must match hatchery user-namespace and workspace-proxy WORKSPACE_NAMESPACE.
-    EG_NAMESPACE: jupyter-pods-qa-mc2dp
+    EG_NAMESPACE: jupyter-pods-qa-mc2dp-helm
     EG_KERNEL_LAUNCH_TIMEOUT: "120"
     EG_MAX_KERNELS_PER_USER: "2"
     EG_CULL_IDLE_TIMEOUT: "14400"
