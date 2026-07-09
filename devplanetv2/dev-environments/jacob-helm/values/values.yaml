@@ -8,24 +8,22 @@ global:
     secretStoreServiceAccount:
       enabled: true
       name: secret-store-sa
-    wafv2:
-      enabled: true
-      wafAclArn: "arn:aws:wafv2:us-east-1:707767160287:regional/webacl/devplanetv2-waf/30660590-f707-4ecf-aeae-ddfbe381f388"
   netPolicy:
     # TODO: Figure out netpols with local dbs
     enabled: false
     dbSubnet: ""
-  environment: devplanetv2
+  environment: jacob-helm
   externalSecrets:
     deploy: true
     dbCreate: true
+    pushSecret: true
   hostname: jacobdaugherty.dev.planx-pla.net
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json
   # We disable portal by default to save $$$
-  #frontendRoot: gen3ff
+  frontendRoot: gen3ff
   postgres:
     dbCreate: true
-    externalSecret: "devplanetv2-aurora-master-dbcreds"
+    externalSecret: "devplanetv2-aurora-master-password"
     master:
       host: "devplanetv2-aurora-cluster-new.cluster-cwvizkxhzjt8.us-east-1.rds.amazonaws.com"
   # Wildcard cert for  *.dev.planx-pla.net
@@ -50,7 +48,7 @@ global:
     # -- (int) The maxSkew to use for topology spread constraints. Defaults to 1.
     maxSkew: 1
 
-aws-sigv4-proxy:
+aws-es-proxy:
   enabled: true
   esEndpoint: vpc-devplanetv2-gen3-metadata-2-xkwr2f3gbxua5mqqi7rhnat4la.us-east-1.es.amazonaws.com
 ambassador:
@@ -87,7 +85,7 @@ frontend-framework:
   #   tag: main
   #   repository:
   customConfig:
-    enabled: false
+    enabled: true
   enabled: true
   resources:
     requests:
@@ -141,7 +139,7 @@ hatchery:
 
 portal:
   # Disable portal by default
-  enabled: true
+  enabled: false
   # 
   # resources:
   #   requests:
@@ -326,16 +324,11 @@ postgresql:
       # -- (bool) Option to persist the dbs data.
       enabled: true
 
-
-# enable data dictionary
-gen3-user-data-library:
-  enabled: true
-
 fence:
   externalSecrets:
     createK8sFenceConfigSecret: false
-    createK8sJwtKeysSecret: true
-    createK8sGoogleAppSecrets: true
+    fenceGoogleAppCredsSecret: ci-fence-google-app-creds-secret
+    fenceGoogleStorageCredsSecret: ci-fence-google-storage-creds-secret
     fenceConfig: "devplanetv2-generic-fence-config"
   usersync:
     usersync: true
