@@ -239,12 +239,13 @@ hatchery:
             "cpu-limit": "1.0",
             "memory-limit": "2Gi",
             "name": "JupyterLab with Python and R Kernels",
-            "image": "quay.io/cdis/jupyter-superslim-heal:feat_heal-superslim",
+            "image": "quay.io/repository/cdis/heal-notebooks:generic_rkernel__latest",
             "env": {
               "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
             },
             "args": [
               "--JupyterNotebookApp.base_url=/lw-workspace/proxy/",
+              "--JupyterNotebookApp.default_url=/lab/tree/heal-welcome.ipynb",
               "--JupyterNotebookApp.default_url=/lab",
               "--JupyterNotebookApp.password=''",
               "--JupyterNotebookApp.token=''",
