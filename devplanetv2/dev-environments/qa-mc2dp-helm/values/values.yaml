@@ -192,8 +192,8 @@ hatchery:
               "target-port": 8888,
               "cpu-limit": "500m",
               "memory-limit": "2Gi",
-              "name": "Jupyter Notebook (Python 3) - micro-notebook-dev",
-              "image": "quay.io/jupyter/minimal-notebook:python-3.13",
+              "name": "RCC pilot",
+              "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-notebook:rcc-master",
               "env": {
                 "FRAME_ANCESTORS": "https://qa-prometheus.planx-pla.net",
                 "PATH": "/opt/conda/bin:/home/jovyan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
@@ -898,7 +898,7 @@ jeg:
             "language": "python"
           },
           "python_kubernetes": {
-            "display_name": "Python on Kubernetes",
+            "display_name": "Python on Kubernetes (4Gi, 2 cpu)",
             "language": "python",
             "image_name": "elyra/kernel-py:latest",
             "resources": {
@@ -908,7 +908,7 @@ jeg:
             }
           },
           "python_tensorflow_kubernetes": {
-            "display_name": "Python on Kubernetes with TensorFlow",
+            "display_name": "Python on Kubernetes with TensorFlow (4Gi, 1 cpu)",
             "language": "python",
             "image_name": "elyra/kernel-py-tensorflow:latest",
             "resources": {
@@ -918,7 +918,7 @@ jeg:
             }
           },
           "python_tensorflow_gpu_kubernetes": {
-            "display_name": "Python on Kubernetes with TensorFlow with GPUs",
+            "display_name": "Python on Kubernetes with TensorFlow with GPUs (8Gi, 2 cpu, gpu)",
             "language": "python",
             "image_name": "elyra/kernel-py-tensorflow:latest",
             "resources": {
