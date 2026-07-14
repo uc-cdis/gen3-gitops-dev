@@ -140,7 +140,8 @@ hatchery:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
     # tag: "2026.06"
-    tag: "feat_fsx-lustre"
+    # tag: "feat_fsx-lustre"
+    tag: "feat_s3-mount-squashfs"
   hatchery:
     json: |-
       {
@@ -203,6 +204,10 @@ hatchery:
             "memory-limit": "8Gi",
             "name": "(Generic) Software Library Testing",
             "image": "quay.io/cdis/jupyterlab-generic:chore_add-frictionless-to-jupyterlab-generic",
+            "squashfs_mount": {
+              "enabled": true,
+              "source_sqsh": "/image/apps-current.sqsh"
+            },
             "env": {
               "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
             },
