@@ -211,7 +211,8 @@ hatchery:
                 "--ServerApp.allow_origin='https://qa-prometheus.planx-pla.net'",
                 "--ServerApp.root_dir='/home/jovyan'",
                 "--ServerApp.shutdown_no_activity_timeout=5400",
-                "--ServerApp.quit_button=False"
+                "--ServerApp.quit_button=False",
+                "--FileContentsManager.always_delete_dir=True"
               ],
               "path-rewrite": "/lw-workspace/proxy/",
               "use-tls": "false",
