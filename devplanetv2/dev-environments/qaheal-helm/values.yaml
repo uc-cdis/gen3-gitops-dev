@@ -2,7 +2,7 @@
 name: qaheal-helm
 
 # What branch of helm -- http://github.com/uc-cdis/gen3-helm
-helmBranch: chore/zendesk-wrapper-service
+helmBranch: master
 
 # What branch of gitops -- http://github.com/uc-cdis/gen3-gitops-dev
 gitopsBranch: master
