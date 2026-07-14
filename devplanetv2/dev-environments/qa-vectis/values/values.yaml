@@ -1193,6 +1193,7 @@ jeg:
     EG_DEFAULT_KERNEL_NAME: python3
     EG_LIST_KERNELS: "True"
     EG_KERNEL_IMAGE_PULL_POLICY: IfNotPresent
+    EG_KERNEL_WHITELIST_ENVS: "ACCESS_TOKEN,GEN3_API_KEY_ID,GEN3_API_KEY_SECRET,GEN3_ENDPOINT,NAMESPACE"
     EG_SHARED_NAMESPACE: "True"
     EG_MIRROR_WORKING_DIRS: "False"
     EG_KERNEL_SPEC_POLICY: |
@@ -1240,6 +1241,30 @@ jeg:
           }
         }
       }
+
+  kernelPodTemplate:
+    enabled: true
+    name: jeg-kernel-pod-template
+    fileName: kernel-pod.yaml
+    mountPath: /etc/jeg/kernel-pod.yaml
+    workspaceMountPath: /home/jovyan
+    volumeName: workspace-data
+    sidecar:
+      name: gen3-fuse
+      image: quay.io/cdis/ecs-ws-sidecar:master
+      command:
+        - /bin/bash
+        - ./sidecar.sh
+      namespace: qa-vectis
+      hostnameConfigMapName: global
+      hostnameConfigMapKey: hostname
+      resources:
+        requests:
+          cpu: "50m"
+          memory: "128Mi"
+        limits:
+          cpu: "200m"
+          memory: "256Mi"
 
   resources:
     requests:
