@@ -217,9 +217,9 @@ hatchery:
               "path-rewrite": "/lw-workspace/proxy/",
               "use-tls": "false",
               "ready-probe": "/lw-workspace/proxy/lab",
-              "user-uid": 1000,
-              "fs-gid": 100,
-              "user-volume-location": "/home/jovyan",
+              "user-uid": 1010,
+              "fs-gid": 101,
+              "user-volume-location": "/home/jovyan/pd",
               "gen3-volume-location": "/home/jovyan/.gen3"
             }
           ]
