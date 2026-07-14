@@ -35,10 +35,10 @@ jeg:
     volumeName: workspace-data
     sidecar:
       name: gen3-fuse
-      image: quay.io/cdis/ecs-ws-sidecar:master
+      image: quay.io/cdis/gen3fuse-sidecar:master
       command:
         - /bin/bash
-        - ./sidecar.sh
+        - /sidecarDockerrun.sh
       namespace: qa-vectis
       hostnameConfigMapName: global
       hostnameConfigMapKey: hostname
