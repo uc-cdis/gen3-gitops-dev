@@ -145,7 +145,7 @@ hatchery:
   replicaCount: 2
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
-    tag: "fix_long-names"
+    tag: "master"
   hatchery:
     json: |
       {
@@ -199,7 +199,7 @@ hatchery:
                 "PATH": "/opt/conda/bin:/home/jovyan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
               },
               "command": [
-                "start-notebook.py"
+                "start-notebook.sh"
               ],
               "args": [
                 "--ServerApp.base_url=/lw-workspace/proxy/",
