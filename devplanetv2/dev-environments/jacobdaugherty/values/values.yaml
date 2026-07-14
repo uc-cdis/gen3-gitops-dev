@@ -277,6 +277,8 @@ peregrine:
       memory: "105Mi"
       cpu: "15m"
   image:
+    repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/peregrine
+    tag: '2026.04'
 
 revproxy:
   resources:
@@ -294,7 +296,8 @@ sheepdog:
       memory: "105Mi"
       cpu: "15m"
   image:
-    tag: master
+    repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sheepdog
+    tag: '2026.04'
 
 requestor:
   enabled: true
