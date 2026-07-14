@@ -29,8 +29,8 @@ jeg:
   kernelPodTemplate:
     enabled: true
     name: jeg-kernel-pod-template
-    fileName: kernel-pod.yaml
-    mountPath: /etc/jeg/kernel-pod.yaml
+    fileName: kernel-pod.yaml.j2
+    mountPath: /usr/local/share/jupyter/kernels/python_kubernetes/scripts/kernel-pod.yaml.j2
     workspaceMountPath: /home/jovyan
     volumeName: workspace-data
     sidecar:
