@@ -85,7 +85,7 @@ frontend-framework:
   #   tag: main
   #   repository:
   customConfig:
-    enabled: true
+    enabled: false
   enabled: true
   resources:
     requests:
