@@ -60,7 +60,7 @@ vectis-overlays:
     database: postgres
 
   searchAuthProxy:
-    enabled: false
+    enabled: true
     serviceName: *searchAuthProxyServiceName
     serviceAccount:
       create: true
