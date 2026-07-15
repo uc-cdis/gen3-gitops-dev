@@ -8,7 +8,7 @@ jeg:
 
   image:
     repository: quay.io/cdis/gen3-vectis
-    tag: "qa-jeg"
+    tag: "qa-jegv2"
     pullPolicy: Always
 
   env:
@@ -22,7 +22,7 @@ jeg:
     EG_DEFAULT_KERNEL_NAME: python_kubernetes
     EG_LIST_KERNELS: "True"
     EG_KERNEL_IMAGE_PULL_POLICY: IfNotPresent
-    EG_KERNEL_WHITELIST_ENVS: "ACCESS_TOKEN,GEN3_API_KEY_ID,GEN3_API_KEY_SECRET,GEN3_ENDPOINT,NAMESPACE"
+    EG_KERNEL_WHITELIST_ENVS: "ACCESS_TOKEN,API_KEY_ID,API_KEY,GEN3_API_KEY_ID,GEN3_API_KEY_SECRET,GEN3_ENDPOINT,NAMESPACE"
     EG_SHARED_NAMESPACE: "True"
     EG_MIRROR_WORKING_DIRS: "False"
 
@@ -36,6 +36,8 @@ jeg:
     sidecar:
       name: gen3-fuse
       image: quay.io/cdis/gen3fuse-sidecar:master
+      gen3Endpoint: https://qa-vectis.planx-pla.net
+      wtsOverrideUrl: https://qa-vectis.planx-pla.net/wts
       command:
         - /bin/bash
         - /sidecarDockerrun.sh

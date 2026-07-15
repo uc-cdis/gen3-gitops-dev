@@ -161,12 +161,12 @@ hatchery:
             "cpu-limit": "500m",
             "memory-limit": "2Gi",
             "name": "Jupyter Notebook (Python 3) - micro-notebook-dev",
-            "image": "quay.io/jupyter/minimal-notebook:python-3.13",
+            "image": "quay.io/cdis/jupyterlab-generic:master",
             "env": {
               "FRAME_ANCESTORS": "https://qa-vectis.planx-pla.net",
               "PATH": "/opt/conda/bin:/home/jovyan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
             },
-            "command": ["start-notebook.py"],
+            "command": ["/jupyterlab-start.sh"],
             "args": [
               "--ServerApp.base_url=/lw-workspace/proxy/",
               "--ServerApp.default_url=/lab",
@@ -181,7 +181,12 @@ hatchery:
             ],
             "path-rewrite": "/lw-workspace/proxy/",
             "use-tls": "false",
-            "ready-probe": "/lw-workspace/proxy/lab",
+            "ready-probe": "/lw-workspace/proxy/",
+            "lifecycle-post-start": [
+              "/bin/sh",
+              "-c",
+              "ln -sfn /data /home/jovyan/data; true"
+            ],
             "user-uid": 1000,
             "fs-gid": 100,
             "user-volume-location": "/home/jovyan",
@@ -475,6 +480,16 @@ revproxy:
       }
 
       location ~* ^/api/v0/submission/vectis/graphql/?$ {
+        if ($request_method = 'OPTIONS') {
+          add_header Access-Control-Allow-Origin $http_origin always;
+          add_header Access-Control-Allow-Credentials true always;
+          add_header Access-Control-Allow-Methods "GET, POST, OPTIONS" always;
+          add_header Access-Control-Allow-Headers "Authorization, Content-Type, Accept, X-CSRFToken, X-Requested-With" always;
+          add_header Access-Control-Max-Age 86400 always;
+          add_header Content-Length 0;
+          add_header Content-Type text/plain;
+          return 204;
+        }
         # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
         proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
@@ -482,9 +497,21 @@ revproxy:
           proxy_set_header Host qa-vectis-api.planx-pla.net;
           rewrite ^/api/v0/submission/vectis/graphql/?$ /query/vectis/graphql break;
           proxy_pass $upstream;
+          add_header Access-Control-Allow-Origin $http_origin always;
+          add_header Access-Control-Allow-Credentials true always;
           client_max_body_size 0;
       }
       location /api/v0/submission/vectis/ {
+        if ($request_method = 'OPTIONS') {
+          add_header Access-Control-Allow-Origin $http_origin always;
+          add_header Access-Control-Allow-Credentials true always;
+          add_header Access-Control-Allow-Methods "GET, POST, OPTIONS" always;
+          add_header Access-Control-Allow-Headers "Authorization, Content-Type, Accept, X-CSRFToken, X-Requested-With" always;
+          add_header Access-Control-Max-Age 86400 always;
+          add_header Content-Length 0;
+          add_header Content-Type text/plain;
+          return 204;
+        }
         # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
         proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
@@ -495,6 +522,16 @@ revproxy:
           client_max_body_size 0;
       }
       location = /api/v0/submission/graphql {
+        if ($request_method = 'OPTIONS') {
+          add_header Access-Control-Allow-Origin $http_origin always;
+          add_header Access-Control-Allow-Credentials true always;
+          add_header Access-Control-Allow-Methods "GET, POST, OPTIONS" always;
+          add_header Access-Control-Allow-Headers "Authorization, Content-Type, Accept, X-CSRFToken, X-Requested-With" always;
+          add_header Access-Control-Max-Age 86400 always;
+          add_header Content-Length 0;
+          add_header Content-Type text/plain;
+          return 204;
+        }
         # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
         proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
@@ -502,6 +539,8 @@ revproxy:
           proxy_set_header Host qa-vectis-api.planx-pla.net;
           rewrite ^/api/v0/submission/graphql$ /query/graphql break;
           proxy_pass $upstream;
+          add_header Access-Control-Allow-Origin $http_origin always;
+          add_header Access-Control-Allow-Credentials true always;
           client_max_body_size 0;
       }
       location = /api/v0/submission/getschema {
@@ -515,6 +554,16 @@ revproxy:
           client_max_body_size 0;
       }
       location /api/v0/submission/ {
+        if ($request_method = 'OPTIONS') {
+          add_header Access-Control-Allow-Origin $http_origin always;
+          add_header Access-Control-Allow-Credentials true always;
+          add_header Access-Control-Allow-Methods "GET, POST, OPTIONS" always;
+          add_header Access-Control-Allow-Headers "Authorization, Content-Type, Accept, X-CSRFToken, X-Requested-With" always;
+          add_header Access-Control-Max-Age 86400 always;
+          add_header Content-Length 0;
+          add_header Content-Type text/plain;
+          return 204;
+        }
         # Bypass VPC Private DNS for execute-api; resolve through public resolvers.
         proxy_set_header   Authorization "$access_token";
           proxy_ssl_server_name on;
@@ -1141,6 +1190,16 @@ workspace-proxy:
     - "172.27.136.0/22"     # EKS private subnet (DHCP)
     - "172.27.132.0/22"     # EKS private subnet (DHCP)
 
+  # AmazonMQ broker ENI CIDRs in VPC. Prefer /32 broker ENIs when available.
+  amazonMqCIDRs:
+    - "172.27.140.0/22"
+    - "172.27.136.0/22"
+    - "172.27.132.0/22"
+
+  amazonMqPorts:
+    - 5671
+    - 61617
+
   replicaCount: 1
 
   image:
@@ -1178,8 +1237,8 @@ jeg:
   replicaCount: 1
 
   image:
-    repository: quay.io/cdis/gen3-vectis
-    tag: "qa-jeg"
+    repository: quay.io/cdis/multihead-workspace-proxy
+    tag: feat_init
     pullPolicy: Always
 
   env:
@@ -1193,7 +1252,7 @@ jeg:
     EG_DEFAULT_KERNEL_NAME: python3
     EG_LIST_KERNELS: "True"
     EG_KERNEL_IMAGE_PULL_POLICY: IfNotPresent
-    EG_KERNEL_WHITELIST_ENVS: "ACCESS_TOKEN,GEN3_API_KEY_ID,GEN3_API_KEY_SECRET,GEN3_ENDPOINT,NAMESPACE"
+    EG_KERNEL_WHITELIST_ENVS: "ACCESS_TOKEN,API_KEY_ID,API_KEY,GEN3_API_KEY_ID,GEN3_API_KEY_SECRET,GEN3_ENDPOINT,NAMESPACE"
     EG_SHARED_NAMESPACE: "True"
     EG_MIRROR_WORKING_DIRS: "False"
     EG_KERNEL_SPEC_POLICY: |
@@ -1251,10 +1310,12 @@ jeg:
     volumeName: workspace-data
     sidecar:
       name: gen3-fuse
-      image: quay.io/cdis/ecs-ws-sidecar:master
+      image: quay.io/cdis/gen3fuse-sidecar:master
+      gen3Endpoint: https://qa-vectis.planx-pla.net
+      wtsOverrideUrl: https://qa-vectis.planx-pla.net/wts
       command:
         - /bin/bash
-        - ./sidecar.sh
+        - /sidecarDockerrun.sh
       namespace: qa-vectis
       hostnameConfigMapName: global
       hostnameConfigMapKey: hostname
