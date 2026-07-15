@@ -135,6 +135,10 @@ hatchery:
         "user-namespace": "jupyter-pods-qa-vectis",
         "sub-dir": "/lw-workspace",
         "user-volume-size": "10Gi",
+        "shared-workspace": {
+          "enabled": true,
+          "oidc-provider-arn": "arn:aws:iam::707767160287:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/F057519C0E32B7DE2580904C4007BB21"
+        },
         "default-pay-model": {
           "local": true,
           "workspace_type": "Trial Workspace",
@@ -143,6 +147,11 @@ hatchery:
         },
         "pay-models": [],
         "jeg-gateway-proxy-url": "http://workspace-proxy-service.qa-vectis.svc.cluster.local:8080/jeg-proxy",
+        "s3-config": {
+          "bucketName": "workspace-software-s3-qa-brh",
+          "prefixBase": "qa-vectis",
+          "region": "us-east-1"
+        },
         "sidecar": {
           "cpu-limit": "1.0",
           "memory-limit": "256Mi",
@@ -1310,6 +1319,11 @@ jeg:
     mountPath: /usr/local/share/jupyter/kernels/python_kubernetes/scripts/kernel-pod.yaml.j2
     workspaceMountPath: /home/jovyan/pd
     volumeName: workspace-data
+    sharedWorkspace:
+      enabled: true
+      volumeName: shared-workspace
+      claimName: "{{ ('shared-claim-' ~ (kernel_username | lower | replace('@', '-40') | replace('.', '-2e') | replace('|', '-7c') | replace(':', '-3a') | replace('/', '-2f') | replace('_', '-5f') | replace('+', '-2b') | replace('=', '-3d')) ~ '-group-qa-vectis-shared') | tojson }}"
+      mountPath: /home/jovyan/shared
     sidecar:
       name: gen3-fuse
       image: quay.io/cdis/gen3fuse-sidecar:master
