@@ -175,6 +175,7 @@ hatchery:
               "--ServerApp.password=''",
               "--ServerApp.token=''",
               "--ServerApp.disable_check_xsrf=True",
+              "--ServerApp.contents_manager_class=jupyter_server.services.contents.largefilemanager.AsyncLargeFileManager",
               "--ServerApp.allow_origin='https://qa-vectis.planx-pla.net'",
               "--ServerApp.root_dir='/home/jovyan'",
               "--ServerApp.runtime_dir='/home/jovyan/.local/share/jupyter/runtime'",
