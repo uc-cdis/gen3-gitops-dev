@@ -111,7 +111,8 @@ hatchery:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
     # tag: "2026.04"
-    tag: "feat_fsx-lustre"
+    # tag: "feat_fsx-lustre"
+    tag: "feat_s3-mount-squashfs"
   hatchery:
     json: |
       {
@@ -129,7 +130,6 @@ hatchery:
           "hard-limit": 5,
           "soft-limit": 4
         },
-        
         "pay-models-dynamodb-table": "bmh-admin-portal-backend-bmhworkspacetableD4D73E43-4U08KIUG3YW3",
         "fsxConfig": {
           "fsxId": "fs-0db570e0cb6e6f5af",
@@ -137,6 +137,11 @@ hatchery:
           "mountName": "nyj6tamv",
           "storage": "1200Gi",
           "mountPath": "/apps"
+        },
+        "s3-config": {
+          "bucketName": "workspace-software-s3-qa-brh",
+          "prefixBase": "qa-brh",
+          "region": "us-east-1"
         },
         "sidecar": {
           "cpu-limit": "1.0",
@@ -167,6 +172,10 @@ hatchery:
             "memory-limit": "8Gi",
             "name": "(Generic) Software Repository Testing",
             "image": "quay.io/cdis/jupyterlab-generic:master",
+            "squashfs_mount": {
+              "enabled": true,
+              "source_sqsh": "/image/apps-current.sqsh"
+            },
             "env": {
               "FRAME_ANCESTORS": "https://qa-brh.planx-pla.net"
             },
