@@ -31,7 +31,7 @@ jeg:
     name: jeg-kernel-pod-template
     fileName: kernel-pod.yaml.j2
     mountPath: /usr/local/share/jupyter/kernels/python_kubernetes/scripts/kernel-pod.yaml.j2
-    workspaceMountPath: /home/jovyan
+    workspaceMountPath: /home/jovyan/pd
     volumeName: workspace-data
     sidecar:
       name: gen3-fuse
