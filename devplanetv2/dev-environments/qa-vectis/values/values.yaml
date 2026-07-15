@@ -177,6 +177,7 @@ hatchery:
               "--ServerApp.disable_check_xsrf=True",
               "--ServerApp.allow_origin='https://qa-vectis.planx-pla.net'",
               "--ServerApp.root_dir='/home/jovyan'",
+              "--ServerApp.runtime_dir='/home/jovyan/.local/share/jupyter/runtime'",
               "--ServerApp.shutdown_no_activity_timeout=5400"
             ],
             "path-rewrite": "/lw-workspace/proxy/",
