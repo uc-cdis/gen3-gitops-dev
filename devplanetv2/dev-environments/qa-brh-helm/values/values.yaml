@@ -58,7 +58,7 @@ FENCE_CONFIG_PUBLIC:
 
 frontend-framework:
   # -- (bool) Whether to deploy the frontend-framework subchart.
-  enabled: true
+  enabled: false
   # -- (map) Docker image information.
   image:
     # -- (string) The Docker image repository for the frontend-framework.
