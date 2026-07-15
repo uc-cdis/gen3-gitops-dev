@@ -142,6 +142,13 @@ guppy:
       type: metadata
 hatchery:
   enabled: true
+  hotNode:
+    enabled: true
+    availabilityZones:
+      - us-east-1c
+    workspaceCapacityReservation:
+      memory: "17Gi"
+      cpu: 5
   replicaCount: 2
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
