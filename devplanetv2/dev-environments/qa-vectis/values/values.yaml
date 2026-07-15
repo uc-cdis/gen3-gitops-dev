@@ -172,7 +172,6 @@ hatchery:
               "--ServerApp.default_url=/lab",
               "--ServerApp.password=''",
               "--ServerApp.token=''",
-              "--ServerApp.ip='*'",
               "--ServerApp.disable_check_xsrf=True",
               "--ServerApp.allow_origin='https://qa-vectis.planx-pla.net'",
               "--ServerApp.root_dir='/home/jovyan'",
