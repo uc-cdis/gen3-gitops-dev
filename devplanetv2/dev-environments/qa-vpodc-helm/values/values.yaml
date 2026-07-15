@@ -76,7 +76,7 @@ cohort-middleware:
     cohortMiddlewareG3Auto: qa-vpodc-cohort-middleware-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/cohort-middleware
-    tag: feat_add_new_pseudonyms_endpoint
+    tag: 0.5.0
   config:
     pseudonyms:
         pseudonym_field: "person.person_source_value"
