@@ -37,7 +37,6 @@ jeg:
       name: gen3-fuse
       image: quay.io/cdis/gen3fuse-sidecar:master
       gen3Endpoint: https://qa-vectis.planx-pla.net
-      wtsOverrideUrl: https://qa-vectis.planx-pla.net/wts
       command:
         - /bin/bash
         - /sidecarDockerrun.sh
