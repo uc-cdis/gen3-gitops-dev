@@ -201,6 +201,7 @@ hatchery:
               "memory-limit": "2Gi",
               "name": "RCC pilot",
               "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-notebook:rcc-master",
+              "pull_policy": "Always",
               "env": {
                 "FRAME_ANCESTORS": "https://qa-prometheus.planx-pla.net",
                 "PATH": "/opt/conda/bin:/home/jovyan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
