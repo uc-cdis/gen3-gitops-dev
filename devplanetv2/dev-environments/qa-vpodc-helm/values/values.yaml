@@ -121,64 +121,63 @@ dashboard:
 etl:
   esEndpoint: elasticsearch
   mappings:
-    - doc_type: patients
-      name: etl_mickey
-      nested_props:
-        - name: oncology_primaries
-          path: oncology_primaries
-          props:
-            - name: Multiplicitycounter
-            - name: ICDOSite
-            - name: Radiation
-            - name: Chemotherapy
-            - name: DaysFromAnchorDateToDiagnosisDate
-            - name: Gradedifferentiation
-            - name: Laterality
-            - name: Stagegroupbest
-            - name: RadiationsurgerySequence
-            - name: Histologyicdo3X
-            - name: Lymphvascularinvasionl
-            - name: SeerSummaryStage2000
-            - name: PhysiciansStage
-            - name: DaysFromAnchorDateToMostdefinitivesurgDate
-            - name: ChemotherapyFac
-            - name: TumorSize
-            - name: SequenceNumber
-        - name: actionable_mutations
-          path: actionable_mutations
-          props:
-            - name: Lab
-            - name: Gene
-            - name: DaysFromAnchorDateToBxDate
-      props:
-        - name: project_id
-        - name: Days_To_Birth
-          src: days_to_lost_to_followup
-        - name: Days_To_Death
-          src: days_to_lost_to_followup
-        - name: Gender
-          src: lost_to_followup
-        - name: Ethnicity
-          src: lost_to_followup
-        - name: Race
-          src: lost_to_followup
-        - name: DeceasedFlag
-          src: lost_to_followup
-      root: case
-      type: aggregator
-    - category: data_file
-      doc_type: file
-      name: file_etl_mickey
-      props:
-        - name: project_id
-        - name: submitter_id
-        - name: file_name
-        - name: file_size
-        - name: data_format
-        - name: data_type
-        - name: object_id
-      root: None
-      type: collector
+      - name: etl_mickey_case
+        doc_type: case
+        type: aggregator
+        root: case
+        props:
+          - name: project_id
+          - name: submitter_id
+        nested_props:
+          - name: clinical_demographics
+            path: clinical_demographics
+            props:
+              - name: Ethnicity
+              - name: Gender
+              - name: Race
+          - name: oncology_primaries
+            path: oncology_primaries
+            props:
+              - name: ICDOSite
+              - name: Stagegroupclinical
+              - name: Texthistologytitle
+              - name: Gradedifferentiation
+              - name: Stagegroupbest
+              - name: PrimarysiteX
+          - name: somatic_mutations
+            path: somatic_mutations
+            props:
+              - name: Gene
+              - name: Mutation
+      - name: etl_mickey_file
+        doc_type: file
+        type: collector
+        root: None
+        category: data_file
+        props:
+          - name: source_node
+          - name: project_id
+          - name: submitter_id
+          - name: case_submitter_id
+          - name: data_category
+          - name: data_format
+          - name: data_type
+          - name: file_name
+          - name: file_size
+          - name: md5sum
+          - name: object_id
+          - name: modality
+          - name: body_part_examined
+          - name: study_instance_uid
+          - name: series_instance_uid
+          - name: study_description
+          - name: state
+        injecting_props:
+          case:
+            props:
+              - name: _case_id
+                src: id
+                fn: set
 
 fence:
   usersync:
@@ -216,6 +215,8 @@ guppy:
   indices:
     - index: etl_mickey
       type: patients
+    - index: etl_mickey_case
+      type: case
     - index: etl_mickey_file
       type: file
     - index: omop_etl_index_cohortb_20251119
