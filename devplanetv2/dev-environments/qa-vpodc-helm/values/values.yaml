@@ -121,7 +121,7 @@ dashboard:
 etl:
   esEndpoint: elasticsearch
   mappings:
-      - name: etl_mickey_case
+      - name: qa_vpodc_case
         doc_type: case
         type: aggregator
         root: case
@@ -149,7 +149,7 @@ etl:
             props:
               - name: Gene
               - name: Mutation
-      - name: etl_mickey_file
+      - name: qa_vpodc_file
         doc_type: file
         type: collector
         root: None
@@ -208,16 +208,16 @@ guppy:
   authFilterField: auth_resource_path
   enabled: true
   esEndpoint: http://elasticsearch:9200
-  configIndex: etl_mickey-array-config
+  configIndex: qa_vpodc-array-config
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/guppy
     tag: "2026.06"
   indices:
-    - index: etl_mickey
-      type: patients
-    - index: etl_mickey_case
+    # - index: etl_mickey
+    #   type: patients
+    - index: qa_vpodc_case
       type: case
-    - index: etl_mickey_file
+    - index: qa_vpodc_file
       type: file
     - index: omop_etl_index_cohortb_20251119
       type: cohort_b_patients
