@@ -6,6 +6,7 @@ If it does go ensure the developer is no longer using the [environment](https://
 Hint, the namespace is likely NAMESPACE.planx-pla.net. If unused, delete the previous namespace before proceeding,
 note older ingresses may not play nice and will need their finalizers removed.
 (i.e. kubectl edit ingress -n NAMESPACE\_WITH\_CONFLICT) and set finalizers to `[]`, try deleting first though) 
+Cleanups maybe required.
 
 ### Setting Up Your Environment
 
