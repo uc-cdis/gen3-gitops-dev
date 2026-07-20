@@ -379,7 +379,7 @@ postgresql:
 fence:
   enabled: true
   image:
-    tag: chore_add-passport-to-userinfo
+    tag: chore_test-ras
   externalSecrets:
     createK8sFenceConfigSecret: false
     createK8sJwtKeysSecret: true
