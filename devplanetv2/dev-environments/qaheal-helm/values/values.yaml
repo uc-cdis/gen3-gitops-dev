@@ -171,7 +171,7 @@ hatchery:
         "license-user-maps-dynamodb-table": "gen3-license-user-maps",
         "license-user-maps-global-secondary-index": "activeUsersIndex",
         "s3-config": {
-          "bucketName": "workspace-software-s3-qa-brh",
+          "bucketName": "workspace-software-s3-qa-heal",
           "prefixBase": "qa-heal",
           "region": "us-east-1"
         },
