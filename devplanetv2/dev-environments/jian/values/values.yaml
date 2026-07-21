@@ -67,11 +67,6 @@ arborist:
   enabled: true
   image:
     tag: master
-  resources:
-    requests:
-      memory: "105Mi"
-      cpu: "15m"
-
 audit:
   externalSecrets:
     createK8sAuditSecret: true
