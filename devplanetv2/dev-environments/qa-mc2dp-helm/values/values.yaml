@@ -168,7 +168,7 @@ hatchery:
               "local": true
           },
           "s3-config": {
-            "bucketName": "workspace-software-s3-qa-brh",
+            "bucketName": "workspace-software-s3-qa-mc2dp",
             "prefixBase": "qa-prometheus",
             "region": "us-east-1"
           },
