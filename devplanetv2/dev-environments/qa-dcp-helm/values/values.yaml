@@ -245,7 +245,7 @@ fluentd:
 global:
   aws:
     account: '707767160287'
-    awsEsProxyRole: qaplanetv1--qa-dcp-helm--es-access
+    awsEsProxyRole: qaplanetv1--default--es-access
     enabled: true
     hatchery_role: qaplanetv1--qa-dcp-helm--hatchery-sa
     secretStoreServiceAccount:
