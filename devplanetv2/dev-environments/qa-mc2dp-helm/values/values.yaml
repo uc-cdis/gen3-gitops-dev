@@ -143,7 +143,7 @@ guppy:
 hatchery:
   enabled: true
   hotNode:
-    enabled: true
+    enabled: false
     availabilityZones:
       - us-east-1a
       - us-east-1b
@@ -203,7 +203,7 @@ hatchery:
               "cpu-limit": "4.0",
               "memory-limit": "16Gi",
               "name": "RCC pilot",
-              "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-notebook:rcc-master",
+              "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-notebook:rcc-feat_rcc-r-packages",
               "pull_policy": "Always",
               "env": {
                 "FRAME_ANCESTORS": "https://qa-prometheus.planx-pla.net",

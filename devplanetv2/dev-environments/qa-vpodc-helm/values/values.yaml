@@ -120,65 +120,65 @@ dashboard:
 
 etl:
   esEndpoint: elasticsearch
-  mappings:
-    - doc_type: patients
-      name: etl_mickey
-      nested_props:
-        - name: oncology_primaries
-          path: oncology_primaries
+  etlMapping:
+    mappings:
+        - name: qa_vpodc_case
+          doc_type: case
+          type: aggregator
+          root: case
           props:
-            - name: Multiplicitycounter
-            - name: ICDOSite
-            - name: Radiation
-            - name: Chemotherapy
-            - name: DaysFromAnchorDateToDiagnosisDate
-            - name: Gradedifferentiation
-            - name: Laterality
-            - name: Stagegroupbest
-            - name: RadiationsurgerySequence
-            - name: Histologyicdo3X
-            - name: Lymphvascularinvasionl
-            - name: SeerSummaryStage2000
-            - name: PhysiciansStage
-            - name: DaysFromAnchorDateToMostdefinitivesurgDate
-            - name: ChemotherapyFac
-            - name: TumorSize
-            - name: SequenceNumber
-        - name: actionable_mutations
-          path: actionable_mutations
+            - name: project_id
+            - name: submitter_id
+          nested_props:
+            - name: clinical_demographics
+              path: clinical_demographics
+              props:
+                - name: Ethnicity
+                - name: Gender
+                - name: Race
+            - name: oncology_primaries
+              path: oncology_primaries
+              props:
+                - name: ICDOSite
+                - name: Stagegroupclinical
+                - name: Texthistologytitle
+                - name: Gradedifferentiation
+                - name: Stagegroupbest
+                - name: PrimarysiteX
+            - name: somatic_mutations
+              path: somatic_mutations
+              props:
+                - name: Gene
+                - name: Mutation
+        - name: qa_vpodc_file
+          doc_type: file
+          type: collector
+          root: None
+          category: data_file
           props:
-            - name: Lab
-            - name: Gene
-            - name: DaysFromAnchorDateToBxDate
-      props:
-        - name: project_id
-        - name: Days_To_Birth
-          src: days_to_lost_to_followup
-        - name: Days_To_Death
-          src: days_to_lost_to_followup
-        - name: Gender
-          src: lost_to_followup
-        - name: Ethnicity
-          src: lost_to_followup
-        - name: Race
-          src: lost_to_followup
-        - name: DeceasedFlag
-          src: lost_to_followup
-      root: case
-      type: aggregator
-    - category: data_file
-      doc_type: file
-      name: file_etl_mickey
-      props:
-        - name: project_id
-        - name: submitter_id
-        - name: file_name
-        - name: file_size
-        - name: data_format
-        - name: data_type
-        - name: object_id
-      root: None
-      type: collector
+            - name: source_node
+            - name: project_id
+            - name: submitter_id
+            - name: case_submitter_id
+            - name: data_category
+            - name: data_format
+            - name: data_type
+            - name: file_name
+            - name: file_size
+            - name: md5sum
+            - name: object_id
+            - name: modality
+            - name: body_part_examined
+            - name: study_instance_uid
+            - name: series_instance_uid
+            - name: study_description
+            - name: state
+          injecting_props:
+            case:
+              props:
+                - name: _case_id
+                  src: id
+                  fn: set
 
 fence:
   usersync:
@@ -209,14 +209,16 @@ guppy:
   authFilterField: auth_resource_path
   enabled: true
   esEndpoint: http://elasticsearch:9200
-  configIndex: etl_mickey-array-config
+  configIndex: qa_array-config
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/guppy
     tag: "2026.06"
   indices:
-    - index: etl_mickey
-      type: patients
-    - index: etl_mickey_file
+    # - index: etl_mickey
+    #   type: patients
+    - index: qa_vpodc_case
+      type: case
+    - index: qa_vpodc_file
       type: file
     - index: omop_etl_index_cohortb_20251119
       type: cohort_b_patients
@@ -227,7 +229,7 @@ hatchery:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
     # tag: "2025.10"
-    tag: "2.9.0"
+    tag: "2.9.1"
   hatchery:
     json: |
       {
@@ -380,7 +382,7 @@ hatchery:
                 "cpu-limit": "4.0",
                 "memory-limit": "16Gi",
                 "name": "RCC pilot",
-                "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-notebook:rcc-feat_rcc-disable-download",
+                "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-notebook:rcc-feat_rcc-r-packages",
                 "pull_policy": "Always",
                 "env": {
                   "FRAME_ANCESTORS": "https://qa-vpodc.planx-pla.net"

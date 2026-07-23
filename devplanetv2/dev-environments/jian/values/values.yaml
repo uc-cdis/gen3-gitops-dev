@@ -67,11 +67,6 @@ arborist:
   enabled: true
   image:
     tag: master
-  resources:
-    requests:
-      memory: "105Mi"
-      cpu: "15m"
-
 audit:
   externalSecrets:
     createK8sAuditSecret: true
@@ -379,7 +374,7 @@ postgresql:
 fence:
   enabled: true
   image:
-    tag: chore_add-passport-to-userinfo
+    tag: chore_test-ras
   externalSecrets:
     createK8sFenceConfigSecret: false
     createK8sJwtKeysSecret: true

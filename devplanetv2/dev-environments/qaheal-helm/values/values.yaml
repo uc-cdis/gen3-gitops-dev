@@ -240,14 +240,13 @@ hatchery:
             "cpu-limit": "1.0",
             "memory-limit": "2Gi",
             "name": "JupyterLab with Python and R Kernels",
-            "image": "quay.io/repository/cdis/heal-notebooks:generic_rkernel__latest",
+            "image": "quay.io/cdis/heal-notebooks:generic_rkernel__7b5ac30a3ffef4757ab6a4da7ddce41e558819c1",
             "env": {
               "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
             },
             "args": [
               "--JupyterNotebookApp.base_url=/lw-workspace/proxy/",
               "--JupyterNotebookApp.default_url=/lab/tree/heal-welcome.ipynb",
-              "--JupyterNotebookApp.default_url=/lab",
               "--JupyterNotebookApp.password=''",
               "--JupyterNotebookApp.token=''",
               "--JupyterNotebookApp.ip='*'",
@@ -1621,7 +1620,7 @@ zendesk-wrapper:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/zendesk-wrapper-service
-    tag: "master"
+    tag: "0.1.0"
   env:
     - name: GEN3_ZENDESK_URL
       value: "https://heal-support.zendesk.com"
