@@ -204,6 +204,7 @@ hatchery:
             "memory-limit": "8Gi",
             "name": "(Generic) Software Library Testing",
             "image": "quay.io/cdis/jupyterlab-generic:feat_remove_venv",
+            "pull_policy": "Always",
             "squashfs_mount": {
               "enabled": true,
               "source_sqsh": "/image/apps-current.sqsh"
