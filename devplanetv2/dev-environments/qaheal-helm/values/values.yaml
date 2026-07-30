@@ -132,6 +132,18 @@ global:
   postgres:
     dbCreate: false
   revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/520ede2f-fc82-4bb9-af96-4b4af7deabbd
+guppy:
+  esEndpoint: http://elasticsearch:9200
+  autoscaling:
+    enabled: true
+  enabled: true
+  authFilterField: auth_resource_path
+  indices:
+    - index: qa-heal_etl_file
+      type: file
+  image:
+    repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/guppy
+    tag: "2026.06"
 hatchery:
   enabled: true
   replicaCount: 3
