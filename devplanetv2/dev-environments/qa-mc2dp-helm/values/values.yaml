@@ -10,7 +10,7 @@ arborist:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/arborist
-    tag: "2026.02"
+    tag: "2026.07"
   externalSecrets:
     dbcreds: qa-prometheus-arborist-creds
 audit:
@@ -30,7 +30,7 @@ dashboard:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-statics
-    tag: "2026.02"
+    tag: "2026.07"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--qa-prometheus-helm--dashboard-access
@@ -51,7 +51,7 @@ fence:
     dbcreds: qa-prometheus-fence-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
-    tag: "2026.02"
+    tag: "2026.07"
 fluentd:
   enabled: true
   image:
@@ -175,7 +175,7 @@ hatchery:
           "sidecar": {
               "cpu-limit": "1.0",
               "memory-limit": "256Mi",
-              "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ecs-ws-sidecar:2026.02",
+              "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ecs-ws-sidecar:2026.07",
               "env": {
                   "NAMESPACE": "qa-prometheus",
                   "HOSTNAME": "qa-prometheus.planx-pla.net"
@@ -244,14 +244,14 @@ indexd:
     dbcreds: qa-prometheus-indexd-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexd
-    tag: "2026.02"
+    tag: "2026.07"
 manifestservice:
   enabled: true
   externalSecrets:
     manifestserviceG3auto: qa-prometheus-manifestservice-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/manifestservice
-    tag: "2026.02"
+    tag: "2026.07"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--qa-prometheus-helm--manifest-service-sa
@@ -547,11 +547,11 @@ metadata:
      }
   aggMdsNamespace: pdp-commons
   autoscaling:
-    enabled: false
+    enabled: true
     maxReplicas: 3
     minReplicas: 2
-    targetCPUUtilizationPercentage: 40
-  enabled: false
+    targetCPUUtilizationPercentage: 60
+  enabled: true
   esEndpoint: http://elasticsearch:9200
   externalSecrets:
     metadataG3auto: qa-prometheus-metadata-g3auto
@@ -567,14 +567,14 @@ peregrine:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/peregrine
-    tag: "2026.02"
+    tag: "2026.07"
 portal:
   enabled: false
 requestor:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/requestor
-    tag: "2026.02"
+    tag: "2026.07"
   externalSecrets:
     dbcreds: qa-prometheus-requestor-creds
 revproxy:
@@ -586,7 +586,7 @@ revproxy:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/nginx
-    tag: "2026.02"
+    tag: "2026.07"
   ingress:
     annotations:
       alb.ingress.kubernetes.io/tags: Environment=devplanetv2
@@ -796,7 +796,7 @@ sheepdog:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sheepdog
-    tag: "2026.02"
+    tag: "2026.07"
   externalSecrets:
     dbcreds: qa-prometheus-sheepdog-creds
 ssjdispatcher:
@@ -806,8 +806,8 @@ ssjdispatcher:
     dbcreds: qa-prometheus-ssjdispatcher-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ssjdispatcher
-    tag: "2026.02"
-  indexing: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexs3client:2026.02
+    tag: "2026.07"
+  indexing: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexs3client:2026.07
 wts:
   enabled: true
   externalSecrets:
@@ -817,7 +817,7 @@ wts:
     dbcreds: qa-prometheus-wts-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/workspace-token-service
-    tag: 2026.02
+    tag: 2026.07
 
 # AuroraRDSCopy Job configuration
 auroraRdsCopyJob:
