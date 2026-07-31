@@ -73,7 +73,7 @@ gen3-workflow:
     enabled: true
     image:
         repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-workflow
-        tag: misc-improvements
+        tag: feat__IMAGE_PULL_POLICY
     externalSecrets:
         gen3workflowG3auto: "gen3workflow-g3auto"
     gen3WorkflowConfig:
@@ -87,18 +87,20 @@ funnel:
     externalSecrets:
         dbcreds: "pauline-helm-funnel-creds"
         funnelOidcClient: "funnel-oidc-client"
-    funnel:
-        Kubernetes:
-            JobsNamespace: workflow-pods-pauline-helm
-            ReconcileRate: 120s
-            Executor:
-                restartPolicy: OnFailure
-                backoffLimit: 0
-                Annotations:
-                    karpenter.sh/do-not-disrupt: "true"
-            Worker:
-                restartPolicy: OnFailure
-                backoffLimit: 1
+    image:
+        repository: quay.io/cdis/funnel
+        tag: feat__IMAGE_PULL_POLICY
+    Kubernetes:
+        JobsNamespace: workflow-pods-pauline-helm
+        ReconcileRate: 120s
+        Executor:
+            restartPolicy: OnFailure
+            backoffLimit: 0
+            Annotations:
+                karpenter.sh/do-not-disrupt: "true"
+        Worker:
+            restartPolicy: OnFailure
+            backoffLimit: 1
 
 guppy:
     enabled: false
