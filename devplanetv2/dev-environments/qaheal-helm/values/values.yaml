@@ -215,14 +215,15 @@ hatchery:
             "cpu-limit": "2.0",
             "memory-limit": "8Gi",
             "name": "(Generic) Software Library Testing",
-            "image": "quay.io/cdis/jupyterlab-generic:feat_remove_venv",
+            "image": "quay.io/cdis/jupyterlab-generic:feat_update-preloaded-packages",
             "pull_policy": "Always",
             "squashfs_mount": {
               "enabled": true,
               "source_sqsh": "/image/apps-current.sqsh"
             },
             "env": {
-              "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
+              "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net",
+              "LMOD_SYSTEM_DEFAULT_MODULES": "py-numpy:py-pandas:py-matplotlib:py-scikit-learn"
             },
             "args": [
               "--ServerApp.base_url=/lw-workspace/proxy/",
