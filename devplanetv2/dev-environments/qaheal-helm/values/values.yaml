@@ -222,8 +222,7 @@ hatchery:
               "source_sqsh": "/image/apps-current.sqsh"
             },
             "env": {
-              "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net",
-              "LMOD_SYSTEM_DEFAULT_MODULES": "py-numpy:py-pandas:py-matplotlib:py-scikit-learn"
+              "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
             },
             "args": [
               "--ServerApp.base_url=/lw-workspace/proxy/",
