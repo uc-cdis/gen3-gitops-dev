@@ -73,7 +73,7 @@ gen3-workflow:
     enabled: true
     image:
         repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-workflow
-        tag: feat__IMAGE_PULL_POLICY
+        tag: 0.2.0
     externalSecrets:
         gen3workflowG3auto: "gen3workflow-g3auto"
     gen3WorkflowConfig:
@@ -89,7 +89,7 @@ funnel:
         funnelOidcClient: "funnel-oidc-client"
     image:
         repository: quay.io/cdis/funnel
-        tag: feat__IMAGE_PULL_POLICY
+        tag: 0.12.1-gen3
     Kubernetes:
         JobsNamespace: workflow-pods-pauline-helm
         ReconcileRate: 120s
