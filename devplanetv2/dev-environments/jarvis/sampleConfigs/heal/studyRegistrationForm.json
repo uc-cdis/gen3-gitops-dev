@@ -185,20 +185,6 @@
       "text": "Go to Discovery Page"
     }
   },
-  "userNotLoggedIn": {
-    "content": [
-      {
-        "type": "markdown",
-        "text": ["# You must be logged in to use this form"],
-        "className": "text-center"
-      }
-    ],
-    "button": {
-      "variant": "filled",
-      "href": "/Login",
-      "text": "Login"
-    }
-  },
   "error": {
     "content": [
       {
