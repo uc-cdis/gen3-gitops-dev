@@ -223,7 +223,7 @@ hatchery:
             },
             "env": {
               "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net",
-              "LMOD_SYSTEM_DEFAULT_MODULES": "py-numpy:py-pandas:py-matplotlib:py-scikit-learn:py-heal-sdk"
+              "LMOD_SYSTEM_DEFAULT_MODULES": "py-numpy:py-pandas:py-matplotlib:py-scikit-learn:py-heal-sdk:py-gen3"
             },
             "args": [
               "--ServerApp.base_url=/lw-workspace/proxy/",
