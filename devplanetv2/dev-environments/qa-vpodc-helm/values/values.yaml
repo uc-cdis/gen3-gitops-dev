@@ -129,15 +129,6 @@ etl:
           props:
             - name: project_id
             - name: submitter_id
-          aggregted_props:
-            - name: Gene
-              path: somatic_mutations
-              src: Gene
-              fn: set
-            - name: Mutation
-              path: somatic_mutations
-              src: Mutation
-              fn: set
           nested_props:
             - name: clinical_demographics
               path: clinical_demographics
@@ -155,6 +146,11 @@ etl:
                 - name: Stagegroupbest
                 - name: PrimarysiteX
                 - name: Histologyicdo3X
+            - name: somatic_mutations
+              path: somatic_mutations
+              props:
+                - name: Gene
+                - name: Mutation
         - name: qa_vpodc_file
           doc_type: file
           type: collector
