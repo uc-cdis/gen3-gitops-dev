@@ -11,7 +11,7 @@ global:
       enabled: true
       wafAclArn: "arn:aws:wafv2:us-east-1:707767160287:regional/webacl/devplanetv2-waf/30660590-f707-4ecf-aeae-ddfbe381f388"
   dev: false
-  dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/vadictionary/0.5.5/schema.json
+  dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/vadictionary/0.6.0/schema.json
   dispatcherJobNum: "10"
   environment: qa-vpodc
   externalSecrets:
@@ -129,6 +129,15 @@ etl:
           props:
             - name: project_id
             - name: submitter_id
+          aggregted_props:
+            - name: Gene
+              path: somatic_mutations
+              src: Gene
+              fn: set
+            - name: Mutation
+              path: somatic_mutations
+              src: Mutation
+              fn: set
           nested_props:
             - name: clinical_demographics
               path: clinical_demographics
@@ -145,11 +154,7 @@ etl:
                 - name: Gradedifferentiation
                 - name: Stagegroupbest
                 - name: PrimarysiteX
-            - name: somatic_mutations
-              path: somatic_mutations
-              props:
-                - name: Gene
-                - name: Mutation
+                - name: Histologyicdo3X
         - name: qa_vpodc_file
           doc_type: file
           type: collector
