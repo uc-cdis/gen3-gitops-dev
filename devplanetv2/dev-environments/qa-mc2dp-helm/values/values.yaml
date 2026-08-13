@@ -229,7 +229,7 @@ hatchery:
             "use-tls": "false",
             "user-uid": 1010,
             "user-volume-location": "/home/jovyan/pd"
-            }
+            },
           {
               "target-port": 8888,
               "cpu-limit": "4.0",
