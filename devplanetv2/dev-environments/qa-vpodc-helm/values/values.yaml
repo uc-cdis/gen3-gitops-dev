@@ -204,7 +204,7 @@ frontend-framework:
   replicaCount: 2
   image:
     repository: quay.io/cdis/vpodc-data-commons
-    tag: feat/update_oncology_filters
+    tag: 'feat/update_oncology_filters'
 
 guppy:
   authFilterField: auth_resource_path
