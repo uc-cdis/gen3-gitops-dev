@@ -54,7 +54,7 @@
       "label": "Study",
       "initialValue": "",
       "required": true,
-      "data": [],
+      "dropdownData": [],
       "variable": "study_id"
     },
     {
