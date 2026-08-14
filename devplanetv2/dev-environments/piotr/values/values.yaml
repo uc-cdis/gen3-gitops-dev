@@ -41,7 +41,40 @@ fluentd:
   image:
     repository: fluent/fluentd-kubernetes-daemonset
     tag: v1.15.3-debian-cloudwatch-1.0
+funnel:
+  postgres:
+    dbCreate: true
+  externalSecrets:
+    dbcreds: "piotr-funnel-creds"
+    funnelOidcClient: "piotr-funnel-oidc-client"
+  Kubernetes:
+    JobsNamespace: workflow-pods-piotr
+    ReconcileRate: 120s
+    Executor:
+      restartPolicy: Never
+      backoffLimit: 0
+      Annotations:
+        karpenter.sh/do-not-disrupt: "true"
+    Worker:
+      restartPolicy: Never
+      backoffLimit: 1
+gen3-workflow:
+  enabled: true
+  image:
+    repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-workflow
+    tag: master
+  gen3WorkflowConfig:
+    debug: true
+    kmsEncryptionEnabled: true
+    taskImageWhitelist:
+      - "quay.io/nextflow/bash:*"
+      - "quay.io/curl/curl:latest"
+      - "public.ecr.aws/docker/library/alpine:latest"
 global:
+  crossplane:
+    enabled: true
+    oidcProviderUrl: "oidc.eks.us-east-1.amazonaws.com/id/F057519C0E32B7DE2580904C4007BB21"
+    accountId: "707767160287"
   aws:
     account: "707767160287"
     awsEsProxyRole: devplanetv2-esproxy-sa
@@ -55,8 +88,11 @@ global:
   dev: false
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json
   environment: piotr
+  clusterName: devplanetv2 # used by https://github.com/uc-cdis/gen3-helm/blob/c5982db/helm/gen3-workflow/templates/secrets.yaml#L49
   externalSecrets:
     deploy: true
+    createLocalK8sSecret: false
+    pushSecret: true
   hostname: piotr.planx-pla.net
   manifestGlobalExtraValues:
     es7: true
@@ -67,6 +103,9 @@ global:
   portalApp: gitops
   postgres:
     dbCreate: false
+    externalSecret: "devplanetv2-aurora-master-password"
+    master:
+      host: "devplanetv2-aurora-cluster-new.cluster-cwvizkxhzjt8.us-east-1.rds.amazonaws.com"
   revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/c676c81c-9546-4e9a-9a72-725dd3912bc8
   topologySpread:
     # -- (bool) Whether to enable topology spread constraints for all subcharts that support it.
