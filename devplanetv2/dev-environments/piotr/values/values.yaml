@@ -12,14 +12,14 @@ arborist:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/arborist
-    tag: "2026.02"
+    tag: "2026.08"
 audit:
   enabled: true
   externalSecrets:
     auditG3auto: piotr-audit-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/audit-service
-    tag: "2024.12"
+    tag: "2026.08"
 aws-sigv4-proxy:
   enabled: true
 fence:
@@ -35,7 +35,7 @@ fence:
     fenceJwtKeys: piotr-fence-jwt
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
-    tag: chore_fix_improper_certificate_validation_pps_1936
+    tag: "2026.08"
 fluentd:
   enabled: true
   image:
@@ -131,12 +131,12 @@ guppy:
         type: file
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/guppy
-    tag: "2026.02"
+    tag: "2026.08"
 hatchery:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
-    tag: "2026.02"
+    tag: "2026.08"
 indexd:
   autoscaling:
     enabled: true
@@ -148,14 +148,14 @@ indexd:
     serviceCreds: piotr-indexd-service-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexd
-    tag: "2026.02"
+    tag: "2026.08"
 manifestservice:
   enabled: true
   externalSecrets:
     manifestserviceG3auto: piotr-manifestservice-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/manifestservice
-    tag: piotr_feat-discovery-metadata-handoff
+    tag: "2026.08"
 metadata:
   autoscaling:
     enabled: true
@@ -167,7 +167,7 @@ metadata:
     metadataG3auto: piotr-metadata-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
-    tag: "2024.12"
+    tag: "2026.08"
 peregrine:
   autoscaling:
     enabled: true
@@ -177,7 +177,7 @@ peregrine:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/peregrine
-    tag: "2026.02"
+    tag: "2026.08"
 portal:
   autoscaling:
     enabled: true
@@ -389,7 +389,7 @@ revproxy:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/nginx
-    tag: "2024.12"
+    tag: "2026.08"
   ingress:
     aws:
       group: piotr-helm
@@ -402,7 +402,7 @@ sheepdog:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sheepdog
-    tag: 5.2.0
+    tag: "2026.08"
 sower:
   enabled: true
   externalSecrets:
@@ -410,7 +410,7 @@ sower:
     sowerjobsG3auto: piotr-sower-jobs-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sower
-    tag: "2026.02"
+    tag: "2026.08"
   sowerConfig:
     - action: export
       container:
@@ -483,24 +483,24 @@ spark:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-spark
-    tag: "2026.02"
+    tag: "2026.08"
 ssjdispatcher:
   enabled: true
   externalSecrets:
     credsFile: piotr-ssjdispatcher-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ssjdispatcher
-    tag: "2026.02"
+    tag: "2026.08"
   indexing: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexs3client:2024.03
 tube:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/tube
-    tag: "2026.02"
+    tag: "2026.08"
 wts:
   enabled: true
   externalSecrets:
     wtsG3auto: piotr-wts-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/workspace-token-service
-    tag: "2026.02"
+    tag: "2026.08"
