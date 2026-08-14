@@ -85,8 +85,7 @@
       "label": "Study Data Repository",
       "initialValue": "",
       "placeholder": "Select a data repository",
-      "required": true,
-      "data": [
+      "dropdownData": [
         { "value": "BioSystics-AP", "label": "BioSystics-AP" },
         {
           "value": "Database of Genotypes and Phenotypes (dbGaP)",
@@ -164,7 +163,6 @@
       "type": "Tags",
       "label": "Study Data ID from Repository: \nPress Enter to add a unique ID for a study within the repository",
       "placeholder": "Enter the unique ID for the study within the repository",
-      "required": true,
       "variable": "repository_study_ids"
     }
   ],
