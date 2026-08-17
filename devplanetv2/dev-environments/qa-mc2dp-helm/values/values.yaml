@@ -894,7 +894,7 @@ workspace-proxy:
 
   image:
     repository: quay.io/cdis/multihead-workspace-proxy
-    tag: feat_init
+    tag: master
     pullPolicy: Always
 
   listenAddr: ":8080"
