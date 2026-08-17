@@ -15,17 +15,17 @@ audit:
     auditG3auto: qa-dcp-audit-g3auto
   serviceAccount:
     annotations:
-      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/qaplanetv1--qa-dcp-helm--audit-sqs-receiver
+      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--qa-dcp-helm--audit-sqs-receiver
 aws-sigv4-proxy:
   enabled: true
-  esEndpoint: vpc-qaplanetv1-gen3-metadata-2-cc5qzn3vbdblqmfesaizimczpi.us-east-1.es.amazonaws.com
+  esEndpoint: vpc-devplanetv2-gen3-metadata-2-xkwr2f3gbxua5mqqi7rhnat4la.us-east-1.es.amazonaws.com
 dashboard:
   dashboardConfig:
     bucket: dashboard-707767160287-devplanetv1-gen3
     prefix: qa-dcp.planx-pla.net
   serviceAccount:
     annotations:
-      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/qaplanetv1--qa-dcp-helm--dashboard-access
+      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--qa-dcp-helm--dashboard-access
 etl:
   esEndpoint: elasticsearch
   mappings:
@@ -245,15 +245,15 @@ fluentd:
 global:
   aws:
     account: '707767160287'
-    awsEsProxyRole: qaplanetv1-esproxy-sa
+    awsEsProxyRole: devplanetv2-esproxy-sa
     enabled: true
-    hatchery_role: qaplanetv1--qa-dcp-helm--hatchery-sa
+    hatchery_role: devplanetv2--qa-dcp-helm--hatchery-sa
     secretStoreServiceAccount:
       enabled: true
       roleArn: arn:aws:iam::707767160287:role/qa-dcp-qa-dcp-helm-external-secrets-sa
     wafv2:
       enabled: true
-      wafAclArn: "arn:aws:wafv2:us-east-1:707767160287:regional/webacl/qaplanetv1-waf/c05150c9-4200-4a0e-8a46-3856379b12bc"
+      wafAclArn: "arn:aws:wafv2:us-east-1:707767160287:regional/webacl/devplanetv2-waf/c05150c9-4200-4a0e-8a46-3856379b12bc"
   dev: false
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/gtexdictionary/feat/update_bdc_dd/schema.json
   dispatcherJobNum: '10'
@@ -264,9 +264,9 @@ global:
   manifestGlobalExtraValues:
     dd_enabled: true
     es7: true
-    kube_bucket: kube-qaplanetv1-gen3
+    kube_bucket: kube-devplanetv2-gen3
     lb_type: internal
-    logs_bucket: logs-qaplanetv1-gen3
+    logs_bucket: logs-devplanetv2-gen3
     netpolicy: 'on'
     public_datasets: true
     sync_from_dbgap: 'False'
@@ -608,7 +608,7 @@ manifestservice:
     tag: '2026.07'
   serviceAccount:
     annotations:
-      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/qaplanetv1--qa-dcp-helm--manifest-service-sa
+      eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--qa-dcp-helm--manifest-service-sa
 metadata:
   autoscaling:
     enabled: true
