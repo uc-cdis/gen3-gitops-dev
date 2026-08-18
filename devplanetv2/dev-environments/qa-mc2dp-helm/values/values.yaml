@@ -889,7 +889,7 @@ workspace-proxy:
 
   image:
     repository: quay.io/cdis/multihead-workspace-proxy
-    tag: feat_proxy-merge-fixes
+    tag: master
     pullPolicy: Always
 
   listenAddr: ":8080"
