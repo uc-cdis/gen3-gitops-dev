@@ -217,7 +217,7 @@ hatchery:
             "pull_policy": "Always",
             "squashfs_mount": {
               "enabled": true,
-              "source_sqsh": "/image/apps-current.sqsh"
+              "source_sqsh": "/image/apps-2026-08-12.sqsh"
             },
             "env": {
               "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net",
