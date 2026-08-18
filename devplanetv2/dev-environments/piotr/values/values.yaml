@@ -23,6 +23,9 @@ audit:
 aws-sigv4-proxy:
   enabled: true
 fence:
+  usersync:
+    usersync: true
+    userYamlS3Path: s3://cdis-gen3-users/dev/user.yaml
   autoscaling:
     enabled: true
     maxReplicas: 3
