@@ -354,7 +354,7 @@ indexd:
   externalSecrets:
     serviceCreds: binamb-indexd-service-creds
   image:
-    tag: feat_fastapi
+    tag: master
 manifestservice:
   enabled: true
   externalSecrets:
