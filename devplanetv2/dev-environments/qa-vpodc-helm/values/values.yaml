@@ -244,7 +244,7 @@ frontend-framework:
   replicaCount: 2
   image:
     repository: quay.io/cdis/vpodc-data-commons
-    tag: feat-update_oncology_filters
+    tag: main
   env:
     HATCHERY_URL: "http://hatchery-service"
     HATCHERY_API: "/lw-workspace"
