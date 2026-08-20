@@ -224,7 +224,7 @@ etl:
 fence:
   usersync:
     usersync: true
-    userYamlS3Path: s3://cdis-gen3-users/pdp/user.yaml
+    userYamlS3Path: s3://cdis-gen3-users/mc2dp-qa/user.yaml
   autoscaling:
     enabled: true
     maxReplicas: 3
@@ -243,7 +243,7 @@ frontend-framework:
   enabled: true
   replicaCount: 2
   image:
-    repository: quay.io/cdis/vpodc-data-commons
+    repository: quay.io/cdis/mc2dp-data-platform
     tag: main
   env:
     HATCHERY_URL: "http://hatchery-service"
