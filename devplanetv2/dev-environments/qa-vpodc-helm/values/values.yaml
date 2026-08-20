@@ -285,6 +285,7 @@ hatchery:
               "workspace_type": "Trial Workspace",
               "local": true
           },
+          "pay-models-dynamodb-table": "bmh-admin-portal-backend-bmhworkspacetableD4D73E43-4U08KIUG3YW3",
           "s3-config": {
             "bucketName": "workspace-software-s3-qa-brh",
             "prefixBase": "qa-vpodc",
