@@ -1635,6 +1635,6 @@ zendesk-wrapper:
     tag: "0.1.0"
   env:
     - name: GEN3_ZENDESK_URL
-      value: "https://heal-support.zendesk.com"
+      value: "https://heal-support.gen3.org"
   externalSecrets:
     name: "qa-heal-zendesk-wrapper-secret"
