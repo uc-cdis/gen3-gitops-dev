@@ -28,7 +28,7 @@ dashboard:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--qa-dcp-helm--dashboard-access
 etl:
   esEndpoint: elasticsearch
-  etlMappings:
+  etlMapping:
     mappings:
       - aggregated_props:
         - fn: set
