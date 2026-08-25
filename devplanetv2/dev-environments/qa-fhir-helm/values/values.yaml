@@ -4,7 +4,6 @@ global:
   aws:
     enabled: true
     account: "707767160287"
-    scheme: "internal"
     secretStoreServiceAccount:
       enabled: true
       name: secret-store-sa
