@@ -1741,9 +1741,14 @@ workspace-proxy:
     {
       "allowedSpecs": [
         "python_kubernetes",
-        "python_tensorflow_kubernetes",
-        "python_tensorflow_gpu_kubernetes"
-      ]
+        "python_tf_kubernetes",
+        "python_tf_gpu_kubernetes"
+      ],
+      "displayNames": {
+        "python_kubernetes": "Python on Kubernetes",
+        "python_tf_kubernetes": "Python + TensorFlow",
+        "python_tf_gpu_kubernetes": "Python + TensorFlow + GPU"
+      }
     }
 
   resources:
