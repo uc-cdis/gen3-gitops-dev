@@ -191,6 +191,31 @@ etl:
               props:
                 - name: Gene
                 - name: Mutation
+          joining_props:
+            - index: file
+              join_on: _case_id
+              props:
+                - name: object_id
+                  src: object_id
+                  fn: set
+                - name: data_format
+                  src: data_format
+                  fn: set
+                - name: data_type
+                  src: data_type
+                  fn: set
+                - name: data_category
+                  src: data_category
+                  fn: set
+                - name: modality
+                  src: modality
+                  fn: set
+                - name: body_part_examined
+                  src: body_part_examined
+                  fn: set
+                - name: data_file_count
+                  src: _data_file_id
+                  fn: count
         - name: qa_vpodc_oncology_primary
           doc_type: oncology_primary
           type: aggregator
@@ -204,7 +229,6 @@ etl:
             - name: Histologyicdo3X
           parent_props:
             - path: cases[case_submitter_id:submitter_id,Ethnicity,Gender,Race]
-
         - name: qa_vpodc_file
           doc_type: file
           type: collector
