@@ -152,7 +152,7 @@ hatchery:
   replicaCount: 2
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
-    tag: "master"
+    tag: "feat_squashfs-pvc-provisioning"
   hatchery:
     json: |
       {
@@ -166,6 +166,11 @@ hatchery:
         "default-pay-model": {
           "workspace_type": "Trial Workspace",
           "local": true
+        },
+        "s3-config": {
+          "bucketName": "software-library-bucket-new",
+          "prefixBase": "qa-heal",
+          "region": "us-east-1"
         },
         "sidecar": {
           "cpu-limit": "1.0",
