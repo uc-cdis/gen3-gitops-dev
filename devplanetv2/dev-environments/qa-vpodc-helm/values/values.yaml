@@ -191,6 +191,20 @@ etl:
               props:
                 - name: Gene
                 - name: Mutation
+        - name: qa_vpodc_oncology_primary
+          doc_type: oncology_primary
+          type: aggregator
+          root: oncology_primary
+          props:
+            - name: project_id
+            - name: submitter_id
+            - name: ICDOSite
+            - name: Stagegroupclinical
+            - name: PrimarysiteX
+            - name: Histologyicdo3X
+          parent_props:
+            - path: cases[case_submitter_id:submitter_id,Ethnicity,Gender,Race]
+
         - name: qa_vpodc_file
           doc_type: file
           type: collector
@@ -268,6 +282,8 @@ guppy:
     #   type: patients
     - index: qa_vpodc_case
       type: case
+    - index: qa_vpodc_oncology_primary
+      type: oncology_primary
     - index: qa_vpodc_file
       type: file
     - index: omop_etl_index_cohortb_20251119
