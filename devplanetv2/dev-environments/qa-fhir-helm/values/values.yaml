@@ -4,6 +4,11 @@ global:
   aws:
     enabled: true
     account: "707767160287"
+    # Every other ingress in the devplanetv2-internal ALB group is internal, and a group can
+    # only have one scheme. Without this the revproxy chart default (internet-facing) applies
+    # and the ALB controller refuses to reconcile the whole group with "conflicting scheme",
+    # which leaves every environment sharing that ALB serving 503s.
+    scheme: "internal"
     secretStoreServiceAccount:
       enabled: true
       name: secret-store-sa
