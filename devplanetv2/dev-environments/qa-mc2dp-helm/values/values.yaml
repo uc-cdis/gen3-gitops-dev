@@ -152,7 +152,7 @@ hatchery:
   replicaCount: 2
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
-    tag: "feat_squashfs-pvc-provisioning"
+    tag: "2.11.0"
   hatchery:
     json: |
       {
@@ -199,7 +199,48 @@ hatchery:
             "target-port": 8888,
             "cpu-limit": "4.0",
             "memory-limit": "16Gi",
-            "name": "RCC pilot",
+            "name": "RCC pilot (4 CPU, 16 GB)",
+            "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-notebook:rcc-feat_rcc-r-packages",
+            "pull_policy": "Always",
+            "squashfs_mount": {
+              "enabled": true,
+              "source_sqsh": "/image/apps-2026-08-20.sqsh"
+            },
+            "env": {
+              "FRAME_ANCESTORS": "https://qa-prometheus.planx-pla.net",
+              "PATH": "/opt/conda/bin:/home/jovyan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+              "LMOD_SYSTEM_DEFAULT_MODULES": "py-numpy:py-pandas:py-matplotlib:py-scikit-learn:py-heal-sdk:py-gen3"
+            },
+            "command": [
+              "start-notebook.sh"
+            ],
+            "args": [
+              "--ServerApp.base_url=/lw-workspace/proxy/",
+              "--ServerApp.default_url=/lab",
+              "--ServerApp.password=''",
+              "--ServerApp.token=''",
+              "--ServerApp.ip='*'",
+              "--ServerApp.disable_check_xsrf=True",
+              "--ServerApp.allow_origin='https://qa-prometheus.planx-pla.net'",
+              "--ServerApp.root_dir='/home/jovyan'",
+              "--ServerApp.shutdown_no_activity_timeout=5400",
+              "--ServerApp.quit_button=False",
+              "--FileContentsManager.always_delete_dir=True"
+            ],
+            "path-rewrite": "/lw-workspace/proxy/",
+            "use-tls": "false",
+            "ready-probe": "/lw-workspace/proxy/lab",
+            "user-uid": 1010,
+            "fs-gid": 101,
+            "user-volume-location": "/home/jovyan/pd",
+            "gen3-volume-location": "/home/jovyan/.gen3"
+          },
+          {
+            "target-port": 8888,
+            "cpu-limit": "4.0",
+            "memory-limit": "16Gi",
+            "gpu": true,
+            "name": "RCC pilot (4 CPU, 16 GB, GPU)",
             "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-notebook:rcc-feat_rcc-r-packages",
             "pull_policy": "Always",
             "squashfs_mount": {
