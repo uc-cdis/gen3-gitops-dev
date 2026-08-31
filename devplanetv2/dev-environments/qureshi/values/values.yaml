@@ -85,8 +85,13 @@ frontend-framework:
   # image:
   #   tag: main
   #   repository:
+  # Disabled to work around a chart bug: with customConfig enabled, deployment.yaml emits
+  # DATADOG_APPLICATION_ID, DATADOG_CLIENT_TOKEN and DATACOMMONS a second time on top of the
+  # range over .Values.env, and duplicate env names make the strategic-merge patch fail with
+  # "order in patch list doesn't match $setElementOrder list". Re-enable once the chart drops
+  # the redundant block.
   customConfig:
-    enabled: true
+    enabled: false
   enabled: true
   resources:
     requests:
