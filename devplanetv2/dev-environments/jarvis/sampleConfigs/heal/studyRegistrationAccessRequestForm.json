@@ -3,7 +3,8 @@
     "service": "zenDesk",
     "configuration": {
       "zendeskSubdomainName": "heal-support"
-    }
+    },
+    "submissionSubjectLine": "Study registration access request for"
   },
   "disclaimer": "Information provided on this page will be used for correspondence regarding your request and may be shared with the NIH and/or the HEAL Data Stewards.",
   "form": [
