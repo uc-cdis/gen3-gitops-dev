@@ -4,26 +4,27 @@
     "configuration": {
       "zendeskSubdomainName": "heal-support"
     },
-    "submissionSubjectLine": "Study registration access request for"
+    "submissionSubjectLine": "Data dictionary submission access request for"
   },
   "disclaimer": "Information provided on this page will be used for correspondence regarding your request and may be shared with the NIH and/or the HEAL Data Stewards.",
   "form": [
     {
       "type": "markdown",
-      "text": "## Study Registration Access Request"
+      "text": "### Data Dictionary Submission Request"
     },
     {
       "type": "markdown",
-      "text": " Please fill out this form to request and be approved for access to register your study with the HEAL Platform.",
+      "text": "Please fill out this form to request access to submit data dictionaries to your study on the HEAL Platform.",
       "className": "text-sm"
     },
     {
-      "type": "TextInput",
+      "type": "Textarea",
       "label": "Study Name - Grant Number",
       "initialValue": "studyName",
       "disabled": true,
       "required": true,
-      "variable": "studyName"
+      "variable": "studyName",
+      "autosize": true
     },
     {
       "type": "TextInput",
@@ -91,7 +92,7 @@
         "type": "markdown",
         "text": [
           "# A problem has occurred while submitting the request!",
-          " There is already a pending request for this user to access this study. We are processing your request. You will be notified when approved. If you do not receive notification within 1 business day of your initial request, please reach out to [heal-support@gen3.org](mailto:heal-support@gen3.org)."
+          " There is already a pending request for this study/user combination, please wait while we are processing your request."
         ],
         "className": "text-center"
       }
