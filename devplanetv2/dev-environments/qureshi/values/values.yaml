@@ -19,6 +19,11 @@ global:
   externalSecrets:
     deploy: true
     dbCreate: true
+    # Bootstraps the per-service creds in Secrets Manager. ExternalSecret only reads, so on a
+    # new env there is nothing to read and every *-dbcreds sits at "Secret does not exist".
+    # PushSecret uses updatePolicy: IfNotExists, so it creates what is missing and never
+    # overwrites what is already there.
+    pushSecret: true
   hostname: qureshi.dev.planx-pla.net
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json
   # We disable portal by default to save $$$
@@ -731,7 +736,6 @@ gen3-embeddings:
     pullPolicy: Always
   externalSecrets:
     createK8sGen3EmbeddingsSecret: true
-    pushSecret: true
   # extraEnv is a map and merges, unlike env which is a list and would replace the chart's
   # defaults (GEN3_DEBUG, ARBORIST_URL, PGPOOL_*) wholesale.
   extraEnv:
