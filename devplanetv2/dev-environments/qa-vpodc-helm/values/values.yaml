@@ -326,7 +326,7 @@ hatchery:
             "target-port": 8888,
             "cpu-limit": "4.0",
             "memory-limit": "16Gi",
-            "name": "RCC pilot",
+            "name": "RCC pilot (4 CPU/16 GB)",
             "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-notebook:rcc-feat_rcc-r-packages",
             "pull_policy": "Always",
             "env": {
@@ -359,10 +359,10 @@ hatchery:
           },
           {
             "target-port": 8888,
-            "cpu-limit": "1.0",
+            "cpu-limit": "2.0",
             "gpu": true,
             "memory-limit": "8Gi",
-            "name": "RCC pilot",
+            "name": "RCC pilot (2 CPU, 8 GB, GPU)",
             "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-notebook:rcc-feat_rcc-r-packages",
             "pull_policy": "Always",
             "env": {
