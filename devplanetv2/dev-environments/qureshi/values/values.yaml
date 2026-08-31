@@ -717,3 +717,21 @@ fence:
       visa_types:
         ras: ["https://ras.nih.gov/visas/v1", "https://ras.nih.gov/visas/v1.1"]
     RAS_USERINFO_ENDPOINT: "/openid/connect/v1.1/userinfo"
+
+gen3-embeddings:
+  enabled: true
+  image:
+    repository: quay.io/cdis/gen3_embeddings
+    tag: main
+    pullPolicy: Always
+  externalSecrets:
+    createK8sGen3EmbeddingsSecret: true
+    pushSecret: true
+  # extraEnv is a map and merges, unlike env which is a list and would replace the chart's
+  # defaults (GEN3_DEBUG, ARBORIST_URL, PGPOOL_*) wholesale.
+  extraEnv:
+    ENABLE_CONTINUOUS_PROFILING: "true"
+    PROFILE_MEMORY: "true"
+    ENABLE_OPENTELEMETRY_TRACES: "true"
+    # Alloy's pyroscope.receive_http listener; it forwards to pyroscope.planx-pla.net.
+    PYROSCOPE_SERVER_ADDRESS: "http://alloy.monitoring:4040"
