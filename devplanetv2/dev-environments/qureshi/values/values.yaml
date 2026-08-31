@@ -364,8 +364,11 @@ fence:
     # Extra whitelisted URLs the /login/* endpoints may redirect to.
     LOGIN_REDIRECT_WHITELIST: [".", "/login"]
 
-    # Sync Google storage access in bulk, diffing per google group rather than per user.
-    GOOGLE_BULK_UPDATES: true
+    # NOTE: GOOGLE_BULK_UPDATES is deliberately unset (chart default is false).
+    # sync_users.py:949 gates update_google_groups_for_users on it, and that reads
+    # fence-google-storage-creds-secret, whose keys are zero bytes in this namespace. With it
+    # true usersync died on "JSONDecodeError: Expecting value: line 1 column 1 (char 0)" before
+    # pushing anything to Arborist. Turn it back on once real credentials exist.
 
     # NOTE: STORAGE_CREDENTIALS is deliberately unset. Configuring a google backend here sends
     # usersync through GoogleCloudManager, which reads fence-google-storage-creds-secret. That
