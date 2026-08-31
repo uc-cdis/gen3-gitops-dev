@@ -722,7 +722,7 @@ gen3-embeddings:
   enabled: true
   image:
     repository: quay.io/cdis/gen3_embeddings
-    tag: main
+    tag: feat_deployment
     pullPolicy: Always
   externalSecrets:
     createK8sGen3EmbeddingsSecret: true
