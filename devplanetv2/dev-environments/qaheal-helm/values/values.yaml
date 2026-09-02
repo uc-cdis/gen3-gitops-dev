@@ -206,7 +206,7 @@ hatchery:
             "cpu-limit": "2.0",
             "memory-limit": "8Gi",
             "name": "(Generic) Software Library Testing",
-            "image": "quay.io/cdis/heal-notebooks:software_library_heal__d94456534dc99913f41951838725faed8ec3aeaf",
+            "image": "quay.io/cdis/heal-notebooks:software_library_heal__71a1959cc2c2f56d44c52cda966a35c6e37effaa",
             "pull_policy": "Always",
             "squashfs_mount": {
               "enabled": true,
