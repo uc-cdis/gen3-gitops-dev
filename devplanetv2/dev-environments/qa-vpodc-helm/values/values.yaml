@@ -365,9 +365,46 @@ hatchery:
           {
             "target-port": 8888,
             "cpu-limit": "4.0",
+            "gpu": false,
             "memory-limit": "16Gi",
-            "name": "RCC pilot (4 CPU/16 GB)",
-            "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-notebook:rcc-feat_rcc-r-packages",
+            "name": "Genomics (4CPU/16GB RAM, CPU only)",
+            "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-notebook:genomics-feat_jupyter-genomics",
+            "pull_policy": "Always",
+            "env": {
+              "FRAME_ANCESTORS": "https://qa-vpodc.planx-pla.net",
+              "PATH": "/opt/conda/bin:/home/jovyan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            },
+            "command": [
+              "start-notebook.sh"
+            ],
+            "args": [
+              "--ServerApp.base_url=/lw-workspace/proxy/",
+              "--ServerApp.default_url=/lab",
+              "--ServerApp.password=''",
+              "--ServerApp.token=''",
+              "--ServerApp.ip='*'",
+              "--ServerApp.disable_check_xsrf=True",
+              "--ServerApp.allow_origin='https://qa-vpodc.planx-pla.net'",
+              "--ServerApp.root_dir='/home/jovyan'",
+              "--ServerApp.shutdown_no_activity_timeout=5400",
+              "--ServerApp.quit_button=False",
+              "--FileContentsManager.always_delete_dir=True"
+            ],
+            "path-rewrite": "/lw-workspace/proxy/",
+            "use-tls": "false",
+            "ready-probe": "/lw-workspace/proxy/lab",
+            "user-uid": 1010,
+            "fs-gid": 101,
+            "user-volume-location": "/home/jovyan/pd",
+            "gen3-volume-location": "/home/jovyan/.gen3"
+          },
+          {
+            "target-port": 8888,
+            "cpu-limit": "2.0",
+            "gpu": false,
+            "memory-limit": "4Gi",
+            "name": "Standard (2CPU/4GB RAM, CPU only)",
+            "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-notebook:genomics-feat_jupyter-genomics",
             "pull_policy": "Always",
             "env": {
               "FRAME_ANCESTORS": "https://qa-vpodc.planx-pla.net",
@@ -402,7 +439,43 @@ hatchery:
             "cpu-limit": "2.0",
             "gpu": true,
             "memory-limit": "8Gi",
-            "name": "RCC pilot (2 CPU, 8 GB, GPU)",
+            "name": "AI/ML (2CPU/8GB RAM, GPU)",
+            "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-prometheus",
+            "pull_policy": "Always",
+            "env": {
+              "FRAME_ANCESTORS": "https://qa-vpodc.planx-pla.net",
+              "PATH": "/opt/conda/bin:/home/jovyan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            },
+            "command": [
+              "start-notebook.sh"
+            ],
+            "args": [
+              "--ServerApp.base_url=/lw-workspace/proxy/",
+              "--ServerApp.default_url=/lab",
+              "--ServerApp.password=''",
+              "--ServerApp.token=''",
+              "--ServerApp.ip='*'",
+              "--ServerApp.disable_check_xsrf=True",
+              "--ServerApp.allow_origin='https://qa-vpodc.planx-pla.net'",
+              "--ServerApp.root_dir='/home/jovyan'",
+              "--ServerApp.shutdown_no_activity_timeout=5400",
+              "--ServerApp.quit_button=False",
+              "--FileContentsManager.always_delete_dir=True"
+            ],
+            "path-rewrite": "/lw-workspace/proxy/",
+            "use-tls": "false",
+            "ready-probe": "/lw-workspace/proxy/lab",
+            "user-uid": 1010,
+            "fs-gid": 101,
+            "user-volume-location": "/home/jovyan/pd",
+            "gen3-volume-location": "/home/jovyan/.gen3"
+          },
+          {
+            "target-port": 8888,
+            "cpu-limit": "4.0",
+            "gpu": false,
+            "memory-limit": "16Gi",
+            "name": "RCC pilot (4CPU/16GB RAM, CPU only)",
             "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-notebook:rcc-feat_rcc-r-packages",
             "pull_policy": "Always",
             "env": {
