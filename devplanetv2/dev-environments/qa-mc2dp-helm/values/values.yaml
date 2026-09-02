@@ -603,9 +603,7 @@ metadata:
   externalSecrets:
     metadataG3auto: qa-prometheus-metadata-g3auto
     dbcreds: qa-prometheus-metadata-creds
-  env:
-    # TODO - after testing, and when helm charts are ready, set this using forceAuthzCheckForMetadataQueries instead...
-    FORCE_AUTHZ_CHECK_FOR_METADATA_QUERIES: "True"
+  forceAuthzCheckForMetadataQueries: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
     tag: master
