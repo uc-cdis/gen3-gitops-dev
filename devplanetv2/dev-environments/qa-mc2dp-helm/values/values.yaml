@@ -906,9 +906,6 @@ workspace-proxy:
   jegKernelSpecPolicy: |
     {
       "allowedSpecs": [
-        "python_kubernetes",
-        "python_tf_kubernetes",
-        "python_tf_gpu_kubernetes"
       ],
       "displayNames": {
         "python_kubernetes": "Python on Kubernetes",
