@@ -206,7 +206,7 @@ hatchery:
             "cpu-limit": "2.0",
             "memory-limit": "8Gi",
             "name": "(Generic) Software Library Testing",
-            "image": "quay.io/cdis/jupyterlab-generic:master",
+            "image": "quay.io/cdis/heal-notebooks:software_library_heal__d94456534dc99913f41951838725faed8ec3aeaf",
             "pull_policy": "Always",
             "squashfs_mount": {
               "enabled": true,
@@ -218,7 +218,7 @@ hatchery:
             },
             "args": [
               "--ServerApp.base_url=/lw-workspace/proxy/",
-              "--ServerApp.default_url=/lab",
+              "--ServerApp.default_url=/lab/tree/heal-software-library-welcome.ipynb",
               "--ServerApp.password=''",
               "--ServerApp.token=''",
               "--ServerApp.notebook_dir='/home/jovyan'",
