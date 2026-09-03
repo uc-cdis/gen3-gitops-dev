@@ -282,14 +282,14 @@ peregrine:
   image:
 
 revproxy:
-  resources:
-    requests:
-      memory: "105Mi"
-      cpu: "15m"
+  replicaCount: 2
+    targetCPUUtilizationPercentage: 40
+  enabled: true
   ingress:
-    aws:
-      # Do not change- this will break DNS for your env.
-      group: devplanetv2-internal
+    annotations:
+      alb.ingress.kubernetes.io/tags: Environment=devplanetv2
+      alb.ingress.kubernetes.io/group.name: devplanetv2
+      alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS13-1-2-FIPS-2023-04
 
 sheepdog:
   resources:
