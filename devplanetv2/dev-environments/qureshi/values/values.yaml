@@ -319,14 +319,15 @@ revproxy:
           return 301 /agentic/;
       }
 
-      # Frontend: pass /agentic/* as-is — Next.js middleware rewrites the
-      # prefix internally, so no stripping needed here.
+      # Frontend: strip /agentic prefix before forwarding to Next.js so it
+      # receives /* paths it actually knows about (middleware not needed).
       location /agentic/ {
           # Redirect unauthenticated users to login instead of returning 401.
           error_page 401 = @agentic_login_redirect;
 
           set $proxy_service "gen3-agentic";
           set $upstream http://gen3-agentic.qureshi.svc.cluster.local:3000;
+          rewrite ^/agentic/(.*) /$1 break;
           proxy_pass $upstream;
           proxy_set_header Host $host;
           proxy_set_header X-Real-IP $remote_addr;
