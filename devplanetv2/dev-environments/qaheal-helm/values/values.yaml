@@ -205,8 +205,8 @@ hatchery:
             "target-port": 8888,
             "cpu-limit": "2.0",
             "memory-limit": "8Gi",
-            "name": "(Generic) Software Library Testing",
-            "image": "quay.io/cdis/heal-notebooks:software_library_heal__71a1959cc2c2f56d44c52cda966a35c6e37effaa",
+            "name": "JupyterLab Software Library Testing",
+            "image": "quay.io/cdis/heal-notebooks:software_library_heal__06f564d5d0deadd6eb5cd28aebc9136e6efd4485",
             "pull_policy": "Always",
             "squashfs_mount": {
               "enabled": true,
@@ -245,7 +245,7 @@ hatchery:
             "cpu-limit": "1.0",
             "memory-limit": "2Gi",
             "name": "JupyterLab with Python and R Kernels",
-            "image": "quay.io/cdis/heal-notebooks:generic_rkernel__28624f6cab88d3184d2ed37066419f59689e1d48",
+            "image": "quay.io/cdis/heal-notebooks:generic_rkernel__494c5a110ed87b3af5a8c68d8f22040f10dae2fc",
             "env": {
               "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
             },
