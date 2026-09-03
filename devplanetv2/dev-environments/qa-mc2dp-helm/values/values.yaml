@@ -603,7 +603,7 @@ metadata:
   externalSecrets:
     metadataG3auto: qa-prometheus-metadata-g3auto
     dbcreds: qa-prometheus-metadata-creds
-  forceAuthzCheckForMetadataQueries: true
+  forceAuthzCheckForMetadataQueries: false
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
     tag: master
