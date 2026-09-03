@@ -334,6 +334,10 @@ hatchery:
               "FRAME_ANCESTORS": "https://qa-vpodc.planx-pla.net",
               "PATH": "/opt/conda/bin:/home/jovyan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
             },
+            "squashfs_mount": {
+              "enabled": true,
+              "source_sqsh": "/image/apps-2026-08-20.sqsh"
+            },
             "command": [
               "start-notebook.sh"
             ],
@@ -369,6 +373,10 @@ hatchery:
             "env": {
               "FRAME_ANCESTORS": "https://qa-vpodc.planx-pla.net",
               "PATH": "/opt/conda/bin:/home/jovyan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            },
+            "squashfs_mount": {
+              "enabled": true,
+              "source_sqsh": "/image/apps-2026-08-20.sqsh"
             },
             "command": [
               "start-notebook.sh"
@@ -406,6 +414,10 @@ hatchery:
               "FRAME_ANCESTORS": "https://qa-vpodc.planx-pla.net",
               "PATH": "/opt/conda/bin:/home/jovyan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
             },
+            "squashfs_mount": {
+              "enabled": true,
+              "source_sqsh": "/image/apps-2026-08-20.sqsh"
+            },
             "command": [
               "start-notebook.sh"
             ],
@@ -441,6 +453,10 @@ hatchery:
             "env": {
               "FRAME_ANCESTORS": "https://qa-vpodc.planx-pla.net",
               "PATH": "/opt/conda/bin:/home/jovyan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            },
+            "squashfs_mount": {
+              "enabled": true,
+              "source_sqsh": "/image/apps-2026-08-20.sqsh"
             },
             "command": [
               "start-notebook.sh"
