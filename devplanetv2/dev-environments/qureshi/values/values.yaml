@@ -303,7 +303,7 @@ revproxy:
       # API calls from the frontend arrive as /agentic/api/... — strip /agentic
       # and forward to the backend. This must come before the frontend block so
       # nginx matches the more specific prefix first.
-      location /agentic/api/ {
+      location ^~ /agentic/api/ {
           set $proxy_service "gen3-agentic-api";
           set $upstream http://gen3-agentic.qureshi.svc.cluster.local:8080;
           rewrite ^/agentic(/api/.*) $1 break;
@@ -314,14 +314,9 @@ revproxy:
           proxy_set_header X-Forwarded-Proto $scheme;
       }
 
-      # Redirect /agentic → /agentic/ so the trailing-slash location matches.
-      location = /agentic {
-          return 301 /agentic/;
-      }
-
-      # Frontend: pass /agentic/* as-is to Next.js — middleware rewrites
-      # /agentic/* → /* internally so pages resolve correctly.
-      location /agentic/ {
+      # Frontend: pass /agentic and /agentic/* as-is to Next.js.
+      # basePath=/agentic is baked into the image so Next.js handles the prefix natively.
+      location ~ ^/agentic(/|$) {
           # Redirect unauthenticated users to login instead of returning 401.
           error_page 401 = @agentic_login_redirect;
 
