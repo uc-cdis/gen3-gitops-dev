@@ -328,7 +328,7 @@ hatchery:
             "gpu": false,
             "memory-limit": "16Gi",
             "name": "Genomics (4CPU/16GB RAM, CPU only)",
-            "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-notebook:genomics-feat_jupyter-genomics",
+            "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-notebook:genomics-master",
             "pull_policy": "Always",
             "env": {
               "FRAME_ANCESTORS": "https://qa-vpodc.planx-pla.net",
@@ -364,7 +364,7 @@ hatchery:
             "gpu": false,
             "memory-limit": "4Gi",
             "name": "Standard (2CPU/4GB RAM, CPU only)",
-            "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-notebook:genomics-feat_jupyter-genomics",
+            "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-notebook:genomics-master",
             "pull_policy": "Always",
             "env": {
               "FRAME_ANCESTORS": "https://qa-vpodc.planx-pla.net",
@@ -436,7 +436,7 @@ hatchery:
             "gpu": false,
             "memory-limit": "16Gi",
             "name": "RCC pilot (4CPU/16GB RAM, CPU only)",
-            "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-notebook:rcc-feat_rcc-r-packages",
+            "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-notebook:rcc-master",
             "pull_policy": "Always",
             "env": {
               "FRAME_ANCESTORS": "https://qa-vpodc.planx-pla.net",
