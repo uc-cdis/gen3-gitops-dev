@@ -16,7 +16,7 @@ global:
     # TODO: Figure out netpols with local dbs
     enabled: false
     dbSubnet: ""
-  environment: devplanetv2
+  environment: qa-fhir
   externalSecrets:
     deploy: true
     dbCreate: true
