@@ -283,7 +283,6 @@ peregrine:
 
 revproxy:
   replicaCount: 2
-    targetCPUUtilizationPercentage: 40
   enabled: true
   ingress:
     annotations:
