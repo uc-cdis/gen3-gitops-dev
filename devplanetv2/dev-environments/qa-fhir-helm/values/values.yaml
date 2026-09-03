@@ -332,7 +332,7 @@ fence:
     createK8sFenceConfigSecret: false
     fenceGoogleAppCredsSecret: ci-fence-google-app-creds-secret
     fenceGoogleStorageCredsSecret: ci-fence-google-storage-creds-secret
-    fenceConfig: "devplanetv2-generic-fence-config"
+    fenceConfig: "qa-fhir-fence-config"
   usersync:
     usersync: true
     userYamlS3Path: s3://cdis-gen3-users/dev/user.yaml
