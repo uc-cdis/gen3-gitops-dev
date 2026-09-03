@@ -20,6 +20,7 @@ global:
   externalSecrets:
     deploy: true
     dbCreate: true
+    pushSecret: true
   hostname: qa-fhir.planx-pla.net
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json
   # We disable portal by default to save $$$
