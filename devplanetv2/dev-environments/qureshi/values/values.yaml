@@ -314,6 +314,11 @@ revproxy:
           proxy_set_header X-Forwarded-Proto $scheme;
       }
 
+      # Redirect /agentic → /agentic/ so the trailing-slash location matches.
+      location = /agentic {
+          return 301 /agentic/;
+      }
+
       # Frontend: pass /agentic/* as-is — Next.js middleware rewrites the
       # prefix internally, so no stripping needed here.
       location /agentic/ {
