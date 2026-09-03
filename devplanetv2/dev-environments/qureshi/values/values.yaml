@@ -298,6 +298,40 @@ revproxy:
     aws:
       # Do not change- this will break DNS for your env.
       group: devplanetv2-internal
+  additionalConfigs:
+    gen3-agentic-service.conf: |-
+      # API calls from the frontend arrive as /agentic/api/... — strip /agentic
+      # and forward to the backend. This must come before the frontend block so
+      # nginx matches the more specific prefix first.
+      location /agentic/api/ {
+          set $proxy_service "gen3-agentic-api";
+          set $upstream http://gen3-agentic.qureshi.svc.cluster.local:8080;
+          rewrite ^/agentic(/api/.*) $1 break;
+          proxy_pass $upstream;
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+      }
+
+      # Frontend: pass /agentic/* as-is — Next.js middleware rewrites the
+      # prefix internally, so no stripping needed here.
+      location /agentic/ {
+          # Redirect unauthenticated users to login instead of returning 401.
+          error_page 401 = @agentic_login_redirect;
+
+          set $proxy_service "gen3-agentic";
+          set $upstream http://gen3-agentic.qureshi.svc.cluster.local:3000;
+          proxy_pass $upstream;
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+      }
+
+      location @agentic_login_redirect {
+          return 302 https://$host/login?redirect=/agentic/;
+      }
 
 sheepdog:
   resources:
