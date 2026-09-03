@@ -224,7 +224,7 @@ etl:
 fence:
   usersync:
     usersync: true
-    userYamlS3Path: s3://cdis-gen3-users/pdp/user.yaml
+    userYamlS3Path: s3://cdis-gen3-users/qa-vpodc/user.yaml
   autoscaling:
     enabled: true
     maxReplicas: 3
