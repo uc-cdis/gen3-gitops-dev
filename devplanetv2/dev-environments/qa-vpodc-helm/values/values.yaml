@@ -278,8 +278,7 @@ hatchery:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
-    # tag: "2025.10"
-    tag: "2.9.1"
+    tag: "2.11.0"
   hatchery:
     json: |
       {
