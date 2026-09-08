@@ -85,6 +85,7 @@ gen3-workflow:
         TASK_IMAGE_WHITELIST: ['*']
         DPOP_ENABLED: true
         DPOP_REQUIRED: true
+        DPOP_SHARED_SECRET: dummy-value-not-a-secret
 
 funnel:
     postgres:
