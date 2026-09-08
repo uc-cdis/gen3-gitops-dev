@@ -68,6 +68,10 @@ fence:
         repository: quay.io/cdis/fence
         tag: feat_dpop
     replicas: 1
+    FENCE_CONFIG_PUBLIC:
+        MAX_TASK_TOKEN_TTL: {"WORKFLOW": 4000}
+        ALLOWED_TASK_TOKEN_TYPES: ["WORKFLOW", "FOO"]
+        DPOP_ENABLED: true
 
 gen3-workflow:
     enabled: true
@@ -76,10 +80,11 @@ gen3-workflow:
         tag: feat_dpop
     externalSecrets:
         gen3workflowG3auto: "gen3workflow-g3auto"
-    gen3WorkflowConfig:
-        debug: true
-        taskImageWhitelist: ['*']
-        kmsEncryptionEnabled: true
+    GEN3_WORKFLOW_CONFIG:
+        APP_DEBUG: true
+        TASK_IMAGE_WHITELIST: ['*']
+        DPOP_ENABLED: true
+        DPOP_REQUIRED: true
 
 funnel:
     postgres:
