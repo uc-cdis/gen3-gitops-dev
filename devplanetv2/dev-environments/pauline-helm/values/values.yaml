@@ -86,6 +86,7 @@ gen3-workflow:
         DPOP_ENABLED: true
         DPOP_REQUIRED: true
         DPOP_SHARED_SECRET: dummy-value-not-a-secret
+        DPOP_EXEMPT_CLIENT_IDS: ['gCSTEDHzd8R4VJ6zffpgGqWHx30kzgicJJDhddoy']
 
 funnel:
     postgres:
