@@ -251,13 +251,12 @@ hatchery:
               "source_sqsh": "/image/apps-2026-08-20.sqsh"
             },
             "command": [
-              "start-notebook.sh"
+              "/jupyterlab-start.sh"
             ],
             "args": [
               "--ServerApp.base_url=/lw-workspace/proxy/",
               "--ServerApp.default_url=/lab",
               "--ServerApp.password=''",
-              "--ServerApp.token=''",
               "--ServerApp.disable_check_xsrf=True",
               "--ServerApp.allow_origin='https://qa-prometheus.planx-pla.net'",
               "--ServerApp.root_dir='/home/jovyan'",
@@ -268,7 +267,7 @@ hatchery:
             "use-tls": "false",
             "ready-probe": "/lw-workspace/proxy/lab",
             "user-uid": 1010,
-            "fs-gid": 101,
+            "fs-gid": 100,
             "user-volume-location": "/home/jovyan/pd",
             "gen3-volume-location": "/home/jovyan/.gen3"
           },
