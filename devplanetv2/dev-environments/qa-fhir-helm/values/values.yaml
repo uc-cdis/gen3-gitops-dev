@@ -105,13 +105,23 @@ gen3-fhir-proxy:
   service:
     port: 8007
     targetPort: 8007
+  externalSecrets:
+    fhirCreds: qa-fhir-proxy-gcp-sa    
   config:
     debug: true
     urlPrefix: "/fhir"
     arboristUrl: "http://arborist-service"
     isUpstreamCallerTrustedReverseProxy: true
-    fhirServerUrl: https://healthcare.googleapis.com/v1/projects/fhir-test-123456/locations/us-central1/datasets/test_dataset/fhirStores/test_fhir_store/fhir
-    fhirBackendType: gcp
+    fhirServerUrl: "https://healthcare.googleapis.com/v1/projects/fhir-test-123456/locations/us-central1/datasets/test_dataset/fhirStores/test_fhir_store/fhir"
+    fhirBackendType: "gcp"
+  extraVolumes:
+    - name: gcp-fhir-sa
+      secret:
+        secretName: fhir-creds
+  extraVolumeMounts:
+    - name: gcp-fhir-sa
+      mountPath: /secrets/gcp
+      readOnly: true
 
 hatchery:
   externalSecrets:
