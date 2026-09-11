@@ -360,6 +360,8 @@ fence:
     fenceGoogleAppCredsSecret: ci-fence-google-app-creds-secret
     fenceGoogleStorageCredsSecret: ci-fence-google-storage-creds-secret
     fenceConfig: "qa-fhir-fence-config"
+    fenceJwtKeys: "qa-fhir-helm-fence-jwt-keys"
+    
   usersync:
     usersync: true
     userYamlS3Path: s3://cdis-gen3-users/dev/user.yaml
