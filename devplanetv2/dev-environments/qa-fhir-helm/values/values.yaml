@@ -74,7 +74,7 @@ audit:
     createK8sAuditSecret: true
   image:
     tag: master
-  enabled: true
+  enabled: false
   resources:
     requests:
       memory: "105Mi"
@@ -310,7 +310,7 @@ peregrine:
   image:
 
 revproxy:
-  replicaCount: 2
+  replicaCount: 1
   enabled: true
   ingress:
     annotations:
