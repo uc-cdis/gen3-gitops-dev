@@ -1,7 +1,7 @@
 name: qa-vpodc-helm
 
 # What branch of helm -- http://github.com/uc-cdis/gen3-helm
-helmBranch: feat/add_pseudonym_config_cohort_middleware
+helmBranch: feat/cleanup_webapi_client_job_after_done
 
 # What branch of gitops -- http://github.com/uc-cdis/gen3-gitops-dev
 gitopsBranch: master
