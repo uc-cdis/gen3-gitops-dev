@@ -67,7 +67,8 @@ fence:
     image:
         repository: quay.io/cdis/fence
         # tag: feat_dpop
-        tag: pauline-debug
+        # tag: pauline-debug
+        tag: master
     replicas: 1
     FENCE_CONFIG_PUBLIC:
         MAX_TASK_TOKEN_TTL: {"WORKFLOW": 4000}
@@ -78,7 +79,8 @@ gen3-workflow:
     enabled: true
     image:
         repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-workflow
-        tag: feat_dpop
+        # tag: feat_dpop
+        tag: master
     externalSecrets:
         gen3workflowG3auto: "gen3workflow-g3auto"
     GEN3_WORKFLOW_CONFIG:
