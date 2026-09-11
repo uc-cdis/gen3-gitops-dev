@@ -112,7 +112,7 @@ gen3-fhir-proxy:
     urlPrefix: "/fhir"
     arboristUrl: "http://arborist-service"
     isUpstreamCallerTrustedReverseProxy: true
-    fhirServerUrl: "https://healthcare.googleapis.com/v1/projects/fhir-test-123456/locations/us-central1/datasets/test_dataset/fhirStores/test_fhir_store/fhir"
+    fhirServerUrl: "https://healthcare.googleapis.com/v1/projects/fhir-test-487914/locations/us-central1/datasets/test_dataset/fhirStores/test_fhir_store/fhir"
     fhirBackendType: "gcp"
   extraVolumes:
     - name: gcp-fhir-sa
