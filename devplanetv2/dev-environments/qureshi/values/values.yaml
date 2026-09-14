@@ -214,6 +214,8 @@ guppy:
 indexd:
   image:
     tag: master
+  # TEMP (security repro): single-table driver to exercise negate_params path; revert after repro
+  useSingleTable: "True"
   resources:
     requests:
       memory: "105Mi"
