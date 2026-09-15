@@ -161,8 +161,8 @@ hatchery:
             "target-port": 8888,
             "cpu-limit": "2.0",
             "memory-limit": "8Gi",
-            "name": "(Generic) Software Repository Testing",
-            "image": "quay.io/cdis/jupyterlab-generic:feat_update-preloaded-packages",
+            "name": "Jupyter Lab with Software Library",
+            "image": "quay.io/cdis/brh-notebooks:software_library_brh__2c20cae3e0597e3b932aa5017b62155d0eb70cfa",
             "squashfs_mount": {
               "enabled": true,
               "source_sqsh": "/image/apps-2026-09-08.sqsh"
@@ -173,9 +173,8 @@ hatchery:
             },
             "args": [
               "--ServerApp.base_url=/lw-workspace/proxy/",
-              "--ServerApp.default_url=/lab",
+              "--LabApp.default_url=/lab/tree/brh-welcome-wsl.ipynb",
               "--ServerApp.password=''",
-              "--ServerApp.token=''",
               "--ServerApp.notebook_dir='/home/jovyan'",
               "--ServerApp.shutdown_no_activity_timeout=3600"
             ],
