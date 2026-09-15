@@ -201,7 +201,7 @@ etl:
   esEndpoint: "gen3-elasticsearch-master"
 
 guppy:
-  enabled: false
+  enabled: true   # TEMP: enabled for security repro (finding #6 count suppression); consider reverting
   resources:
     requests:
       memory: "105Mi"
@@ -358,6 +358,7 @@ requestor:
   enabled: true
 
 wts:
+  replicaCount: 1  # TEMP: enabled for security repro (finding #7 XFF spoof)
   image:
     tag: master
   resources:

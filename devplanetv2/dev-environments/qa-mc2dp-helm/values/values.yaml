@@ -1065,6 +1065,7 @@ jeg:
 
   resources:
     requests:
+      # test
       cpu: "100m"
       memory: "256Mi"
     limits:
