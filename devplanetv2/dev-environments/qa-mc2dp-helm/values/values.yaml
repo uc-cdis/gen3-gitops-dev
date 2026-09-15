@@ -154,6 +154,8 @@ hatchery:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
     tag: "2.11.0"
   hatchery:
+    reaper:
+      enabled: false
     json: |
       {
         "user-namespace": "jupyter-pods-qa-prometheus",
@@ -223,7 +225,7 @@ hatchery:
               "--ServerApp.disable_check_xsrf=True",
               "--ServerApp.allow_origin='https://qa-prometheus.planx-pla.net'",
               "--ServerApp.root_dir='/home/jovyan'",
-              "--ServerApp.shutdown_no_activity_timeout=5400",
+              "--ServerApp.shutdown_no_activity_timeout=90000",
               "--FileContentsManager.always_delete_dir=True"
             ],
             "path-rewrite": "/lw-workspace/proxy/",
@@ -260,7 +262,7 @@ hatchery:
               "--ServerApp.disable_check_xsrf=True",
               "--ServerApp.allow_origin='https://qa-prometheus.planx-pla.net'",
               "--ServerApp.root_dir='/home/jovyan'",
-              "--ServerApp.shutdown_no_activity_timeout=5400",
+              "--ServerApp.shutdown_no_activity_timeout=90000",
               "--FileContentsManager.always_delete_dir=True"
             ],
             "path-rewrite": "/lw-workspace/proxy/",
@@ -298,7 +300,7 @@ hatchery:
               "--ServerApp.disable_check_xsrf=True",
               "--ServerApp.allow_origin='https://qa-prometheus.planx-pla.net'",
               "--ServerApp.root_dir='/home/jovyan'",
-              "--ServerApp.shutdown_no_activity_timeout=5400",
+              "--ServerApp.shutdown_no_activity_timeout=90000",
               "--FileContentsManager.always_delete_dir=True"
             ],
             "path-rewrite": "/lw-workspace/proxy/",
@@ -336,7 +338,7 @@ hatchery:
               "--ServerApp.disable_check_xsrf=True",
               "--ServerApp.allow_origin='https://qa-prometheus.planx-pla.net'",
               "--ServerApp.root_dir='/home/jovyan'",
-              "--ServerApp.shutdown_no_activity_timeout=5400",
+              "--ServerApp.shutdown_no_activity_timeout=90000",
               "--FileContentsManager.always_delete_dir=True"
             ],
             "path-rewrite": "/lw-workspace/proxy/",
@@ -1009,7 +1011,7 @@ jeg:
     EG_NAMESPACE: jupyter-pods-qa-prometheus
     EG_KERNEL_LAUNCH_TIMEOUT: "120"
     EG_MAX_KERNELS_PER_USER: "2"
-    EG_CULL_IDLE_TIMEOUT: "14400"
+    EG_CULL_IDLE_TIMEOUT: "90000"
     EG_CULL_CONNECTED: "True"
     EG_AUTH_TOKEN: ""
     EG_DEFAULT_KERNEL_NAME: python3
