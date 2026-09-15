@@ -1,6 +1,10 @@
 global:
   # Disabling local Elasticasearch and Postgres. 
   dev: false
+  # TEMP security repro (finding #6): exercise guppy regular-tier _totalCount
+  # suppression code path; revert after (restores private/1000 defaults)
+  tierAccessLevel: regular
+  tierAccessLimit: "1"
   aws:
     enabled: true
     account: "707767160287"
