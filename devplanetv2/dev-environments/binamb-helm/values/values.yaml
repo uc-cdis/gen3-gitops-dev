@@ -99,10 +99,10 @@ datareplicate:
     suspendCronjob: true
     schedule: "*/30 * * * *"
     LOG_BUCKET: test-data-replication-manifest
-    RELEASE: DR45
-    MANIFEST_FILE: s3://test-data-replication-manifest/test_manifest_20251025.tsv
+    RELEASE: 3
+    MANIFEST_FILE: s3://test-data-replication-manifest/test_validation_manifest.tsv
     IGNORED_FILE: s3://test-data-replication-manifest/ignored_files_manifest.csv
-    OUT_FILES: test_manifest_20251025_out_DCF.tsv
+    OUT_FILES: test_validation_manifest_DCF.tsv
     FORCE_CREATE_MANIFEST: true
     VALIDATE_PLATFORM: "AWS"
 etl:
