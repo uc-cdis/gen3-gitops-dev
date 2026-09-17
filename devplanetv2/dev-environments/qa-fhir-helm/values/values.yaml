@@ -4,6 +4,10 @@ global:
   aws:
     enabled: true
     account: "707767160287"
+    # Every other ingress in the devplanetv2-internal ALB group is internal, and a group can
+    # only have one scheme. Without this the revproxy chart default (internet-facing) applies
+    # and the ALB controller refuses to reconcile the whole group with "conflicting scheme",
+    # which leaves every environment sharing that ALB serving 503s.
     scheme: "internal"
     secretStoreServiceAccount:
       enabled: true
@@ -12,12 +16,12 @@ global:
     # TODO: Figure out netpols with local dbs
     enabled: false
     dbSubnet: ""
-  environment: jacobdaugherty
+  environment: qa-fhir
   externalSecrets:
     deploy: true
     dbCreate: true
     pushSecret: true
-  hostname: jacobdaugherty.dev.planx-pla.net
+  hostname: qa-fhir.planx-pla.net
   dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json
   # We disable portal by default to save $$$
   frontendRoot: gen3ff
@@ -70,7 +74,7 @@ audit:
     createK8sAuditSecret: true
   image:
     tag: master
-  enabled: true
+  enabled: false
   resources:
     requests:
       memory: "105Mi"
@@ -91,6 +95,33 @@ frontend-framework:
     requests:
       memory: "256Mi"
       cpu: "15m"
+
+gen3-fhir-proxy:
+  enabled: true
+  image:
+    repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-fhir-proxy
+    tag: 'test-image'
+    pullPolicy: Always
+  service:
+    port: 8007
+    targetPort: 8007
+  externalSecrets:
+    fhirCreds: qa-fhir-proxy-gcp-sa    
+  config:
+    debug: true
+    urlPrefix: "/fhir"
+    arboristUrl: "http://arborist-service"
+    isUpstreamCallerTrustedReverseProxy: true
+    fhirServerUrl: "https://healthcare.googleapis.com/v1/projects/fhir-test-487914/locations/us-central1/datasets/test_dataset/fhirStores/test_fhir_store/fhir"
+    fhirBackendType: "gcp"
+  extraVolumes:
+    - name: gcp-fhir-sa
+      secret:
+        secretName: fhir-creds
+  extraVolumeMounts:
+    - name: gcp-fhir-sa
+      mountPath: /secrets/gcp
+      readOnly: true
 
 hatchery:
   externalSecrets:
@@ -277,18 +308,15 @@ peregrine:
       memory: "105Mi"
       cpu: "15m"
   image:
-    repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/peregrine
-    tag: '2026.04'
 
 revproxy:
-  resources:
-    requests:
-      memory: "105Mi"
-      cpu: "15m"
+  replicaCount: 1
+  enabled: true
   ingress:
-    aws:
-      # Do not change- this will break DNS for your env.
-      group: devplanetv2-internal
+    annotations:
+      alb.ingress.kubernetes.io/tags: Environment=devplanetv2
+      alb.ingress.kubernetes.io/group.name: devplanetv2
+      alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS13-1-2-FIPS-2023-04
 
 sheepdog:
   resources:
@@ -296,8 +324,7 @@ sheepdog:
       memory: "105Mi"
       cpu: "15m"
   image:
-    repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sheepdog
-    tag: '2026.04'
+    tag: master
 
 requestor:
   enabled: true
@@ -332,7 +359,9 @@ fence:
     createK8sFenceConfigSecret: false
     fenceGoogleAppCredsSecret: ci-fence-google-app-creds-secret
     fenceGoogleStorageCredsSecret: ci-fence-google-storage-creds-secret
-    fenceConfig: "devplanetv2-generic-fence-config"
+    fenceConfig: "qa-fhir-fence-config"
+    fenceJwtKeys: "qa-fhir-helm-fence-jwt-keys"
+    
   usersync:
     usersync: true
     userYamlS3Path: s3://cdis-gen3-users/dev/user.yaml

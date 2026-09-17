@@ -192,6 +192,27 @@ etl:
   # tag: master
   esEndpoint: "gen3-elasticsearch-master"
 
+gen3-embeddings:
+  enabled: true
+  debug: true
+  image:
+    repository: quay.io/cdis/gen3_embeddings
+    tag: feat_deployment
+  postgres:
+    dbCreate: true
+    migrations:
+      # Run migrations as a Job, and make the deployment wait for them.
+      enabled: true
+      # Directory inside the service image holding dbmate migrations.
+      dir: /services/gen3_embeddings/db/migrations
+      # sslmode for the migration connection.
+      sslmode: disable
+  extraEnv:
+    ENABLE_CONTINUOUS_PROFILING: "true"
+    ENABLE_OPENTELEMETRY_TRACES: "true"
+    PROFILE_MEMORY: "true"
+    PYROSCOPE_SERVER_ADDRESS: "http://alloy.monitoring:4040"
+
 guppy:
   enabled: false
   resources:

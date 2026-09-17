@@ -10,7 +10,7 @@ arborist:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/arborist
-    tag: "2026.02"
+    tag: "2026.07"
   externalSecrets:
     dbcreds: qa-prometheus-arborist-creds
 audit:
@@ -30,7 +30,7 @@ dashboard:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-statics
-    tag: "2026.02"
+    tag: "2026.07"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--qa-prometheus-helm--dashboard-access
@@ -51,7 +51,7 @@ fence:
     dbcreds: qa-prometheus-fence-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
-    tag: "2026.02"
+    tag: "2026.07"
 fluentd:
   enabled: true
   image:
@@ -61,7 +61,7 @@ frontend-framework:
   enabled: true
   image:
     repository: quay.io/cdis/mc2dp-data-platform
-    tag: feat_jeg_workspaces
+    tag: main
   customConfig:
     enabled: false
   env:
@@ -101,7 +101,7 @@ global:
       enabled: true
       wafAclArn: "arn:aws:wafv2:us-east-1:707767160287:regional/webacl/devplanetv2-waf/30660590-f707-4ecf-aeae-ddfbe381f388"
   dev: false
-  dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/pdp_dictionary/0.0.5/schema.json
+  dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/pdp_dictionary/1.1.0/schema.json
   dispatcherJobNum: "10"
   environment: qa-prometheus
   externalSecrets:
@@ -152,85 +152,204 @@ hatchery:
   replicaCount: 2
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
-    tag: "master"
+    tag: "2.11.0"
   hatchery:
+    reaper:
+      enabled: false
     json: |
       {
-          "user-namespace": "jupyter-pods-qa-prometheus",
-          "sub-dir": "/lw-workspace",
-          "user-volume-size": "10Gi",
-          "shared-workspace": {
-            "enabled": true,
-            "oidc-provider-arn": "arn:aws:iam::707767160287:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/F057519C0E32B7DE2580904C4007BB21"
+        "user-namespace": "jupyter-pods-qa-prometheus",
+        "sub-dir": "/lw-workspace",
+        "user-volume-size": "10Gi",
+        "shared-workspace": {
+          "enabled": true
+        },
+        "default-pay-model": {
+          "workspace_type": "Trial Workspace",
+          "local": true
+        },
+        "s3-config": {
+          "bucketName": "software-library-bucket-new",
+          "prefixBase": "qa-heal",
+          "region": "us-east-1",
+          "kmsKeyArn": "arn:aws:kms:us-east-1:707767160287:key/387b8ebf-c8b8-4887-9b2c-639aee77654c"
+        },
+        "oidc-provider-arn": "arn:aws:iam::707767160287:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/F057519C0E32B7DE2580904C4007BB21",
+        "sidecar": {
+          "cpu-limit": "1.0",
+          "memory-limit": "256Mi",
+          "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ecs-ws-sidecar:2026.07",
+          "env": {
+            "NAMESPACE": "qa-prometheus",
+            "HOSTNAME": "qa-prometheus.planx-pla.net"
           },
-          "default-pay-model": {
-              "workspace_type": "Trial Workspace",
-              "local": true
-          },
-          "s3-config": {
-            "bucketName": "workspace-software-s3-qa-brh",
-            "prefixBase": "qa-prometheus",
-            "region": "us-east-1"
-          },
-          "sidecar": {
-              "cpu-limit": "1.0",
-              "memory-limit": "256Mi",
-              "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ecs-ws-sidecar:2026.02",
-              "env": {
-                  "NAMESPACE": "qa-prometheus",
-                  "HOSTNAME": "qa-prometheus.planx-pla.net"
-              },
-              "args": [],
-              "command": [
-                  "/bin/bash",
-                  "./sidecar.sh"
-              ],
-              "lifecycle-pre-stop": [
-                  "su",
-                  "-c",
-                  "echo test",
-                  "-s",
-                  "/bin/sh",
-                  "root"
-              ]
-          },
-          "containers": [
-            {
-              "target-port": 8888,
-              "cpu-limit": "4.0",
-              "memory-limit": "16Gi",
-              "name": "RCC pilot",
-              "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-notebook:rcc-feat_rcc-r-packages",
-              "pull_policy": "Always",
-              "env": {
-                "FRAME_ANCESTORS": "https://qa-prometheus.planx-pla.net",
-                "PATH": "/opt/conda/bin:/home/jovyan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-              },
-              "command": [
-                "start-notebook.sh"
-              ],
-              "args": [
-                "--ServerApp.base_url=/lw-workspace/proxy/",
-                "--ServerApp.default_url=/lab",
-                "--ServerApp.password=''",
-                "--ServerApp.token=''",
-                "--ServerApp.ip='*'",
-                "--ServerApp.disable_check_xsrf=True",
-                "--ServerApp.allow_origin='https://qa-prometheus.planx-pla.net'",
-                "--ServerApp.root_dir='/home/jovyan'",
-                "--ServerApp.shutdown_no_activity_timeout=5400",
-                "--ServerApp.quit_button=False",
-                "--FileContentsManager.always_delete_dir=True"
-              ],
-              "path-rewrite": "/lw-workspace/proxy/",
-              "use-tls": "false",
-              "ready-probe": "/lw-workspace/proxy/lab",
-              "user-uid": 1010,
-              "fs-gid": 101,
-              "user-volume-location": "/home/jovyan/pd",
-              "gen3-volume-location": "/home/jovyan/.gen3"
-            }
+          "args": [],
+          "command": [
+            "/bin/bash",
+            "./sidecar.sh"
+          ],
+          "lifecycle-pre-stop": [
+            "su",
+            "-c",
+            "echo test",
+            "-s",
+            "/bin/sh",
+            "root"
           ]
+        },
+        "containers": [
+          {
+            "target-port": 8888,
+            "cpu-limit": "4.0",
+            "gpu": false,
+            "memory-limit": "16Gi",
+            "name": "Genomics (4CPU/16GB RAM, CPU only)",
+            "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-notebook:genomics-master",
+            "pull_policy": "Always",
+            "env": {
+              "FRAME_ANCESTORS": "https://qa-prometheus.planx-pla.net",
+              "PATH": "/opt/conda/bin:/home/jovyan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            },
+            "squashfs_mount": {
+              "enabled": true,
+              "source_sqsh": "/image/apps-2026-08-20.sqsh"
+            },
+            "command": [
+              "start-notebook.sh"
+            ],
+            "args": [
+              "--ServerApp.base_url=/lw-workspace/proxy/",
+              "--ServerApp.default_url=/lab",
+              "--ServerApp.password=''",
+              "--ServerApp.token=''",
+              "--ServerApp.disable_check_xsrf=True",
+              "--ServerApp.allow_origin='https://qa-prometheus.planx-pla.net'",
+              "--ServerApp.root_dir='/home/jovyan'",
+              "--ServerApp.shutdown_no_activity_timeout=90000",
+              "--FileContentsManager.always_delete_dir=True"
+            ],
+            "path-rewrite": "/lw-workspace/proxy/",
+            "use-tls": "false",
+            "ready-probe": "/lw-workspace/proxy/lab",
+            "user-uid": 1010,
+            "fs-gid": 101,
+            "user-volume-location": "/home/jovyan/pd",
+            "gen3-volume-location": "/home/jovyan/.gen3"
+          },
+          {
+            "target-port": 8888,
+            "cpu-limit": "2.0",
+            "gpu": false,
+            "memory-limit": "4Gi",
+            "name": "Standard (2CPU/4GB RAM, CPU only)",
+            "image": "quay.io/cdis/jupyterlab-generic:master",
+            "pull_policy": "Always",
+            "env": {
+              "FRAME_ANCESTORS": "https://qa-prometheus.planx-pla.net",
+              "PATH": "/opt/conda/bin:/home/jovyan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            },
+            "squashfs_mount": {
+              "enabled": true,
+              "source_sqsh": "/image/apps-2026-08-20.sqsh"
+            },
+            "command": [
+              "/jupyterlab-start.sh"
+            ],
+            "args": [
+              "--ServerApp.base_url=/lw-workspace/proxy/",
+              "--ServerApp.default_url=/lab",
+              "--ServerApp.password=''",
+              "--ServerApp.disable_check_xsrf=True",
+              "--ServerApp.allow_origin='https://qa-prometheus.planx-pla.net'",
+              "--ServerApp.root_dir='/home/jovyan'",
+              "--ServerApp.shutdown_no_activity_timeout=90000",
+              "--FileContentsManager.always_delete_dir=True"
+            ],
+            "path-rewrite": "/lw-workspace/proxy/",
+            "use-tls": "false",
+            "ready-probe": "/lw-workspace/proxy/lab",
+            "user-uid": 1010,
+            "fs-gid": 100,
+            "user-volume-location": "/home/jovyan/pd",
+            "gen3-volume-location": "/home/jovyan/.gen3"
+          },
+          {
+            "target-port": 8888,
+            "cpu-limit": "2.0",
+            "gpu": true,
+            "memory-limit": "8Gi",
+            "name": "AI/ML (2CPU/8GB RAM, GPU)",
+            "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-prometheus:prometheus-master",
+            "pull_policy": "Always",
+            "env": {
+              "FRAME_ANCESTORS": "https://qa-prometheus.planx-pla.net",
+              "PATH": "/opt/conda/bin:/home/jovyan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            },
+            "squashfs_mount": {
+              "enabled": true,
+              "source_sqsh": "/image/apps-2026-08-20.sqsh"
+            },
+            "command": [
+              "/jupyterlab-start.sh"
+            ],
+            "args": [
+              "--ServerApp.base_url=/lw-workspace/proxy/",
+              "--ServerApp.default_url=/lab",
+              "--ServerApp.password=''",
+              "--ServerApp.token=''",
+              "--ServerApp.disable_check_xsrf=True",
+              "--ServerApp.allow_origin='https://qa-prometheus.planx-pla.net'",
+              "--ServerApp.root_dir='/home/jovyan'",
+              "--ServerApp.shutdown_no_activity_timeout=90000",
+              "--FileContentsManager.always_delete_dir=True"
+            ],
+            "path-rewrite": "/lw-workspace/proxy/",
+            "use-tls": "false",
+            "ready-probe": "/lw-workspace/proxy/lab",
+            "user-uid": 1010,
+            "fs-gid": 101,
+            "user-volume-location": "/home/jovyan/pd",
+            "gen3-volume-location": "/home/jovyan/.gen3"
+          },
+          {
+            "target-port": 8888,
+            "cpu-limit": "4.0",
+            "gpu": false,
+            "memory-limit": "16Gi",
+            "name": "RCC pilot (4CPU/16GB RAM, CPU only)",
+            "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-notebook:rcc-master",
+            "pull_policy": "Always",
+            "env": {
+              "FRAME_ANCESTORS": "https://qa-prometheus.planx-pla.net",
+              "PATH": "/opt/conda/bin:/home/jovyan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            },
+            "squashfs_mount": {
+              "enabled": true,
+              "source_sqsh": "/image/apps-2026-08-20.sqsh"
+            },
+            "command": [
+              "start-notebook.sh"
+            ],
+            "args": [
+              "--ServerApp.base_url=/lw-workspace/proxy/",
+              "--ServerApp.default_url=/lab",
+              "--ServerApp.password=''",
+              "--ServerApp.token=''",
+              "--ServerApp.disable_check_xsrf=True",
+              "--ServerApp.allow_origin='https://qa-prometheus.planx-pla.net'",
+              "--ServerApp.root_dir='/home/jovyan'",
+              "--ServerApp.shutdown_no_activity_timeout=90000",
+              "--FileContentsManager.always_delete_dir=True"
+            ],
+            "path-rewrite": "/lw-workspace/proxy/",
+            "use-tls": "false",
+            "ready-probe": "/lw-workspace/proxy/lab",
+            "user-uid": 1010,
+            "fs-gid": 101,
+            "user-volume-location": "/home/jovyan/pd",
+            "gen3-volume-location": "/home/jovyan/.gen3"
+          }
+        ]
       }
 indexd:
   autoscaling:
@@ -244,14 +363,14 @@ indexd:
     dbcreds: qa-prometheus-indexd-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexd
-    tag: "2026.02"
+    tag: "2026.07"
 manifestservice:
   enabled: true
   externalSecrets:
     manifestserviceG3auto: qa-prometheus-manifestservice-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/manifestservice
-    tag: "2026.02"
+    tag: "2026.07"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--qa-prometheus-helm--manifest-service-sa
@@ -547,34 +666,35 @@ metadata:
      }
   aggMdsNamespace: pdp-commons
   autoscaling:
-    enabled: false
+    enabled: true
     maxReplicas: 3
     minReplicas: 2
-    targetCPUUtilizationPercentage: 40
-  enabled: false
+    targetCPUUtilizationPercentage: 60
+  enabled: true
   esEndpoint: http://elasticsearch:9200
   externalSecrets:
     metadataG3auto: qa-prometheus-metadata-g3auto
     dbcreds: qa-prometheus-metadata-creds
+  forceAuthzCheckForMetadataQueries: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
     tag: master
   # non empty value for useAggMds to keep the cronjob, but disable the endpoints
-  useAggMds: "true"
+  useAggMds: true
 mutatingWebhook:
   enabled: true
 peregrine:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/peregrine
-    tag: "2026.02"
+    tag: "2026.07"
 portal:
   enabled: false
 requestor:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/requestor
-    tag: "2026.02"
+    tag: "2026.07"
   externalSecrets:
     dbcreds: qa-prometheus-requestor-creds
 revproxy:
@@ -586,7 +706,7 @@ revproxy:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/nginx
-    tag: "2026.02"
+    tag: "2026.07"
   ingress:
     annotations:
       alb.ingress.kubernetes.io/tags: Environment=devplanetv2
@@ -651,6 +771,49 @@ revproxy:
           add_header Access-Control-Allow-Headers "Authorization, Content-Type" always;
           client_max_body_size 0;
           proxy_read_timeout 600s;
+      }
+
+      # (/api/workspace-assets/remote/), so nginx must forward them to workspace-proxy
+      # which re-adds the /lw-workspace/proxy/ prefix before forwarding to the container.
+      location ^~ /api/workspace-assets/remote/lmod {
+        if ($request_method = 'OPTIONS') {
+          add_header Access-Control-Allow-Origin $http_origin always;
+          add_header Access-Control-Allow-Credentials true always;
+          add_header Access-Control-Allow-Methods "GET, POST, DELETE, OPTIONS" always;
+          add_header Access-Control-Allow-Headers "Authorization, Content-Type" always;
+          add_header Content-Length 0;
+          add_header Content-Type text/plain;
+          return 204;
+        }
+        set $authz_resource "/workspace";
+        set $authz_method "access";
+        set $authz_service "jupyterhub";
+        auth_request_set $remoteUser $upstream_http_REMOTE_USER;
+        auth_request_set $saved_set_cookie $upstream_http_set_cookie;
+        auth_request /gen3-authz;
+        if ($saved_set_cookie != "") {
+          add_header Set-Cookie $saved_set_cookie always;
+        }
+        add_header Cache-Control "no-store";
+        proxy_set_header REMOTE_USER $remoteUser;
+        error_page 403 = @errorworkspace;
+      
+        set $upstream http://workspace-proxy-service.$namespace.svc.cluster.local:8080;
+        rewrite ^/api/workspace-assets/remote/(lmod.*) /$1 break;
+        proxy_pass $upstream;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-URL-SCHEME https;
+        add_header Access-Control-Allow-Origin $http_origin always;
+        add_header Access-Control-Allow-Credentials true always;
+        add_header Access-Control-Allow-Methods "GET, POST, DELETE, OPTIONS" always;
+        add_header Access-Control-Allow-Headers "Authorization, Content-Type" always;
+        client_max_body_size 0;
+        proxy_read_timeout 600s;
       }
 
       # Remote JupyterLite assets served by workspace-proxy (no auth gate — static files).
@@ -796,7 +959,7 @@ sheepdog:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sheepdog
-    tag: "2026.02"
+    tag: "2026.07"
   externalSecrets:
     dbcreds: qa-prometheus-sheepdog-creds
 ssjdispatcher:
@@ -806,8 +969,8 @@ ssjdispatcher:
     dbcreds: qa-prometheus-ssjdispatcher-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ssjdispatcher
-    tag: "2026.02"
-  indexing: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexs3client:2026.02
+    tag: "2026.07"
+  indexing: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexs3client:2026.07
 wts:
   enabled: true
   externalSecrets:
@@ -817,7 +980,7 @@ wts:
     dbcreds: qa-prometheus-wts-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/workspace-token-service
-    tag: 2026.02
+    tag: 2026.07
 
 # AuroraRDSCopy Job configuration
 auroraRdsCopyJob:
@@ -849,17 +1012,19 @@ workspace-proxy:
 
   image:
     repository: quay.io/cdis/multihead-workspace-proxy
-    tag: feat_init
+    tag: master
     pullPolicy: Always
 
   listenAddr: ":8080"
   jegKernelSpecPolicy: |
     {
       "allowedSpecs": [
-        "python_kubernetes",
-        "python_tensorflow_kubernetes",
-        "python_tensorflow_gpu_kubernetes"
-      ]
+      ],
+      "displayNames": {
+        "python_kubernetes": "Python on Kubernetes",
+        "python_tf_kubernetes": "Python + TensorFlow",
+        "python_tf_gpu_kubernetes": "Python + TensorFlow + GPU"
+      }
     }
 
   resources:
@@ -889,7 +1054,7 @@ jeg:
     EG_NAMESPACE: jupyter-pods-qa-prometheus
     EG_KERNEL_LAUNCH_TIMEOUT: "120"
     EG_MAX_KERNELS_PER_USER: "2"
-    EG_CULL_IDLE_TIMEOUT: "14400"
+    EG_CULL_IDLE_TIMEOUT: "90000"
     EG_CULL_CONNECTED: "True"
     EG_AUTH_TOKEN: ""
     EG_DEFAULT_KERNEL_NAME: python3
@@ -945,6 +1110,7 @@ jeg:
 
   resources:
     requests:
+      # test
       cpu: "100m"
       memory: "256Mi"
     limits:

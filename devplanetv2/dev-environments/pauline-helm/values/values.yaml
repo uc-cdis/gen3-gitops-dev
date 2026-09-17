@@ -66,20 +66,30 @@ fence:
         fenceJwtKeys: pauline-fence-jwt
     image:
         repository: quay.io/cdis/fence
-        tag: feat_scoped-token-debug
+        # tag: feat_dpop
+        tag: pauline-debug
+        # tag: master
     replicas: 1
+    FENCE_CONFIG_PUBLIC:
+        MAX_TASK_TOKEN_TTL: {"WORKFLOW": 4000}
+        ALLOWED_TASK_TOKEN_TYPES: ["WORKFLOW", "FOO"]
+        DPOP_ENABLED: true
 
 gen3-workflow:
     enabled: true
     image:
         repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-workflow
-        tag: misc-improvements
+        tag: feat_dpop
+        # tag: master
     externalSecrets:
         gen3workflowG3auto: "gen3workflow-g3auto"
-    gen3WorkflowConfig:
-        debug: true
-        taskImageWhitelist: ['*']
-        kmsEncryptionEnabled: true
+    GEN3_WORKFLOW_CONFIG:
+        APP_DEBUG: true
+        TASK_IMAGE_WHITELIST: ['*']
+        DPOP_ENABLED: true
+        DPOP_REQUIRED: true
+        DPOP_SHARED_SECRET: dummy-value-not-a-secret
+        DPOP_EXEMPT_CLIENT_IDS: ['gCSTEDHzd8R4VJ6zffpgGqWHx30kzgicJJDhddoy']
 
 funnel:
     postgres:
@@ -87,18 +97,20 @@ funnel:
     externalSecrets:
         dbcreds: "pauline-helm-funnel-creds"
         funnelOidcClient: "funnel-oidc-client"
-    funnel:
-        Kubernetes:
-            JobsNamespace: workflow-pods-pauline-helm
-            ReconcileRate: 120s
-            Executor:
-                restartPolicy: OnFailure
-                backoffLimit: 0
-                Annotations:
-                    karpenter.sh/do-not-disrupt: "true"
-            Worker:
-                restartPolicy: OnFailure
-                backoffLimit: 1
+    image:
+        repository: quay.io/cdis/funnel
+        tag: 0.12.1-gen3
+    Kubernetes:
+        JobsNamespace: workflow-pods-pauline-helm
+        ReconcileRate: 120s
+        Executor:
+            restartPolicy: OnFailure
+            backoffLimit: 0
+            Annotations:
+                karpenter.sh/do-not-disrupt: "true"
+        Worker:
+            restartPolicy: OnFailure
+            backoffLimit: 1
 
 guppy:
     enabled: false

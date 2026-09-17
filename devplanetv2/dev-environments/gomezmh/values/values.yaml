@@ -354,14 +354,6 @@ fence:
     usersync: true
     userYamlS3Path: s3://cdis-gen3-users/dev/user.yaml
   FENCE_CONFIG_PUBLIC:
-    # Prefix to namespace Google Groups on a single Cloud Identity
-    # This will be dynamically replaced by env_setup.sh script.
-    GOOGLE_GROUP_PREFIX:
-
-    # Prefix to namespace Google Service Accounts in a single Google Cloud Platform Project.
-    # This will be dynamically replaced by env_setup.sh script.
-    GOOGLE_SERVICE_ACCOUNT_PREFIX:
-
     # -- (string) Name of the Fence app
     APP_NAME: "fence"
 
