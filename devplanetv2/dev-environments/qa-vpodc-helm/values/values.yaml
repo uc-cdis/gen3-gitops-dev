@@ -297,6 +297,8 @@ hatchery:
     # tag: "2.11.0"
     tag: "feat_squashfs-pvc-provisioning"
   hatchery:
+    reaper:
+      enabled: false
     json: |
       {
         "user-namespace": "jupyter-pods-qa-vpodc",
@@ -366,7 +368,7 @@ hatchery:
               "--ServerApp.disable_check_xsrf=True",
               "--ServerApp.allow_origin='https://qa-vpodc.planx-pla.net'",
               "--ServerApp.root_dir='/home/jovyan'",
-              "--ServerApp.shutdown_no_activity_timeout=5400",
+              "--ServerApp.shutdown_no_activity_timeout=90000",
               "--ServerApp.quit_button=False",
               "--FileContentsManager.always_delete_dir=True"
             ],
@@ -406,7 +408,7 @@ hatchery:
               "--ServerApp.disable_check_xsrf=True",
               "--ServerApp.allow_origin='https://qa-vpodc.planx-pla.net'",
               "--ServerApp.root_dir='/home/jovyan'",
-              "--ServerApp.shutdown_no_activity_timeout=5400",
+              "--ServerApp.shutdown_no_activity_timeout=90000",
               "--ServerApp.quit_button=False",
               "--FileContentsManager.always_delete_dir=True"
             ],
@@ -446,7 +448,7 @@ hatchery:
               "--ServerApp.disable_check_xsrf=True",
               "--ServerApp.allow_origin='https://qa-vpodc.planx-pla.net'",
               "--ServerApp.root_dir='/home/jovyan'",
-              "--ServerApp.shutdown_no_activity_timeout=5400",
+              "--ServerApp.shutdown_no_activity_timeout=90000",
               "--ServerApp.quit_button=False",
               "--FileContentsManager.always_delete_dir=True"
             ],
@@ -486,7 +488,7 @@ hatchery:
               "--ServerApp.disable_check_xsrf=True",
               "--ServerApp.allow_origin='https://qa-vpodc.planx-pla.net'",
               "--ServerApp.root_dir='/home/jovyan'",
-              "--ServerApp.shutdown_no_activity_timeout=5400",
+              "--ServerApp.shutdown_no_activity_timeout=90000",
               "--ServerApp.quit_button=False",
               "--FileContentsManager.always_delete_dir=True"
             ],
@@ -1916,7 +1918,7 @@ jeg:
     EG_NAMESPACE: jupyter-pods-qa-vpodc
     EG_KERNEL_LAUNCH_TIMEOUT: "120"
     EG_MAX_KERNELS_PER_USER: "2"
-    EG_CULL_IDLE_TIMEOUT: "14400"
+    EG_CULL_IDLE_TIMEOUT: "90000"
     EG_CULL_CONNECTED: "True"
     EG_AUTH_TOKEN: ""
     EG_DEFAULT_KERNEL_NAME: python3
