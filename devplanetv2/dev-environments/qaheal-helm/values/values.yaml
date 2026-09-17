@@ -1493,6 +1493,11 @@ metadata:
   externalSecrets:
     metadataG3auto: qaheal-metadata-g3auto
     dbcreds: qaheal-metadata-creds
+  resources:
+    requests:
+      memory: "105Mi"
+    limits:
+      memory: "1Gi"
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
     tag: "4.3.0"
