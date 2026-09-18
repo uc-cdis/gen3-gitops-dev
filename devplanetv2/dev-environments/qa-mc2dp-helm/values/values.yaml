@@ -51,7 +51,7 @@ fence:
     dbcreds: qa-prometheus-fence-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
-    tag: "2026.07"
+    tag: "13.3.0"
 fluentd:
   enabled: true
   image:
