@@ -114,6 +114,7 @@ gen3-fhir-proxy:
     isUpstreamCallerTrustedReverseProxy: true
     fhirServerUrl: "https://healthcare.googleapis.com/v1/projects/fhir-test-487914/locations/us-central1/datasets/test_dataset/fhirStores/test_fhirR4_uscore610_store/fhir"
     fhirBackendType: "gcp"
+    fhirBackendGcpSaCreds: "/secrets/gcp/service-account.json"
   extraVolumes:
     - name: gcp-fhir-sa
       secret:
