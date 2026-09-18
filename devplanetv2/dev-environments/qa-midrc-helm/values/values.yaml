@@ -92,6 +92,7 @@ gen3-workflow:
     taskImageWhitelist: ['*']
 
 funnel:
+  release: production
   postgres:
     dbCreate: true
   externalSecrets:
