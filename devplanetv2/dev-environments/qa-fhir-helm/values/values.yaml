@@ -100,7 +100,7 @@ gen3-fhir-proxy:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-fhir-proxy
-    tag: 'test-image'
+    tag: 'feat_tests_localdev'
     pullPolicy: Always
   service:
     port: 8007
