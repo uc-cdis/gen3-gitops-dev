@@ -364,7 +364,7 @@ fence:
     
   usersync:
     usersync: true
-    userYamlS3Path: s3://cdis-gen3-users/dev/user.yaml
+    userYamlS3Path: s3://cdis-gen3-users/qa-fhir/user.yaml
   FENCE_CONFIG_PUBLIC:
     # -- (string) Name of the Fence app
     APP_NAME: "fence"
