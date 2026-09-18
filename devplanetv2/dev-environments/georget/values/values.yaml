@@ -697,9 +697,11 @@ tube:
 wts:
     enabled: true
     externalSecrets:
-        createWtsOidcClientSecret: false
-        wtsG3auto: georget-wts-g3auto
-        wtsOidcClient: georget-wts-client-secret
+        createWtsOidcClientSecret: true
+        createK8sWtsSecret: true
+        # createWtsOidcClientSecret: false
+        # wtsG3auto: georget-wts-g3auto
+        # wtsOidcClient: georget-wts-client-secret
     image:
         repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/workspace-token-service
         tag: master
