@@ -146,6 +146,9 @@ fence:
         createK8sGoogleAppSecrets: true
         fenceConfig: georget-fence-config
         fenceJwtKeys: georget-fence-jwt
+    usersync:
+        usersync: true
+        userYamlS3Path: s3://cdis-gen3-users/dev/user.yaml
     image:
         repository: quay.io/cdis/fence
         tag: master
@@ -444,12 +447,12 @@ revproxy:
             group: devplanetv2-internal
 
 sheepdog:
+    enabled: false
     autoscaling:
         enabled: true
         maxReplicas: 4
         minReplicas: 1
         targetCPUUtilizationPercentage: 40
-    enabled: true
     image:
         repository: quay.io/cdis/sheepdog
         tag: "2026.02"
