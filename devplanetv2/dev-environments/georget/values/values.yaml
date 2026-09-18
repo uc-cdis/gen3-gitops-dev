@@ -13,7 +13,7 @@ arborist:
         # tag: "2026.02"
 
 audit:
-    enabled: false
+    enabled: true
     externalSecrets:
         auditG3auto: georget-audit-g3auto
     image:
@@ -46,6 +46,7 @@ dashboard:
             eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--georget-helm--dashboard-access
 
 etl:
+    enabled: false
     esEndpoint: elasticsearch
     mappings:
         - aggregated_props:
