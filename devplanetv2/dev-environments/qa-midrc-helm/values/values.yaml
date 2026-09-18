@@ -145,7 +145,7 @@ global:
       - 172.27.135.127
       - 172.27.137.189
   netPolicy:
-    enabled: true
+    enabled: false
     dbSubnets: 
     - "172.27.128.128/25"
     - "172.27.128.0/25"
