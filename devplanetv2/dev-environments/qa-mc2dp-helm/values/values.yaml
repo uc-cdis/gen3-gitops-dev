@@ -50,8 +50,8 @@ fence:
     fenceJwtKeys: qa-prometheus-fence-jwt
     dbcreds: qa-prometheus-fence-creds
   image:
-    repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
-    tag: "13.3.0"
+    repository: quay.io/cdis/fence
+    tag: "fix_session_cookie_exp_matches_token_exp"
 fluentd:
   enabled: true
   image:
