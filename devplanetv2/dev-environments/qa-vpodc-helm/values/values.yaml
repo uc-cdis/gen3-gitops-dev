@@ -368,7 +368,6 @@ hatchery:
               "--ServerApp.allow_origin='https://qa-vpodc.planx-pla.net'",
               "--ServerApp.root_dir='/home/jovyan'",
               "--ServerApp.shutdown_no_activity_timeout=90000",
-              "--ServerApp.quit_button=False",
               "--FileContentsManager.always_delete_dir=True"
             ],
             "path-rewrite": "/lw-workspace/proxy/",
@@ -402,12 +401,10 @@ hatchery:
               "--ServerApp.base_url=/lw-workspace/proxy/",
               "--ServerApp.default_url=/lab",
               "--ServerApp.password=''",
-              "--ServerApp.token=''",
               "--ServerApp.disable_check_xsrf=True",
               "--ServerApp.allow_origin='https://qa-vpodc.planx-pla.net'",
               "--ServerApp.root_dir='/home/jovyan'",
               "--ServerApp.shutdown_no_activity_timeout=90000",
-              "--ServerApp.quit_button=False",
               "--FileContentsManager.always_delete_dir=True"
             ],
             "path-rewrite": "/lw-workspace/proxy/",
@@ -446,7 +443,6 @@ hatchery:
               "--ServerApp.allow_origin='https://qa-vpodc.planx-pla.net'",
               "--ServerApp.root_dir='/home/jovyan'",
               "--ServerApp.shutdown_no_activity_timeout=90000",
-              "--ServerApp.quit_button=False",
               "--FileContentsManager.always_delete_dir=True"
             ],
             "path-rewrite": "/lw-workspace/proxy/",
@@ -485,7 +481,6 @@ hatchery:
               "--ServerApp.allow_origin='https://qa-vpodc.planx-pla.net'",
               "--ServerApp.root_dir='/home/jovyan'",
               "--ServerApp.shutdown_no_activity_timeout=90000",
-              "--ServerApp.quit_button=False",
               "--FileContentsManager.always_delete_dir=True"
             ],
             "path-rewrite": "/lw-workspace/proxy/",
