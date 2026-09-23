@@ -14,7 +14,7 @@ spec:
       repoURL: https://github.com/uc-cdis/gen3-helm
       targetRevision: "{{ .Values.helmBranch }}"
       helm:
-        releaseName: {{ .Values.Name }}
+        releaseName: "{{ .Values.Name }}"
         valueFiles:
           - $values/devplanetv2/dev-environments/{{ .Values.name }}/values/values.yaml
           - $values/devplanetv2/dev-environments/{{ .Values.name }}/values/vectis-overlays-values.yaml
@@ -22,11 +22,11 @@ spec:
           - $values/devplanetv2/dev-environments/{{ .Values.name }}/values/workspace-proxy-values.yaml
           - $values/devplanetv2/dev-environments/{{ .Values.name }}/values/s3-monitor-values.yaml
     - repoURL: 'https://github.com/uc-cdis/gen3-gitops-dev.git'
-      targetRevision: {{ .Values.gitopsBranch }}
+      targetRevision: "{{ .Values.gitopsBranch }}"
       ref: values
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: {{ .Values.name }}
+    namespace: "{{ .Values.name }}"
   ignoreDifferences:
     - 
       kind: "Secret"
