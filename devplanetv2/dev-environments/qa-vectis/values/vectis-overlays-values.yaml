@@ -94,7 +94,7 @@ vectis-overlays:
     snapshotsKeyPrefix: "snapshots/"
 
   s3Monitor:
-    enabled: true
+    enabled: false
     schedule: "*/5 * * * *"
     serviceAccount:
       create: true
