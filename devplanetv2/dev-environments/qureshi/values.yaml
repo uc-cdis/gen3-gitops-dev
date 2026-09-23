@@ -1,5 +1,7 @@
 # Change this to your env
 name: qureshi
 
-helmBranch: master
+# feat/gen3-embeddings rather than master: the gen3-embeddings chart only gained the extraEnv
+# map on that branch, and the values below use it. Back to master once it merges.
+helmBranch: feat/gen3-embeddings
 gitopsBranch: master

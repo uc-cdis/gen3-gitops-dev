@@ -73,7 +73,7 @@ fence:
     dbcreds: qa-midrc-fence-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
-    tag: "2026.02"
+    tag: "master"
 fluentd:
   enabled: true
   image:
@@ -84,7 +84,7 @@ gen3-workflow:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-workflow
-    tag: master
+    tag: "master"
   externalSecrets:
     gen3workflowG3auto: "qa-midrc-helm-gen3workflow-g3auto"
   gen3WorkflowConfig:
@@ -92,23 +92,23 @@ gen3-workflow:
     taskImageWhitelist: ['*']
 
 funnel:
+  release: production
   postgres:
     dbCreate: true
   externalSecrets:
     dbcreds: "qa-midrc-helm-funnel-creds"
     funnelOidcClient: "qa-midrc-helm-funnel-oidc-client"
-  funnel:
-    Kubernetes:
-      JobsNamespace: workflow-pods-qa-midrc-helm
-      ReconcileRate: 120s
-      Executor:
-          restartPolicy: Never
-          backoffLimit: 0
-          Annotations:
-              karpenter.sh/do-not-disrupt: "true"
-      Worker:
-          restartPolicy: Never
-          backoffLimit: 1
+  Kubernetes:
+    JobsNamespace: workflow-pods-qa-midrc-helm
+    ReconcileRate: 120s
+    Executor:
+        restartPolicy: Never
+        backoffLimit: 0
+        Annotations:
+            karpenter.sh/do-not-disrupt: "true"
+    Worker:
+        restartPolicy: Never
+        backoffLimit: 1
 
 global:
   crossplane:
@@ -146,7 +146,7 @@ global:
       - 172.27.135.127
       - 172.27.137.189
   netPolicy:
-    enabled: true
+    enabled: false
     dbSubnets: 
     - "172.27.128.128/25"
     - "172.27.128.0/25"

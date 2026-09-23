@@ -39,7 +39,7 @@ datareplicate:
     # -- (string) Docker repository.
     repository: quay.io/cdis/dcf-dataservice
     # -- (string) Overrides the image tag whose default is the chart appVersion.
-    tag: "feat_DCF-2379"
+    tag: test_validation-with-batch-check
   resources:
     # -- (map) The amount of resources that the container requests
     requests:
@@ -75,14 +75,14 @@ datareplicate:
     namespace: binamb-helm
     schedule: "*/30 * * * *"
     REGION: us-east-1
-    THREAD_COUNT: 100
+    THREAD_COUNT: 20
     MAX_RETRIES: 10
-    MANIFEST_PATH: s3://test-data-replication-manifest/test_manifest_20251025.tsv
+    MANIFEST_PATH: s3://test-data-replication-manifest/test_manifest_20251025_short.tsv
     JOB_QUEUE: binamb-planx-pla-net-bucket-replicate-jqhu_queue_job
     JOB_DEFINITION: binamb-planx-pla-net-bucket-replicate-jqhu-batch_job_definition
     OUTPUT_MANIFEST_BUCKET: test-data-replication-manifest
     MULTIPART_THRESHOLD: 1
-    CHUNK_SIZE: 512
+    CHUNK_SIZE: 64
   removeObjectsFromCloudsJob:
     enabled: false
     suspendCronjob: true
@@ -99,10 +99,10 @@ datareplicate:
     suspendCronjob: true
     schedule: "*/30 * * * *"
     LOG_BUCKET: test-data-replication-manifest
-    RELEASE: DR45
-    MANIFEST_FILE: s3://test-data-replication-manifest/test_manifest_20251025.tsv
+    RELEASE: 3
+    MANIFEST_FILE: s3://test-data-replication-manifest/test_validation_manifest.tsv
     IGNORED_FILE: s3://test-data-replication-manifest/ignored_files_manifest.csv
-    OUT_FILES: test_manifest_20251025_out_DCF.tsv
+    OUT_FILES: test_validation_manifest_DCF.tsv
     FORCE_CREATE_MANIFEST: true
     VALIDATE_PLATFORM: "AWS"
 etl:
@@ -354,7 +354,7 @@ indexd:
   externalSecrets:
     serviceCreds: binamb-indexd-service-creds
   image:
-    tag: chore_log_indexd_driver
+    tag: master
 manifestservice:
   enabled: true
   externalSecrets:

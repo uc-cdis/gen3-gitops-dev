@@ -8,13 +8,12 @@ arborist:
     dbcreds: qaheal-arborist-creds
   autoscaling:
     enabled: true
-    maxReplicas: 3
-    minReplicas: 2
+    replicaCount: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/arborist
-    tag: "2026.04"
+    tag: "2026.08"
 audit:
   enabled: true
   externalSecrets:
@@ -22,7 +21,7 @@ audit:
     dbcreds: qaheal-audit-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/audit-service
-    tag: "2026.04"
+    tag: "2026.08"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--qaheal-helm--audit-sqs-receiver
@@ -33,7 +32,7 @@ cedar:
   enabled: true
   image:
     repository: quay.io/cdis/cedar-wrapper-service
-    tag: "0.7.0"
+    tag: "0.9.0"
   externalSecrets:
     createCedarClientSecret: false
     cedarG3auto: cedar-g3auto
@@ -42,8 +41,6 @@ cedar:
 dashboard:
   autoscaling:
     enabled: false
-    maxReplicas: 3
-    minReplicas: 2
     targetCPUUtilizationPercentage: 40
   dashboardConfig:
     bucket: dashboard-707767160287-qaplanetv1-gen3
@@ -52,7 +49,7 @@ dashboard:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-statics
-    tag: "2026.04"
+    tag: "2026.08"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--qaheal-helm--dashboard-access
@@ -64,8 +61,7 @@ fence:
     userYamlS3Path: s3://cdis-gen3-users/qa-heal/user.yaml
   autoscaling:
     enabled: true
-    maxReplicas: 3
-    minReplicas: 2
+    replicaCount: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
   externalSecrets:
@@ -77,7 +73,7 @@ fence:
     dbcreds: qaheal-fence-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
-    tag: "2026.04"
+    tag: "2026.08"
   FENCE_CONFIG_PUBLIC:
     # Setting the HIDE_IDPS list will hide items from the InCommons drop down list
     # eg, HIDE_IDPS = ["https://idp.uca.fr/idp/shibboleth", "urn:mace:incommon:osu.edu"]
@@ -92,7 +88,7 @@ frontend-framework:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/heal-data-commons
-    tag: "main"
+    tag: "feat_heal-explorer"
 global:
   crossplane:
     # -- (bool) Set to true if deploying to AWS and want to use crossplane for AWS resources.
@@ -136,6 +132,18 @@ global:
   postgres:
     dbCreate: false
   revproxyArn: arn:aws:acm:us-east-1:707767160287:certificate/520ede2f-fc82-4bb9-af96-4b4af7deabbd
+guppy:
+  esEndpoint: http://elasticsearch:9200
+  autoscaling:
+    enabled: true
+  enabled: true
+  authFilterField: auth_resource_path
+  indices:
+    - index: qa-heal_etl_file
+      type: file
+  image:
+    repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/guppy
+    tag: "2026.08"
 hatchery:
   enabled: true
   replicaCount: 3
@@ -143,9 +151,7 @@ hatchery:
     stataG3auto: "qaheal-stata-workspace-gen3-license"
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
-    # tag: "2026.04"
-    # tag: "feat_s3-mount"
-    tag: "feat_fsx-lustre"
+    tag: "2.11.0"
   hatchery:
     json: |-
       {
@@ -156,13 +162,6 @@ hatchery:
         "user-namespace": "jupyter-pods-qaheal-helm",
         "sub-dir": "/lw-workspace",
         "user-volume-size": "10Gi",
-        "fsxConfig": {
-          "fsxId": "fs-0db570e0cb6e6f5af",
-          "dnsName": "fs-0db570e0cb6e6f5af.fsx.us-east-1.amazonaws.com",
-          "mountName": "nyj6tamv",
-          "storage": "1200Gi",
-          "mountPath": "/apps"
-        },
         "default-pay-model": {
           "workspace_type": "Trial Workspace",
           "local": true,
@@ -175,7 +174,7 @@ hatchery:
         "license-user-maps-dynamodb-table": "gen3-license-user-maps",
         "license-user-maps-global-secondary-index": "activeUsersIndex",
         "s3-config": {
-          "bucketName": "workspace-software-s3-qa-brh",
+          "bucketName": "software-library-bucket-new",
           "prefixBase": "qa-heal",
           "region": "us-east-1"
         },
@@ -206,17 +205,22 @@ hatchery:
             "target-port": 8888,
             "cpu-limit": "2.0",
             "memory-limit": "8Gi",
-            "name": "(Generic) Software Library Testing",
-            "image": "quay.io/cdis/jupyterlab-generic:chore_add-frictionless-to-jupyterlab-generic",
+            "name": "JupyterLab Software Library Testing",
+            "image": "quay.io/cdis/heal-notebooks:software_library_heal__8f9daf80d2ff38e218afc349ed1160704c81e5cc",
+            "pull_policy": "Always",
+            "squashfs_mount": {
+              "enabled": true,
+              "source_sqsh": "/image/apps-2026-09-08.sqsh"
+            },
             "env": {
-              "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
+              "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net",
+              "LMOD_SYSTEM_DEFAULT_MODULES": "py-numpy:py-pandas:py-matplotlib:py-scikit-learn:py-heal-sdk:py-gen3"
             },
             "args": [
               "--ServerApp.base_url=/lw-workspace/proxy/",
-              "--ServerApp.default_url=/lab",
+              "--LabApp.default_url=/lab/tree/heal-welcome-wsl.ipynb",
               "--ServerApp.password=''",
-              "--ServerApp.token=''",
-              "--ServerApp.notebook_dir='/home/jovyan'",
+              "--ServerApp.root_dir='/home/jovyan'",
               "--ServerApp.shutdown_no_activity_timeout=3600"
             ],
             "command": [
@@ -240,13 +244,13 @@ hatchery:
             "cpu-limit": "1.0",
             "memory-limit": "2Gi",
             "name": "JupyterLab with Python and R Kernels",
-            "image": "quay.io/cdis/jupyter-superslim-heal:feat_heal-superslim",
+            "image": "quay.io/cdis/heal-notebooks:generic_rkernel__494c5a110ed87b3af5a8c68d8f22040f10dae2fc",
             "env": {
               "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
             },
             "args": [
               "--JupyterNotebookApp.base_url=/lw-workspace/proxy/",
-              "--JupyterNotebookApp.default_url=/lab",
+              "--JupyterNotebookApp.default_url=/lab/tree/heal-welcome.ipynb",
               "--JupyterNotebookApp.password=''",
               "--JupyterNotebookApp.token=''",
               "--JupyterNotebookApp.ip='*'",
@@ -409,7 +413,7 @@ indexd:
     dbcreds: qaheal-indexd-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexd
-    tag: "2026.04"
+    tag: "2026.08"
 metadata:
   aggMdsConfig: |-
     {
@@ -1481,14 +1485,19 @@ metadata:
   aggMdsNamespace: qaheal-helm
   autoscaling:
     enabled: true
-    maxReplicas: 3
-    minReplicas: 2
+    maxReplicas: 2
+    minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
   esEndpoint: http://elasticsearch:9200
   externalSecrets:
     metadataG3auto: qaheal-metadata-g3auto
     dbcreds: qaheal-metadata-creds
+  resources:
+    requests:
+      memory: "105Mi"
+    limits:
+      memory: "1Gi"
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
     tag: "4.3.0"
@@ -1502,27 +1511,26 @@ manifestservice:
     manifestserviceG3auto: qaheal-manifestservice-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/manifestservice
-    tag: "2026.04"
+    tag: "2026.08"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--qaheal-helm--manifest-service-sa
 peregrine:
   autoscaling:
     enabled: true
-    maxReplicas: 3
-    minReplicas: 2
+    replicaCount: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/peregrine
-    tag: "2026.04"
+    tag: "2026.08"
   externalSecrets:
     dbcreds: qaheal-peregrine-creds
 portal:
   autoscaling:
     enabled: true
-    maxReplicas: 3
-    minReplicas: 2
+    maxReplicas: 2
+    minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
   customConfig:
@@ -1534,7 +1542,7 @@ portal:
     gen3Bundle: heal
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/data-portal
-    tag: "master"
+    tag: "5.42.1"
 requestor:
   enabled: true
   image:
@@ -1545,26 +1553,25 @@ requestor:
 revproxy:
   autoscaling:
     enabled: true
-    maxReplicas: 3
-    minReplicas: 2
+    maxReplicas: 2
+    minReplicas: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/nginx
-    tag: "2026.04"
+    tag: "2026.08"
   ingress:
     aws:
       group: qaheal-helm
 sheepdog:
   autoscaling:
     enabled: true
-    maxReplicas: 3
-    minReplicas: 2
+    replicaCount: 1
     targetCPUUtilizationPercentage: 40
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sheepdog
-    tag: "2026.04"
+    tag: "2026.08"
   externalSecrets:
     dbcreds: qaheal-sheepdog-creds
 sower:
@@ -1577,7 +1584,7 @@ sower:
     sowerjobsG3auto: qaheal-sower-jobs-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sower
-    tag: "2026.04"
+    tag: "2026.08"
   sowerConfig:
     - action: batch-export
       activeDeadlineSeconds: 600
@@ -1606,8 +1613,8 @@ ssjdispatcher:
     credsFile: qaheal-ssjdispatcher-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ssjdispatcher
-    tag: "2026.04"
-  indexing: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexs3client:2026.04
+    tag: "2026.08"
+  indexing: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexs3client:2026.08
 wts:
   enabled: true
   externalSecrets:
@@ -1617,4 +1624,14 @@ wts:
     dbcreds: qaheal-wts-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/workspace-token-service
-    tag: "2026.04"
+    tag: "2026.08"
+zendesk-wrapper:
+  enabled: true
+  image:
+    repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/zendesk-wrapper-service
+    tag: "0.2.0"
+  env:
+    - name: GEN3_ZENDESK_BRAND_ID
+      value: "32557712682643"
+  externalSecrets:
+    name: "qa-heal-zendesk-wrapper-secret"
