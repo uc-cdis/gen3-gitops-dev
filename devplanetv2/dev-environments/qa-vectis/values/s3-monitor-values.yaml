@@ -1,0 +1,62 @@
+s3-monitor:
+  enabled: true
+
+  schedule: "*/15 * * * *"
+  concurrencyPolicy: Forbid
+
+  serviceAccount:
+    create: true
+    # With Crossplane on, its IRSA role is qa-vectis-<namespace>-s3-monitor-activemq-sa
+    name: s3-monitor-activemq-sa
+
+  # Single image with all the Python and shell code, built and pushed by the
+  # s3-monitor-activemq repo. Used by the CronJob, the setup Jobs and the Lambda.
+  image:
+    repository: quay.io/cdis/s3-monitor
+    tag: ActiveMQDuckDB
+    # Pin a build for reproducible rollouts: digest: "sha256:..."
+    digest: ""
+    # The tag is mutable, so always pull to pick up new pushes (same as the
+    # other vectis images). Switch to IfNotPresent once a digest is pinned.
+    pullPolicy: Always
+
+  aws:
+    region: "us-east-1"
+
+  # Same cluster name the other dev environments use (gen3-workflow clusterName).
+  eksClusterName: devplanetv2
+
+  config:
+    # Dry run first: scan and log only, nothing written to the lake or MQ.
+    # Flip to true once the logs look right.
+    apply: false
+    lookbackDays: 3
+    useFipsAwsEndpoints: true
+    assumeRoleArn: ""
+
+    lake:
+      bucket: "bg-dd-01"
+      prefix: "vectis"
+      kmsKeyArn: "arn:aws:secretsmanager:us-west-2:123456789012:secret:MySecret1-a1b2c3"
+
+    mq:
+      stompEndpoints: ["stomp+ssl://b-8b8b1118-26ee-491b-934e-6afc7ac8504b-1.mq.us-east-1.amazonaws.com:61614", "stomp+ssl://b-8b8b1118-26ee-491b-934e-6afc7ac8504b-2.mq.us-east-1.amazonaws.com:61614"]
+      
+      secretArn: "arn:aws:secretsmanager:us-west-2:123456789012:secret:MySecret1-a1b2c3"
+      secretKmsKeyArn: "arn:aws:secretsmanager:us-west-2:123456789012:secret:MySecret1-a1b2c3"
+      destinationPrefix: "/queue/s3monitor.ingest"
+      resolveIpv4: false
+
+    tenants: ["gen3-qa-vectis-config"]
+
+  eventRecorder:
+    enabled: false
+    architecture: arm64
+
+  resources:
+    requests:
+      cpu: "250m"
+      memory: "512Mi"
+    limits:
+      cpu: "1"
+      memory: "1Gi"

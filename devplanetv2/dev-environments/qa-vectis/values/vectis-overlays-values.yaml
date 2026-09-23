@@ -92,6 +92,3 @@ vectis-overlays:
     # frontend falls back to live Guppy.
     snapshotsBucket: "gen3-qa-vectis-snapshotpublisherbucket67cc92a3-pdswggnjqmzw"
     snapshotsKeyPrefix: "snapshots/"
-
-  migrations:
-    enabled: false
