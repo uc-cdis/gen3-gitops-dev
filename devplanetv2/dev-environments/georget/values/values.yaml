@@ -178,7 +178,7 @@ funnel:
     dbcreds: "georget-funnel-creds"
     funnelOidcClient: "georget-funnel-oidc-client"
   Kubernetes:
-    JobsNamespace: workflow-pods-piotr
+    JobsNamespace: workflow-pods-georget
     ReconcileRate: 120s
     Executor:
       restartPolicy: Never
