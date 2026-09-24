@@ -105,6 +105,8 @@ datareplicate:
     OUT_FILES: test_validation_manifest_DCF.tsv
     FORCE_CREATE_MANIFEST: true
     VALIDATE_PLATFORM: "AWS"
+    BATCH_SIZE: 30
+    MAX_AWS_WORKERS: 150
 etl:
   esEndpoint: elasticsearch
   mappings:
