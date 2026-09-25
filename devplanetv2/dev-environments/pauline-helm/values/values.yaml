@@ -79,8 +79,8 @@ gen3-workflow:
     enabled: true
     image:
         repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-workflow
-        tag: feat_dpop
-        # tag: master
+        # tag: feat_dpop
+        tag: no-funnel-s3-calls
     externalSecrets:
         gen3workflowG3auto: "gen3workflow-g3auto"
     GEN3_WORKFLOW_CONFIG:
@@ -97,9 +97,9 @@ funnel:
     externalSecrets:
         dbcreds: "pauline-helm-funnel-creds"
         funnelOidcClient: "funnel-oidc-client"
-    image:
-        repository: quay.io/cdis/funnel
-        tag: 0.12.1-gen3
+    # image:
+    #     repository: quay.io/cdis/funnel
+    #     tag: 0.12.1-gen3
     Kubernetes:
         JobsNamespace: workflow-pods-pauline-helm
         ReconcileRate: 120s
