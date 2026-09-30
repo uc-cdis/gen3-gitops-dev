@@ -140,7 +140,8 @@ hatchery:
           "image": "quay.io/cdis/ecs-ws-sidecar:2026.04",
           "env": {
             "NAMESPACE": "qa-brh",
-            "HOSTNAME": "qa-brh.planx-pla.net"
+            "HOSTNAME": "qa-brh.planx-pla.net",
+            "USER_UID": "1010"
           },
           "args": [],
           "command": [
