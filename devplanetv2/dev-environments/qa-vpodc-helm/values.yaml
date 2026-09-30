@@ -1,7 +1,7 @@
 name: qa-vpodc-helm
 
 # What branch of helm -- http://github.com/uc-cdis/gen3-helm
-helmBranch: master
+helmBranch: feat/helm_workspace_additional_configs_and_csrf
 
 # What branch of gitops -- http://github.com/uc-cdis/gen3-gitops-dev
 gitopsBranch: master
