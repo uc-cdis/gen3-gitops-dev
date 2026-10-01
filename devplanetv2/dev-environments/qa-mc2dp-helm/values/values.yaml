@@ -226,7 +226,10 @@ hatchery:
               "--ServerApp.allow_origin='https://qa-prometheus.planx-pla.net'",
               "--ServerApp.root_dir='/home/jovyan'",
               "--ServerApp.shutdown_no_activity_timeout=90000",
-              "--FileContentsManager.always_delete_dir=True"
+              "--FileContentsManager.always_delete_dir=True",
+              "--FileContentsManager.delete_to_trash=False",
+              "--AsyncFileContentsManager.always_delete_dir=True",
+              "--AsyncFileContentsManager.delete_to_trash=False"
             ],
             "path-rewrite": "/lw-workspace/proxy/",
             "use-tls": "false",
@@ -263,7 +266,10 @@ hatchery:
               "--ServerApp.allow_origin='https://qa-prometheus.planx-pla.net'",
               "--ServerApp.root_dir='/home/jovyan'",
               "--ServerApp.shutdown_no_activity_timeout=90000",
-              "--FileContentsManager.always_delete_dir=True"
+              "--FileContentsManager.always_delete_dir=True",
+              "--FileContentsManager.delete_to_trash=False",
+              "--AsyncFileContentsManager.always_delete_dir=True",
+              "--AsyncFileContentsManager.delete_to_trash=False"
             ],
             "path-rewrite": "/lw-workspace/proxy/",
             "use-tls": "false",
@@ -301,7 +307,10 @@ hatchery:
               "--ServerApp.allow_origin='https://qa-prometheus.planx-pla.net'",
               "--ServerApp.root_dir='/home/jovyan'",
               "--ServerApp.shutdown_no_activity_timeout=90000",
-              "--FileContentsManager.always_delete_dir=True"
+              "--FileContentsManager.always_delete_dir=True",
+              "--FileContentsManager.delete_to_trash=False",
+              "--AsyncFileContentsManager.always_delete_dir=True",
+              "--AsyncFileContentsManager.delete_to_trash=False"
             ],
             "path-rewrite": "/lw-workspace/proxy/",
             "use-tls": "false",
@@ -339,7 +348,10 @@ hatchery:
               "--ServerApp.allow_origin='https://qa-prometheus.planx-pla.net'",
               "--ServerApp.root_dir='/home/jovyan'",
               "--ServerApp.shutdown_no_activity_timeout=90000",
-              "--FileContentsManager.always_delete_dir=True"
+              "--FileContentsManager.always_delete_dir=True",
+              "--FileContentsManager.delete_to_trash=False",
+              "--AsyncFileContentsManager.always_delete_dir=True",
+              "--AsyncFileContentsManager.delete_to_trash=False"
             ],
             "path-rewrite": "/lw-workspace/proxy/",
             "use-tls": "false",
