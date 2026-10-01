@@ -797,18 +797,7 @@ revproxy:
           add_header Content-Type text/plain;
           return 204;
         }
-        set $authz_resource "/workspace";
-        set $authz_method "access";
-        set $authz_service "jupyterhub";
-        auth_request_set $remoteUser $upstream_http_REMOTE_USER;
-        auth_request_set $saved_set_cookie $upstream_http_set_cookie;
-        auth_request /gen3-authz;
-        if ($saved_set_cookie != "") {
-          add_header Set-Cookie $saved_set_cookie always;
-        }
         add_header Cache-Control "no-store";
-        proxy_set_header REMOTE_USER $remoteUser;
-        proxy_set_header X-Gen3-User-ID $remoteUser;
         error_page 403 = @errorworkspace;
       
         set $upstream http://workspace-proxy-service.$namespace.svc.cluster.local:8080;
@@ -909,10 +898,6 @@ revproxy:
 
       # JupyterLab kernel tunnel (workspace-proxy handles per-user routing).
       location ^~ /workspace-api/ {
-          set $authz_resource "/workspace";
-          set $authz_method "access";
-          set $authz_service "jupyterhub";
-          auth_request /gen3-authz;
           error_page 403 = @errorworkspace;
           set $upstream http://workspace-proxy-service.$namespace.svc.cluster.local:8080;
           rewrite ^/workspace-api/(.*) /api/$1 break;
@@ -934,20 +919,7 @@ revproxy:
       }
 
       location /lw-workspace/proxy/ {
-          set $authz_resource "/workspace";
-          set $authz_method "access";
-          set $authz_service "jupyterhub";
-          auth_request_set $remoteUser $upstream_http_REMOTE_USER;
-          auth_request_set $saved_set_cookie $upstream_http_set_cookie;
-          auth_request /gen3-authz;
-
-          if ($saved_set_cookie != "") {
-              add_header Set-Cookie $saved_set_cookie always;
-          }
           add_header Cache-Control "no-store";
-
-          proxy_set_header REMOTE_USER $remoteUser;
-          proxy_set_header X-Gen3-User-ID $remoteUser;
           error_page 403 = @errorworkspace;
 
           set $proxy_service  "workspace-proxy";
@@ -1026,7 +998,7 @@ workspace-proxy:
 
   image:
     repository: quay.io/cdis/multihead-workspace-proxy
-    tag: master
+    tag: feat_add_arborist
     pullPolicy: Always
 
   listenAddr: ":8080"
