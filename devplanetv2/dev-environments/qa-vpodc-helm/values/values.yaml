@@ -305,17 +305,18 @@ hatchery:
         "sub-dir": "/lw-workspace",
         "user-volume-size": "10Gi",
         "shared-workspace": {
-          "enabled": true,
-          "oidc-provider-arn": "arn:aws:iam::707767160287:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/F057519C0E32B7DE2580904C4007BB21"
+          "enabled": true
         },
         "default-pay-model": {
           "workspace_type": "Trial Workspace",
           "local": true
         },
+        "oidc-provider-arn": "arn:aws:iam::707767160287:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/F057519C0E32B7DE2580904C4007BB21",
         "s3-config": {
           "bucketName": "software-library-bucket-new",
           "prefixBase": "qa-vpodc",
-          "region": "us-east-1"
+          "region": "us-east-1",
+          "kmsKeyArn": "arn:aws:kms:us-east-1:707767160287:key/387b8ebf-c8b8-4887-9b2c-639aee77654c"
         },
         "sidecar": {
           "cpu-limit": "1.0",
