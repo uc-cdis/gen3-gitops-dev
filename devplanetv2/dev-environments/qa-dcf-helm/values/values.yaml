@@ -1,6 +1,6 @@
 arborist:
   autoscaling:
-    enabled: true
+    enabled: false
     maxReplicas: 3
     minReplicas: 2
     targetCPUUtilizationPercentage: 40
@@ -44,7 +44,7 @@ datareplicate:
     tag: feat_DCF-2037
 fence:
   autoscaling:
-    enabled: true
+    enabled: false
     maxReplicas: 3
     minReplicas: 2
     targetCPUUtilizationPercentage: 40
@@ -123,7 +123,7 @@ guppy:
       type: file
 indexd:
   autoscaling:
-    enabled: true
+    enabled: false
     maxReplicas: 3
     minReplicas: 2
     targetCPUUtilizationPercentage: 40
@@ -160,7 +160,7 @@ peregrine:
     tag: "2026.02"
 portal:
   autoscaling:
-    enabled: true
+    enabled: false
     maxReplicas: 3
     minReplicas: 2
     targetCPUUtilizationPercentage: 40
@@ -419,7 +419,7 @@ portal:
     tag: "2026.02"
 revproxy:
   autoscaling:
-    enabled: true
+    enabled: false
     maxReplicas: 3
     minReplicas: 2
     targetCPUUtilizationPercentage: 40
