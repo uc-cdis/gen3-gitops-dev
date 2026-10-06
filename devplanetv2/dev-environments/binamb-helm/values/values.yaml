@@ -104,6 +104,7 @@ datareplicate:
     IGNORED_FILE: s3://test-data-replication-manifest/ignored_files_manifest.csv
     OUT_FILES: test_validation_manifest_DCF.tsv
     FORCE_CREATE_MANIFEST: true
+    PREVIOUS_MANIFEST: s3://test-data-replication-manifest/old_new_manifest.tsv
     VALIDATE_PLATFORM: "AWS"
     BATCH_SIZE: 30
     MAX_AWS_WORKERS: 150
