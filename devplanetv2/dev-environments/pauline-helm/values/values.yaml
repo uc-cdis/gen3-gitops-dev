@@ -66,8 +66,7 @@ fence:
         fenceJwtKeys: pauline-fence-jwt
     image:
         repository: quay.io/cdis/fence
-        # tag: feat_dpop
-        tag: pauline-debug
+        tag: feat_dpop
         # tag: master
     replicas: 1
     FENCE_CONFIG_PUBLIC:
@@ -79,14 +78,12 @@ gen3-workflow:
     enabled: true
     image:
         repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-workflow
-        # tag: feat_dpop
-        tag: no-funnel-s3-calls
+        tag: feat_dpop
     externalSecrets:
         gen3workflowG3auto: "gen3workflow-g3auto"
     GEN3_WORKFLOW_CONFIG:
         APP_DEBUG: true
         TASK_IMAGE_WHITELIST: ['*']
-        DPOP_ENABLED: true
         DPOP_REQUIRED: true
         DPOP_SHARED_SECRET: dummy-value-not-a-secret
         DPOP_EXEMPT_CLIENT_IDS: ['gCSTEDHzd8R4VJ6zffpgGqWHx30kzgicJJDhddoy']
