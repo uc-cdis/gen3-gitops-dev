@@ -23,7 +23,7 @@ aws-sigv4-proxy:
   esEndpoint: vpc-devplanetv2-gen3-metadata-2-xkwr2f3gbxua5mqqi7rhnat4la.us-east-1.es.amazonaws.com    
 dashboard:
   autoscaling:
-    enabled: true
+    enabled: false
     maxReplicas: 3
     minReplicas: 2
     targetCPUUtilizationPercentage: 40
@@ -135,7 +135,7 @@ indexd:
     tag: 2025.11
 metadata:
   autoscaling:
-    enabled: true
+    enabled: false
     maxReplicas: 3
     minReplicas: 2
     targetCPUUtilizationPercentage: 40
@@ -150,7 +150,7 @@ mutatingWebhook:
   enabled: true
 peregrine:
   autoscaling:
-    enabled: true
+    enabled: false
     maxReplicas: 3
     minReplicas: 2
     targetCPUUtilizationPercentage: 40
@@ -432,7 +432,7 @@ revproxy:
       group: qa-dcf-helm
 sheepdog:
   autoscaling:
-    enabled: true
+    enabled: false
     maxReplicas: 3
     minReplicas: 2
     targetCPUUtilizationPercentage: 40
