@@ -206,7 +206,7 @@ hatchery:
             "cpu-limit": "2.0",
             "memory-limit": "8Gi",
             "name": "JupyterLab Software Library Testing",
-            "image": "quay.io/cdis/heal-notebooks:software_library_heal__8f9daf80d2ff38e218afc349ed1160704c81e5cc",
+            "image": "quay.io/cdis/jupyterlab-generic:feat_add_nbstata_to_workspacebaseimage",
             "pull_policy": "Always",
             "squashfs_mount": {
               "enabled": true,
@@ -218,7 +218,7 @@ hatchery:
             },
             "args": [
               "--ServerApp.base_url=/lw-workspace/proxy/",
-              "--LabApp.default_url=/lab/tree/heal-welcome-wsl.ipynb",
+              "--LabApp.default_url=/lab",
               "--ServerApp.password=''",
               "--ServerApp.root_dir='/home/jovyan'",
               "--ServerApp.shutdown_no_activity_timeout=3600"
