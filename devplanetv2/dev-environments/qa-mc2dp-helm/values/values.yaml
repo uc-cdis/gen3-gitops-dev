@@ -1027,7 +1027,7 @@ workspace-proxy:
 
   image:
     repository: quay.io/cdis/multihead-workspace-proxy
-    tag: feat_add_arborist
+    tag: 0.0.2
     pullPolicy: Always
 
   listenAddr: ":8080"
