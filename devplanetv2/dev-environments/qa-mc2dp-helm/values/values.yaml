@@ -61,7 +61,7 @@ frontend-framework:
   enabled: true
   image:
     repository: quay.io/cdis/mc2dp-data-platform
-    tag: main
+    tag: chore_update_0.12.83
   customConfig:
     enabled: false
   env:
