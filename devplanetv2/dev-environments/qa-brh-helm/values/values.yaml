@@ -58,13 +58,22 @@ FENCE_CONFIG_PUBLIC:
 
 frontend-framework:
   # -- (bool) Whether to deploy the frontend-framework subchart.
-  enabled: false
+  enabled: true
   # -- (map) Docker image information.
   image:
-    # -- (string) The Docker image repository for the frontend-framework.
-    repository: "quay.io/cdis/commons-frontend-app"
-    # -- (string) Overrides the image tag whose default is the chart appVersion.
-    tag: "main"
+    repository: quay.io/cdis/commons-frontend-app
+    tag: main
+  customConfig:
+    enabled: true
+    repo: https://github.com/uc-cdis/gen3-gitops-dev.git
+    branch: feat/add_brh_fef_config
+    dir: devplanetv2/dev-environments/qa-brh-helm/values/frontend
+  env:
+    DATADOG_APPLICATION_ID: ab71a12a-753f-45ab-a8e1-a79d76d98095
+    DATADOG_CLIENT_TOKEN: pub2cd76ce70d32ef5a0d2f3da3badda91e
+    DATADOG_SITE: ddog-gov.com
+    DATACOMMONS: QA-BRH
+
 global:
   frontendRoot: "portal"
   crossplane:
