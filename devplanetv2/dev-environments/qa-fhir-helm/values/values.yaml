@@ -356,6 +356,9 @@ postgresql:
       enabled: true
 
 fence:
+  image:
+    repository: quay.io/cdis/fence
+    tag: "1388_merge"
   externalSecrets:
     createK8sFenceConfigSecret: false
     fenceGoogleAppCredsSecret: ci-fence-google-app-creds-secret
