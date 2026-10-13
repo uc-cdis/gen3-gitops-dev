@@ -785,8 +785,7 @@ revproxy:
           proxy_read_timeout 600s;
       }
 
-      # (/api/workspace-assets/remote/), so nginx must forward them to workspace-proxy
-      # which re-adds the /lw-workspace/proxy/ prefix before forwarding to the container.
+      # workspace-assets/remote/lmod routing
       location ^~ /api/workspace-assets/remote/lmod {
         if ($request_method = 'OPTIONS') {
           add_header Access-Control-Allow-Origin $http_origin always;
@@ -798,8 +797,7 @@ revproxy:
           return 204;
         }
         add_header Cache-Control "no-store";
-        error_page 403 = @errorworkspace;
-      
+
         set $upstream http://workspace-proxy-service.$namespace.svc.cluster.local:8080;
         rewrite ^/api/workspace-assets/remote/(lmod.*) /$1 break;
         proxy_pass $upstream;
@@ -898,7 +896,7 @@ revproxy:
 
       # JupyterLab kernel tunnel (workspace-proxy handles per-user routing).
       location ^~ /workspace-api/ {
-          error_page 403 = @errorworkspace;
+          add_header Cache-Control "no-store";
           set $upstream http://workspace-proxy-service.$namespace.svc.cluster.local:8080;
           rewrite ^/workspace-api/(.*) /api/$1 break;
           proxy_pass $upstream;
@@ -941,7 +939,6 @@ revproxy:
           rewrite ^/user/(.*) /$1 break;
           proxy_pass $upstream;
       }
-
     ambassador-service.conf: |-
       location = /lw-workspace/proxy {
         return 308 $scheme://$http_host/lw-workspace/proxy/;
@@ -949,7 +946,6 @@ revproxy:
 
       location /lw-workspace/proxy/ {
           add_header Cache-Control "no-store";
-          error_page 403 = @errorworkspace;
 
           set $proxy_service  "workspace-proxy";
           set $upstream http://workspace-proxy-service.$namespace.svc.cluster.local:8080;
