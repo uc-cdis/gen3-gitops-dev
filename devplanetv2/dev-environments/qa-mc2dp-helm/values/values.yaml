@@ -152,7 +152,7 @@ hatchery:
   replicaCount: 2
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
-    tag: 'fix_empty_volumes_when_needed'
+    tag: 'master'
   hatchery:
     reaper:
       enabled: false
