@@ -115,6 +115,8 @@ guppy:
 
 indexd:
     enabled: true
+    image:
+        tag: authutils-9.0.0
     defaultPrefix: pauline/
     # Do not rely on external secret for indexd creds :grimacing:
     externalSecrets:
