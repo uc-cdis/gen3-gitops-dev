@@ -30,6 +30,8 @@ dashboard:
     tag: "2026.04"
   dashboardConfig:
     bucket: devplanetv2-qa-brh-helm-dashboard-bucket
+    prefix: qa-brh.planx-pla.net
+    gitopsRepo: "https://github.com/uc-cdis/gitops-qa"
 fence:
   usersync:
     usersync: true
