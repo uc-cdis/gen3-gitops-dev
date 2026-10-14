@@ -39,9 +39,24 @@ dashboard:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--qa-dcf-helm--dashboard-access
 datareplicate:
   enabled: true
+  suspendCronjob: true
+  externalSecrets:
+    deploy: true
+    dcfDataserviceSettingsSecret: qa-dcf-dataservice-settings-secrets
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/dcf-dataservice
     tag: feat_DCF-2037
+  resources:
+    # -- (map) The amount of resources that the container requests
+    requests:
+      # -- (string) The amount of CPU requested
+      cpu: "2"
+      # -- (string) The amount of memory requested
+      memory: 4Gi
+    # -- (map) The maximum amount of resources that the container is allowed to use
+    limits:
+      # -- (string) The maximum amount of memory the container can use
+      memory: 4Gi    
 fence:
   autoscaling:
     enabled: false
