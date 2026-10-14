@@ -29,10 +29,28 @@
   },
   "tierConfiguration": {
     "free": {
-      "width": 400
+      "dataAndTools": {
+        "width": 340
+      },
+      "toolbar": {
+        "tierLabel": "lite"
+      }
     },
     "remote": {
-      "width": 300
+      "enableOptions": true,
+      "dataAndTools": {
+        "width": 300
+      },
+      "toolbar": {
+        "tierLabel": "remote",
+        "label": "Trusted Research Environment",
+        "description": "Running with Remote Kernels",
+        "requirePayModel": true,
+        "workspaceAccountManagerTarget": "https://wadmin.vpodc.data-commons.org"
+      },
+      "settings": {
+        "enabled": false
+      }
     }
   }
 }
