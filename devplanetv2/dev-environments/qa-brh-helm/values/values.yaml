@@ -144,8 +144,10 @@ hatchery:
         "s3-config": {
           "bucketName": "software-library-bucket-new",
           "prefixBase": "qa-brh",
-          "region": "us-east-1"
+          "region": "us-east-1",
+          "kmsKeyArn": "arn:aws:kms:us-east-1:707767160287:key/387b8ebf-c8b8-4887-9b2c-639aee77654c"
         },
+        "oidc-provider-arn": "arn:aws:iam::707767160287:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/F057519C0E32B7DE2580904C4007BB21",
         "sidecar": {
           "cpu-limit": "1.0",
           "memory-limit": "256Mi",
@@ -251,7 +253,7 @@ hatchery:
             "cpu-limit": "2.0",
             "memory-limit": "16Gi",
             "name": "(Tutorials) Example Analysis Jupyter Lab Notebooks",
-            "image": "quay.io/cdis/brh-notebooks:combined_demos__b0a59aa051cbd993bbda25a7bb42f99bd4d91322",
+            "image": "quay.io/cdis/brh-notebooks:combined_demos__e68977edfc602f20cb913f85fe65acc39968b508",
             "env": {
               "FRAME_ANCESTORS": "https://qa-brh.planx-pla.net"
             },
@@ -276,7 +278,7 @@ hatchery:
               "-c",
               "export IAM=`whoami`; rm -rf /home/$IAM/pd/dockerHome; rm -rf /home/$IAM/pd/lost+found; ln -s /data /home/$IAM/pd/; true"
             ],
-            "user-uid": 1000,
+            "user-uid": 1010,
             "fs-gid": 100,
             "user-volume-location": "/home/jovyan/pd",
             "gen3-volume-location": "/home/jovyan/.gen3"
