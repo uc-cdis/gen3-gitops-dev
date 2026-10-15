@@ -35,5 +35,5 @@ spec:
           - CreateNamespace=true
           - RespectIgnoreDifferences=true
         automated:
-          selfHeal: false
+          selfHeal: true
           prune: true
