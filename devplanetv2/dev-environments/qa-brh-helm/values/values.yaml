@@ -768,7 +768,7 @@ workspace-proxy:
 
   image:
     repository: quay.io/cdis/multihead-workspace-proxy
-    tag: master
+    tag: fix_404s_hiding_csrf_blocks
     pullPolicy: Always
 
   listenAddr: ":8080"
