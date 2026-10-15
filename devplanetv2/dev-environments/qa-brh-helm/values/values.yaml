@@ -770,7 +770,7 @@ workspace-proxy:
 
   image:
     repository: quay.io/cdis/multihead-workspace-proxy
-    tag: master
+    tag: fix_username_hashes
     pullPolicy: Always
 
   listenAddr: ":8080"
