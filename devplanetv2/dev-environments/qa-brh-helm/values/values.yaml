@@ -185,6 +185,8 @@ hatchery:
               "LMOD_SYSTEM_DEFAULT_MODULES": "py-numpy:py-pandas:py-matplotlib:py-scikit-learn:py-heal-sdk:py-gen3"
             },
             "args": [
+              "--ServerApp.disable_check_xsrf=True",
+              "--ServerApp.allow_origin='https://qa-brh.planx-pla.net'",
               "--ServerApp.base_url=/lw-workspace/proxy/",
               "--LabApp.default_url=/lab/tree/brh-welcome-wsl.ipynb",
               "--ServerApp.password=''",
@@ -217,6 +219,8 @@ hatchery:
               "FRAME_ANCESTORS": "https://qa-brh.planx-pla.net"
             },
             "args": [
+              "--ServerApp.disable_check_xsrf=True",
+              "--ServerApp.allow_origin='https://qa-brh.planx-pla.net'",
               "--JupyterNotebookApp.base_url=/lw-workspace/proxy/",
               "--JupyterNotebookApp.default_url=/lab",
               "--JupyterNotebookApp.password=''",
@@ -252,6 +256,8 @@ hatchery:
               "FRAME_ANCESTORS": "https://qa-brh.planx-pla.net"
             },
             "args": [
+              "--ServerApp.disable_check_xsrf=True",
+              "--ServerApp.allow_origin='https://qa-brh.planx-pla.net'",
               "--JupyterNotebookApp.base_url=/lw-workspace/proxy/",
               "--JupyterNotebookApp.default_url=/lab",
               "--JupyterNotebookApp.password=''",
@@ -768,7 +774,7 @@ workspace-proxy:
 
   image:
     repository: quay.io/cdis/multihead-workspace-proxy
-    tag: fix_404s_hiding_csrf_blocks
+    tag: master
     pullPolicy: Always
 
   listenAddr: ":8080"
