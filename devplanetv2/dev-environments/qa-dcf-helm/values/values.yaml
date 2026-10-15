@@ -45,7 +45,7 @@ datareplicate:
     dcfDataserviceSettingsSecret: qa-dcf-dataservice-settings-secrets
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/dcf-dataservice
-    tag: feat_DCF-2037
+    tag: feat_DCF-2506
   resources:
     # -- (map) The amount of resources that the container requests
     requests:
@@ -57,6 +57,17 @@ datareplicate:
     limits:
       # -- (string) The maximum amount of memory the container can use
       memory: 4Gi    
+  removeObjectsFromCloudsJob:
+    enabled: true
+    suspendCronjob: true
+    schedule: "*/30 * * * *"
+    # Value Must be capitalized string value i.e. True, False
+    DRY_RUN: "True"
+    RELEASE: 42
+    MANIFEST_FILE: s3://test-data-replication-manifest/fake_delete_manifest.tsv
+    IGNORED_FILE: s3://test-data-replication-manifest/ignored_files_manifest.csv
+    LOG_BUCKET: test-data-replication-manifest
+    ONLY_REDACT: aws
 fence:
   autoscaling:
     enabled: false
