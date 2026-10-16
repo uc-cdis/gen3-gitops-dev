@@ -119,13 +119,13 @@ peregrine:
     enabled: false
 
 requestor:
-    enabled: false
+    enabled: true
     image:
         repository: quay.io/cdis/requestor
         tag: master
 
 sheepdog:
-    enabled: true
+    enabled: false
 
 tube:
     enabled: false
