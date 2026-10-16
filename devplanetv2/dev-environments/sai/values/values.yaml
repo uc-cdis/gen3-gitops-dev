@@ -19,7 +19,7 @@ global:
     environment: sai
     externalSecrets:
         deploy: true
-        createLocalK8sSecret: false
+        createLocalK8sSecret: true
         pushSecret: true
     hostname: sai.planx-pla.net
     manifestGlobalExtraValues:
