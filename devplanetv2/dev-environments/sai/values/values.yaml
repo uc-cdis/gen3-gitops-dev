@@ -1684,7 +1684,7 @@ postgresql:
   primary:
     persistence:
       # -- (bool) Option to persist the dbs data.
-      enabled: true
+      enabled: false
 
 revproxy:
     enabled: true
