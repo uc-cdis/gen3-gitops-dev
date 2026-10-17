@@ -59,7 +59,7 @@ arborist:
 fence:
     enabled: true
     externalSecrets:
-        createK8sGoogleAppSecrets: false
+        createK8sGoogleAppSecrets: true
         fenceConfig: sai-fence-config
         fenceGoogleAppCredsSecret: sai-fence-google-app-creds
         fenceGoogleStorageCredsSecret: sai-fence-google-storage-creds
