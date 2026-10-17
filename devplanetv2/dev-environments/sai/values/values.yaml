@@ -83,6 +83,8 @@ gen3-workflow:
         debug: true
         taskImageWhitelist: ['*']
         kmsEncryptionEnabled: true
+    GEN3_WORKFLOW_CONFIG:
+        DPOP_REQUIRED: false
 
 funnel:
     postgres:
