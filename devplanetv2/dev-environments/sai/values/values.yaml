@@ -18,7 +18,7 @@ global:
     dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json
     environment: sai
     externalSecrets:
-        deploy: false
+        deploy: true
         createLocalK8sSecret: false
         pushSecret: true
     hostname: sai.planx-pla.net
