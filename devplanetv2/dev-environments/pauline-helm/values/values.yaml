@@ -54,7 +54,7 @@ arborist:
     enabled: true
     image:
         repository: quay.io/cdis/arborist
-        tag: debug-always-allow
+        tag: feat_validate-aud #debug-always-allow
 
 fence:
     enabled: true
@@ -66,8 +66,7 @@ fence:
         fenceJwtKeys: pauline-fence-jwt
     image:
         repository: quay.io/cdis/fence
-        tag: feat_dpop
-        # tag: master
+        tag: master
     replicas: 1
     FENCE_CONFIG_PUBLIC:
         MAX_TASK_TOKEN_TTL: {"WORKFLOW": 4000}
@@ -78,7 +77,7 @@ gen3-workflow:
     enabled: true
     image:
         repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-workflow
-        tag: feat_dpop
+        tag: master
     externalSecrets:
         gen3workflowG3auto: "gen3workflow-g3auto"
     GEN3_WORKFLOW_CONFIG:
@@ -116,7 +115,7 @@ guppy:
 indexd:
     enabled: true
     image:
-        tag: authutils-9.0.0
+        tag: authutils-9.0.0-debug-jwt
     defaultPrefix: pauline/
     # Do not rely on external secret for indexd creds :grimacing:
     externalSecrets:

@@ -361,7 +361,8 @@ postgresql:
 fence:
   image:
     repository: quay.io/cdis/fence
-    tag: "feat_uscore-fhir-ig-compliance"
+    # tag: "feat_uscore-fhir-ig-compliance"
+    tag: "master"
   externalSecrets:
     createK8sFenceConfigSecret: false
     fenceGoogleAppCredsSecret: ci-fence-google-app-creds-secret
