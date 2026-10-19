@@ -13,7 +13,7 @@ arborist:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/arborist
-    tag: "2026.04"
+    tag: "2026.08"
   externalSecrets:
     dbcreds: qa-brh-arborist-creds
 audit:
@@ -27,7 +27,7 @@ dashboard:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-statics
-    tag: "2026.04"
+    tag: "2026.08"
   dashboardConfig:
     bucket: devplanetv2-qa-brh-helm-dashboard-bucket
     prefix: qa-brh.planx-pla.net
@@ -151,7 +151,7 @@ hatchery:
         "sidecar": {
           "cpu-limit": "1.0",
           "memory-limit": "256Mi",
-          "image": "quay.io/cdis/ecs-ws-sidecar:2026.04",
+          "image": "quay.io/cdis/ecs-ws-sidecar:2026.08",
           "env": {
             "NAMESPACE": "qa-brh",
             "HOSTNAME": "qa-brh.planx-pla.net",
@@ -408,14 +408,14 @@ indexd:
     dbcreds: qa-brh-indexd-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexd
-    tag: "2026.04"
+    tag: "2026.08"
 manifestservice:
   enabled: true
   externalSecrets:
     manifestserviceG3auto: qa-brh-manifestservice-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/manifestservice
-    tag: "2026.04"
+    tag: "2026.08"
 metadata:
   useAggMds: "True"
   aggMdsNamespace: "qa-brh"
@@ -712,12 +712,12 @@ metadata:
     dbcreds: qa-brh-metadata-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
-    tag: "2026.04"
+    tag: "2026.08"
 peregrine:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/peregrine
-    tag: "2026.04"
+    tag: "2026.08"
   externalSecrets:
     dbcreds: qa-brh-peregrine-creds
 portal:
@@ -727,7 +727,7 @@ requestor:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/requestor
-    tag: "2026.04"
+    tag: "2026.08"
   externalSecrets:
     dbcreds: qa-brh-requestor-creds
 revproxy:
@@ -739,7 +739,7 @@ revproxy:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/nginx
-    tag: "2026.04"
+    tag: "2026.08"
   ingress:
     aws:
       group: devplanetv2
@@ -748,7 +748,7 @@ sheepdog:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sheepdog
-    tag: "2026.04"
+    tag: "2026.08"
   externalSecrets:
     dbcreds: qa-brh-sheepdog-creds
 wts:
