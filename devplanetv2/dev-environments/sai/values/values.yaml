@@ -105,7 +105,8 @@ funnel:
         funnelOidcClient: "funnel-oidc-client"
     Kubernetes:
         JobsNamespace: workflow-pods-sai
-        ReconcileRate: 120s
+        ReconcileRate: 10s
+        DisableJobCleanup: true
         Storage:
             type: s3files
         Executor:
