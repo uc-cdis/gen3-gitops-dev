@@ -782,7 +782,7 @@ workspace-proxy:
 
   image:
     repository: quay.io/cdis/multihead-workspace-proxy
-    tag: fix_remove_logging_and_passing_of_creds
+    tag: fix_error_handling_workspace
     pullPolicy: Always
 
   listenAddr: ":8080"
