@@ -30,7 +30,11 @@
   "tierConfiguration": {
     "free": {
       "dataAndTools": {
+        "enabled": false,
         "width": 340
+      },
+      "settings": {
+        "enabled": false
       },
       "toolbar": {
         "tierLabel": "lite"
@@ -39,6 +43,7 @@
     "remote": {
       "enableOptions": true,
       "dataAndTools": {
+        "enabled": false,
         "width": 300
       },
       "toolbar": {
@@ -46,7 +51,7 @@
         "label": "Trusted Research Environment",
         "description": "Running with Remote Kernels",
         "requirePayModel": true,
-        "workspaceAccountManagerTarget": "https://wadmin.vpodc.data-commons.org"
+        "workspaceAccountManagerTarget": "https://brh-test.planx-pla.net"
       },
       "settings": {
         "enabled": false

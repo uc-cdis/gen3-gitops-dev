@@ -214,7 +214,7 @@ hatchery:
               "source_sqsh": "/image/apps-2026-09-08.sqsh"
             },
             "command": [
-              "start-notebook.sh"
+              "/jupyterlab-start.sh"
             ],
             "args": [
               "--ServerApp.base_url=/lw-workspace/proxy/",
@@ -552,8 +552,8 @@ metadata:
                  },
                  "keep_original_fields": false,
                  "field_mappings": {
-                     "authz": { 
-                        "type": "string", 
+                     "authz": {
+                        "type": "string",
                         "default" : "/open"
                      },
                      "tags": "path:tags",
@@ -782,7 +782,7 @@ workspace-proxy:
 
   image:
     repository: quay.io/cdis/multihead-workspace-proxy
-    tag: fix_remove_logging_and_passing_of_creds
+    tag: fix_error_handling_workspace
     pullPolicy: Always
 
   listenAddr: ":8080"

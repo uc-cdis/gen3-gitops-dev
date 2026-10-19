@@ -13,7 +13,7 @@ arborist:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/arborist
-    tag: "2026.04"
+    tag: "2026.08"
   externalSecrets:
     dbcreds: qa-brh-arborist-creds
 audit:
@@ -27,7 +27,7 @@ dashboard:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-statics
-    tag: "2026.04"
+    tag: "2026.08"
   dashboardConfig:
     bucket: devplanetv2-qa-brh-helm-dashboard-bucket
     prefix: qa-brh.planx-pla.net
@@ -80,7 +80,6 @@ frontend-framework:
 
 global:
   frontendRoot: gen3ff
-  usernameHash: sha256-16
   crossplane:
     enabled: true
     oidcProviderUrl: "oidc.eks.us-east-1.amazonaws.com/id/F057519C0E32B7DE2580904C4007BB21"
@@ -124,7 +123,7 @@ hatchery:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
-    tag: "feat_squashfs-pvc-provisioning"
+    tag: master
   hatchery:
     json: |
       {
@@ -133,7 +132,6 @@ hatchery:
           "memory": 0.004445
         },
         "user-namespace": "jupyter-pods-qa-brh",
-        "hashed-usernames": true,
         "sub-dir": "/lw-workspace",
         "user-volume-size": "10Gi",
         "default-pay-model": {
@@ -146,12 +144,14 @@ hatchery:
         "s3-config": {
           "bucketName": "software-library-bucket-new",
           "prefixBase": "qa-brh",
-          "region": "us-east-1"
+          "region": "us-east-1",
+          "kmsKeyArn": "arn:aws:kms:us-east-1:707767160287:key/387b8ebf-c8b8-4887-9b2c-639aee77654c"
         },
+        "oidc-provider-arn": "arn:aws:iam::707767160287:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/F057519C0E32B7DE2580904C4007BB21",
         "sidecar": {
           "cpu-limit": "1.0",
           "memory-limit": "256Mi",
-          "image": "quay.io/cdis/ecs-ws-sidecar:2026.04",
+          "image": "quay.io/cdis/ecs-ws-sidecar:2026.08",
           "env": {
             "NAMESPACE": "qa-brh",
             "HOSTNAME": "qa-brh.planx-pla.net",
@@ -187,6 +187,8 @@ hatchery:
               "LMOD_SYSTEM_DEFAULT_MODULES": "py-numpy:py-pandas:py-matplotlib:py-scikit-learn:py-heal-sdk:py-gen3"
             },
             "args": [
+              "--ServerApp.disable_check_xsrf=True",
+              "--ServerApp.allow_origin='https://qa-brh.planx-pla.net'",
               "--ServerApp.base_url=/lw-workspace/proxy/",
               "--LabApp.default_url=/lab/tree/brh-welcome-wsl.ipynb",
               "--ServerApp.password=''",
@@ -219,6 +221,8 @@ hatchery:
               "FRAME_ANCESTORS": "https://qa-brh.planx-pla.net"
             },
             "args": [
+              "--ServerApp.disable_check_xsrf=True",
+              "--ServerApp.allow_origin='https://qa-brh.planx-pla.net'",
               "--JupyterNotebookApp.base_url=/lw-workspace/proxy/",
               "--JupyterNotebookApp.default_url=/lab",
               "--JupyterNotebookApp.password=''",
@@ -249,11 +253,13 @@ hatchery:
             "cpu-limit": "2.0",
             "memory-limit": "16Gi",
             "name": "(Tutorials) Example Analysis Jupyter Lab Notebooks",
-            "image": "quay.io/cdis/brh-notebooks:combined_demos__b0a59aa051cbd993bbda25a7bb42f99bd4d91322",
+            "image": "quay.io/cdis/brh-notebooks:combined_demos__e68977edfc602f20cb913f85fe65acc39968b508",
             "env": {
               "FRAME_ANCESTORS": "https://qa-brh.planx-pla.net"
             },
             "args": [
+              "--ServerApp.disable_check_xsrf=True",
+              "--ServerApp.allow_origin='https://qa-brh.planx-pla.net'",
               "--JupyterNotebookApp.base_url=/lw-workspace/proxy/",
               "--JupyterNotebookApp.default_url=/lab",
               "--JupyterNotebookApp.password=''",
@@ -272,7 +278,7 @@ hatchery:
               "-c",
               "export IAM=`whoami`; rm -rf /home/$IAM/pd/dockerHome; rm -rf /home/$IAM/pd/lost+found; ln -s /data /home/$IAM/pd/; true"
             ],
-            "user-uid": 1000,
+            "user-uid": 1010,
             "fs-gid": 100,
             "user-volume-location": "/home/jovyan/pd",
             "gen3-volume-location": "/home/jovyan/.gen3"
@@ -402,14 +408,14 @@ indexd:
     dbcreds: qa-brh-indexd-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexd
-    tag: "2026.04"
+    tag: "2026.08"
 manifestservice:
   enabled: true
   externalSecrets:
     manifestserviceG3auto: qa-brh-manifestservice-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/manifestservice
-    tag: "2026.04"
+    tag: "2026.08"
 metadata:
   useAggMds: "True"
   aggMdsNamespace: "qa-brh"
@@ -706,12 +712,12 @@ metadata:
     dbcreds: qa-brh-metadata-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
-    tag: "2026.04"
+    tag: "2026.08"
 peregrine:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/peregrine
-    tag: "2026.04"
+    tag: "2026.08"
   externalSecrets:
     dbcreds: qa-brh-peregrine-creds
 portal:
@@ -721,7 +727,7 @@ requestor:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/requestor
-    tag: "2026.04"
+    tag: "2026.08"
   externalSecrets:
     dbcreds: qa-brh-requestor-creds
 revproxy:
@@ -733,7 +739,7 @@ revproxy:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/nginx
-    tag: "2026.04"
+    tag: "2026.08"
   ingress:
     aws:
       group: devplanetv2
@@ -742,7 +748,7 @@ sheepdog:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sheepdog
-    tag: "2026.04"
+    tag: "2026.08"
   externalSecrets:
     dbcreds: qa-brh-sheepdog-creds
 wts:
