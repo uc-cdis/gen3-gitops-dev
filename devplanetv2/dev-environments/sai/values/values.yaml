@@ -69,6 +69,9 @@ fence:
         repository: quay.io/cdis/fence
         tag: master
     replicas: 1
+    usersync:
+        usersync: true
+        userYamlS3Path: s3://cdis-gen3-users/dev/user.yaml
     FENCE_CONFIG_PUBLIC:
         DPOP_REQUIRED: false
 
