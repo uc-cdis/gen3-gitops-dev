@@ -103,6 +103,8 @@ funnel:
     Kubernetes:
         JobsNamespace: workflow-pods-sai
         ReconcileRate: 120s
+        Storage:
+            type: s3files
         Executor:
             restartPolicy: OnFailure
             backoffLimit: 0
