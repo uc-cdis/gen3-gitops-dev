@@ -88,6 +88,11 @@ gen3-workflow:
         kmsEncryptionEnabled: true
     GEN3_WORKFLOW_CONFIG:
         DPOP_REQUIRED: false
+        ENABLE_S3_FILES: true
+        EKS_SECURITY_GROUP_NAMES:
+            - devplanetv2_EKS_workers_sg
+            - devplanetv2_EKS_nodepool_jupyter_sg
+
 
 funnel:
     postgres:
