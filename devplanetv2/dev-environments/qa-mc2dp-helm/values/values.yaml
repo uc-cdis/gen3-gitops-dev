@@ -210,11 +210,11 @@ hatchery:
               "PATH": "/opt/conda/bin:/home/jovyan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
             },
             "squashfs_mount": {
-              "enabled": true,
+              "enabled": false,
               "source_sqsh": "/image/apps-2026-09-08.sqsh"
             },
             "command": [
-              "start-notebook.sh"
+              "/jupyterlab-start.sh"
             ],
             "args": [
               "--ServerApp.base_url=/lw-workspace/proxy/",
@@ -552,8 +552,8 @@ metadata:
                  },
                  "keep_original_fields": false,
                  "field_mappings": {
-                     "authz": { 
-                        "type": "string", 
+                     "authz": {
+                        "type": "string",
                         "default" : "/open"
                      },
                      "tags": "path:tags",
