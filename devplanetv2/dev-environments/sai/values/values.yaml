@@ -97,7 +97,7 @@ gen3-workflow:
 funnel:
     image:
         repository: quay.io/cdis/funnel
-        tag: chore_config_merge
+        tag: fix_clean_backlog
     postgres:
         dbCreate: true
     externalSecrets:
