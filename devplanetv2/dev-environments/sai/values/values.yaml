@@ -106,7 +106,7 @@ funnel:
     Kubernetes:
         JobsNamespace: workflow-pods-sai
         ReconcileRate: 10s
-        DisableJobCleanup: true
+        DisableJobCleanup: false
         Storage:
             type: s3files
         Executor:
