@@ -186,7 +186,7 @@ fence:
     fenceGoogleStorageCredsSecret: binamb-fence-google-storage-creds
     fenceJwtKeys: binamb-fence-jwt
   image:
-    tag: chore_add-passport-to-userinfo
+    tag: master
   usersync:
     usersync: true
     syncFromDbgap: false
@@ -357,7 +357,7 @@ indexd:
   externalSecrets:
     serviceCreds: binamb-indexd-service-creds
   image:
-    tag: feat_fastapi
+    tag: master
 manifestservice:
   enabled: true
   externalSecrets:
