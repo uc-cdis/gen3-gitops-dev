@@ -210,7 +210,7 @@ hatchery:
               "PATH": "/opt/conda/bin:/home/jovyan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
             },
             "squashfs_mount": {
-              "enabled": false,
+              "enabled": true,
               "source_sqsh": "/image/apps-2026-09-08.sqsh"
             },
             "command": [
