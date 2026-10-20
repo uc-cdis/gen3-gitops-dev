@@ -65,8 +65,8 @@ datareplicate:
     # Value Must be capitalized string value i.e. True, False
     DRY_RUN: "True"
     RELEASE: 42
-    MANIFEST_FILE: s3://test-data-replication-manifest/fake_delete_manifest.tsv
-    IGNORED_FILE: s3://test-data-replication-manifest/ignored_files_manifest.csv
+    MANIFEST_FILE: s3://test-data-replication-manifest/GDC_only_3plusgig_open_active_manifest.tsv
+    IGNORED_FILE: s3://test-data-replication-manifest/fake_delete_manifest.tsv
     LOG_BUCKET: test-data-replication-manifest
     ONLY_REDACT: aws
 fence:
