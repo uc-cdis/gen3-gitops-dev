@@ -68,7 +68,7 @@ datareplicate:
     MANIFEST_FILE: s3://test-data-replication-manifest/fake_delete_manifest.tsv
     IGNORED_FILE: s3://test-data-replication-manifest/ignored_files_manifest.csv
     LOG_BUCKET: test-data-replication-manifest
-    ONLY_REDACT: aws
+    ONLY_REDACT: s3
 fence:
   autoscaling:
     enabled: false
