@@ -42,7 +42,7 @@ datareplicate:
   suspendCronjob: true
   externalSecrets:
     deploy: true
-    dcfDataserviceSettingsSecret: binamb-dcf-dataservice-settings-secrets
+    dcfDataserviceSettingsSecret: qa-dcf-dataservice-settings-secrets
     awsCredsSecret: jian-dcf-aws-creds-secret
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/dcf-dataservice
