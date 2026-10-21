@@ -220,7 +220,6 @@ hatchery:
               "--ServerApp.base_url=/lw-workspace/proxy/",
               "--ServerApp.default_url=/lab",
               "--ServerApp.password=''",
-              "--ServerApp.token=''",
               "--ServerApp.disable_check_xsrf=True",
               "--ServerApp.allow_origin='https://qa-prometheus.planx-pla.net'",
               "--ServerApp.root_dir='/home/jovyan'",
@@ -284,7 +283,7 @@ hatchery:
             "gpu": true,
             "memory-limit": "8Gi",
             "name": "AI/ML (2CPU/8GB RAM, GPU)",
-            "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-prometheus:prometheus-master",
+            "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-prometheus:prometheus-3.4.0",
             "pull_policy": "Always",
             "env": {
               "FRAME_ANCESTORS": "https://qa-prometheus.planx-pla.net",
@@ -301,7 +300,6 @@ hatchery:
               "--ServerApp.base_url=/lw-workspace/proxy/",
               "--ServerApp.default_url=/lab",
               "--ServerApp.password=''",
-              "--ServerApp.token=''",
               "--ServerApp.disable_check_xsrf=True",
               "--ServerApp.allow_origin='https://qa-prometheus.planx-pla.net'",
               "--ServerApp.root_dir='/home/jovyan'",
@@ -782,7 +780,7 @@ workspace-proxy:
 
   image:
     repository: quay.io/cdis/multihead-workspace-proxy
-    tag: fix_error_handling_workspace
+    tag: 0.0.4
     pullPolicy: Always
 
   listenAddr: ":8080"
