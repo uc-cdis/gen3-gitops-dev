@@ -54,7 +54,7 @@ arborist:
     enabled: true
     image:
         repository: quay.io/cdis/arborist
-        tag: feat_validate-aud #debug-always-allow
+        tag: debug-always-allow
 
 fence:
     enabled: true
