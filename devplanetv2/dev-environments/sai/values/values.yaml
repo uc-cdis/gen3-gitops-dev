@@ -20,6 +20,8 @@ global:
     externalSecrets:
         deploy: true
         createLocalK8sSecret: false
+        createDpopSecret: true
+        dpopSecretName: sai-dpop-secret
         pushSecret: true
     hostname: sai.planx-pla.net
     manifestGlobalExtraValues:
@@ -73,7 +75,7 @@ fence:
         usersync: true
         userYamlS3Path: s3://cdis-gen3-users/dev/user.yaml
     FENCE_CONFIG_PUBLIC:
-        DPOP_REQUIRED: false
+        DPOP_ENABLED: true
 
 gen3-workflow:
     enabled: true
@@ -87,7 +89,7 @@ gen3-workflow:
         taskImageWhitelist: ['*']
         kmsEncryptionEnabled: true
     GEN3_WORKFLOW_CONFIG:
-        DPOP_REQUIRED: false
+        DPOP_REQUIRED: true
         ENABLE_S3_FILES: true
         EKS_SECURITY_GROUP_NAMES:
             - devplanetv2_EKS_workers_sg

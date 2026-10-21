@@ -1,3 +1,3 @@
 name: sai
-helmBranch: master
+helmBranch: chore/add_dpop_secret_g3wf
 gitopsBranch: master
