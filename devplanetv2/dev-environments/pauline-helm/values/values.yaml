@@ -77,7 +77,7 @@ gen3-workflow:
     enabled: true
     image:
         repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-workflow
-        tag: master
+        tag: fix-x-amz-copy-source
     externalSecrets:
         gen3workflowG3auto: "gen3workflow-g3auto"
     GEN3_WORKFLOW_CONFIG:
