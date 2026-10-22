@@ -104,7 +104,7 @@ gen3-fhir-proxy:
     pullPolicy: Always
   service:
     port: 8007
-    targetPort: 8007
+    targetPort: 8000
   externalSecrets:
     fhirCreds: qa-fhir-proxy-gcp-sa    
   config:
