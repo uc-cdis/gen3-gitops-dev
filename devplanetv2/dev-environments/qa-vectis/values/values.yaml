@@ -741,6 +741,8 @@ revproxy:
           proxy_read_timeout 600s;
       }
 
+  image:
+    tag: '1.30.6'
 sheepdog:
   # Replaced by Lambda ingestion pipeline
   enabled: false

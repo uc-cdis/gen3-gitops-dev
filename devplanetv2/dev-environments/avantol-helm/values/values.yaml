@@ -312,6 +312,8 @@ revproxy:
       # Do not change- this will break DNS for your env.
       group: devplanetv2-internal
 
+  image:
+    tag: '1.30.6'
 sheepdog:
   resources:
     requests:

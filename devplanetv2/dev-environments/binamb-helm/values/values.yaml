@@ -530,7 +530,7 @@ portal:
 revproxy:
   enabled: true
   image:
-    tag: "2026.02"
+    tag: '1.30.6'
   ingress:
     aws:
       group: devplanetv2-internal
