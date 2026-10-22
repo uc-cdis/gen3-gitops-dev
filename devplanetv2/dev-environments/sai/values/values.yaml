@@ -69,7 +69,7 @@ fence:
         fenceJwtKeys: sai-fence-jwt
     image:
         repository: quay.io/cdis/fence
-        tag: master
+        tag: fix_validate_dpop_onlY_for_webapp
     replicas: 1
     usersync:
         usersync: true
