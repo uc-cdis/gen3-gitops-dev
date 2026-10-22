@@ -177,7 +177,7 @@ hatchery:
             "cpu-limit": "2.0",
             "memory-limit": "8Gi",
             "name": "Jupyter Lab with Software Library",
-            "image": "quay.io/cdis/brh-notebooks:software_library_brh__2c20cae3e0597e3b932aa5017b62155d0eb70cfa",
+            "image": "quay.io/cdis/brh-notebooks:software_library_brh__826a15ddc3f546c3fe01641e2476d44e228a0469",
             "squashfs_mount": {
               "enabled": true,
               "source_sqsh": "/image/apps-2026-09-08.sqsh"
