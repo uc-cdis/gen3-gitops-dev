@@ -87,8 +87,8 @@ fluentd:
 frontend-framework:
   enabled: true
   image:
-    repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/heal-data-commons
-    tag: "feat_heal-explorer"
+    repository: quay.io/cdis/heal-data-commons
+    tag: "feat_heal-explorer_test"
 global:
   crossplane:
     # -- (bool) Set to true if deploying to AWS and want to use crossplane for AWS resources.
