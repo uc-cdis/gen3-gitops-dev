@@ -350,6 +350,8 @@ revproxy:
           return 302 https://$host/login?redirect=/agentic/;
       }
 
+  image:
+    tag: '1.30.6'
 sheepdog:
   resources:
     requests:
