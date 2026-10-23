@@ -311,17 +311,16 @@ hatchery:
           "workspace_type": "Trial Workspace",
           "local": true
         },
-        "oidc-provider-arn": "arn:aws:iam::707767160287:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/F057519C0E32B7DE2580904C4007BB21",
         "s3-config": {
           "bucketName": "software-library-bucket-new",
-          "prefixBase": "qa-vpodc",
           "region": "us-east-1",
           "kmsKeyArn": "arn:aws:kms:us-east-1:707767160287:key/387b8ebf-c8b8-4887-9b2c-639aee77654c"
         },
+        "oidc-provider-arn": "arn:aws:iam::707767160287:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/F057519C0E32B7DE2580904C4007BB21",
         "sidecar": {
           "cpu-limit": "1.0",
           "memory-limit": "256Mi",
-          "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ecs-ws-sidecar:2026.02",
+          "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/ecs-ws-sidecar:2026.07",
           "env": {
             "NAMESPACE": "default",
             "HOSTNAME": "qa-vpodc.planx-pla.net"
@@ -355,16 +354,15 @@ hatchery:
             },
             "squashfs_mount": {
               "enabled": true,
-              "source_sqsh": "/image/apps-2026-08-20.sqsh"
+              "source_sqsh": "/image/apps-2026-09-08.sqsh"
             },
             "command": [
-              "start-notebook.sh"
+              "/jupyterlab-start.sh"
             ],
             "args": [
               "--ServerApp.base_url=/lw-workspace/proxy/",
               "--ServerApp.default_url=/lab",
               "--ServerApp.password=''",
-              "--ServerApp.token=''",
               "--ServerApp.disable_check_xsrf=True",
               "--ServerApp.allow_origin='https://qa-vpodc.planx-pla.net'",
               "--ServerApp.root_dir='/home/jovyan'",
@@ -396,7 +394,7 @@ hatchery:
             },
             "squashfs_mount": {
               "enabled": true,
-              "source_sqsh": "/image/apps-2026-08-20.sqsh"
+              "source_sqsh": "/image/apps-2026-09-08.sqsh"
             },
             "command": [
               "/jupyterlab-start.sh"
@@ -418,7 +416,7 @@ hatchery:
             "use-tls": "false",
             "ready-probe": "/lw-workspace/proxy/lab",
             "user-uid": 1010,
-            "fs-gid": 101,
+            "fs-gid": 100,
             "user-volume-location": "/home/jovyan/pd",
             "gen3-volume-location": "/home/jovyan/.gen3"
           },
@@ -436,7 +434,7 @@ hatchery:
             },
             "squashfs_mount": {
               "enabled": true,
-              "source_sqsh": "/image/apps-2026-08-20.sqsh"
+              "source_sqsh": "/image/apps-2026-09-08.sqsh"
             },
             "command": [
               "/jupyterlab-start.sh"
@@ -445,7 +443,6 @@ hatchery:
               "--ServerApp.base_url=/lw-workspace/proxy/",
               "--ServerApp.default_url=/lab",
               "--ServerApp.password=''",
-              "--ServerApp.token=''",
               "--ServerApp.disable_check_xsrf=True",
               "--ServerApp.allow_origin='https://qa-vpodc.planx-pla.net'",
               "--ServerApp.root_dir='/home/jovyan'",
@@ -476,8 +473,8 @@ hatchery:
               "PATH": "/opt/conda/bin:/home/jovyan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
             },
             "squashfs_mount": {
-              "enabled": true,
-              "source_sqsh": "/image/apps-2026-08-20.sqsh"
+              "enabled": false,
+              "source_sqsh": "/image/apps-2026-09-08.sqsh"
             },
             "command": [
               "start-notebook.sh"
@@ -487,10 +484,12 @@ hatchery:
               "--ServerApp.default_url=/lab",
               "--ServerApp.password=''",
               "--ServerApp.token=''",
+              "--ServerApp.ip=0.0.0.0",
               "--ServerApp.disable_check_xsrf=True",
               "--ServerApp.allow_origin='https://qa-vpodc.planx-pla.net'",
               "--ServerApp.root_dir='/home/jovyan'",
               "--ServerApp.shutdown_no_activity_timeout=90000",
+              "--ServerApp.quit_button=False",
               "--FileContentsManager.always_delete_dir=True",
               "--FileContentsManager.delete_to_trash=False",
               "--AsyncFileContentsManager.always_delete_dir=True",
@@ -1021,7 +1020,7 @@ workspace-proxy:
 
   image:
     repository: quay.io/cdis/multihead-workspace-proxy
-    tag: master
+    tag: 0.0.5
     pullPolicy: Always
 
   listenAddr: ":8080"
