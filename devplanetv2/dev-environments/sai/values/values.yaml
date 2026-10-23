@@ -19,7 +19,7 @@ global:
     environment: sai
     createDpopSecret: true
     externalSecrets:
-        deploy: false
+        deploy: true
         createLocalK8sSecret: false
         createDpopSecret: true
         dpopSecretName: sai-dpop-secret
