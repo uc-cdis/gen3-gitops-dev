@@ -17,8 +17,9 @@ global:
     dev: false
     dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json
     environment: sai
+    createDpopSecret: true
     externalSecrets:
-        deploy: true
+        deploy: false
         createLocalK8sSecret: false
         createDpopSecret: true
         dpopSecretName: sai-dpop-secret
