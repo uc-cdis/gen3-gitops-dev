@@ -89,8 +89,8 @@ gen3-workflow:
         taskImageWhitelist: ['*']
         kmsEncryptionEnabled: true
     GEN3_WORKFLOW_CONFIG:
-        DPOP_REQUIRED: true
-        ENABLE_S3_FILES: true
+        DPOP_REQUIRED: false
+        ENABLE_S3_FILES: false
         EKS_SECURITY_GROUP_NAMES:
             - devplanetv2_EKS_workers_sg
             - devplanetv2_EKS_nodepool_jupyter_sg
@@ -110,7 +110,7 @@ funnel:
         ReconcileRate: 10s
         DisableJobCleanup: false
         Storage:
-            type: s3files
+            # type: s3files
         Executor:
             restartPolicy: OnFailure
             backoffLimit: 0
