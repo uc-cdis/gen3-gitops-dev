@@ -85,6 +85,8 @@ gen3-user-data-library:
     - name: MAX_LIST_ITEMS
       value: "50000"
 global:
+  jeg:
+    enabled: true
   crossplane:
     enabled: true
     oidcProviderUrl: "oidc.eks.us-east-1.amazonaws.com/id/F057519C0E32B7DE2580904C4007BB21"
