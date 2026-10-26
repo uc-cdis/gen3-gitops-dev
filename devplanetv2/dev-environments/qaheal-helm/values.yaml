@@ -2,8 +2,7 @@
 name: qaheal-helm
 
 # What branch of helm -- http://github.com/uc-cdis/gen3-helm
-# jbarno testing jeg doesn't break non-jeg
-helmBranch: feat/helm_workspace_additional_configs_and_csrf
+helmBranch: master
 
 # What branch of gitops -- http://github.com/uc-cdis/gen3-gitops-dev
 gitopsBranch: master
