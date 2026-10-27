@@ -88,7 +88,7 @@ frontend-framework:
   enabled: true
   image:
     repository: quay.io/cdis/heal-data-commons
-    tag: "feat_heal-explorer"
+    tag: "main"
 global:
   crossplane:
     # -- (bool) Set to true if deploying to AWS and want to use crossplane for AWS resources.
