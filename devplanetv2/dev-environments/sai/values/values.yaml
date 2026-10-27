@@ -21,7 +21,6 @@ global:
     externalSecrets:
         deploy: true
         createLocalK8sSecret: false
-        createDpopSecret: true
         dpopSecretName: sai-dpop-secret
         pushSecret: true
     hostname: sai.planx-pla.net
@@ -70,7 +69,7 @@ fence:
         fenceJwtKeys: sai-fence-jwt
     image:
         repository: quay.io/cdis/fence
-        tag: fix_validate_dpop_onlY_for_webapp
+        tag: 15.0.2
     replicas: 1
     usersync:
         usersync: true
