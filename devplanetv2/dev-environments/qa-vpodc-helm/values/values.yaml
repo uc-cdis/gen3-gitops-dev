@@ -297,7 +297,6 @@ hatchery:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/hatchery
-    # tag: "2.11.0"
     tag: "master"
   hatchery:
     reaper:
@@ -310,9 +309,17 @@ hatchery:
         "shared-workspace": {
           "enabled": true
         },
+        "pay-models-dynamodb-table": "bmh-admin-portal-backend-bmhworkspacetableD4D73E43-16P8L55B0Q5UX",
+        "auto-select-single-paymodel": true,
+        "pricing": {
+          "cpu": 0.04048,
+          "memory": 0.004445
+        },
         "default-pay-model": {
           "workspace_type": "Trial Workspace",
-          "local": true
+          "local": true,
+          "hard-limit": 5,
+          "soft-limit": 4
         },
         "s3-config": {
           "bucketName": "software-library-bucket-new",
