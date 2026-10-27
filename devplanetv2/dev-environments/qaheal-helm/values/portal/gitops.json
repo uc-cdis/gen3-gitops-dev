@@ -66,7 +66,7 @@
           "tooltip": "Use free-text search and tags to find studies, discover datasets, and export selected data files to an analysis workspace."
         },
         {
-          "icon": "data-explore",
+          "icon": "exploration",
           "link": "https://qa-heal.planx-pla.net/Explorer",
           "name": "Explorer"
         },
