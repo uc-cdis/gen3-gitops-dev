@@ -1,4 +1,6 @@
 global:
+  jeg:
+    enabled: true
   aws:
     account: "707767160287"
     awsEsProxyRole: devplanetv2--qa-vpodc-helm--es-access
@@ -54,6 +56,7 @@ global:
     # -- (int) The maxSkew to use for topology spread constraints. Defaults to 1.
     maxSkew: 1
 ambassador:
+  enabled: false
   jupyterNamespace: jupyter-pods-qa-vpodc
 
 argo-wrapper:

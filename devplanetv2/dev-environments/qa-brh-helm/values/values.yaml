@@ -79,6 +79,8 @@ frontend-framework:
     DATACOMMONS: QA-BRH
 
 global:
+  jeg:
+    enabled: true
   frontendRoot: gen3ff
   crossplane:
     enabled: true
