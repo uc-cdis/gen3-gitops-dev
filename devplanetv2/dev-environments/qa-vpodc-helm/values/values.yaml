@@ -309,7 +309,7 @@ hatchery:
         "shared-workspace": {
           "enabled": true
         },
-        "pay-models-dynamodb-table": "bmh-admin-portal-backend-bmhworkspacetableD4D73E43-16P8L55B0Q5UX",
+        "pay-models-dynamodb-table": "bmh-admin-portal-backend-bmhworkspacetableD4D73E43-4U08KIUG3YW3",
         "auto-select-single-paymodel": true,
         "pricing": {
           "cpu": 0.04048,
