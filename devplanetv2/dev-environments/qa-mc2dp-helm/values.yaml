@@ -1,7 +1,7 @@
 name: qa-mc2dp-helm
 
 # What branch of helm -- http://github.com/uc-cdis/gen3-helm
-helmBranch: test-worspace_changes
+helmBranch: feat/helm_workspace_additional_configs_and_csrf
 
 # What branch of gitops -- http://github.com/uc-cdis/gen3-gitops-dev
 gitopsBranch: master
