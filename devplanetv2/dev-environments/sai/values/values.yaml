@@ -137,7 +137,7 @@ orthanc:
         tag: orthancteam-tag-24.3.5-AL2
 
 peregrine:
-    enabled: false
+    enabled: true
 
 requestor:
     enabled: true
