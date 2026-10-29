@@ -63,7 +63,7 @@ argo-wrapper:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/argo-wrapper
-    tag: feat_improve_error_info_plp
+    tag: master
   scalingGroups:
     default: "{{workflow.name}}"
     custom:
@@ -79,7 +79,7 @@ cohort-middleware:
     cohortMiddlewareG3Auto: qa-vpodc-cohort-middleware-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/cohort-middleware
-    tag: 0.5.0
+    tag: master
   config:
     pseudonyms:
         pseudonym_field: "person.person_source_value"
@@ -94,7 +94,7 @@ arborist:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/arborist
-    tag: "2026.09"
+    tag: "2026.11"
 
 audit:
   enabled: false
@@ -116,7 +116,7 @@ dashboard:
     prefix: qa-vpodc.planx-pla.net
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-statics
-    tag: "2026.09"
+    tag: "2026.11"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--qa-vpodc-helm--dashboard-access
@@ -256,7 +256,7 @@ fence:
     fenceJwtKeys: qa-vpodc-fence-jwt
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
-    tag: "13.3.0"
+    tag: "2026.11"
 
 frontend-framework:
   enabled: true
@@ -281,7 +281,7 @@ guppy:
   configIndex: qa_array-config
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/guppy
-    tag: "2026.06"
+    tag: "2026.11"
   indices:
     # - index: etl_mickey
     #   type: patients
@@ -526,14 +526,14 @@ indexd:
     serviceCreds: qa-vpodc-indexd-service-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexd
-    tag: "2026.09"
+    tag: "2026.11"
 manifestservice:
   enabled: true
   externalSecrets:
     manifestserviceG3auto: qa-vpodc-manifestservice-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/manifestservice
-    tag: "2026.09"
+    tag: "2026.11"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--qa-vpodc-helm--manifest-service-sa
@@ -944,7 +944,7 @@ metadata:
     metadataG3auto: qa-vpodc-metadata-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
-    tag: "2026.09"
+    tag: "2026.11"
   useAggMds: true
 mutatingWebhook:
   enabled: false
@@ -965,14 +965,14 @@ peregrine:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/peregrine
-    tag: "2026.09"
+    tag: "2026.11"
 portal:
   enabled: false
 requestor:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/requestor
-    tag: "2026.08"
+    tag: "2026.11"
 revproxy:
   autoscaling:
     enabled: true
@@ -995,17 +995,17 @@ sheepdog:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sheepdog
-    tag: "2026.06"
+    tag: "2026.11"
 spark:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-spark
-    tag: "2026.06"
+    tag: "2026.11"
 tube:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/tube
-    tag: "2026.06"
+    tag: "2026.11"
 wts:
   enabled: true
   externalSecrets:
@@ -1014,7 +1014,7 @@ wts:
     wtsOidcClient: qa-vpodc-wts-client-secret
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/workspace-token-service
-    tag: "2026.09"
+    tag: "2026.11"
 
 workspace-proxy:
   enabled: true
