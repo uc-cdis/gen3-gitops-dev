@@ -429,7 +429,7 @@ metadata:
 
 
 portal:
-    enabled: false
+    enabled: true
     gitops:
         css:
             ":root {\n    --primary-color: #e19722;\n    --secondary-color: #e19722;\n\
