@@ -90,6 +90,11 @@ gen3-workflow:
   gen3WorkflowConfig:
     debug: true
     taskImageWhitelist: ['*']
+  GEN3_WORKFLOW_CONFIG:
+    APP_DEBUG: true
+    ENABLE_JSON_LOGS: false
+    TASK_IMAGE_WHITELIST: ['*']
+    DPOP_REQUIRED: false
 
 funnel:
   release: production
