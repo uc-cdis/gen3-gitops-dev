@@ -46,7 +46,7 @@ datareplicate:
     awsCredsSecret: jian-dcf-aws-creds-secret
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/dcf-dataservice
-    tag: feat_DCF-2506
+    tag: master
   resources:
     # -- (map) The amount of resources that the container requests
     requests:
@@ -58,6 +58,19 @@ datareplicate:
     limits:
       # -- (string) The maximum amount of memory the container can use
       memory: 4Gi    
+  awsBatchReplicateJob:
+    enabled: true
+    namespace: qa-dcf-helm
+    schedule: "*/30 * * * *"
+    REGION: us-east-1
+    THREAD_COUNT: 2
+    MAX_RETRIES: 10
+    MANIFEST_PATH: s3://test-data-replication-manifest/test_manifest_20251025_short.tsv
+    JOB_QUEUE: binamb-planx-pla-net-bucket-replicate-jqhu_queue_job
+    JOB_DEFINITION: binamb-planx-pla-net-bucket-replicate-jqhu-batch_job_definition
+    OUTPUT_MANIFEST_BUCKET: test-data-replication-manifest
+    MULTIPART_THRESHOLD: 1
+    CHUNK_SIZE: 64
   removeObjectsFromCloudsJob:
     enabled: true
     suspendCronjob: true
