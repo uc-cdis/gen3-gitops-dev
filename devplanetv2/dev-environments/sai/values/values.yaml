@@ -146,7 +146,7 @@ requestor:
         tag: master
 
 sheepdog:
-    enabled: false
+    enabled: true
 
 tube:
     enabled: false
