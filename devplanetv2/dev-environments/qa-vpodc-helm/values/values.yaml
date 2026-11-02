@@ -397,7 +397,7 @@ hatchery:
             "gpu": false,
             "memory-limit": "4Gi",
             "name": "Standard (2CPU/4GB RAM, CPU only)",
-            "image": "quay.io/cdis/jupyterlab-generic:master",
+            "image": "quay.io/cdis/jupyterlab-generic:feat_alphagenome-notebook",
             "pull_policy": "Always",
             "env": {
               "FRAME_ANCESTORS": "https://qa-vpodc.planx-pla.net",
