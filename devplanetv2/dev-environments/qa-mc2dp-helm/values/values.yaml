@@ -53,7 +53,7 @@ fence:
     dbcreds: qa-prometheus-fence-creds
   image:
     repository: quay.io/cdis/fence
-    tag: "fix_session_cookie_exp_matches_token_exp"
+    tag: "main"
 fluentd:
   enabled: true
   image:
