@@ -287,7 +287,7 @@ hatchery:
             "gpu": true,
             "memory-limit": "8Gi",
             "name": "AI/ML (2CPU/8GB RAM, GPU)",
-            "image": "quay.io/cdis/jupyter-prometheus:prometheus-feat_alphagenome-notebook",
+            "image": "quay.io/cdis/jupyter-prometheus:prometheus-drb-jupyter-persistance",
             "pull_policy": "Always",
             "env": {
               "FRAME_ANCESTORS": "https://qa-prometheus.planx-pla.net",
