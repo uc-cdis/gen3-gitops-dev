@@ -35,6 +35,8 @@ dashboard:
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::707767160287:role/devplanetv2--qa-prometheus-helm--dashboard-access
 fence:
+  FENCE_CONFIG_PUBLIC:
+    RENEW_ACCESS_TOKEN_BEFORE_EXPIRATION: true
   autoscaling:
     enabled: true
     maxReplicas: 3
