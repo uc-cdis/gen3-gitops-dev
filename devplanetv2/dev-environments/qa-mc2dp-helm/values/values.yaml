@@ -53,7 +53,7 @@ fence:
     dbcreds: qa-prometheus-fence-creds
   image:
     repository: quay.io/cdis/fence
-    tag: "main"
+    tag: "master"
 fluentd:
   enabled: true
   image:
