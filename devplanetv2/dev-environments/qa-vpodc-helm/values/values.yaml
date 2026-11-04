@@ -265,7 +265,7 @@ frontend-framework:
   replicaCount: 2
   image:
     repository: quay.io/cdis/vpodc-data-commons
-    tag: main
+    tag: feat_MC2DP-1230
   env:
     HATCHERY_URL: "http://hatchery-service"
     HATCHERY_API: "/lw-workspace"
