@@ -990,10 +990,6 @@ revproxy:
     aws:
       group: devplanetv2
       sslPolicy: ELBSecurityPolicy-TLS13-1-2-FIPS-2023-04
-  additionalConfigs:
-    # NOTE: /search/* is not exposed directly by nginx; /guppy/* rewrites to
-    # /search/* on API Gateway, where the custom authorizer enforces access.
-
 sheepdog:
   enabled: true
   image:
