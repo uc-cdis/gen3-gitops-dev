@@ -250,7 +250,7 @@ hatchery:
             },
             "args": [
               "--ServerApp.base_url=/lw-workspace/proxy/",
-              "--JupyterNotebookApp.default_url=/lab/tree/heal-welcome.ipynb",
+              "--LabApp.default_url=/lab/tree/heal-welcome.ipynb",
               "--IdentityProvider.token=''",
               "--ServerApp.ip='*'",
               "--ServerApp.root_dir='/home/jovyan'",
