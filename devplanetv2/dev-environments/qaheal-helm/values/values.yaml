@@ -255,7 +255,7 @@ hatchery:
               "--ServerApp.ip='*'",
               "--ServerApp.root_dir='/home/jovyan'",
               "--ServerApp.shutdown_no_activity_timeout=5400",
-              "--ServerApp.quit_button=False"
+              "--ServerApp.quit_button=False",
               "--Application.log_level=DEBUG",
               "--JupyterNotebookApp.log_level=DEBUG",
               "--JupyterApp.log_level=DEBUG",
