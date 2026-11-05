@@ -244,7 +244,7 @@ hatchery:
             "cpu-limit": "1.0",
             "memory-limit": "2Gi",
             "name": "JupyterLab with Python and R Kernels",
-            "image": "quay.io/cdis/heal-notebooks:generic_rkernel__11812321abdc323c0653401b79cc73818c2de3d9",
+            "image": "quay.io/cdis/heal-notebooks:generic_rkernel__c1d2320ebeefe1ad987ea1c13ad3b40ee396c47f",
             "env": {
               "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net"
             },
