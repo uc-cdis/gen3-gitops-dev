@@ -399,6 +399,17 @@ hatchery:
     workspaceImages: "(Generic) Jupyter Lab Notebook with R Kernel+(Tutorials) Example Analysis Jupyter Lab Notebooks"
     operatorName: "planxdemo@gmail.com"
     hostname: "https://qa-heal.planx-pla.net"
+heal-cronjobs:
+  enabled: true
+  # Default image for all HEAL cronjobs.
+  image:
+    repository: quay.io/cdis/awshelper
+    tag: feat_heal-cronjobs
+  cronjobs:
+    heal-aggmds-etl:
+      vars:
+        ES_URL: "http://elasticsearch:9200"
+        INDEX_NAME: "qaheal-helm-commons-index"
 indexd:
   autoscaling:
     enabled: true
