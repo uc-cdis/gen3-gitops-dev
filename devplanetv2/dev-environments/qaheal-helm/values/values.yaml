@@ -1,4 +1,4 @@
-ambassador:
+dambassador:
   jupyterNamespace: jupyter-pods-qaheal-helm
   image:
     tag: "1.14.4"
@@ -206,11 +206,11 @@ hatchery:
             "cpu-limit": "2.0",
             "memory-limit": "8Gi",
             "name": "JupyterLab Software Library Testing",
-            "image": "quay.io/cdis/heal-notebooks:software_library_heal__2970d5bcab3baf13326b472350b5d8663ea259a4",
+            "image": "quay.io/cdis/jupyterlab-generic:feat_software-library-kernels",
             "pull_policy": "Always",
             "squashfs_mount": {
               "enabled": true,
-              "source_sqsh": "/image/apps-2026-09-08.sqsh"
+              "source_sqsh": "/image/apps-2026-11-11.sqsh"
             },
             "env": {
               "FRAME_ANCESTORS": "https://qa-heal.planx-pla.net",
@@ -218,7 +218,6 @@ hatchery:
             },
             "args": [
               "--ServerApp.base_url=/lw-workspace/proxy/",
-              "--LabApp.default_url=/lab/tree/heal-welcome-wsl.ipynb",
               "--ServerApp.password=''",
               "--ServerApp.root_dir='/home/jovyan'",
               "--ServerApp.shutdown_no_activity_timeout=3600"
@@ -1552,7 +1551,7 @@ portal:
     gen3Bundle: heal
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/data-portal
-    tag: "5.42.3"
+    tag: "feat_discovery-data-load"
 requestor:
   enabled: true
   image:
