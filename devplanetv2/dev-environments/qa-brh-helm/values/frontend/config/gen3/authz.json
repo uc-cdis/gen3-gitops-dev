@@ -5,7 +5,7 @@
       "authz": ["/workspace"]
     },
     "/Workspaces": {
-      "loginRequired": true,
+      "loginRequired": true
     },
     "/WorkspaceRequestAccess": {
       "loginRequired": true
