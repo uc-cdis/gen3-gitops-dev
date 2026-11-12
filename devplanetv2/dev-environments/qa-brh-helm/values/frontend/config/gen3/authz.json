@@ -6,7 +6,7 @@
     },
     "/Workspaces": {
       "loginRequired": true,
-      "authz": ["/workspace", "/workspace_stride_credits"],
+      "authz": ["/workspace2"],
       "redirect403": "/WorkspaceRequestAccess"
     },
     "/WorkspaceRequestAccess": {
