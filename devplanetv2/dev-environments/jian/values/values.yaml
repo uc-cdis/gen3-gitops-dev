@@ -185,6 +185,7 @@ guppy:
   esEndpoint: http://elasticsearch:9200
   
 hatchery:
+  enabled: true
   externalSecrets:
     createK8sStataSecret: true
   resources:
@@ -192,7 +193,7 @@ hatchery:
       memory: "105Mi"
       cpu: "15m"
   image:
-    tag: master
+    tag: feat_update-to-aws-sdk-go-v2
   hatchery:
     sidecarContainer:
       image: quay.io/cdis/gen3fuse-sidecar:master
@@ -228,7 +229,6 @@ hatchery:
         fs-gid: 100
         user-volume-location: "/home/jovyan/pd"
         gen3-volume-location: "/home/jovyan/.gen3"
-
 indexd:
   enabled: true
   image:
