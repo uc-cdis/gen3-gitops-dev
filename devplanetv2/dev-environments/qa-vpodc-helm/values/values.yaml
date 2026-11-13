@@ -257,8 +257,6 @@ fence:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
     tag: "15.1.1"
-  FENCE_CONFIG_PUBLIC:
-    RENEW_ACCESS_TOKEN_BEFORE_EXPIRATION: true
 
 frontend-framework:
   enabled: true
