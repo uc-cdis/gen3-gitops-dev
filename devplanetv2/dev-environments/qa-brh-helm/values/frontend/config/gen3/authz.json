@@ -6,7 +6,7 @@
     },
     "/Workspaces": {
       "loginRequired": true,
-      "authz": ["/workspace"],
+      "authz": ["/pages/see-workspace"],
       "redirect403": "/WorkspaceRequestAccess"
     },
     "/WorkspaceRequestAccess": {
