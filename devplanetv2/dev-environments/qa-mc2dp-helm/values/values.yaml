@@ -366,11 +366,7 @@ hatchery:
         ]
       }
 indexd:
-  autoscaling:
-    enabled: true
-    maxReplicas: 3
-    minReplicas: 2
-    targetCPUUtilizationPercentage: 40
+  replicaCount: 2
   enabled: true
   externalSecrets:
     serviceCreds: qa-prometheus-indexd-service-creds
@@ -379,6 +375,7 @@ indexd:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexd
     tag: '2026.07'
 manifestservice:
+  replicaCount: 2
   enabled: true
   externalSecrets:
     manifestserviceG3auto: qa-prometheus-manifestservice-g3auto
@@ -676,11 +673,6 @@ metadata:
          }
      }
   aggMdsNamespace: pdp-commons
-  autoscaling:
-    enabled: true
-    maxReplicas: 3
-    minReplicas: 2
-    targetCPUUtilizationPercentage: 60
   enabled: true
   esEndpoint: http://elasticsearch:9200
   externalSecrets:
@@ -692,6 +684,7 @@ metadata:
     tag: master
   # non empty value for useAggMds to keep the cronjob, but disable the endpoints
   useAggMds: true
+  replicaCount: 2
 mutatingWebhook:
   enabled: true
 peregrine:
