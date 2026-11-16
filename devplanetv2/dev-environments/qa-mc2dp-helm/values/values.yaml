@@ -541,138 +541,138 @@ metadata:
              }
          },
          "adapter_commons": {
-             "aggregated-subject-level-metadata": {
-                 "mds_url": "https://externalgen3.prometheus.data-commons.org/",
-                 "commons_url": "externalgen3.prometheus.data-commons.org",
-                 "adapter": "gen3",
-                 "config": {
-                     "guid_type": "aggmds_metadata_entry",
-                     "study_field": "gen3_discovery",
-                     "batchSize": 20
-                 },
-                 "keep_original_fields": false,
-                 "field_mappings": {
-                     "authz": {
-                        "type": "string",
-                        "default" : "/open"
-                     },
-                     "tags": "path:tags",
-                     "_unique_id": "path:mc2dp_global_id",
-                     "commons": "path:data_source",
-                     "subject_id_list": "path:values_of_data_source_ids",
-                     "subject_metastasis": "path:metastasis",
-                     "subject_cancer_type": "path:cancer_type",
-                     "data_source_project" : "path:data_source_project",
-                     "subject_cancer_grade": {
-                         "path": "cancer_grade",
-                         "filters": [
-                             "normalize_value"
-                         ],
-                         "filterParams": {
-                             "normalize_value": {
-                                 "grade i": "I",
-                                 "grade ii": "II",
-                                 "grade iii": "III",
-                                 "grade iv": "IV",
-                                 "unknown" : "Unknown"
-                             }
-                         },
-                         "default": ""
-                     },
-                     "subject_cancer_stage" :  {
-                         "path": "cancer_stage",
-                         "filters": [
-                             "normalize_value"
-                         ],
-                         "filterParams": {
-                             "normalize_value": {
-                               "ia": "IA",
-                               "ib": "IB",
-                               "iia": "IIA",
-                               "iib": "IIB",
-                               "iiia": "IIIA",
-                               "iiib": "IIIB",
-                               "iiic": "IIIC",
-                               "iva": "IVA",
-                               "ivc": "IVC",
-                               "i": "I",
-                               "ii": "II",
-                               "iii": "III",
-                               "iv": "IV",
-                               "0": "0",
-                               "0a": "0A",
-                               "unknown": "Unknown"
-                             }
-                         },
-                         "default": ""
-                     },
-                     "subject_primary_disease": "path:primary_disease",
-                     "subject_type_of_exposures": "path:values_of_exposures",
-                     "subject_ethnicity": {
-                         "path": "ethnicity",
-                         "filters": [
-                             "normalize_value"
-                         ],
-                         "filterParams": {
-                             "normalize_value": {
-                               "spanish/hispanic/latino (of any race)": "Hispanic or Latino",
-                               "not hispanic or latino": "Not Hispanic or Latino",
-                               "hispanic or latino": "Hispanic or Latino",
-                               "unknown": "Unknown",
-                               "not available": "Declined to Answer",
-                               "declined to answer": "Declined to Answer",
-                               "not hispanic or latino, declined to answer": "Not Hispanic or Latino / Declined to Answer",
-                               "not reported / unknown": "Unknown"
-                           }
-                         },
-                         "default": ""
-                     },
-                     "subject_gender": {
-                         "path": "biological_sex",
-                         "filters": [
-                             "normalize_value"
-                         ],
-                         "filterParams": {
-                             "normalize_value": {
-                                 "male": "Male",
-                                 "female": "Female",
-                                 "female, male" : "Female, Male",
-                                 "male, female" : "Male, Female",
-                                 "not reported": "Not Reported",
-                                 "Not Reported": "Not Reported"
-                             }
-                         },
-                         "default": ""
-                     },
-                     "subject_race": {
-                         "path": "race",
-                         "filters": [
-                             "normalize_value"
-                         ],
-                         "filterParams": {
-                             "normalize_value": {
-                               "black or african american": "Black or African American",
-                               "american indian / alaskan native": "American Indian / Alaskan Native",
-                               "black or african american; white": "Black or African American / White",
-                               "black or african american; white; other(mixed)": "Black or African American / White / Other",
-                               "not available": "Not Reported",
-                               "native hawaiian or other pacific islander": "Native Hawaiian or Other Pacific Islander",
-                               "asian": "Asian",
-                               "not reported, white": "Declined to Answer, White",
-                               "declined to answer": "Declined to Answer",
-                               "asian; black or african american": "Asian / Black or African American",
-                               "white": "White"
-                           }
-                         },
-                         "default": ""
-                     },
-                     "data_source": "path:data_source",
-                     "commons_url": "",
-                     "mc2dp_global_id": "path:mc2dp_global_id",
-                     "is_synthetic": "path:is_synthetic",
-                     "is_data_files" : "path:is_data_files"
-                 }
-             }
+            #  "aggregated-subject-level-metadata": {
+            #      "mds_url": "https://externalgen3.prometheus.data-commons.org/",
+            #      "commons_url": "externalgen3.prometheus.data-commons.org",
+            #      "adapter": "gen3",
+            #      "config": {
+            #          "guid_type": "aggmds_metadata_entry",
+            #          "study_field": "gen3_discovery",
+            #          "batchSize": 20
+            #      },
+            #      "keep_original_fields": false,
+            #      "field_mappings": {
+            #          "authz": {
+            #             "type": "string",
+            #             "default" : "/open"
+            #          },
+            #          "tags": "path:tags",
+            #          "_unique_id": "path:mc2dp_global_id",
+            #          "commons": "path:data_source",
+            #          "subject_id_list": "path:values_of_data_source_ids",
+            #          "subject_metastasis": "path:metastasis",
+            #          "subject_cancer_type": "path:cancer_type",
+            #          "data_source_project" : "path:data_source_project",
+            #          "subject_cancer_grade": {
+            #              "path": "cancer_grade",
+            #              "filters": [
+            #                  "normalize_value"
+            #              ],
+            #              "filterParams": {
+            #                  "normalize_value": {
+            #                      "grade i": "I",
+            #                      "grade ii": "II",
+            #                      "grade iii": "III",
+            #                      "grade iv": "IV",
+            #                      "unknown" : "Unknown"
+            #                  }
+            #              },
+            #              "default": ""
+            #          },
+            #          "subject_cancer_stage" :  {
+            #              "path": "cancer_stage",
+            #              "filters": [
+            #                  "normalize_value"
+            #              ],
+            #              "filterParams": {
+            #                  "normalize_value": {
+            #                    "ia": "IA",
+            #                    "ib": "IB",
+            #                    "iia": "IIA",
+            #                    "iib": "IIB",
+            #                    "iiia": "IIIA",
+            #                    "iiib": "IIIB",
+            #                    "iiic": "IIIC",
+            #                    "iva": "IVA",
+            #                    "ivc": "IVC",
+            #                    "i": "I",
+            #                    "ii": "II",
+            #                    "iii": "III",
+            #                    "iv": "IV",
+            #                    "0": "0",
+            #                    "0a": "0A",
+            #                    "unknown": "Unknown"
+            #                  }
+            #              },
+            #              "default": ""
+            #          },
+            #          "subject_primary_disease": "path:primary_disease",
+            #          "subject_type_of_exposures": "path:values_of_exposures",
+            #          "subject_ethnicity": {
+            #              "path": "ethnicity",
+            #              "filters": [
+            #                  "normalize_value"
+            #              ],
+            #              "filterParams": {
+            #                  "normalize_value": {
+            #                    "spanish/hispanic/latino (of any race)": "Hispanic or Latino",
+            #                    "not hispanic or latino": "Not Hispanic or Latino",
+            #                    "hispanic or latino": "Hispanic or Latino",
+            #                    "unknown": "Unknown",
+            #                    "not available": "Declined to Answer",
+            #                    "declined to answer": "Declined to Answer",
+            #                    "not hispanic or latino, declined to answer": "Not Hispanic or Latino / Declined to Answer",
+            #                    "not reported / unknown": "Unknown"
+            #                }
+            #              },
+            #              "default": ""
+            #          },
+            #          "subject_gender": {
+            #              "path": "biological_sex",
+            #              "filters": [
+            #                  "normalize_value"
+            #              ],
+            #              "filterParams": {
+            #                  "normalize_value": {
+            #                      "male": "Male",
+            #                      "female": "Female",
+            #                      "female, male" : "Female, Male",
+            #                      "male, female" : "Male, Female",
+            #                      "not reported": "Not Reported",
+            #                      "Not Reported": "Not Reported"
+            #                  }
+            #              },
+            #              "default": ""
+            #          },
+            #          "subject_race": {
+            #              "path": "race",
+            #              "filters": [
+            #                  "normalize_value"
+            #              ],
+            #              "filterParams": {
+            #                  "normalize_value": {
+            #                    "black or african american": "Black or African American",
+            #                    "american indian / alaskan native": "American Indian / Alaskan Native",
+            #                    "black or african american; white": "Black or African American / White",
+            #                    "black or african american; white; other(mixed)": "Black or African American / White / Other",
+            #                    "not available": "Not Reported",
+            #                    "native hawaiian or other pacific islander": "Native Hawaiian or Other Pacific Islander",
+            #                    "asian": "Asian",
+            #                    "not reported, white": "Declined to Answer, White",
+            #                    "declined to answer": "Declined to Answer",
+            #                    "asian; black or african american": "Asian / Black or African American",
+            #                    "white": "White"
+            #                }
+            #              },
+            #              "default": ""
+            #          },
+            #          "data_source": "path:data_source",
+            #          "commons_url": "",
+            #          "mc2dp_global_id": "path:mc2dp_global_id",
+            #          "is_synthetic": "path:is_synthetic",
+            #          "is_data_files" : "path:is_data_files"
+            #      }
+            #  }
          }
      }
   aggMdsNamespace: pdp-commons
