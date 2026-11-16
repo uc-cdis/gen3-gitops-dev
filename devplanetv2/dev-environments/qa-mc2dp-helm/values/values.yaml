@@ -540,8 +540,7 @@ metadata:
                  "array_config_prefix": "gen3_discovery"
              }
          },
-         "adapter_commons": {
-         }
+         "adapter_commons": {}
      }
   aggMdsNamespace: pdp-commons
   autoscaling:
