@@ -151,7 +151,7 @@ fence:
         userYamlS3Path: s3://cdis-gen3-users/ci/user.yaml
     image:
         repository: quay.io/cdis/fence
-        tag: master
+        tag: "15.1.2"
     FENCE_CONFIG_PUBLIC:
 
       # -- (bool) if true, will fake a successful login response from Google in /login/google
