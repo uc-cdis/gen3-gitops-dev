@@ -540,7 +540,134 @@ metadata:
                  "array_config_prefix": "gen3_discovery"
              }
          },
-         "adapter_commons": {}
+         "adapter_commons": {
+              "aggregated-subject-level-metadata": {
+                  "mds_url": "https://api.gdc.cancer.gov/projects?filters=%7B%22op%22:%22and%22,%22content%22:[%7B%22op%22:%22in%22,%22content%22:%7B%22field%22:%22projects.project_id%22,%22value%22:[%22APOLLO-LUAD%22,%22VAREPOP-APOLLO%22]%7D%7D]%7D&size=100&fields=name,project_id,primary_site,disease_type",
+                  "commons_url": "api.gdc.cancer.gov",
+                  "adapter": "gdc",
+                  "filters": {
+                      "size": 100
+                  },
+                 "keep_original_fields": false,
+                 "field_mappings": {
+                     "authz": {
+                        "type": "string",
+                        "default" : "/open"
+                     },
+                     "tags": [
+                        {
+                            "name": "path:disease_type",
+                            "category": "disease_type"
+                        },
+                        {
+                            "name": "path:primary_site",
+                            "category": "primary_site"
+                        }
+                    ],
+                     "_unique_id": "path:id",
+                     "commons": "GDC",
+                     "subject_id_list": "path:case_id",
+                  "subject_metastasis": "path:diagnoses.metastasis_at_diagnosis",
+                  "subject_cancer_type": "path:disease_type",
+                  "data_source_project": "path:project.project_id",
+                  "subject_cancer_grade": {
+                      "path": "diagnoses.tumor_grade",
+                      "filters": ["normalize_value"],
+                      "filterParams": {
+                          "normalize_value": {
+                              "g1": "I",
+                              "g2": "II",
+                              "g3": "III",
+                              "g4": "IV",
+                              "gx": "Unknown",
+                              "not reported": "Unknown",
+                              "unknown": "Unknown"
+                          }
+                      },
+                      "default": ""
+                  },
+                  "subject_cancer_stage": {
+                      "path": "diagnoses.ajcc_pathologic_stage",
+                      "filters": ["normalize_value"],
+                      "filterParams": {
+                          "normalize_value": {
+                              "stage 0": "0",
+                              "stage 0a": "0A",
+                              "stage i": "I",
+                              "stage ia": "IA",
+                              "stage ib": "IB",
+                              "stage ii": "II",
+                              "stage iia": "IIA",
+                              "stage iib": "IIB",
+                              "stage iii": "III",
+                              "stage iiia": "IIIA",
+                              "stage iiib": "IIIB",
+                              "stage iiic": "IIIC",
+                              "stage iv": "IV",
+                              "stage iva": "IVA",
+                              "stage ivc": "IVC",
+                              "not reported": "Unknown",
+                              "unknown": "Unknown"
+                          }
+                      },
+                      "default": ""
+                  },
+                  "subject_primary_disease": "path:diagnoses.primary_diagnosis",
+                  "subject_type_of_exposures": "path:exposures",
+                  "subject_ethnicity": {
+                      "path": "demographic.ethnicity",
+                      "filters": ["normalize_value"],
+                      "filterParams": {
+                          "normalize_value": {
+                              "hispanic or latino": "Hispanic or Latino",
+                              "not hispanic or latino": "Not Hispanic or Latino",
+                              "not reported": "Declined to Answer",
+                              "not allowed to collect": "Declined to Answer",
+                              "unknown": "Unknown"
+                          }
+                      },
+                      "default": ""
+                  },
+                  "subject_gender": {
+                      "path": "demographic.gender",
+                      "filters": ["normalize_value"],
+                      "filterParams": {
+                          "normalize_value": {
+                              "male": "Male",
+                              "female": "Female",
+                              "not reported": "Not Reported",
+                              "unknown": "Not Reported",
+                              "not allowed to collect": "Not Reported"
+                          }
+                      },
+                      "default": ""
+                  },
+                  "subject_race": {
+                      "path": "demographic.race",
+                      "filters": ["normalize_value"],
+                      "filterParams": {
+                          "normalize_value": {
+                              "white": "White",
+                              "black or african american": "Black or African American",
+                              "asian": "Asian",
+                              "american indian or alaska native": "American Indian / Alaskan Native",
+                              "native hawaiian or other pacific islander": "Native Hawaiian or Other Pacific Islander",
+                              "other": "Other",
+                              "not reported": "Not Reported",
+                              "not allowed to collect": "Declined to Answer",
+                              "unknown": "Not Reported"
+                          }
+                      },
+                      "default": ""
+                  },
+                  "data_source": "GDC",
+                  "commons_url": "api.gdc.cancer.gov",
+                  "mc2dp_global_id": "path:id",
+                  "is_synthetic": "No",
+                  "is_data_files": "Yes"
+                 }
+             }
+         }
      }
   aggMdsNamespace: pdp-commons
   autoscaling:
