@@ -249,7 +249,7 @@ global:
         kube_bucket: kube_bucket.devplanetv1.gen3
         logs_bucket: logs-devplanetv1-gen3
         sync_from_dbgap: "False"
-        useryaml_s3path: s3://cdis-gen3-users/dev/user.yaml
+        useryaml_s3path: s3://cdis-gen3-users/ci/user.yaml
     portalApp: gitops
     postgres:
         dbCreate: false
