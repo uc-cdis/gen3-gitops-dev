@@ -148,7 +148,7 @@ fence:
         fenceJwtKeys: georget-fence-jwt
     usersync:
         usersync: true
-        userYamlS3Path: s3://cdis-gen3-users/dev/user.yaml
+        userYamlS3Path: s3://cdis-gen3-users/ci/user.yaml
     image:
         repository: quay.io/cdis/fence
         tag: master
