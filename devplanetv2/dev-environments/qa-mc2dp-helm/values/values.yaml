@@ -562,6 +562,8 @@ metadata:
                         }
                     ],
                      "_unique_id": "path:id",
+                     "disease_type": "path:disease_type",
+                     "primary_site": "path:primary_site",
                      "commons": "GDC",
                      "subject_id_list": "path:case_id",
                   "subject_metastasis": "path:diagnoses.metastasis_at_diagnosis",
