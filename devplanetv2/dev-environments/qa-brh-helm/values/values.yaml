@@ -217,6 +217,49 @@ hatchery:
             "target-port": 8888,
             "cpu-limit": "2.0",
             "memory-limit": "8Gi",
+            "name": "(Test) Jupyter Lab with Software Library, 5 min idle shutdown",
+            "image": "quay.io/cdis/brh-notebooks:software_library_brh__826a15ddc3f546c3fe01641e2476d44e228a0469",
+            "squashfs_mount": {
+              "enabled": true,
+              "source_sqsh": "/image/apps-2026-09-08.sqsh"
+            },
+            "env": {
+              "FRAME_ANCESTORS": "https://qa-brh.planx-pla.net",
+              "LMOD_SYSTEM_DEFAULT_MODULES": "py-numpy:py-pandas:py-matplotlib:py-scikit-learn:py-heal-sdk:py-gen3"
+            },
+            "args": [
+              "--ServerApp.disable_check_xsrf=True",
+              "--ServerApp.allow_origin='https://qa-brh.planx-pla.net'",
+              "--ServerApp.base_url=/lw-workspace/proxy/",
+              "--LabApp.default_url=/lab/tree/brh-welcome-wsl.ipynb",
+              "--ServerApp.password=''",
+              "--ServerApp.notebook_dir='/home/jovyan'",
+              "--ServerApp.shutdown_no_activity_timeout=300",
+              "--MappingKernelManager.cull_idle_timeout=120",
+              "--MappingKernelManager.cull_interval=30",
+              "--TerminalManager.cull_inactive_timeout=120",
+              "--TerminalManager.cull_interval=30"
+            ],
+            "command": [
+              "/jupyterlab-start.sh"
+            ],
+            "path-rewrite": "/lw-workspace/proxy/",
+            "use-tls": "false",
+            "ready-probe": "/lw-workspace/proxy/",
+            "lifecycle-post-start": [
+              "/bin/sh",
+              "-c",
+              "export IAM=`whoami`; rm -rf /home/$IAM/pd/dockerHome; rm -rf /home/$IAM/pd/lost+found; ln -s /data /home/$IAM/; rm /home/$IAM/pd/data; true"
+            ],
+            "user-uid": 1010,
+            "fs-gid": 100,
+            "user-volume-location": "/home/jovyan/pd",
+            "gen3-volume-location": "/home/jovyan/.gen3"
+          },
+          {
+            "target-port": 8888,
+            "cpu-limit": "2.0",
+            "memory-limit": "8Gi",
             "name": "(Generic) Jupyter Lab Notebook with R Kernel",
             "image": "quay.io/cdis/brh-notebooks:generic_rkernel__778d8a22ce33935263d7eb85ef2a7a89c164a2a2",
             "env": {
