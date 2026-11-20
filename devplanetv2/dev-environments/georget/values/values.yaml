@@ -207,13 +207,12 @@ gen3-workflow:
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-workflow
     tag: master
-  gen3WorkflowConfig:
-    debug: true
-    kmsEncryptionEnabled: true
-    taskImageWhitelist:
-      - "quay.io/nextflow/bash:*"
-      - "quay.io/curl/curl:latest"
-      - "public.ecr.aws/docker/library/alpine:latest"
+    GEN3_WORKFLOW_CONFIG:
+        APP_DEBUG: true
+        ENABLE_JSON_LOGS: false
+        TASK_IMAGE_WHITELIST: ['*']
+        DPOP_REQUIRED: false
+        DPOP_SHARED_SECRET: dummy-value-not-a-secret
 
 global:
     aws:
@@ -236,6 +235,7 @@ global:
     dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json
     dispatcherJobNum: "10"
     environment: georget
+
     clusterName: devplanetv2 # used by https://github.com/uc-cdis/gen3-helm/blob/c5982db/helm/gen3-workflow/templates/secrets.yaml#L49
     externalSecrets:
         deploy: true
