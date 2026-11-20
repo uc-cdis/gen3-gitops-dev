@@ -151,7 +151,7 @@ fence:
         userYamlS3Path: s3://cdis-gen3-users/ci/user.yaml
     image:
         repository: quay.io/cdis/fence
-        tag: "15.1.2"
+        tag: master
     FENCE_CONFIG_PUBLIC:
 
       # -- (bool) if true, will fake a successful login response from Google in /login/google
@@ -161,6 +161,10 @@ fence:
 
       # -- (str) the name of the cookie set by mock authentication (used for testing only)
       DEV_LOGIN_COOKIE_NAME: "dev_login"
+
+      MAX_TASK_TOKEN_TTL: {"WORKFLOW": 4000}
+      ALLOWED_TASK_TOKEN_TYPES: ["WORKFLOW", "FOO"]
+      DPOP_ENABLED: true
 
 fluentd:
     enabled: true
@@ -202,7 +206,7 @@ gen3-workflow:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-workflow
-    tag: "test_pre-filter-task-list"
+    tag: master
   gen3WorkflowConfig:
     debug: true
     kmsEncryptionEnabled: true
@@ -250,6 +254,9 @@ global:
         logs_bucket: logs-devplanetv1-gen3
         sync_from_dbgap: "False"
         useryaml_s3path: s3://cdis-gen3-users/ci/user.yaml
+    netPolicy:
+        enabled: false
+        dbSubnet: ""
     portalApp: gitops
     postgres:
         dbCreate: false
