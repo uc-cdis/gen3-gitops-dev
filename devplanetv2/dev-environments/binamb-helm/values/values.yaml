@@ -193,6 +193,11 @@ fence:
     userYamlS3Path: s3://cdis-gen3-users/dev/user.yaml
   FENCE_CONFIG_PUBLIC:
     BASE_URL: https://binamb.dev.planx-pla.net
+    S3_BUCKETS:
+      devplanetv1-data-bucket:
+        cred: fence_bot
+      cdis-presigned-url-test:
+        cred: fence_bot    
 fluentd:
   enabled: true
   image:
