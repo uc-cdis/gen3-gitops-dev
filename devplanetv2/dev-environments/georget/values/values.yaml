@@ -208,12 +208,12 @@ gen3-workflow:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-workflow
-    tag: "1.2.0"
+    tag: "1.1.0"
     GEN3_WORKFLOW_CONFIG:
         APP_DEBUG: true
         ENABLE_JSON_LOGS: false
         TASK_IMAGE_WHITELIST: ['*']
-        DPOP_REQUIRED: true
+        DPOP_REQUIRED: false
         # DPOP_SHARED_SECRET: dummy-value-not-a-secret
 
 global:
@@ -241,6 +241,7 @@ global:
     externalSecrets:
         deploy: true
         createLocalK8sSecret: false
+        dpopSecretName: georget-dpop-secret
         pushSecret: true
     createDpopSecret: true
     hostname: georget.planx-pla.net
