@@ -151,7 +151,7 @@ fence:
         userYamlS3Path: s3://cdis-gen3-users/ci/user.yaml
     image:
         repository: quay.io/cdis/fence
-        tag: "15.1.2"
+        tag: "15.1.1"
     FENCE_CONFIG_PUBLIC:
 
       # -- (bool) if true, will fake a successful login response from Google in /login/google
@@ -162,9 +162,11 @@ fence:
       # -- (str) the name of the cookie set by mock authentication (used for testing only)
       DEV_LOGIN_COOKIE_NAME: "dev_login"
 
-      MAX_TASK_TOKEN_TTL: {"WORKFLOW": 4000}
-      ALLOWED_TASK_TOKEN_TYPES: ["WORKFLOW", "FOO"]
       DPOP_ENABLED: true
+      MAX_TASK_TOKEN_TTL:
+        WORKFLOW: 4000
+      ALLOWED_TASK_TOKEN_TYPES: ["WORKFLOW"]
+
 
 fluentd:
     enabled: true
@@ -206,13 +208,13 @@ gen3-workflow:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-workflow
-    tag: master
+    tag: "1.2.0"
     GEN3_WORKFLOW_CONFIG:
         APP_DEBUG: true
         ENABLE_JSON_LOGS: false
         TASK_IMAGE_WHITELIST: ['*']
-        DPOP_REQUIRED: false
-        DPOP_SHARED_SECRET: dummy-value-not-a-secret
+        DPOP_REQUIRED: true
+        # DPOP_SHARED_SECRET: dummy-value-not-a-secret
 
 global:
     aws:
@@ -235,12 +237,12 @@ global:
     dictionaryUrl: https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json
     dispatcherJobNum: "10"
     environment: georget
-
     clusterName: devplanetv2 # used by https://github.com/uc-cdis/gen3-helm/blob/c5982db/helm/gen3-workflow/templates/secrets.yaml#L49
     externalSecrets:
         deploy: true
         createLocalK8sSecret: false
         pushSecret: true
+    createDpopSecret: true
     hostname: georget.planx-pla.net
     # We disable portal by default to save $$$
     frontendRoot: gen3ff
