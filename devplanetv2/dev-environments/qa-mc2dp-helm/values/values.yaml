@@ -242,6 +242,50 @@ hatchery:
           },
           {
             "target-port": 8888,
+            "cpu-limit": "4.0",
+            "gpu": false,
+            "memory-limit": "16Gi",
+            "name": "(Test) Genomics, 5 min idle shutdown",
+            "image": "707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/jupyter-notebook:genomics-master",
+            "pull_policy": "Always",
+            "env": {
+              "FRAME_ANCESTORS": "https://qa-prometheus.planx-pla.net",
+              "PATH": "/opt/conda/bin:/home/jovyan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            },
+            "squashfs_mount": {
+              "enabled": true,
+              "source_sqsh": "/image/apps-2026-09-08.sqsh"
+            },
+            "command": [
+              "/jupyterlab-start.sh"
+            ],
+            "args": [
+              "--ServerApp.base_url=/lw-workspace/proxy/",
+              "--ServerApp.default_url=/lab",
+              "--ServerApp.password=''",
+              "--ServerApp.disable_check_xsrf=True",
+              "--ServerApp.allow_origin='https://qa-prometheus.planx-pla.net'",
+              "--ServerApp.root_dir='/home/jovyan'",
+              "--ServerApp.shutdown_no_activity_timeout=300",
+              "--MappingKernelManager.cull_idle_timeout=120",
+              "--MappingKernelManager.cull_interval=30",
+              "--TerminalManager.cull_inactive_timeout=120",
+              "--TerminalManager.cull_interval=30",
+              "--FileContentsManager.always_delete_dir=True",
+              "--FileContentsManager.delete_to_trash=False",
+              "--AsyncFileContentsManager.always_delete_dir=True",
+              "--AsyncFileContentsManager.delete_to_trash=False"
+            ],
+            "path-rewrite": "/lw-workspace/proxy/",
+            "use-tls": "false",
+            "ready-probe": "/lw-workspace/proxy/lab",
+            "user-uid": 1010,
+            "fs-gid": 101,
+            "user-volume-location": "/home/jovyan/pd",
+            "gen3-volume-location": "/home/jovyan/.gen3"
+          },
+          {
+            "target-port": 8888,
             "cpu-limit": "2.0",
             "gpu": false,
             "memory-limit": "4Gi",
