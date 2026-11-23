@@ -13,7 +13,7 @@ arborist:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/arborist
-    tag: "2026.08"
+    tag: "2026.10"
   externalSecrets:
     dbcreds: qa-brh-arborist-creds
 audit:
@@ -27,7 +27,7 @@ dashboard:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/gen3-statics
-    tag: "2026.08"
+    tag: "2026.10"
   dashboardConfig:
     bucket: devplanetv2-qa-brh-helm-dashboard-bucket
     prefix: qa-brh.planx-pla.net
@@ -51,7 +51,7 @@ fence:
     dbcreds: qa-brh-fence-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/fence
-    tag: "feat_cilogon-user-id-field"
+    tag: "16.0.0"
 fluentd:
   enabled: true
   image:
@@ -153,7 +153,7 @@ hatchery:
         "sidecar": {
           "cpu-limit": "1.0",
           "memory-limit": "256Mi",
-          "image": "quay.io/cdis/ecs-ws-sidecar:2026.08",
+          "image": "quay.io/cdis/ecs-ws-sidecar:2026.10",
           "env": {
             "NAMESPACE": "qa-brh",
             "HOSTNAME": "qa-brh.planx-pla.net",
@@ -179,10 +179,10 @@ hatchery:
             "cpu-limit": "2.0",
             "memory-limit": "8Gi",
             "name": "Jupyter Lab with Software Library",
-            "image": "quay.io/cdis/brh-notebooks:software_library_brh__826a15ddc3f546c3fe01641e2476d44e228a0469",
+            "image": "quay.io/cdis/brh-notebooks:software_library_brh__7de062202fcb9ac2239fb764490835b5755b1b58",
             "squashfs_mount": {
               "enabled": true,
-              "source_sqsh": "/image/apps-2026-09-08.sqsh"
+              "source_sqsh": "/image/apps-2026-11-19.sqsh"
             },
             "env": {
               "FRAME_ANCESTORS": "https://qa-brh.planx-pla.net",
@@ -218,10 +218,10 @@ hatchery:
             "cpu-limit": "2.0",
             "memory-limit": "8Gi",
             "name": "(Test) Jupyter Lab with Software Library, 5 min idle shutdown",
-            "image": "quay.io/cdis/brh-notebooks:software_library_brh__826a15ddc3f546c3fe01641e2476d44e228a0469",
+            "image": "quay.io/cdis/brh-notebooks:software_library_brh__7de062202fcb9ac2239fb764490835b5755b1b58",
             "squashfs_mount": {
               "enabled": true,
-              "source_sqsh": "/image/apps-2026-09-08.sqsh"
+              "source_sqsh": "/image/apps-2026-11-19.sqsh"
             },
             "env": {
               "FRAME_ANCESTORS": "https://qa-brh.planx-pla.net",
@@ -252,43 +252,6 @@ hatchery:
               "export IAM=`whoami`; rm -rf /home/$IAM/pd/dockerHome; rm -rf /home/$IAM/pd/lost+found; ln -s /data /home/$IAM/; rm /home/$IAM/pd/data; true"
             ],
             "user-uid": 1010,
-            "fs-gid": 100,
-            "user-volume-location": "/home/jovyan/pd",
-            "gen3-volume-location": "/home/jovyan/.gen3"
-          },
-          {
-            "target-port": 8888,
-            "cpu-limit": "2.0",
-            "memory-limit": "8Gi",
-            "name": "(Generic) Jupyter Lab Notebook with R Kernel",
-            "image": "quay.io/cdis/brh-notebooks:generic_rkernel__778d8a22ce33935263d7eb85ef2a7a89c164a2a2",
-            "env": {
-              "FRAME_ANCESTORS": "https://qa-brh.planx-pla.net"
-            },
-            "args": [
-              "--ServerApp.disable_check_xsrf=True",
-              "--ServerApp.allow_origin='https://qa-brh.planx-pla.net'",
-              "--JupyterNotebookApp.base_url=/lw-workspace/proxy/",
-              "--JupyterNotebookApp.default_url=/lab",
-              "--JupyterNotebookApp.password=''",
-              "--JupyterNotebookApp.token=''",
-              "--JupyterNotebookApp.ip='*'",
-              "--JupyterNotebookApp.notebook_dir='/home/jovyan'",
-              "--JupyterNotebookApp.shutdown_no_activity_timeout=3600",
-              "--JupyterNotebookApp.quit_button=False"
-            ],
-            "command": [
-              "start-notebook.sh"
-            ],
-            "path-rewrite": "/lw-workspace/proxy/",
-            "use-tls": "false",
-            "ready-probe": "/lw-workspace/proxy/",
-            "lifecycle-post-start": [
-              "/bin/sh",
-              "-c",
-              "export IAM=`whoami`; rm -rf /home/$IAM/pd/dockerHome; rm -rf /home/$IAM/pd/lost+found; ln -s /data /home/$IAM/pd/; true"
-            ],
-            "user-uid": 1000,
             "fs-gid": 100,
             "user-volume-location": "/home/jovyan/pd",
             "gen3-volume-location": "/home/jovyan/.gen3"
@@ -453,14 +416,14 @@ indexd:
     dbcreds: qa-brh-indexd-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/indexd
-    tag: "2026.08"
+    tag: "2026.10"
 manifestservice:
   enabled: true
   externalSecrets:
     manifestserviceG3auto: qa-brh-manifestservice-g3auto
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/manifestservice
-    tag: "2026.08"
+    tag: "2026.10"
 metadata:
   useAggMds: "True"
   aggMdsNamespace: "qa-brh"
@@ -757,12 +720,12 @@ metadata:
     dbcreds: qa-brh-metadata-creds
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/metadata-service
-    tag: "2026.08"
+    tag: "2026.10"
 peregrine:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/peregrine
-    tag: "2026.08"
+    tag: "2026.10"
   externalSecrets:
     dbcreds: qa-brh-peregrine-creds
 portal:
@@ -772,7 +735,7 @@ requestor:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/requestor
-    tag: "2026.08"
+    tag: "2026.10"
   externalSecrets:
     dbcreds: qa-brh-requestor-creds
 revproxy:
@@ -793,7 +756,7 @@ sheepdog:
   enabled: true
   image:
     repository: 707767160287.dkr.ecr.us-east-1.amazonaws.com/gen3/sheepdog
-    tag: "2026.08"
+    tag: "2026.10"
   externalSecrets:
     dbcreds: qa-brh-sheepdog-creds
 wts:
