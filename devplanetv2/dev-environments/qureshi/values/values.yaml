@@ -415,6 +415,9 @@ fence:
       - name: 'Login from Google'
         idp: google
 
+    # Newer fence:master 500s on /login when this is unset instead of falling back.
+    DEFAULT_LOGIN_IDP: google
+
     # Extra whitelisted URLs the /login/* endpoints may redirect to.
     LOGIN_REDIRECT_WHITELIST: [".", "/login"]
 
