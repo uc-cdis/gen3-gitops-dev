@@ -408,7 +408,7 @@ fence:
 
     # -- (bool) fake a successful login response from Google in /login/google, logging in as
     # the username in DEV_LOGIN_COOKIE_NAME. Also changes /link/google behaviour.
-    MOCK_GOOGLE_AUTH: true
+    MOCK_GOOGLE_AUTH: false
 
     # List of enabled login options (used by data-portal to display login buttons).
     LOGIN_OPTIONS:
