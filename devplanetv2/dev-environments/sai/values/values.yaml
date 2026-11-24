@@ -31,8 +31,10 @@ global:
         sync_from_dbgap: "False"
         useryaml_s3path: s3://cdis-gen3-users/dev/user.yaml
     netPolicy:
-        enabled: false
-        dbSubnet: ""
+        enabled: true
+        dbSubnets: 
+        - "172.27.128.128/25"
+        - "172.27.128.0/25"
     portalApp: gitops
     postgres:
         dbCreate: true
