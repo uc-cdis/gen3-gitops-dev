@@ -459,7 +459,7 @@ fence:
         aws_cred: 'cdistest'
 
     # Ask users to register on login and add them to the configured Arborist group.
-    REGISTER_USERS_ON: true
+    REGISTER_USERS_ON: false
 
 gen3-embeddings:
   enabled: true
