@@ -1439,7 +1439,7 @@ portal:
     enabled: true
     dir: devplanetv2/dev-environments/qaheal-helm/values/portal/
     repo: https://github.com/uc-cdis/gen3-gitops-dev.git
-    branch: "5.43.2"
+    branch: master
   gitops:
     gen3Bundle: heal
   image:
