@@ -397,3 +397,10 @@ fence:
         idp: ras
       - name: Google Login
         idp: google
+    # -- (bool) if true, will fake a successful login response from Google in /login/google
+    # NOTE: this will also modify the behavior of /link/google endpoints
+    # will login as the username set in cookie DEV_LOGIN_COOKIE_NAME
+    MOCK_GOOGLE_AUTH: true
+
+    # -- (str) the name of the cookie set by mock authentication (used for testing only)
+    DEV_LOGIN_COOKIE_NAME: "dev_login"
